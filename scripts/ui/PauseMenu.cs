@@ -6,21 +6,21 @@ public partial class PauseMenu : CanvasLayer
     [Export] public NodePath PlayerPath { get; set; } = new("../Player");
 
     private const string SettingsPath = "user://settings.cfg";
-    private readonly (string ActionName, string Label, Key DefaultKey)[] _shipBindings =
+    private readonly (string ActionName, string Label, Key DefaultKey, int Column)[] _shipBindings =
     {
-        ("ship_translate_forward", "Forward", Key.W),
-        ("ship_translate_back", "Back", Key.S),
-        ("ship_translate_left", "Left", Key.A),
-        ("ship_translate_right", "Right", Key.D),
-        ("ship_translate_up", "Ascend", Key.Space),
-        ("ship_translate_down", "Descend", Key.Shift),
-        ("ship_brake", "Dampen", Key.Ctrl),
-        ("ship_pitch_up", "Pitch Up", Key.Up),
-        ("ship_pitch_down", "Pitch Down", Key.Down),
-        ("ship_yaw_left", "Yaw Left", Key.Left),
-        ("ship_yaw_right", "Yaw Right", Key.Right),
-        ("ship_roll_left", "Roll Left", Key.Q),
-        ("ship_roll_right", "Roll Right", Key.E),
+        ("ship_translate_forward", "Forward", Key.W, 0),
+        ("ship_translate_back", "Back", Key.S, 0),
+        ("ship_translate_left", "Left", Key.A, 0),
+        ("ship_translate_right", "Right", Key.D, 0),
+        ("ship_pitch_up", "Pitch Up", Key.Up, 1),
+        ("ship_pitch_down", "Pitch Down", Key.Down, 1),
+        ("ship_roll_left", "Roll Left", Key.Q, 1),
+        ("ship_roll_right", "Roll Right", Key.E, 1),
+        ("ship_yaw_left", "Yaw Left", Key.Left, 2),
+        ("ship_yaw_right", "Yaw Right", Key.Right, 2),
+        ("ship_translate_up", "Ascent", Key.Space, 2),
+        ("ship_translate_down", "Descend", Key.Shift, 2),
+        ("ship_brake", "Dampen", Key.Ctrl, 2),
     };
 
     private PlayerController? _player;
@@ -202,7 +202,13 @@ public partial class PauseMenu : CanvasLayer
 
             row.AddChild(label);
             row.AddChild(button);
-            columns[i % columnCount].AddChild(row);
+            var columnIndex = binding.Column;
+            if (columnIndex < 0 || columnIndex >= columnCount)
+            {
+                columnIndex = 0;
+            }
+
+            columns[columnIndex].AddChild(row);
             _bindingButtons[binding.ActionName] = button;
         }
     }
@@ -256,6 +262,19 @@ public partial class PauseMenu : CanvasLayer
         {
             if (node is Control control)
             {
+                if (control.IsInGroup("scale_from_bottom_left"))
+                {
+                    control.PivotOffset = new Vector2(0.0f, control.Size.Y);
+                }
+                else if (control.IsInGroup("scale_from_top_right"))
+                {
+                    control.PivotOffset = new Vector2(control.Size.X, 0.0f);
+                }
+                else
+                {
+                    control.PivotOffset = Vector2.Zero;
+                }
+
                 control.Scale = Vector2.One * scale;
             }
         }

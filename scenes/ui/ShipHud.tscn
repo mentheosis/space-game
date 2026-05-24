@@ -21,7 +21,7 @@ font_color = Color(0.9, 0.96, 1, 1)
 [node name="ShipHud" type="CanvasLayer"]
 script = ExtResource("1_ship_hud")
 
-[node name="Panel" type="PanelContainer" parent="." groups=["scalable_ui"]]
+[node name="Panel" type="PanelContainer" parent="." groups=["scalable_ui", "scale_from_bottom_left"]]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
