@@ -58,10 +58,10 @@ public partial class Phase5ValidationRunner : Node
             case 30:
                 Assert(_player.DebugPlayerContext == PlayerContext.Seated, "Player sits before interplanetary flight.");
                 Assert(_ship.IsPiloted, "Ship has an active pilot for interplanetary flight.");
-                Input.ActionPress("jump");
+                Input.ActionPress("ship_translate_up");
                 break;
             case 90:
-                Input.ActionRelease("jump");
+                Input.ActionRelease("ship_translate_up");
                 Assert(!_ship.IsLanded, "Ship becomes airborne before travel.");
                 var toPlanetB = (_planetB.GlobalPosition - _ship.GlobalPosition).Normalized();
                 _ship.LinearVelocity = toPlanetB * 80.0f;
@@ -103,10 +103,10 @@ public partial class Phase5ValidationRunner : Node
                 Assert(_player.DebugPlayerContext == PlayerContext.OnFoot, "Player exits ship on Planet B.");
                 Assert(_player.DebugActiveGravityBodyName == "PlanetBGravity", $"Player is under Planet B gravity after exit. Actual: {_player.DebugActiveGravityBodyName}");
                 _walkStart = _player.GlobalPosition;
-                Input.ActionPress("move_forward");
+                Input.ActionPress("ship_translate_forward");
                 break;
             case 250:
-                Input.ActionRelease("move_forward");
+                Input.ActionRelease("ship_translate_forward");
                 Assert(_player.GlobalPosition.DistanceTo(_walkStart) > 0.5f, $"Player can walk on Planet B. Distance: {_player.GlobalPosition.DistanceTo(_walkStart):0.00}");
                 GD.Print("Phase 5 validation passed.");
                 GetTree().Quit(0);
@@ -135,8 +135,8 @@ public partial class Phase5ValidationRunner : Node
         }
 
         _failed = true;
-        Input.ActionRelease("jump");
-        Input.ActionRelease("move_forward");
+        Input.ActionRelease("ship_translate_up");
+        Input.ActionRelease("ship_translate_forward");
         GD.PushError($"FAIL: {message}");
         SetPhysicsProcess(false);
         GetTree().Quit(1);

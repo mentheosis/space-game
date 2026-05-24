@@ -21,7 +21,7 @@ font_color = Color(0.94, 0.98, 1, 1)
 [node name="InteractionPrompt" type="CanvasLayer"]
 script = ExtResource("1_prompt")
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." groups=["scalable_ui"]]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

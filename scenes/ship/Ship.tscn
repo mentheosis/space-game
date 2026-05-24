@@ -1,8 +1,7 @@
-[gd_scene load_steps=27 format=3]
+[gd_scene load_steps=26 format=3]
 
 [ext_resource type="Script" path="res://scripts/ship/ShipHatch.cs" id="1_hatch"]
 [ext_resource type="Script" path="res://scripts/ship/PilotSeat.cs" id="2_seat"]
-[ext_resource type="PackedScene" path="res://scenes/ui/CockpitPlaceholder.tscn" id="3_cockpit"]
 [ext_resource type="Script" path="res://scripts/ship/ShipInteriorVolume.cs" id="4_interior_volume"]
 [ext_resource type="Script" path="res://scripts/ship/ShipController.cs" id="5_ship_controller"]
 [ext_resource type="Material" path="res://assets/materials/ship/mat_ship_hull_sheetmetal.tres" id="6_ship_hull"]
@@ -183,7 +182,6 @@ position = Vector3(0, 1.05, -1.9)
 script = ExtResource("2_seat")
 SeatAnchorPath = NodePath("../Markers/SeatAnchor")
 SeatExitPath = NodePath("../Markers/SeatExit")
-CockpitUiPath = NodePath("../CockpitPlaceholder")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PilotSeat"]
 material_override = ExtResource("10_ship_seat")
@@ -205,5 +203,3 @@ position = Vector3(0, 1.2, -1.9)
 
 [node name="SeatExit" type="Marker3D" parent="Markers"]
 position = Vector3(0, 1.2, -0.4)
-
-[node name="CockpitPlaceholder" parent="." instance=ExtResource("3_cockpit")]

@@ -21,7 +21,7 @@ font_color = Color(0.9, 0.96, 1, 1)
 [node name="GravityDebugOverlay" type="CanvasLayer"]
 script = ExtResource("1_debug_overlay")
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." groups=["scalable_ui"]]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 360.0

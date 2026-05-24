@@ -56,10 +56,10 @@ public partial class Phase4ValidationRunner : Node
             case 30:
                 Assert(_player.DebugPlayerContext == PlayerContext.Seated, "Player sits before piloting.");
                 Assert(_ship.IsPiloted, "Ship has an active pilot after sitting.");
-                Input.ActionPress("jump");
+                Input.ActionPress("ship_translate_up");
                 break;
             case 130:
-                Input.ActionRelease("jump");
+                Input.ActionRelease("ship_translate_up");
                 Assert(_ship.GlobalPosition.DistanceTo(_shipStartPosition) > 2.0f, $"Ship moved under thrust. Distance: {_ship.GlobalPosition.DistanceTo(_shipStartPosition):0.00}");
                 Assert(_ship.Speed > 1.0f, $"Ship has velocity after thrust. Speed: {_ship.Speed:0.00}");
                 Assert(!_ship.IsLanded, "Ship becomes airborne after takeoff thrust.");

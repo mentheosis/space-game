@@ -21,11 +21,15 @@ font_color = Color(0.9, 0.96, 1, 1)
 [node name="ShipHud" type="CanvasLayer"]
 script = ExtResource("1_ship_hud")
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." groups=["scalable_ui"]]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = 260.0
+offset_top = -150.0
 offset_right = 260.0
-offset_bottom = 365.0
+offset_bottom = -16.0
+grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
@@ -38,7 +42,7 @@ theme_override_constants/margin_bottom = 8
 label_settings = SubResource("LabelSettings_ship")
 text = "Ship"
 
-[node name="TargetMarker" type="Label" parent="."]
+[node name="TargetMarker" type="Label" parent="." groups=["scalable_ui"]]
 offset_left = 590.0
 offset_top = 332.0
 offset_right = 690.0

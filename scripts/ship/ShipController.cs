@@ -42,6 +42,7 @@ public partial class ShipController : RigidBody3D
 
     public override void _Ready()
     {
+        EnsureShipInputActions();
         _seatAnchor = GetNode<Marker3D>(SeatAnchorPath);
         _shipCamera = GetNode<Camera3D>(ShipCameraPath);
         _shipCamera.Current = false;
@@ -160,9 +161,9 @@ public partial class ShipController : RigidBody3D
     private void ApplyPilotInput(float delta)
     {
         var basis = GlobalTransform.Basis.Orthonormalized();
-        var forwardInput = Input.GetActionStrength("move_forward") - Input.GetActionStrength("move_back");
-        var strafeInput = Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left");
-        var verticalInput = Input.GetActionStrength("jump") - Input.GetActionStrength("jetpack");
+        var forwardInput = Input.GetActionStrength("ship_translate_forward") - Input.GetActionStrength("ship_translate_back");
+        var strafeInput = Input.GetActionStrength("ship_translate_right") - Input.GetActionStrength("ship_translate_left");
+        var verticalInput = Input.GetActionStrength("ship_translate_up") - Input.GetActionStrength("ship_translate_down");
         var yawInput = Input.GetActionStrength("ship_yaw_left") - Input.GetActionStrength("ship_yaw_right");
         var pitchInput = Input.GetActionStrength("ship_pitch_down") - Input.GetActionStrength("ship_pitch_up");
         var rollInput = Input.GetActionStrength("ship_roll_right") - Input.GetActionStrength("ship_roll_left");
@@ -201,7 +202,7 @@ public partial class ShipController : RigidBody3D
             ApplyTorque(-basis.Z * rollInput * RollTorque);
         }
 
-        if (Input.IsActionPressed("brake"))
+        if (Input.IsActionPressed("ship_brake"))
         {
             LinearVelocity = LinearVelocity.MoveToward(Vector3.Zero, BrakeStrength * delta);
             AngularVelocity = AngularVelocity.MoveToward(Vector3.Zero, BrakeStrength * delta);
@@ -212,16 +213,16 @@ public partial class ShipController : RigidBody3D
     {
         if (_isLanded)
         {
-            return Input.GetActionStrength("jump") > 0.0f;
+            return Input.GetActionStrength("ship_translate_up") > 0.0f;
         }
 
-        return Input.IsActionPressed("move_forward")
-            || Input.IsActionPressed("move_back")
-            || Input.IsActionPressed("move_left")
-            || Input.IsActionPressed("move_right")
-            || Input.IsActionPressed("jump")
-            || Input.IsActionPressed("jetpack")
-            || Input.IsActionPressed("brake")
+        return Input.IsActionPressed("ship_translate_forward")
+            || Input.IsActionPressed("ship_translate_back")
+            || Input.IsActionPressed("ship_translate_left")
+            || Input.IsActionPressed("ship_translate_right")
+            || Input.IsActionPressed("ship_translate_up")
+            || Input.IsActionPressed("ship_translate_down")
+            || Input.IsActionPressed("ship_brake")
             || Input.IsActionPressed("ship_yaw_left")
             || Input.IsActionPressed("ship_yaw_right")
             || Input.IsActionPressed("ship_pitch_up")
@@ -247,5 +248,37 @@ public partial class ShipController : RigidBody3D
         var cameraPosition = target + offset;
         var cameraTransform = new Transform3D(Basis.Identity, cameraPosition);
         _shipCamera.Transform = cameraTransform.LookingAt(target, Vector3.Up);
+    }
+
+    private static void EnsureShipInputActions()
+    {
+        EnsureKeyAction("ship_translate_forward", Key.W);
+        EnsureKeyAction("ship_translate_back", Key.S);
+        EnsureKeyAction("ship_translate_left", Key.A);
+        EnsureKeyAction("ship_translate_right", Key.D);
+        EnsureKeyAction("ship_translate_up", Key.Space);
+        EnsureKeyAction("ship_translate_down", Key.Shift);
+        EnsureKeyAction("ship_brake", Key.Ctrl);
+        EnsureKeyAction("ship_pitch_up", Key.Up);
+        EnsureKeyAction("ship_pitch_down", Key.Down);
+        EnsureKeyAction("ship_yaw_left", Key.Left);
+        EnsureKeyAction("ship_yaw_right", Key.Right);
+        EnsureKeyAction("ship_roll_left", Key.Q);
+        EnsureKeyAction("ship_roll_right", Key.E);
+    }
+
+    private static void EnsureKeyAction(string actionName, Key key)
+    {
+        if (!InputMap.HasAction(actionName))
+        {
+            InputMap.AddAction(actionName);
+        }
+
+        if (InputMap.ActionGetEvents(actionName).Count > 0)
+        {
+            return;
+        }
+
+        InputMap.ActionAddEvent(actionName, new InputEventKey { Keycode = key });
     }
 }
