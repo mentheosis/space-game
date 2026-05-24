@@ -15,6 +15,11 @@ public partial class ShipController : RigidBody3D
     [Export] public float MaxLandedSpeed { get; set; } = 3.0f;
     [Export] public float LandingDistance { get; set; } = 8.0f;
     [Export] public float MinLandingUpDot { get; set; } = 0.65f;
+    [Export] public float OrbitCameraDistance { get; set; } = 15.0f;
+    [Export] public float OrbitCameraTargetHeight { get; set; } = 1.6f;
+    [Export] public float OrbitCameraMouseSensitivity { get; set; } = 0.003f;
+    [Export] public float OrbitCameraMinPitchDegrees { get; set; } = -35.0f;
+    [Export] public float OrbitCameraMaxPitchDegrees { get; set; } = 75.0f;
 
     private Marker3D _seatAnchor = null!;
     private Camera3D _shipCamera = null!;
@@ -23,6 +28,8 @@ public partial class ShipController : RigidBody3D
     private Vector3 _gravityAcceleration = Vector3.Zero;
     private Vector3 _gravityUp = Vector3.Up;
     private bool _isLanded = true;
+    private float _orbitYaw;
+    private float _orbitPitch = Mathf.DegToRad(22.0f);
 
     public bool IsPiloted => _pilot is not null;
     public bool IsLanded => _isLanded;
@@ -41,6 +48,25 @@ public partial class ShipController : RigidBody3D
         GravityScale = 0.0f;
         Freeze = true;
         _isLanded = true;
+        UpdateOrbitCamera();
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (_pilot is null || Input.MouseMode != Input.MouseModeEnum.Captured)
+        {
+            return;
+        }
+
+        if (@event is InputEventMouseMotion motion)
+        {
+            _orbitYaw -= motion.Relative.X * OrbitCameraMouseSensitivity;
+            _orbitPitch = Mathf.Clamp(
+                _orbitPitch - motion.Relative.Y * OrbitCameraMouseSensitivity,
+                Mathf.DegToRad(OrbitCameraMinPitchDegrees),
+                Mathf.DegToRad(OrbitCameraMaxPitchDegrees));
+            UpdateOrbitCamera();
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -62,6 +88,7 @@ public partial class ShipController : RigidBody3D
             }
 
             _pilot.ForceSeatTransform(_seatAnchor.GlobalTransform);
+            UpdateOrbitCamera();
         }
         else if (_isLanded)
         {
@@ -77,6 +104,7 @@ public partial class ShipController : RigidBody3D
         _shipCamera.Current = true;
         player.SetPlayerCameraActive(false);
         player.ForceSeatTransform(_seatAnchor.GlobalTransform);
+        UpdateOrbitCamera();
     }
 
     public void ClearPilot(PlayerController player)
@@ -200,5 +228,24 @@ public partial class ShipController : RigidBody3D
             || Input.IsActionPressed("ship_pitch_down")
             || Input.IsActionPressed("ship_roll_left")
             || Input.IsActionPressed("ship_roll_right");
+    }
+
+    private void UpdateOrbitCamera()
+    {
+        if (_shipCamera is null)
+        {
+            return;
+        }
+
+        var target = new Vector3(0.0f, OrbitCameraTargetHeight, 0.0f);
+        var pitchCos = Mathf.Cos(_orbitPitch);
+        var offset = new Vector3(
+            Mathf.Sin(_orbitYaw) * pitchCos,
+            Mathf.Sin(_orbitPitch),
+            Mathf.Cos(_orbitYaw) * pitchCos) * OrbitCameraDistance;
+
+        var cameraPosition = target + offset;
+        var cameraTransform = new Transform3D(Basis.Identity, cameraPosition);
+        _shipCamera.Transform = cameraTransform.LookingAt(target, Vector3.Up);
     }
 }

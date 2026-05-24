@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/props/mat_surface_marker.tres" id="1_marker"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_marker"]
+size = Vector3(0.45, 2.2, 0.45)
+
+[node name="SurfaceMarker" type="Node3D"]
+
+[node name="MarkerMesh" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.1, 0)
+material_override = ExtResource("1_marker")
+mesh = SubResource("BoxMesh_marker")

@@ -1,0 +1,3 @@
+[mcp_servers.host-build]
+url = "http://host.docker.internal:9090"
+bearer_token_env_var = "DOCKER_MCP_TOKEN"

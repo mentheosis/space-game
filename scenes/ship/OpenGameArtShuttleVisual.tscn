@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Mesh" path="res://assets/models/ship/placeholders/oga_3d_space_ship_pack/ShuttleA.obj" id="1_shuttle"]
+
+[node name="OpenGameArtShuttleVisual" type="Node3D"]
+
+[node name="ShuttleA" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.85, 0.6)
+rotation = Vector3(0, 3.14159, 0)
+scale = Vector3(1.08, 0.78, 0.78)
+mesh = ExtResource("1_shuttle")

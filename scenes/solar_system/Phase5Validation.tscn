@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]
 [ext_resource type="PackedScene" path="res://scenes/planets/PlanetB.tscn" id="2_planet_b"]
@@ -9,23 +9,24 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/InteractionPrompt.tscn" id="7_prompt"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ShipHud.tscn" id="8_ship_hud"]
 [ext_resource type="Script" path="res://scripts/debug/Phase5ValidationRunner.cs" id="9_phase5_runner"]
+[ext_resource type="Material" path="res://assets/materials/environment/mat_starfield.tres" id="10_starfield"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_space"]
 sky_top_color = Color(0.004, 0.008, 0.02, 1)
-sky_horizon_color = Color(0.02, 0.025, 0.04, 1)
+sky_horizon_color = Color(0.018, 0.03, 0.052, 1)
 ground_bottom_color = Color(0.004, 0.008, 0.02, 1)
-ground_horizon_color = Color(0.02, 0.025, 0.04, 1)
-sun_angle_max = 2.0
+ground_horizon_color = Color(0.018, 0.025, 0.045, 1)
+sun_angle_max = 1.4
 
 [sub_resource type="Sky" id="Sky_space"]
-sky_material = SubResource("ProceduralSkyMaterial_space")
+sky_material = ExtResource("10_starfield")
 
 [sub_resource type="Environment" id="Environment_space"]
 background_mode = 2
 sky = SubResource("Sky_space")
 ambient_light_source = 3
-ambient_light_color = Color(0.45, 0.52, 0.62, 1)
-ambient_light_energy = 0.35
+ambient_light_color = Color(0.48, 0.56, 0.64, 1)
+ambient_light_energy = 0.46
 tonemap_mode = 2
 glow_enabled = true
 
@@ -49,7 +50,7 @@ position = Vector3(0, 51.1, -9)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 120, 0)
-light_energy = 2.4
+light_energy = 2.85
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

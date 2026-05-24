@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/ship/sheetmetal001/sheetmetal001_color.jpg" id="1_color"]
+[ext_resource type="Texture2D" path="res://assets/textures/ship/sheetmetal001/sheetmetal001_normal_gl.jpg" id="2_normal"]
+[ext_resource type="Texture2D" path="res://assets/textures/ship/sheetmetal001/sheetmetal001_roughness.jpg" id="3_roughness"]
+[ext_resource type="Texture2D" path="res://assets/textures/ship/sheetmetal001/sheetmetal001_metalness.jpg" id="4_metalness"]
+
+[resource]
+albedo_color = Color(0.28, 0.34, 0.35, 1)
+albedo_texture = ExtResource("1_color")
+metallic = 0.25
+metallic_texture = ExtResource("4_metalness")
+roughness = 0.82
+roughness_texture = ExtResource("3_roughness")
+normal_enabled = true
+normal_scale = 0.6
+normal_texture = ExtResource("2_normal")
+uv1_scale = Vector3(3.5, 3.5, 1)

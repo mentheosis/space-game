@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/ship/placeholders/kenney_craft_cargo_a.glb" id="1_cargo"]
+
+[node name="PlaceholderShipVisual" type="Node3D"]
+
+[node name="CraftCargoA" parent="." instance=ExtResource("1_cargo")]
+position = Vector3(0, 0.15, 0)
+rotation = Vector3(0, 3.14159, 0)
+scale = Vector3(4, 4, 4)

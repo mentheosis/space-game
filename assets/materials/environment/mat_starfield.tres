@@ -1,0 +1,8 @@
+[gd_resource type="PanoramaSkyMaterial" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/environment/starfield_generated.png" id="1_starfield"]
+
+[resource]
+panorama = ExtResource("1_starfield")
+filter = false
+energy_multiplier = 0.75

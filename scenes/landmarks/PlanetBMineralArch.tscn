@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/landmarks/mat_mineral_b.tres" id="1_mineral"]
+[ext_resource type="Mesh" path="res://assets/models/props/mineral_shard.obj" id="2_shard_mesh"]
+
+[node name="PlanetBMineralArch" type="Node3D"]
+
+[node name="LeftShard" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 7.5, 0, 0, 0, 1.4, -2.2, 3.7, 0)
+rotation = Vector3(0, 0, -0.28)
+material_override = ExtResource("1_mineral")
+mesh = ExtResource("2_shard_mesh")
+
+[node name="RightShard" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 7.0, 0, 0, 0, 1.4, 2.2, 3.5, 0)
+rotation = Vector3(0, 0, 0.28)
+material_override = ExtResource("1_mineral")
+mesh = ExtResource("2_shard_mesh")
+
+[node name="TopShard" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.2, 0, 0, 0, 0.9, 0, 0, 0, 1.2, 0, 7.1, 0)
+rotation = Vector3(0, 0, 0.05)
+material_override = ExtResource("1_mineral")
+mesh = ExtResource("2_shard_mesh")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/props/mat_rock_a.tres" id="1_rock"]
+[ext_resource type="Mesh" path="res://assets/models/props/rock_lowpoly_a.obj" id="2_rock_mesh"]
+
+[node name="RockClusterA" type="Node3D"]
+
+[node name="Rock1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.9, 0, 0, 0, 0.9, 0, 0, 0, 1.2, -1.4, 0.35, 0)
+material_override = ExtResource("1_rock")
+mesh = ExtResource("2_rock_mesh")
+
+[node name="Rock2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.35, 0, 0, 0, 1.0, 0.6, 0.55, -0.3)
+rotation = Vector3(0.2, 0.45, 0.12)
+material_override = ExtResource("1_rock")
+mesh = ExtResource("2_rock_mesh")
+
+[node name="Rock3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.65, 0, 0, 0, 0.9, 1.8, 0.25, 0.5)
+rotation = Vector3(-0.1, -0.7, 0.18)
+material_override = ExtResource("1_rock")
+mesh = ExtResource("2_rock_mesh")

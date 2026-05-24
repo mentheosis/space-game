@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/landmarks/mat_landmark_a.tres" id="1_landmark"]
+[ext_resource type="Mesh" path="res://assets/models/landmarks/launch_beacon.obj" id="2_beacon_mesh"]
+
+[node name="PlanetALaunchLandmark" type="Node3D"]
+
+[node name="BeaconMesh" type="MeshInstance3D" parent="."]
+scale = Vector3(1.35, 1.65, 1.35)
+material_override = ExtResource("1_landmark")
+mesh = ExtResource("2_beacon_mesh")

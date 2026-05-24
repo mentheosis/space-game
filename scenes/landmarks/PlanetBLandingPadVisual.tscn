@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/props/mat_surface_marker.tres" id="1_marker"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pad_line"]
+size = Vector3(1, 1, 1)
+
+[node name="PlanetBLandingPadVisual" type="Node3D"]
+
+[node name="NorthLine" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.45, -8.3)
+scale = Vector3(8.0, 0.08, 0.18)
+material_override = ExtResource("1_marker")
+mesh = SubResource("BoxMesh_pad_line")
+
+[node name="SouthLine" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.45, 8.3)
+scale = Vector3(8.0, 0.08, 0.18)
+material_override = ExtResource("1_marker")
+mesh = SubResource("BoxMesh_pad_line")
+
+[node name="WestLine" type="MeshInstance3D" parent="."]
+position = Vector3(-8.3, 0.45, 0)
+scale = Vector3(0.18, 0.08, 8.0)
+material_override = ExtResource("1_marker")
+mesh = SubResource("BoxMesh_pad_line")
+
+[node name="EastLine" type="MeshInstance3D" parent="."]
+position = Vector3(8.3, 0.45, 0)
+scale = Vector3(0.18, 0.08, 8.0)
+material_override = ExtResource("1_marker")
+mesh = SubResource("BoxMesh_pad_line")
+
+[node name="CenterMarkA" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.5, 0)
+scale = Vector3(4.2, 0.08, 0.14)
+rotation = Vector3(0, 0.785398, 0)
+material_override = ExtResource("1_marker")
+mesh = SubResource("BoxMesh_pad_line")
+
+[node name="CenterMarkB" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.5, 0)
+scale = Vector3(4.2, 0.08, 0.14)
+rotation = Vector3(0, -0.785398, 0)
+material_override = ExtResource("1_marker")
+mesh = SubResource("BoxMesh_pad_line")

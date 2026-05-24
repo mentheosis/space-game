@@ -22,7 +22,8 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float AirAcceleration { get; set; } = 6.0f;
     [Export] public float WeakGravityAcceleration { get; set; } = 12.0f;
     [Export] public float JumpSpeed { get; set; } = 10.0f;
-    [Export] public float MouseSensitivity { get; set; } = 0.0025f;
+    [Export] public float MouseHorizontalSensitivity { get; set; } = 0.0070f;
+    [Export] public float MouseVerticalSensitivity { get; set; } = 0.0025f;
     [Export] public float AlignmentSharpness { get; set; } = 12.0f;
     [Export] public float JetpackFuelMax { get; set; } = 30.0f;
     [Export] public float JetpackFuelUseRate { get; set; } = 1.0f;
@@ -89,17 +90,9 @@ public partial class PlayerController : CharacterBody3D
     {
         if (@event is InputEventMouseMotion motion && Input.MouseMode == Input.MouseModeEnum.Captured)
         {
-            _pendingYaw -= motion.Relative.X * MouseSensitivity;
-            _pitch = Mathf.Clamp(_pitch - motion.Relative.Y * MouseSensitivity, Mathf.DegToRad(-85.0f), Mathf.DegToRad(85.0f));
+            _pendingYaw -= motion.Relative.X * MouseHorizontalSensitivity;
+            _pitch = Mathf.Clamp(_pitch - motion.Relative.Y * MouseVerticalSensitivity, Mathf.DegToRad(-85.0f), Mathf.DegToRad(85.0f));
             _viewPivot.Rotation = new Vector3(_pitch, 0.0f, 0.0f);
-        }
-
-        if (@event.IsActionPressed("pause"))
-        {
-            Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured
-                ? Input.MouseModeEnum.Visible
-                : Input.MouseModeEnum.Captured;
-            GetViewport().SetInputAsHandled();
         }
     }
 
