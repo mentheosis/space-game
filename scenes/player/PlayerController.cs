@@ -24,6 +24,8 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float JumpSpeed { get; set; } = 10.0f;
     [Export] public float MouseHorizontalSensitivity { get; set; } = 0.0070f;
     [Export] public float MouseVerticalSensitivity { get; set; } = 0.0025f;
+    [Export] public bool InvertMouseX { get; set; } = false;
+    [Export] public bool InvertMouseY { get; set; } = false;
     [Export] public float AlignmentSharpness { get; set; } = 12.0f;
     [Export] public float JetpackFuelMax { get; set; } = 30.0f;
     [Export] public float JetpackFuelUseRate { get; set; } = 1.0f;
@@ -90,8 +92,10 @@ public partial class PlayerController : CharacterBody3D
     {
         if (@event is InputEventMouseMotion motion && Input.MouseMode == Input.MouseModeEnum.Captured)
         {
-            _pendingYaw -= motion.Relative.X * MouseHorizontalSensitivity;
-            _pitch = Mathf.Clamp(_pitch - motion.Relative.Y * MouseVerticalSensitivity, Mathf.DegToRad(-85.0f), Mathf.DegToRad(85.0f));
+            var yawDirection = InvertMouseX ? 1.0f : -1.0f;
+            var pitchDirection = InvertMouseY ? 1.0f : -1.0f;
+            _pendingYaw += motion.Relative.X * MouseHorizontalSensitivity * yawDirection;
+            _pitch = Mathf.Clamp(_pitch + motion.Relative.Y * MouseVerticalSensitivity * pitchDirection, Mathf.DegToRad(-85.0f), Mathf.DegToRad(85.0f));
             _viewPivot.Rotation = new Vector3(_pitch, 0.0f, 0.0f);
         }
     }

@@ -17,7 +17,10 @@ public partial class ShipController : RigidBody3D
     [Export] public float MinLandingUpDot { get; set; } = 0.65f;
     [Export] public float OrbitCameraDistance { get; set; } = 15.0f;
     [Export] public float OrbitCameraTargetHeight { get; set; } = 1.6f;
-    [Export] public float OrbitCameraMouseSensitivity { get; set; } = 0.003f;
+    [Export] public float OrbitCameraHorizontalSensitivity { get; set; } = 0.003f;
+    [Export] public float OrbitCameraVerticalSensitivity { get; set; } = 0.003f;
+    [Export] public bool InvertOrbitCameraX { get; set; } = false;
+    [Export] public bool InvertOrbitCameraY { get; set; } = false;
     [Export] public float OrbitCameraMinPitchDegrees { get; set; } = -35.0f;
     [Export] public float OrbitCameraMaxPitchDegrees { get; set; } = 75.0f;
 
@@ -61,9 +64,11 @@ public partial class ShipController : RigidBody3D
 
         if (@event is InputEventMouseMotion motion)
         {
-            _orbitYaw -= motion.Relative.X * OrbitCameraMouseSensitivity;
+            var yawDirection = InvertOrbitCameraX ? 1.0f : -1.0f;
+            var pitchDirection = InvertOrbitCameraY ? 1.0f : -1.0f;
+            _orbitYaw += motion.Relative.X * OrbitCameraHorizontalSensitivity * yawDirection;
             _orbitPitch = Mathf.Clamp(
-                _orbitPitch - motion.Relative.Y * OrbitCameraMouseSensitivity,
+                _orbitPitch + motion.Relative.Y * OrbitCameraVerticalSensitivity * pitchDirection,
                 Mathf.DegToRad(OrbitCameraMinPitchDegrees),
                 Mathf.DegToRad(OrbitCameraMaxPitchDegrees));
             UpdateOrbitCamera();

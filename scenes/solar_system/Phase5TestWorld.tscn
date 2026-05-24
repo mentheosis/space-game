@@ -70,3 +70,4 @@ TargetPath = NodePath("../PlanetB")
 
 [node name="PauseMenu" parent="." instance=ExtResource("10_pause_menu")]
 PlayerPath = NodePath("../Player")
+ShipPath = NodePath("../Ship")
