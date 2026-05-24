@@ -43,6 +43,5 @@ theme_override_constants/margin_bottom = 8
 
 [node name="Label" type="Label" parent="Panel/MarginContainer"]
 label_settings = SubResource("LabelSettings_prompt")
-text = "E Interact"
+text = "F Interact"
 horizontal_alignment = 1
-

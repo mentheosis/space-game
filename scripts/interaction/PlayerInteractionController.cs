@@ -43,14 +43,18 @@ public partial class PlayerInteractionController : Node
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (!@event.IsActionPressed("interact") || _currentInteractable is null)
+        if (!@event.IsActionPressed("interact"))
         {
             return;
         }
 
-        if (_currentInteractable.CanInteract(_player))
+        var interactable = _player.DebugPlayerContext == PlayerContext.Seated
+            ? _player.SeatedInteractable
+            : _currentInteractable;
+
+        if (interactable is not null && interactable.CanInteract(_player))
         {
-            _currentInteractable.Interact(_player);
+            interactable.Interact(_player);
             GetViewport().SetInputAsHandled();
         }
     }
@@ -70,4 +74,3 @@ public partial class PlayerInteractionController : Node
         return null;
     }
 }
-

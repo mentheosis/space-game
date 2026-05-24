@@ -36,8 +36,12 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float ZeroGravityDamping { get; set; } = 0.05f;
     [Export] public float OxygenMax { get; set; } = 120.0f;
     [Export] public NodePath ViewPivotPath { get; set; } = "ViewPivot";
+    [Export] public NodePath CameraPath { get; set; } = "ViewPivot/Camera3D";
+    [Export] public NodePath CollisionShapePath { get; set; } = "CollisionShape3D";
 
     private Node3D _viewPivot = null!;
+    private Camera3D _camera = null!;
+    private CollisionShape3D _collisionShape = null!;
     private float _pitch;
     private float _pendingYaw;
     private Vector3 _lastUp = Vector3.Up;
@@ -72,6 +76,8 @@ public partial class PlayerController : CharacterBody3D
     public override void _Ready()
     {
         _viewPivot = GetNode<Node3D>(ViewPivotPath);
+        _camera = GetNode<Camera3D>(CameraPath);
+        _collisionShape = GetNode<CollisionShape3D>(CollisionShapePath);
         _jetpackFuel = JetpackFuelMax;
         _oxygen = OxygenMax;
         FloorStopOnSlope = true;
@@ -120,6 +126,7 @@ public partial class PlayerController : CharacterBody3D
     public void SetPlayerContext(PlayerContext context)
     {
         _playerContext = context;
+        _collisionShape.Disabled = context == PlayerContext.Seated;
         if (context != PlayerContext.Seated)
         {
             _seatedInteractable = null;
@@ -135,6 +142,19 @@ public partial class PlayerController : CharacterBody3D
     {
         GlobalTransform = targetTransform;
         Velocity = Vector3.Zero;
+    }
+
+    public void ForceSeatTransform(Transform3D seatTransform)
+    {
+        if (_playerContext == PlayerContext.Seated)
+        {
+            MoveToTransform(seatTransform);
+        }
+    }
+
+    public void SetPlayerCameraActive(bool active)
+    {
+        _camera.Current = active;
     }
 
     private void UpdateGravityState()

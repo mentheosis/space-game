@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://scripts/ship/ShipHatch.cs" id="1_hatch"]
 [ext_resource type="Script" path="res://scripts/ship/PilotSeat.cs" id="2_seat"]
 [ext_resource type="PackedScene" path="res://scenes/ui/CockpitPlaceholder.tscn" id="3_cockpit"]
 [ext_resource type="Script" path="res://scripts/ship/ShipInteriorVolume.cs" id="4_interior_volume"]
+[ext_resource type="Script" path="res://scripts/ship/ShipController.cs" id="5_ship_controller"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hull"]
 albedo_color = Color(0.64, 0.72, 0.78, 1)
@@ -23,6 +24,9 @@ roughness = 0.65
 
 [sub_resource type="BoxMesh" id="BoxMesh_hull"]
 size = Vector3(8, 3.2, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hull"]
+size = Vector3(8, 0.5, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 size = Vector3(7, 0.4, 8)
@@ -54,12 +58,39 @@ size = Vector3(8.2, 4.0, 10.6)
 [sub_resource type="BoxMesh" id="BoxMesh_seat"]
 size = Vector3(1.2, 1.1, 1.2)
 
-[node name="Ship" type="Node3D"]
+[node name="Ship" type="RigidBody3D"]
+mass = 12.0
+gravity_scale = 0.0
+freeze = true
+script = ExtResource("5_ship_controller")
+
+[node name="HullCollision" type="CollisionShape3D" parent="."]
+position = Vector3(0, -0.1, 0)
+shape = SubResource("BoxShape3D_hull")
+
+[node name="FloorCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_floor")
+
+[node name="LeftWallCollision" type="CollisionShape3D" parent="."]
+position = Vector3(-3.7, 1.3, 0)
+shape = SubResource("BoxShape3D_wall_long")
+
+[node name="RightWallCollision" type="CollisionShape3D" parent="."]
+position = Vector3(3.7, 1.3, 0)
+shape = SubResource("BoxShape3D_wall_long")
+
+[node name="ForwardWallCollision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 1.3, -4.2)
+shape = SubResource("BoxShape3D_wall_short")
 
 [node name="ExteriorHull" type="MeshInstance3D" parent="."]
 position = Vector3(0, 1.8, 0)
 material_override = SubResource("StandardMaterial3D_hull")
 mesh = SubResource("BoxMesh_hull")
+
+[node name="ShipCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.955336, 0.29552, 0, -0.29552, 0.955336, 0, 5.5, 13)
+fov = 72.0
 
 [node name="Interior" type="Node3D" parent="."]
 
@@ -76,44 +107,32 @@ script = ExtResource("4_interior_volume")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interior/InteriorVolume"]
 shape = SubResource("BoxShape3D_interior_volume")
 
-[node name="Floor" type="StaticBody3D" parent="Interior"]
+[node name="Floor" type="Node3D" parent="Interior"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Interior/Floor"]
 material_override = SubResource("StandardMaterial3D_floor")
 mesh = SubResource("BoxMesh_floor")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interior/Floor"]
-shape = SubResource("BoxShape3D_floor")
-
-[node name="LeftWall" type="StaticBody3D" parent="Interior"]
+[node name="LeftWall" type="Node3D" parent="Interior"]
 position = Vector3(-3.7, 1.3, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Interior/LeftWall"]
 material_override = SubResource("StandardMaterial3D_floor")
 mesh = SubResource("BoxMesh_wall_long")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interior/LeftWall"]
-shape = SubResource("BoxShape3D_wall_long")
-
-[node name="RightWall" type="StaticBody3D" parent="Interior"]
+[node name="RightWall" type="Node3D" parent="Interior"]
 position = Vector3(3.7, 1.3, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Interior/RightWall"]
 material_override = SubResource("StandardMaterial3D_floor")
 mesh = SubResource("BoxMesh_wall_long")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interior/RightWall"]
-shape = SubResource("BoxShape3D_wall_long")
-
-[node name="ForwardWall" type="StaticBody3D" parent="Interior"]
+[node name="ForwardWall" type="Node3D" parent="Interior"]
 position = Vector3(0, 1.3, -4.2)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Interior/ForwardWall"]
 material_override = SubResource("StandardMaterial3D_floor")
 mesh = SubResource("BoxMesh_wall_short")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interior/ForwardWall"]
-shape = SubResource("BoxShape3D_wall_short")
 
 [node name="ExteriorHatch" type="Area3D" parent="."]
 position = Vector3(0, 1.35, 5.05)

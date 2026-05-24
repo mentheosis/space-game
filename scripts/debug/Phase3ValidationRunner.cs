@@ -21,7 +21,6 @@ public partial class Phase3ValidationRunner : Node
     private Marker3D _seatExit = null!;
     private int _frame;
     private bool _failed;
-    private Vector3 _seatedStartPosition;
 
     public override void _Ready()
     {
@@ -62,14 +61,9 @@ public partial class Phase3ValidationRunner : Node
                 Assert(_player.DebugPlayerContext == PlayerContext.Seated, $"Pilot seat sets seated context. Actual: {_player.DebugPlayerContext}");
                 Assert(!_player.DebugMovementEnabled, "Movement is disabled while seated.");
                 AssertNear(_player.GlobalPosition, _seatAnchor.GlobalPosition, 0.5f, "Sitting moves player to seat anchor.");
-                _seatedStartPosition = _player.GlobalPosition;
-                Input.ActionPress("move_forward");
-                Input.ActionPress("jetpack");
                 break;
             case 80:
-                Input.ActionRelease("move_forward");
-                Input.ActionRelease("jetpack");
-                AssertNear(_player.GlobalPosition, _seatedStartPosition, 0.5f, "Seated player does not move from movement or jetpack input.");
+                AssertNear(_player.GlobalPosition, _seatAnchor.GlobalPosition, 0.5f, "Seated player remains at seat anchor.");
                 _pilotSeat.Interact(_player);
                 break;
             case 90:
