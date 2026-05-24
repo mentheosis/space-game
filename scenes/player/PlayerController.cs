@@ -8,6 +8,13 @@ public enum PlayerMovementMode
     ZeroGravity
 }
 
+public enum PlayerContext
+{
+    OnFoot,
+    InShipInterior,
+    Seated
+}
+
 public partial class PlayerController : CharacterBody3D
 {
     [Export] public float WalkSpeed { get; set; } = 7.0f;
@@ -38,9 +45,11 @@ public partial class PlayerController : CharacterBody3D
     private Vector3 _lastGravityAcceleration = Vector3.Zero;
     private string _activeGravityBodyName = "None";
     private PlayerMovementMode _movementMode = PlayerMovementMode.Airborne;
+    private PlayerContext _playerContext = PlayerContext.OnFoot;
     private float _jetpackFuel;
     private float _oxygen;
     private bool _jetpackFiring;
+    private IInteractable? _seatedInteractable;
 
     public bool DebugGrounded => IsOnFloor();
     public Vector3 DebugUpDirection => _lastUp;
@@ -54,6 +63,11 @@ public partial class PlayerController : CharacterBody3D
     public float DebugOxygen => _oxygen;
     public float DebugOxygenMax => OxygenMax;
     public bool DebugJetpackFiring => _jetpackFiring;
+    public PlayerContext DebugPlayerContext => _playerContext;
+    public bool DebugMovementEnabled => IsMovementEnabled;
+    public IInteractable? SeatedInteractable => _seatedInteractable;
+
+    private bool IsMovementEnabled => _playerContext != PlayerContext.Seated;
 
     public override void _Ready()
     {
@@ -91,8 +105,36 @@ public partial class PlayerController : CharacterBody3D
         UpdateGravityState();
         UpdateMovementMode();
         UpdateBodyAlignment(deltaSeconds);
-        ApplyMovement(deltaSeconds);
+        if (IsMovementEnabled)
+        {
+            ApplyMovement(deltaSeconds);
+        }
+        else
+        {
+            Velocity = Vector3.Zero;
+            MoveAndSlide();
+        }
         UpdateSuitResources(deltaSeconds);
+    }
+
+    public void SetPlayerContext(PlayerContext context)
+    {
+        _playerContext = context;
+        if (context != PlayerContext.Seated)
+        {
+            _seatedInteractable = null;
+        }
+    }
+
+    public void SetSeatedInteractable(IInteractable? interactable)
+    {
+        _seatedInteractable = interactable;
+    }
+
+    public void MoveToTransform(Transform3D targetTransform)
+    {
+        GlobalTransform = targetTransform;
+        Velocity = Vector3.Zero;
     }
 
     private void UpdateGravityState()

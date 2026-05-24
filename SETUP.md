@@ -108,13 +108,13 @@ Then open/run the project in Godot.
 Main scene:
 
 ```text
-res://scenes/solar_system/Phase2TestWorld.tscn
+res://scenes/solar_system/Phase3TestWorld.tscn
 ```
 
 Validation scene:
 
 ```text
-res://scenes/solar_system/Phase2Validation.tscn
+res://scenes/solar_system/Phase3Validation.tscn
 ```
 
 ## Homebrew Alternative
@@ -145,6 +145,7 @@ godot --headless --path . --import
 godot --headless --path . --quit-after 30 scenes/solar_system/Phase1TestWorld.tscn
 godot --headless --path . scenes/solar_system/Phase1Validation.tscn
 godot --headless --path . scenes/solar_system/Phase2Validation.tscn
+godot --headless --path . scenes/solar_system/Phase3Validation.tscn
 ```
 
 If Godot is installed as a macOS app and not on `PATH`, use the executable inside the app bundle:
@@ -154,12 +155,13 @@ If Godot is installed as a macOS app and not on `PATH`, use the executable insid
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . --quit-after 30 scenes/solar_system/Phase1TestWorld.tscn
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . scenes/solar_system/Phase1Validation.tscn
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . scenes/solar_system/Phase2Validation.tscn
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . scenes/solar_system/Phase3Validation.tscn
 ```
 
 The validation scene should print:
 
 ```text
-Phase 2 validation passed.
+Phase 3 validation passed.
 ```
 
 ## Current Controls
@@ -169,6 +171,7 @@ Phase 2 validation passed.
 - `Space`: jump.
 - `Left Shift`: jetpack.
 - `Control`: zero-g brake.
+- `E`: interact.
 - `Esc`: release/capture mouse.
 - `F3`: toggle debug overlay.
 

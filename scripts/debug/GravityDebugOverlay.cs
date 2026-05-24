@@ -43,6 +43,7 @@ public partial class GravityDebugOverlay : CanvasLayer
 
         _label.Text =
             $"Gravity Body: {_player.DebugActiveGravityBodyName}\n" +
+            $"Context: {_player.DebugPlayerContext}\n" +
             $"Mode: {_player.DebugMovementMode}\n" +
             $"Grounded: {_player.DebugGrounded}\n" +
             $"Speed: {_player.DebugSpeed:0.00}\n" +
