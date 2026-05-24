@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/components/GravityBody.cs" id="1_gravity_body"]
+[ext_resource type="Script" path="res://scripts/components/PlanetSpawnPoint.cs" id="2_spawn_point"]
+[ext_resource type="Script" path="res://scripts/navigation/NavigationTarget.cs" id="3_navigation_target"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_planet_b"]
+radius = 45.0
+height = 90.0
+radial_segments = 96
+rings = 48
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_planet_b"]
+albedo_color = Color(0.63, 0.34, 0.72, 1)
+roughness = 0.88
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_planet_b"]
+radius = 45.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_landing_pad"]
+size = Vector3(16, 0.8, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_landing_pad"]
+size = Vector3(16, 0.8, 16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_landing_pad"]
+albedo_color = Color(0.18, 0.82, 0.78, 1)
+roughness = 0.55
+
+[sub_resource type="BoxMesh" id="BoxMesh_beacon"]
+size = Vector3(2.5, 16, 2.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_beacon"]
+albedo_color = Color(1, 0.92, 0.35, 1)
+emission_enabled = true
+emission = Color(1, 0.78, 0.2, 1)
+emission_energy_multiplier = 0.6
+roughness = 0.4
+
+[node name="PlanetB" type="Node3D"]
+script = ExtResource("3_navigation_target")
+DisplayName = "Planet B"
+MarkerColor = Color(0.78, 0.45, 1, 1)
+TargetRadius = 45.0
+
+[node name="PlanetBGravity" type="Node3D" parent="."]
+script = ExtResource("1_gravity_body")
+Radius = 45.0
+SurfaceGravity = 16.0
+InfluenceRadius = 220.0
+Priority = 1
+UseFalloff = true
+EdgeGravity = 0.18
+FalloffExponent = 2.4
+
+[node name="Surface" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surface"]
+material_override = SubResource("StandardMaterial3D_planet_b")
+mesh = SubResource("SphereMesh_planet_b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surface"]
+shape = SubResource("SphereShape3D_planet_b")
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+position = Vector3(0, 46.1, 0)
+script = ExtResource("2_spawn_point")
+
+[node name="LandingPad" type="StaticBody3D" parent="."]
+position = Vector3(0, 46.0, -12)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LandingPad"]
+material_override = SubResource("StandardMaterial3D_landing_pad")
+mesh = SubResource("BoxMesh_landing_pad")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LandingPad"]
+shape = SubResource("BoxShape3D_landing_pad")
+
+[node name="Beacon" type="MeshInstance3D" parent="."]
+position = Vector3(0, 56, -24)
+material_override = SubResource("StandardMaterial3D_beacon")
+mesh = SubResource("BoxMesh_beacon")
+
+[node name="LandingMarker" type="Marker3D" parent="."]
+position = Vector3(0, 47.0, -12)

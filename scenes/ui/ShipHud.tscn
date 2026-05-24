@@ -38,3 +38,11 @@ theme_override_constants/margin_bottom = 8
 label_settings = SubResource("LabelSettings_ship")
 text = "Ship"
 
+[node name="TargetMarker" type="Label" parent="."]
+offset_left = 590.0
+offset_top = 332.0
+offset_right = 690.0
+offset_bottom = 356.0
+label_settings = SubResource("LabelSettings_ship")
+text = "> Target"
+horizontal_alignment = 1

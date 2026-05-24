@@ -11,6 +11,7 @@ public partial class ShipController : RigidBody3D
     [Export] public float YawTorque { get; set; } = 80.0f;
     [Export] public float PitchTorque { get; set; } = 70.0f;
     [Export] public float RollTorque { get; set; } = 55.0f;
+    [Export] public float BrakeStrength { get; set; } = 14.0f;
     [Export] public float MaxLandedSpeed { get; set; } = 3.0f;
     [Export] public float LandingDistance { get; set; } = 8.0f;
     [Export] public float MinLandingUpDot { get; set; } = 0.65f;
@@ -27,6 +28,8 @@ public partial class ShipController : RigidBody3D
     public bool IsLanded => _isLanded;
     public float Speed => LinearVelocity.Length();
     public Vector3 GravityAcceleration => _gravityAcceleration;
+    public float GravityMagnitude => _gravityAcceleration.Length();
+    public string ActiveGravityBodyName => _activeGravityBody?.Name ?? "Zero-G";
     public float SurfaceDistance => _activeGravityBody?.GetDistanceToSurface(GlobalPosition) ?? float.PositiveInfinity;
     public bool CanUseHatches => _isLanded && Speed <= MaxLandedSpeed;
 
@@ -169,6 +172,12 @@ public partial class ShipController : RigidBody3D
         {
             ApplyTorque(-basis.Z * rollInput * RollTorque);
         }
+
+        if (Input.IsActionPressed("brake"))
+        {
+            LinearVelocity = LinearVelocity.MoveToward(Vector3.Zero, BrakeStrength * delta);
+            AngularVelocity = AngularVelocity.MoveToward(Vector3.Zero, BrakeStrength * delta);
+        }
     }
 
     private bool HasPilotInput()
@@ -184,6 +193,7 @@ public partial class ShipController : RigidBody3D
             || Input.IsActionPressed("move_right")
             || Input.IsActionPressed("jump")
             || Input.IsActionPressed("jetpack")
+            || Input.IsActionPressed("brake")
             || Input.IsActionPressed("ship_yaw_left")
             || Input.IsActionPressed("ship_yaw_right")
             || Input.IsActionPressed("ship_pitch_up")

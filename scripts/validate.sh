@@ -43,3 +43,6 @@ echo "Running Phase 3 automated validation"
 
 echo "Running Phase 4 automated validation"
 "${GODOT_BIN}" --headless --path . scenes/solar_system/Phase4Validation.tscn
+
+echo "Running Phase 5 automated validation"
+"${GODOT_BIN}" --headless --path . scenes/solar_system/Phase5Validation.tscn

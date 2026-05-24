@@ -108,13 +108,13 @@ Then open/run the project in Godot.
 Main scene:
 
 ```text
-res://scenes/solar_system/Phase4TestWorld.tscn
+res://scenes/solar_system/Phase5TestWorld.tscn
 ```
 
 Validation scene:
 
 ```text
-res://scenes/solar_system/Phase4Validation.tscn
+res://scenes/solar_system/Phase5Validation.tscn
 ```
 
 ## Homebrew Alternative
@@ -147,6 +147,7 @@ godot --headless --path . scenes/solar_system/Phase1Validation.tscn
 godot --headless --path . scenes/solar_system/Phase2Validation.tscn
 godot --headless --path . scenes/solar_system/Phase3Validation.tscn
 godot --headless --path . scenes/solar_system/Phase4Validation.tscn
+godot --headless --path . scenes/solar_system/Phase5Validation.tscn
 ```
 
 If Godot is installed as a macOS app and not on `PATH`, use the executable inside the app bundle:
@@ -158,12 +159,13 @@ If Godot is installed as a macOS app and not on `PATH`, use the executable insid
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . scenes/solar_system/Phase2Validation.tscn
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . scenes/solar_system/Phase3Validation.tscn
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . scenes/solar_system/Phase4Validation.tscn
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . scenes/solar_system/Phase5Validation.tscn
 ```
 
 The validation scene should print:
 
 ```text
-Phase 4 validation passed.
+Phase 5 validation passed.
 ```
 
 ## Current Controls
@@ -177,6 +179,7 @@ Phase 4 validation passed.
 - While seated: `W/S/A/D` translate the ship in its local forward/back/left/right plane.
 - While seated: `Space` ascends.
 - While seated: `Left Shift` descends.
+- While seated: `Control` dampens ship velocity.
 - While seated: arrow keys pitch/yaw the ship.
 - While seated: `Q/E` roll the ship.
 - `Esc`: release/capture mouse.
