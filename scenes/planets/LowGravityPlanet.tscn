@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]
+
+[node name="LowGravityPlanet" instance=ExtResource("1_planet")]
+
+[node name="GravityBody" parent="." index="0"]
+SurfaceGravity = 4.0
+InfluenceRadius = 140.0
+Priority = 1
+

@@ -1,0 +1,12 @@
+.godot/
+.mono/
+.tools/
+.import/
+bin/
+obj/
+build/
+exports/
+*.tmp
+*.translation
+export_presets.cfg
+export_credentials.cfg

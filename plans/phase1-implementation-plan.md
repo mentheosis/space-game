@@ -418,3 +418,40 @@ The phase is ready to close when:
 - Any unresolved controller issues are documented with reproduction steps.
 
 At that point, Phase 2 can start by adding jetpack thrust and weak-gravity movement on top of this controller.
+
+## 11. Implementation Verification
+
+Implemented files include:
+
+- `res://autoload/GravityService.tscn`
+- `res://autoload/GravityService.cs`
+- `res://scripts/components/GravityBody.cs`
+- `res://scripts/components/PlanetSpawnPoint.cs`
+- `res://scenes/player/Player.tscn`
+- `res://scenes/player/PlayerController.cs`
+- `res://scenes/planets/PlanetBody.tscn`
+- `res://scenes/solar_system/Phase1TestWorld.tscn`
+- `res://scenes/ui/GravityDebugOverlay.tscn`
+- `res://scripts/debug/GravityDebugOverlay.cs`
+- `res://scenes/solar_system/Phase1Validation.tscn`
+- `res://scripts/debug/Phase1ValidationRunner.cs`
+
+Validation commands used:
+
+```bash
+dotnet build SmallSolarSystem.csproj
+godot --headless --path /app/space-game --import
+godot --headless --path /app/space-game --quit-after 30 scenes/solar_system/Phase1TestWorld.tscn
+godot --headless --path /app/space-game scenes/solar_system/Phase1Validation.tscn
+```
+
+Automated validation currently checks:
+
+- `GravityService` autoload exists.
+- The planet gravity body is selected at player spawn.
+- The player starts inside the planet influence radius.
+- The player moves across the planet surface.
+- The player reports grounded state during the run.
+- Jump input makes the player airborne.
+- The player recovers near the planet surface.
+- Player up direction remains aligned with radial surface up.

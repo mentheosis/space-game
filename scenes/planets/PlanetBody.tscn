@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/components/GravityBody.cs" id="1_gravity_body"]
+[ext_resource type="Script" path="res://scripts/components/PlanetSpawnPoint.cs" id="2_spawn_point"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_planet"]
+radius = 50.0
+height = 100.0
+radial_segments = 96
+rings = 48
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_planet"]
+albedo_color = Color(0.19, 0.48, 0.62, 1)
+roughness = 0.85
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_planet"]
+radius = 50.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_landmark"]
+size = Vector3(3, 14, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_landmark"]
+albedo_color = Color(1, 0.74, 0.22, 1)
+roughness = 0.6
+
+[node name="PlanetBody" type="Node3D"]
+
+[node name="GravityBody" type="Node3D" parent="."]
+script = ExtResource("1_gravity_body")
+Radius = 50.0
+SurfaceGravity = 24.0
+InfluenceRadius = 250.0
+Priority = 0
+
+[node name="Surface" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surface"]
+material_override = SubResource("StandardMaterial3D_planet")
+mesh = SubResource("SphereMesh_planet")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surface"]
+shape = SubResource("SphereShape3D_planet")
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+position = Vector3(0, 51.1, 0)
+script = ExtResource("2_spawn_point")
+
+[node name="NorthTower" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 57, -18)
+material_override = SubResource("StandardMaterial3D_landmark")
+mesh = SubResource("BoxMesh_landmark")
