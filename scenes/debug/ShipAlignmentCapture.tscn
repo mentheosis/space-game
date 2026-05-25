@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/ship/Ship.tscn" id="1_ship"]
 [ext_resource type="Script" path="res://scripts/debug/ShipAlignmentCaptureRunner.cs" id="2_runner"]
 [ext_resource type="Material" path="res://assets/materials/environment/mat_starfield.tres" id="3_starfield"]
+[ext_resource type="PackedScene" path="res://scenes/debug/generated/ShipAlignmentOverlay.tscn" id="4_overlay"]
 
 [sub_resource type="Sky" id="Sky_space"]
 sky_material = ExtResource("3_starfield")
@@ -26,6 +27,8 @@ roughness = 0.8
 [node name="ShipAlignmentCapture" type="Node3D"]
 
 [node name="Ship" parent="." instance=ExtResource("1_ship")]
+
+[node name="ShipAlignmentOverlay" parent="." instance=ExtResource("4_overlay")]
 
 [node name="ReferenceFloor" type="MeshInstance3D" parent="."]
 position = Vector3(0, -0.17, -1)

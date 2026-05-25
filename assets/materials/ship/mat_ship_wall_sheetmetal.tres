@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" path="res://assets/textures/ship/sheetmetal001/sheetmetal001_metalness.jpg" id="4_metalness"]
 
 [resource]
-albedo_color = Color(0.52, 0.6, 0.58, 1)
+albedo_color = Color(0.32, 0.39, 0.39, 1)
 albedo_texture = ExtResource("1_color")
 metallic = 0.14
 metallic_texture = ExtResource("4_metalness")
@@ -15,4 +15,4 @@ roughness_texture = ExtResource("3_roughness")
 normal_enabled = true
 normal_scale = 0.42
 normal_texture = ExtResource("2_normal")
-uv1_scale = Vector3(2.8, 2.8, 1)
+uv1_scale = Vector3(3.4, 3.4, 1)

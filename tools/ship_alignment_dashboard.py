@@ -13,6 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "reports"
 FIT_TARGETS_JSON_PATH = REPORTS / "ship_fit_targets.json"
 RECOMMENDATIONS_JSON_PATH = REPORTS / "ship_fit_recommendations.json"
+CAPTURE_MANIFEST_PATH = REPORTS / "ship_alignment_captures.json"
+REVIEW_CHECKLIST_PATH = REPORTS / "ship_alignment_review_checklist.md"
+COMPLETION_AUDIT_PATH = REPORTS / "ship_phase_0_2_1b_completion_audit.md"
 DASHBOARD_PATH = REPORTS / "ship_alignment_dashboard.html"
 CAPTURE_DIR = REPORTS / "ship_alignment_captures"
 
@@ -24,13 +27,25 @@ PROJECTION_ARTIFACTS = [
 
 EXPECTED_CAPTURES = [
     "01_exterior_front.png",
+    "01_exterior_front_overlay.png",
     "02_exterior_rear_hatch.png",
+    "02_exterior_rear_hatch_overlay.png",
     "03_exterior_left.png",
+    "03_exterior_left_overlay.png",
     "04_exterior_top.png",
+    "04_exterior_top_overlay.png",
     "05_cockpit_glass_close.png",
+    "05_cockpit_glass_close_overlay.png",
     "06_interior_entry.png",
+    "06_interior_entry_overlay.png",
     "07_interior_seat.png",
+    "07_interior_seat_overlay.png",
     "08_interior_cockpit_backlook.png",
+    "08_interior_cockpit_backlook_overlay.png",
+    "09_player_entry_forward.png",
+    "09_player_entry_forward_overlay.png",
+    "10_pilot_eye_forward.png",
+    "10_pilot_eye_forward_overlay.png",
 ]
 
 
@@ -53,18 +68,19 @@ def vector_text(value: object) -> str:
 def artifact_card(title: str, path: Path) -> str:
     escaped_title = html.escape(title)
     if not path.exists():
-        return f"""
-        <section class="card missing">
-          <h3>{escaped_title}</h3>
-          <div class="placeholder">Missing: <code>{html.escape(rel(path))}</code></div>
-        </section>
-        """
-    return f"""
-    <section class="card">
-      <h3>{escaped_title}</h3>
-      <a href="{html.escape(rel(path))}"><img src="{html.escape(rel(path))}" alt="{escaped_title}"></a>
-    </section>
-    """
+        return (
+            '<section class="card missing">\n'
+            f"  <h3>{escaped_title}</h3>\n"
+            f'  <div class="placeholder">Missing: <code>{html.escape(rel(path))}</code></div>\n'
+            "</section>"
+        )
+    escaped_path = html.escape(rel(path))
+    return (
+        '<section class="card">\n'
+        f"  <h3>{escaped_title}</h3>\n"
+        f'  <a href="{escaped_path}"><img src="{escaped_path}" alt="{escaped_title}"></a>\n'
+        "</section>"
+    )
 
 
 def recommendations_table(data: dict[str, object]) -> str:
@@ -129,6 +145,74 @@ def failure_list(data: dict[str, object], recommendation_data: dict[str, object]
     return f'<ul class="failures">{items}</ul>'
 
 
+def capture_status(manifest: dict[str, object]) -> str:
+    if not manifest:
+        return '<p class="status review">Capture manifest has not been generated.</p>'
+    present = manifest.get("present_count", 0)
+    expected = manifest.get("expected_count", len(EXPECTED_CAPTURES))
+    if bool(manifest.get("complete", False)):
+        return f'<p class="status ok">All fixed-camera captures are present: {present}/{expected}.</p>'
+    return f'<p class="status review">Fixed-camera captures incomplete: {present}/{expected}. Run <code>scripts/capture-ship-alignment.sh</code> on the host.</p>'
+
+
+def checklist_status() -> str:
+    if not REVIEW_CHECKLIST_PATH.exists():
+        return '<p class="status review">Review checklist is missing.</p>'
+    checked = 0
+    unchecked = 0
+    for line in REVIEW_CHECKLIST_PATH.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if stripped.startswith("- [x]") or stripped.startswith("- [X]"):
+            checked += 1
+        elif stripped.startswith("- [ ]"):
+            unchecked += 1
+    total = checked + unchecked
+    if total == 0:
+        return '<p class="status review">Review checklist has no checkbox items.</p>'
+    if unchecked == 0:
+        return f'<p class="status ok">Review checklist complete: {checked}/{total}.</p>'
+    return f'<p class="status review">Review checklist incomplete: {checked}/{total} complete, {unchecked} remaining.</p>'
+
+
+def audit_summary() -> str:
+    if not COMPLETION_AUDIT_PATH.exists():
+        return '<p class="status review">Completion audit has not been generated.</p>'
+
+    rows: list[str] = []
+    in_table = False
+    for line in COMPLETION_AUDIT_PATH.read_text(encoding="utf-8").splitlines():
+        if line.startswith("| Gate | Status | Evidence |"):
+            in_table = True
+            continue
+        if not in_table or line.startswith("| ---"):
+            continue
+        if not line.startswith("| "):
+            if rows:
+                break
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) != 3:
+            continue
+        gate, status, evidence = cells
+        status_class = "ok" if status == "PASS" else "review"
+        rows.append(
+            "<tr>"
+            f"<td>{html.escape(gate)}</td>"
+            f"<td><span class=\"severity {status_class}\">{html.escape(status)}</span></td>"
+            f"<td>{html.escape(evidence)}</td>"
+            "</tr>"
+        )
+
+    if not rows:
+        return '<p class="status review">Completion audit table could not be parsed.</p>'
+    return (
+        "<table>\n"
+        "<thead><tr><th>Gate</th><th>Status</th><th>Evidence</th></tr></thead>\n"
+        f"<tbody>{''.join(rows)}</tbody>\n"
+        "</table>"
+    )
+
+
 def capture_cards() -> str:
     return "\n".join(
         artifact_card(capture.removesuffix(".png").replace("_", " ").title(), CAPTURE_DIR / capture)
@@ -139,6 +223,7 @@ def capture_cards() -> str:
 def write_dashboard() -> None:
     fit_data = read_json(FIT_TARGETS_JSON_PATH)
     recommendation_data = read_json(RECOMMENDATIONS_JSON_PATH)
+    capture_manifest = read_json(CAPTURE_MANIFEST_PATH)
     projections = "\n".join(
         artifact_card(title, REPORTS / filename)
         for title, filename in PROJECTION_ARTIFACTS
@@ -284,6 +369,10 @@ def write_dashboard() -> None:
       color: var(--ok);
       font-weight: 600;
     }}
+    .status.review {{
+      color: var(--review);
+      font-weight: 600;
+    }}
     .failures {{
       color: var(--adjust);
       background: #fef2f2;
@@ -302,10 +391,16 @@ def write_dashboard() -> None:
     <h1>Ship Alignment Dashboard</h1>
     <p>Single-page review surface for the ShuttleA 0.2.1b alignment loop.</p>
     <p class="links">
+      <a href="README.md">Report index</a>
       <a href="ship_alignment_report.md">Markdown report</a>
       <a href="ship_fit_recommendations.md">Fit recommendations</a>
       <a href="ship_fit_targets.json">Fit target JSON</a>
       <a href="ship_hull_profile.csv">Hull profile CSV</a>
+      <a href="ship_alignment_captures.json">Capture manifest</a>
+      <a href="ship_alignment_review_checklist.md">Review checklist</a>
+      <a href="ship_phase_0_2_1b_completion_audit.md">Completion audit</a>
+      <a href="ship_phase_0_2_1b_host_review.log">Host review log</a>
+      <a href="../scenes/debug/generated/ShipAlignmentOverlay.tscn">Generated overlay scene</a>
     </p>
   </header>
 
@@ -317,6 +412,15 @@ def write_dashboard() -> None:
 
   <h2>Automated Gate</h2>
   {failure_list(fit_data, recommendation_data)}
+
+  <h2>Capture Status</h2>
+  {capture_status(capture_manifest)}
+
+  <h2>Review Checklist Status</h2>
+  {checklist_status()}
+
+  <h2>Completion Audit</h2>
+  {audit_summary()}
 
   <h2>Fit Recommendations</h2>
   <table>

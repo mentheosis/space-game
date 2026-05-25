@@ -4,6 +4,8 @@ public partial class ShipController : RigidBody3D
 {
     [Export] public NodePath SeatAnchorPath { get; set; } = "Markers/SeatAnchor";
     [Export] public NodePath ShipCameraPath { get; set; } = "ShipCamera";
+    [Export] public NodePath ExteriorVisualPath { get; set; } = "OpenGameArtShuttleVisual";
+    [Export] public NodePath ExteriorGlassPath { get; set; } = "CockpitGlassExterior";
     [Export] public float MainThrust { get; set; } = 30.0f;
     [Export] public float ReverseThrust { get; set; } = 15.0f;
     [Export] public float LateralThrust { get; set; } = 24.0f;
@@ -26,6 +28,11 @@ public partial class ShipController : RigidBody3D
 
     private Marker3D _seatAnchor = null!;
     private Camera3D _shipCamera = null!;
+    private Node3D? _exteriorVisual;
+    private Node3D? _exteriorGlass;
+    private readonly Node3D?[] _interiorOnlyCanopyNodes = new Node3D?[2];
+    private bool _exteriorVisualDefaultVisible = true;
+    private bool _exteriorGlassDefaultVisible = true;
     private PlayerController? _pilot;
     private GravityBody? _activeGravityBody;
     private Vector3 _gravityAcceleration = Vector3.Zero;
@@ -48,10 +55,16 @@ public partial class ShipController : RigidBody3D
         EnsureShipInputActions();
         _seatAnchor = GetNode<Marker3D>(SeatAnchorPath);
         _shipCamera = GetNode<Camera3D>(ShipCameraPath);
+        _exteriorVisual = GetNodeOrNull<Node3D>(ExteriorVisualPath);
+        _exteriorGlass = GetNodeOrNull<Node3D>(ExteriorGlassPath);
+        _exteriorVisualDefaultVisible = _exteriorVisual?.Visible ?? true;
+        _exteriorGlassDefaultVisible = _exteriorGlass?.Visible ?? true;
+        CacheInteriorOnlyCanopyNodes();
         _shipCamera.Current = false;
         GravityScale = 0.0f;
         Freeze = true;
         _isLanded = true;
+        SetInteriorViewActive(false);
         UpdateOrbitCamera();
     }
 
@@ -107,6 +120,7 @@ public partial class ShipController : RigidBody3D
     public void SetPilot(PlayerController player)
     {
         _pilot = player;
+        SetInteriorViewActive(false);
         _shipCamera.Current = true;
         player.SetPlayerCameraActive(false);
         player.ForceSeatTransform(_seatAnchor.GlobalTransform);
@@ -119,8 +133,36 @@ public partial class ShipController : RigidBody3D
         {
             _pilot = null;
             _shipCamera.Current = false;
+            SetInteriorViewActive(true);
             player.SetPlayerCameraActive(true);
         }
+    }
+
+    public void SetInteriorViewActive(bool active)
+    {
+        if (_exteriorVisual is not null)
+        {
+            _exteriorVisual.Visible = _exteriorVisualDefaultVisible && !active;
+        }
+
+        if (_exteriorGlass is not null)
+        {
+            _exteriorGlass.Visible = _exteriorGlassDefaultVisible && !active;
+        }
+
+        foreach (var node in _interiorOnlyCanopyNodes)
+        {
+            if (node is not null)
+            {
+                node.Visible = active;
+            }
+        }
+    }
+
+    private void CacheInteriorOnlyCanopyNodes()
+    {
+        _interiorOnlyCanopyNodes[0] = GetNodeOrNull<Node3D>("Interior/Cockpit/CanopyGlassInterior");
+        _interiorOnlyCanopyNodes[1] = GetNodeOrNull<Node3D>("Interior/Cockpit/CanopyFrame");
     }
 
     public bool CanExitShip()

@@ -43,6 +43,9 @@ REQUIRED_AUTHORED_OBJ_ASSETS = [
     "assets/models/ship/interior/hatch_door_recessed.obj",
     "assets/models/ship/interior/hatch_frame_beveled.obj",
     "assets/models/ship/interior/cabin_rib_frame.obj",
+    "assets/models/ship/interior/cabin_inner_shell.obj",
+    "assets/models/ship/interior/cockpit_canopy_frame.obj",
+    "assets/models/ship/interior/cockpit_canopy_glass.obj",
 ]
 
 
@@ -235,7 +238,8 @@ def parse_tscn(path: Path) -> tuple[dict[str, ResourceDef], list[NodeDef]]:
         elif value.startswith("SubResource("):
             current_values[key] = re.search(r'"([^"]+)"', value).group(1)  # type: ignore[union-attr]
         elif value.startswith("ExtResource("):
-            current_values[key] = f"ExtResource:{re.search(r'\"([^\"]+)\"', value).group(1)}"  # type: ignore[union-attr]
+            match = re.search(r'"([^"]+)"', value)
+            current_values[key] = "ExtResource:" + match.group(1)  # type: ignore[union-attr]
         else:
             current_values[key] = value
     flush()

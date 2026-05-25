@@ -11,6 +11,7 @@ public partial class Phase021bValidationRunner : Node
     [Export] public NodePath ExteriorExitPath { get; set; } = "../Ship/Markers/ExteriorExit";
     [Export] public NodePath SeatAnchorPath { get; set; } = "../Ship/Markers/SeatAnchor";
     [Export] public NodePath SeatExitPath { get; set; } = "../Ship/Markers/SeatExit";
+    [Export] public NodePath ExteriorVisualPath { get; set; } = "../Ship/OpenGameArtShuttleVisual";
 
     private PlayerController _player = null!;
     private ShipController _ship = null!;
@@ -21,6 +22,7 @@ public partial class Phase021bValidationRunner : Node
     private Marker3D _exteriorExit = null!;
     private Marker3D _seatAnchor = null!;
     private Marker3D _seatExit = null!;
+    private Node3D _exteriorVisual = null!;
     private int _frame;
     private bool _failed;
 
@@ -35,8 +37,10 @@ public partial class Phase021bValidationRunner : Node
         _exteriorExit = GetNode<Marker3D>(ExteriorExitPath);
         _seatAnchor = GetNode<Marker3D>(SeatAnchorPath);
         _seatExit = GetNode<Marker3D>(SeatExitPath);
+        _exteriorVisual = GetNode<Node3D>(ExteriorVisualPath);
 
         Assert(_ship.IsLanded, "Ship starts landed for 0.2.1b validation.");
+        Assert(_exteriorVisual.Visible, "Exterior ShuttleA visual starts visible.");
         AssertAuthoredMesh("../Ship/Interior/Floor/MainPlate", "Tapered cabin floor mesh is present.");
         AssertAuthoredMesh("../Ship/Interior/LeftWall/UpperPanel", "Left authored wall panel is present.");
         AssertAuthoredMesh("../Ship/Interior/RightWall/UpperPanel", "Right authored wall panel is present.");
@@ -81,6 +85,7 @@ public partial class Phase021bValidationRunner : Node
                 break;
             case 20:
                 Assert(_player.DebugPlayerContext == PlayerContext.InShipInterior, "Player enters revised ship interior.");
+                Assert(!_exteriorVisual.Visible, "Exterior ShuttleA visual is hidden for first-person interior view.");
                 Assert(_player.GlobalPosition.DistanceTo(_interiorSpawn.GlobalPosition) < 0.05f, "Enter hatch lands player on revised interior spawn.");
                 Assert(IsShipLocalInsideCabin(_player.GlobalPosition), "Interior spawn is inside measured cabin envelope.");
                 Assert(_pilotSeat.CanInteract(_player), "Pilot seat remains interactable inside revised interior.");
@@ -88,21 +93,25 @@ public partial class Phase021bValidationRunner : Node
                 break;
             case 30:
                 Assert(_player.DebugPlayerContext == PlayerContext.Seated, "Player sits in authored pilot chair.");
+                Assert(_exteriorVisual.Visible, "Exterior ShuttleA visual is restored for seated ship camera view.");
                 Assert(_ship.IsPiloted, "Ship pilot state is active after sitting.");
                 Assert(_player.GlobalPosition.DistanceTo(_seatAnchor.GlobalPosition) < 0.05f, "Seated player aligns to revised seat anchor.");
                 _pilotSeat.Interact(_player);
                 break;
             case 40:
                 Assert(_player.DebugPlayerContext == PlayerContext.InShipInterior, "Player stands from authored pilot chair.");
+                Assert(!_exteriorVisual.Visible, "Exterior ShuttleA visual is hidden again after standing inside.");
                 Assert(!_ship.IsPiloted, "Ship pilot state clears after standing.");
                 Assert(_player.GlobalPosition.DistanceTo(_seatExit.GlobalPosition) < 0.05f, "Standing places player on revised seat exit marker.");
                 Assert(IsShipLocalInsideCabin(_player.GlobalPosition), "Seat exit remains inside measured cabin envelope.");
                 Assert(_interiorHatch.CanInteract(_player), "Interior hatch remains interactable after standing.");
                 _interiorHatch.Interact(_player);
+                Assert(_player.GlobalPosition.DistanceTo(_exteriorExit.GlobalPosition) < 0.05f, "Exit hatch lands player on revised exterior exit marker.");
                 break;
             case 50:
                 Assert(_player.DebugPlayerContext == PlayerContext.OnFoot, "Player exits revised ship interior.");
-                Assert(_player.GlobalPosition.DistanceTo(_exteriorExit.GlobalPosition) < 0.05f, "Exit hatch lands player on revised exterior exit marker.");
+                Assert(_exteriorVisual.Visible, "Exterior ShuttleA visual is restored after exiting ship.");
+                Assert(_player.GlobalPosition.DistanceTo(_exteriorExit.GlobalPosition) < 0.75f, "Exited player remains near revised exterior exit marker after settling.");
                 GD.Print("0.2.1b ship interior validation passed.");
                 GetTree().Quit(0);
                 break;

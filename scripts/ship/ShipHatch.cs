@@ -46,5 +46,6 @@ public partial class ShipHatch : Area3D, IInteractable
 
         player.MoveToTransform(_targetMarker.GlobalTransform);
         player.SetPlayerContext(EntersShip ? PlayerContext.InShipInterior : PlayerContext.OnFoot);
+        _ship?.SetInteriorViewActive(EntersShip);
     }
 }

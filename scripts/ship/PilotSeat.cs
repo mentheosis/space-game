@@ -64,6 +64,7 @@ public partial class PilotSeat : Area3D, IInteractable
         player.MoveToTransform(_seatAnchor.GlobalTransform);
         player.SetPlayerContext(PlayerContext.Seated);
         player.SetSeatedInteractable(this);
+        _ship?.SetInteriorViewActive(false);
         _ship?.SetPilot(player);
     }
 
@@ -72,5 +73,6 @@ public partial class PilotSeat : Area3D, IInteractable
         player.MoveToTransform(_seatExit.GlobalTransform);
         _ship?.ClearPilot(player);
         player.SetPlayerContext(PlayerContext.InShipInterior);
+        _ship?.SetInteriorViewActive(true);
     }
 }
