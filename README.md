@@ -2,14 +2,6 @@
 
 This project is a Godot 4.6 C# project targeting Linux and macOS first.
 
-## Required Tools
-
-Install these on the host Mac:
-
-- Godot **4.6.3 .NET** editor.
-- .NET **8 SDK**.
-- Git.
-
 ## Recommended macOS Install
 
 The easiest path is the project-local setup script:
@@ -28,9 +20,11 @@ This installs tools under `.tools/`:
 - `.tools/env.sh`
 
 It does not install Godot or .NET globally.
+but it does install:
+- Godot **4.6.3 .NET** editor.
+- .NET **8 SDK**.
 
 Use the manual steps below if you prefer system-wide installs.
-
 
 Optional later:
 
