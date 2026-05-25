@@ -10,15 +10,6 @@ Install these on the host Mac:
 - .NET **8 SDK**.
 - Git.
 
-Recommended editor:
-
-- Visual Studio Code, JetBrains Rider, or another C# editor.
-
-Optional later:
-
-- Godot export templates.
-- Xcode Command Line Tools for macOS signing/notarization workflows.
-
 ## Recommended macOS Install
 
 The easiest path is the project-local setup script:
@@ -27,6 +18,7 @@ The easiest path is the project-local setup script:
 scripts/setup-macos.sh
 source .tools/env.sh
 scripts/validate.sh
+local/build-and-start.sh
 ```
 
 This installs tools under `.tools/`:
@@ -38,6 +30,13 @@ This installs tools under `.tools/`:
 It does not install Godot or .NET globally.
 
 Use the manual steps below if you prefer system-wide installs.
+
+
+Optional later:
+
+- Godot export templates.
+- Xcode Command Line Tools for macOS signing/notarization workflows.
+
 
 ## Manual macOS Install
 
