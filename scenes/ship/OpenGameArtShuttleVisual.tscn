@@ -5,7 +5,7 @@
 [node name="OpenGameArtShuttleVisual" type="Node3D"]
 
 [node name="ShuttleA" type="MeshInstance3D" parent="."]
-position = Vector3(0, 1.85, 0.6)
+position = Vector3(0, 2.12, 0.69)
 rotation = Vector3(0, 3.14159, 0)
-scale = Vector3(1.08, 0.78, 0.78)
+scale = Vector3(1.27, 0.92, 0.92)
 mesh = ExtResource("1_shuttle")

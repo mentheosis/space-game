@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_player_ref"]
+albedo_color = Color(0.1, 0.75, 1, 0.45)
+transparency = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eye"]
+albedo_color = Color(1, 0.95, 0.15, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_envelope"]
+albedo_color = Color(0.25, 1, 0.35, 0.35)
+transparency = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hatch"]
+albedo_color = Color(1, 0.45, 0.1, 0.35)
+transparency = 1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_player"]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="SphereMesh" id="SphereMesh_eye"]
+radius = 0.09
+height = 0.18
+
+[sub_resource type="BoxMesh" id="BoxMesh_seated_envelope"]
+size = Vector3(1.1, 1.25, 1.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hatch_clearance"]
+size = Vector3(1.0, 2.0, 0.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_meter"]
+size = Vector3(0.08, 1, 0.08)
+
+[node name="ShipScaleReference" type="Node3D"]
+
+[node name="StandingPlayerAtHatch" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.9, 4.25)
+material_override = SubResource("StandardMaterial3D_player_ref")
+mesh = SubResource("CapsuleMesh_player")
+
+[node name="EyeAtHatch" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.6, 4.25)
+material_override = SubResource("StandardMaterial3D_eye")
+mesh = SubResource("SphereMesh_eye")
+
+[node name="HatchClearanceProxy" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.0, 4.0)
+material_override = SubResource("StandardMaterial3D_hatch")
+mesh = SubResource("BoxMesh_hatch_clearance")
+
+[node name="StandingPlayerAtCockpit" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.0, -4.8)
+material_override = SubResource("StandardMaterial3D_player_ref")
+mesh = SubResource("CapsuleMesh_player")
+
+[node name="EyeAtCockpit" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.7, -4.8)
+material_override = SubResource("StandardMaterial3D_eye")
+mesh = SubResource("SphereMesh_eye")
+
+[node name="SeatedCockpitEnvelope" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.35, -4.8)
+material_override = SubResource("StandardMaterial3D_envelope")
+mesh = SubResource("BoxMesh_seated_envelope")
+
+[node name="OneMeterBar" type="MeshInstance3D" parent="."]
+position = Vector3(-1.4, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_eye")
+mesh = SubResource("BoxMesh_meter")
+
+[node name="TwoMeterBar" type="MeshInstance3D" parent="."]
+position = Vector3(-1.7, 1, 0)
+scale = Vector3(1, 2, 1)
+material_override = SubResource("StandardMaterial3D_eye")
+mesh = SubResource("BoxMesh_meter")

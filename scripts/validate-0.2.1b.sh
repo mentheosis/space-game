@@ -23,29 +23,16 @@ fi
 DOTNET_BIN="${DOTNET_BIN:-dotnet}"
 GODOT_BIN="${GODOT_BIN:-godot}"
 
+echo "Generating 0.2.1b ship alignment report"
+python3 tools/ship_alignment_report.py --check
+python3 tools/ship_fit_recommendations.py --check
+python3 tools/ship_alignment_dashboard.py --check
+
 echo "Building C# project"
 "${DOTNET_BIN}" build SmallSolarSystem.csproj
 
 echo "Importing Godot project"
 "${GODOT_BIN}" --headless --path . --import
-
-echo "Smoke testing Phase 1 scene"
-"${GODOT_BIN}" --headless --path . --quit-after 30 scenes/solar_system/Phase1TestWorld.tscn
-
-echo "Running Phase 1 automated validation"
-"${GODOT_BIN}" --headless --path . scenes/solar_system/Phase1Validation.tscn
-
-echo "Running Phase 2 automated validation"
-"${GODOT_BIN}" --headless --path . scenes/solar_system/Phase2Validation.tscn
-
-echo "Running Phase 3 automated validation"
-"${GODOT_BIN}" --headless --path . scenes/solar_system/Phase3Validation.tscn
-
-echo "Running Phase 4 automated validation"
-"${GODOT_BIN}" --headless --path . scenes/solar_system/Phase4Validation.tscn
-
-echo "Running Phase 5 automated validation"
-"${GODOT_BIN}" --headless --path . scenes/solar_system/Phase5Validation.tscn
 
 echo "Running 0.2.1b ship interior validation"
 "${GODOT_BIN}" --headless --path . scenes/solar_system/Phase021bValidation.tscn

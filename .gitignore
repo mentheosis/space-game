@@ -2,10 +2,13 @@
 .mono/
 .tools/
 .import/
+__pycache__/
+tools/__pycache__/
 bin/
 obj/
 build/
 exports/
+reports/ship_alignment_captures/*.png
 *.tmp
 *.translation
 export_presets.cfg

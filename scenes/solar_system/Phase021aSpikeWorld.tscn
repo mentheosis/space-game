@@ -1,0 +1,245 @@
+[gd_scene load_steps=32 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]
+[ext_resource type="PackedScene" path="res://scenes/planets/PlanetB.tscn" id="2_planet_b"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/GravityDebugOverlay.tscn" id="4_debug_overlay"]
+[ext_resource type="PackedScene" path="res://scenes/ui/SuitHud.tscn" id="5_suit_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ship/Ship.tscn" id="6_ship"]
+[ext_resource type="PackedScene" path="res://scenes/ui/InteractionPrompt.tscn" id="7_prompt"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ShipHud.tscn" id="8_ship_hud"]
+[ext_resource type="Material" path="res://assets/materials/environment/mat_starfield.tres" id="9_starfield"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PauseMenu.tscn" id="10_pause_menu"]
+[ext_resource type="PackedScene" path="res://scenes/debug/ShipScaleReference.tscn" id="11_scale_ref"]
+
+[sub_resource type="Sky" id="Sky_space"]
+sky_material = ExtResource("9_starfield")
+
+[sub_resource type="Environment" id="Environment_space"]
+background_mode = 2
+sky = SubResource("Sky_space")
+ambient_light_source = 3
+ambient_light_color = Color(0.48, 0.56, 0.64, 1)
+ambient_light_energy = 0.46
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spike_fuselage"]
+size = Vector3(4.2, 2.1, 10.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spike_top_deck"]
+size = Vector3(3.8, 0.25, 10.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spike_wing"]
+size = Vector3(2.8, 0.9, 7.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spike_inner_wing"]
+size = Vector3(1.35, 1.25, 8.35)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spike_nose"]
+size = Vector3(2.8, 1.1, 3.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spike_stern"]
+size = Vector3(3.6, 1.2, 3.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spike_underside"]
+size = Vector3(5.4, 0.35, 8.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spike_upper_hull"]
+size = Vector3(4.4, 2.65, 10.45)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spike_tail_fin"]
+size = Vector3(2.7, 2.25, 6.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spike_collision"]
+no_depth_test = true
+albedo_color = Color(1, 0.05, 0.02, 0.72)
+emission_enabled = true
+emission = Color(1, 0.05, 0.02, 1)
+emission_energy_multiplier = 0.8
+transparency = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_spike_fuselage"]
+size = Vector3(4.2, 2.1, 10.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_spike_top_deck"]
+size = Vector3(3.8, 0.25, 10.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_spike_wing"]
+size = Vector3(2.8, 0.9, 7.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_spike_inner_wing"]
+size = Vector3(1.35, 1.25, 8.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_spike_nose"]
+size = Vector3(2.8, 1.1, 3.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_spike_stern"]
+size = Vector3(3.6, 1.2, 3.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_spike_underside"]
+size = Vector3(5.4, 0.35, 8.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_spike_upper_hull"]
+size = Vector3(4.4, 2.65, 10.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_spike_tail_fin"]
+size = Vector3(2.7, 2.25, 6.5)
+
+[node name="Phase021aSpikeWorld" type="Node3D"]
+
+[node name="PlanetBody" parent="." instance=ExtResource("1_planet")]
+
+[node name="GravityBody" parent="PlanetBody" index="0"]
+UseFalloff = true
+EdgeGravity = 0.25
+FalloffExponent = 2.4
+
+[node name="PlanetB" parent="." instance=ExtResource("2_planet_b")]
+position = Vector3(550, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector3(0, 51.1, 0)
+
+[node name="Ship" parent="." instance=ExtResource("6_ship")]
+position = Vector3(0, 51.1, -9)
+
+[node name="ShipScaleReference" parent="Ship" instance=ExtResource("11_scale_ref")]
+
+[node name="SpikeFuselageCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(0, 1.45, -1.2)
+shape = SubResource("BoxShape3D_spike_fuselage")
+
+[node name="SpikeTopDeckCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(0, 4.18, -1.5)
+shape = SubResource("BoxShape3D_spike_top_deck")
+
+[node name="SpikeLeftWingCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(-5.25, 1.52, 2.85)
+rotation = Vector3(0, -0.22, 0)
+shape = SubResource("BoxShape3D_spike_wing")
+
+[node name="SpikeRightWingCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(5.25, 1.52, 2.85)
+rotation = Vector3(0, 0.22, 0)
+shape = SubResource("BoxShape3D_spike_wing")
+
+[node name="SpikeLeftInnerWingCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(-3.05, 1.74, 2.04)
+shape = SubResource("BoxShape3D_spike_inner_wing")
+
+[node name="SpikeRightInnerWingCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(3.05, 1.74, 2.04)
+shape = SubResource("BoxShape3D_spike_inner_wing")
+
+[node name="SpikeNoseCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(0, 1.35, -6.4)
+shape = SubResource("BoxShape3D_spike_nose")
+
+[node name="SpikeSternCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(0, 1.1, 4.65)
+shape = SubResource("BoxShape3D_spike_stern")
+
+[node name="SpikeUndersideCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(0, 0.25, -0.8)
+shape = SubResource("BoxShape3D_spike_underside")
+
+[node name="SpikeUpperHullCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(0, 2.83, -1.73)
+shape = SubResource("BoxShape3D_spike_upper_hull")
+
+[node name="SpikeTailFinCollision" type="CollisionShape3D" parent="Ship"]
+position = Vector3(0, 4.12, 3.27)
+shape = SubResource("BoxShape3D_spike_tail_fin")
+
+[node name="SpikeCollisionVisuals" type="Node3D" parent="Ship"]
+
+[node name="FuselageVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(0, 1.45, -1.2)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_fuselage")
+
+[node name="TopDeckVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(0, 4.18, -1.5)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_top_deck")
+
+[node name="LeftWingVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(-5.25, 1.52, 2.85)
+rotation = Vector3(0, -0.22, 0)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_wing")
+
+[node name="RightWingVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(5.25, 1.52, 2.85)
+rotation = Vector3(0, 0.22, 0)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_wing")
+
+[node name="LeftInnerWingVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(-3.05, 1.74, 2.04)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_inner_wing")
+
+[node name="RightInnerWingVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(3.05, 1.74, 2.04)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_inner_wing")
+
+[node name="NoseVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(0, 1.35, -6.4)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_nose")
+
+[node name="SternVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(0, 1.1, 4.65)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_stern")
+
+[node name="UndersideVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(0, 0.25, -0.8)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_underside")
+
+[node name="UpperHullVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(0, 2.83, -1.73)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_upper_hull")
+
+[node name="TailFinVisual" type="MeshInstance3D" parent="Ship/SpikeCollisionVisuals"]
+position = Vector3(0, 4.12, 3.27)
+material_override = SubResource("StandardMaterial3D_spike_collision")
+mesh = SubResource("BoxMesh_spike_tail_fin")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 120, 0)
+light_energy = 2.85
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_space")
+
+[node name="GravityDebugOverlay" parent="." instance=ExtResource("4_debug_overlay")]
+PlayerPath = NodePath("../Player")
+
+[node name="SuitHud" parent="." instance=ExtResource("5_suit_hud")]
+PlayerPath = NodePath("../Player")
+
+[node name="InteractionPrompt" parent="." instance=ExtResource("7_prompt")]
+
+[node name="ShipHud" parent="." instance=ExtResource("8_ship_hud")]
+ShipPath = NodePath("../Ship")
+TargetPath = NodePath("../PlanetB")
+
+[node name="PauseMenu" parent="." instance=ExtResource("10_pause_menu")]
+PlayerPath = NodePath("../Player")
+ShipPath = NodePath("../Ship")
+
+[node name="SpikeLabel" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="SpikeLabel"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 620.0
+offset_bottom = 56.0
+text = "0.2.1a SPIKE WORLD - scale refs and red collision proxies enabled"

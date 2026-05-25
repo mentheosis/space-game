@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3]
+[gd_scene load_steps=67 format=3]
 
 [ext_resource type="Script" path="res://scripts/ship/ShipHatch.cs" id="1_hatch"]
 [ext_resource type="Script" path="res://scripts/ship/PilotSeat.cs" id="2_seat"]
@@ -12,72 +12,163 @@
 [ext_resource type="Material" path="res://assets/materials/ship/mat_ship_accent_emissive.tres" id="11_ship_accent"]
 [ext_resource type="PackedScene" path="res://scenes/ship/PlaceholderShipVisual.tscn" id="12_placeholder_visual"]
 [ext_resource type="PackedScene" path="res://scenes/ship/OpenGameArtShuttleVisual.tscn" id="13_oga_shuttle"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_hull"]
-size = Vector3(6.4, 2.8, 8.4)
+[ext_resource type="Material" path="res://assets/materials/ship/mat_ship_panel_dark.tres" id="14_ship_panel_dark"]
+[ext_resource type="Material" path="res://assets/materials/ship/mat_ship_rubber_dark.tres" id="15_ship_rubber"]
+[ext_resource type="Material" path="res://assets/materials/ship/mat_ship_cockpit_glass.tres" id="16_ship_glass"]
+[ext_resource type="Material" path="res://assets/materials/ship/mat_ship_screen_emissive.tres" id="17_ship_screen"]
+[ext_resource type="Material" path="res://assets/materials/ship/mat_ship_warning_orange.tres" id="18_ship_warning"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/cabin_floor_tapered.obj" id="19_floor_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/cabin_wall_panel.obj" id="20_wall_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/forward_bulkhead_tapered.obj" id="21_forward_bulkhead_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/rear_bulkhead_tapered.obj" id="22_rear_bulkhead_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/cockpit_console_tapered.obj" id="23_console_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/pilot_chair_frame.obj" id="24_chair_frame_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/pilot_chair_cushions.obj" id="25_chair_cushions_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/hatch_door_recessed.obj" id="26_hatch_door_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/hatch_frame_beveled.obj" id="27_hatch_frame_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/cockpit_screen_cluster.obj" id="28_screen_cluster_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/cockpit_control_cluster.obj" id="29_control_cluster_mesh"]
+[ext_resource type="Mesh" path="res://assets/models/ship/interior/cabin_rib_frame.obj" id="30_cabin_rib_frame_mesh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hull"]
-size = Vector3(6.4, 0.45, 8.4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_floor"]
-size = Vector3(5.8, 0.35, 6.8)
+size = Vector3(5.2, 0.36, 7.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
-size = Vector3(5.8, 0.35, 6.8)
-
-[sub_resource type="BoxMesh" id="BoxMesh_wall_long"]
-size = Vector3(0.35, 2.25, 6.8)
+size = Vector3(4.75, 0.28, 6.95)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wall_long"]
-size = Vector3(0.35, 2.25, 6.8)
-
-[sub_resource type="BoxMesh" id="BoxMesh_wall_short"]
-size = Vector3(5.8, 2.25, 0.35)
+size = Vector3(0.38, 2.2, 7.15)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wall_short"]
-size = Vector3(5.8, 2.25, 0.35)
-
-[sub_resource type="BoxMesh" id="BoxMesh_hatch"]
-size = Vector3(1.8, 1.8, 0.25)
+size = Vector3(4.4, 2.1, 0.36)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_interaction"]
-size = Vector3(2.2, 2.2, 0.8)
+size = Vector3(2.25, 2.2, 1.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_seat_interaction"]
+size = Vector3(2.35, 2.1, 1.7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_interior_volume"]
-size = Vector3(6.7, 3.8, 8.8)
+size = Vector3(5.9, 3.1, 8.65)
 
-[sub_resource type="BoxMesh" id="BoxMesh_seat"]
-size = Vector3(1.2, 1.1, 1.2)
+[sub_resource type="BoxMesh" id="BoxMesh_floor_main"]
+size = Vector3(4.7, 0.18, 6.95)
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor_walkway"]
+size = Vector3(1.55, 0.08, 6.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor_panel"]
+size = Vector3(1.36, 0.055, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_panel"]
+size = Vector3(0.2, 1.85, 6.75)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lower_wall"]
+size = Vector3(0.18, 0.82, 6.75)
+
+[sub_resource type="BoxMesh" id="BoxMesh_forward_bulkhead"]
+size = Vector3(3.95, 1.85, 0.24)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rear_bulkhead"]
+size = Vector3(4.35, 1.95, 0.22)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rib_vertical"]
+size = Vector3(0.16, 2.15, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rib_cross"]
+size = Vector3(4.2, 0.14, 0.16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ceiling_spine"]
+size = Vector3(1.05, 0.16, 6.1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_light_strip"]
-size = Vector3(0.25, 0.08, 6.0)
+size = Vector3(0.18, 0.065, 5.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_side_light"]
+size = Vector3(0.09, 0.06, 4.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hatch_panel"]
+size = Vector3(1.9, 1.9, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hatch_frame_top"]
+size = Vector3(2.35, 0.16, 0.16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hatch_frame_side"]
+size = Vector3(0.16, 1.9, 0.16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_console"]
+size = Vector3(2.8, 0.58, 0.82)
+
+[sub_resource type="BoxMesh" id="BoxMesh_console_slope"]
+size = Vector3(2.45, 0.16, 0.72)
+
+[sub_resource type="BoxMesh" id="BoxMesh_screen_wide"]
+size = Vector3(1.05, 0.035, 0.42)
+
+[sub_resource type="BoxMesh" id="BoxMesh_screen_small"]
+size = Vector3(0.42, 0.035, 0.32)
+
+[sub_resource type="BoxMesh" id="BoxMesh_button"]
+size = Vector3(0.16, 0.06, 0.16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_canopy_glass"]
+size = Vector3(3.55, 0.075, 4.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_canopy_frame_front"]
+size = Vector3(3.75, 0.16, 0.16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_canopy_frame_side"]
+size = Vector3(0.16, 0.16, 4.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_seat_base"]
+size = Vector3(1.15, 0.24, 1.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_seat_cushion"]
+size = Vector3(1.05, 0.24, 0.92)
+
+[sub_resource type="BoxMesh" id="BoxMesh_seat_back"]
+size = Vector3(1.05, 1.18, 0.22)
+
+[sub_resource type="BoxMesh" id="BoxMesh_seat_headrest"]
+size = Vector3(0.74, 0.34, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_seat_arm"]
+size = Vector3(0.18, 0.22, 0.85)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_seat_pedestal"]
+top_radius = 0.26
+bottom_radius = 0.34
+height = 0.78
 
 [sub_resource type="BoxMesh" id="BoxMesh_thruster"]
-size = Vector3(0.8, 0.55, 0.18)
+size = Vector3(0.9, 0.62, 0.2)
 
 [node name="Ship" type="RigidBody3D"]
 mass = 12.0
 gravity_scale = 0.0
 freeze = true
 script = ExtResource("5_ship_controller")
+OrbitCameraDistance = 18.0
+OrbitCameraTargetHeight = 2.2
 
 [node name="HullCollision" type="CollisionShape3D" parent="."]
-position = Vector3(0, -0.1, 0)
+position = Vector3(0, 0.04, -0.12)
 shape = SubResource("BoxShape3D_hull")
 
 [node name="FloorCollision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0, 0.43)
 shape = SubResource("BoxShape3D_floor")
 
 [node name="LeftWallCollision" type="CollisionShape3D" parent="."]
-position = Vector3(-3.05, 1.25, 0)
+position = Vector3(-2.55, 1.17, -0.18)
 shape = SubResource("BoxShape3D_wall_long")
 
 [node name="RightWallCollision" type="CollisionShape3D" parent="."]
-position = Vector3(3.05, 1.25, 0)
+position = Vector3(2.55, 1.17, -0.18)
 shape = SubResource("BoxShape3D_wall_long")
 
 [node name="ForwardWallCollision" type="CollisionShape3D" parent="."]
-position = Vector3(0, 1.25, -3.55)
+position = Vector3(0, 1.18, -4.08)
 shape = SubResource("BoxShape3D_wall_short")
 
 [node name="PlaceholderShipVisual" parent="." instance=ExtResource("12_placeholder_visual")]
@@ -85,35 +176,47 @@ visible = false
 
 [node name="OpenGameArtShuttleVisual" parent="." instance=ExtResource("13_oga_shuttle")]
 
+[node name="CockpitGlassExterior" type="MeshInstance3D" parent="."]
+position = Vector3(0, 3.1, -3.75)
+rotation = Vector3(-0.42, 0, 0)
+material_override = ExtResource("16_ship_glass")
+mesh = SubResource("BoxMesh_canopy_glass")
+
 [node name="ExteriorHull" type="MeshInstance3D" parent="."]
 visible = false
 position = Vector3(0, 1.8, 0)
 material_override = ExtResource("6_ship_hull")
-mesh = SubResource("BoxMesh_hull")
+mesh = SubResource("BoxMesh_floor_main")
 
 [node name="LeftThrusterAccent" type="MeshInstance3D" parent="."]
-position = Vector3(-2.1, 1.65, 5.12)
+position = Vector3(-2.35, 1.82, 6.08)
 material_override = ExtResource("11_ship_accent")
 mesh = SubResource("BoxMesh_thruster")
 
 [node name="RightThrusterAccent" type="MeshInstance3D" parent="."]
-position = Vector3(2.1, 1.65, 5.12)
+position = Vector3(2.35, 1.82, 6.08)
 material_override = ExtResource("11_ship_accent")
 mesh = SubResource("BoxMesh_thruster")
 
 [node name="ShipCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.955336, 0.29552, 0, -0.29552, 0.955336, 0, 5.5, 13)
+transform = Transform3D(1, 0, 0, 0, 0.955336, 0.29552, 0, -0.29552, 0.955336, 0, 6.8, 16.5)
 fov = 72.0
 
 [node name="Interior" type="Node3D" parent="."]
 
 [node name="InteriorLight" type="OmniLight3D" parent="Interior"]
-position = Vector3(0, 2.6, 0)
-light_energy = 3.8
-omni_range = 9.0
+position = Vector3(0, 2.55, -0.25)
+light_energy = 4.3
+omni_range = 8.6
+
+[node name="CockpitGlow" type="OmniLight3D" parent="Interior"]
+position = Vector3(0, 1.45, -3.32)
+light_color = Color(0.45, 0.95, 1, 1)
+light_energy = 1.2
+omni_range = 3.4
 
 [node name="InteriorVolume" type="Area3D" parent="Interior"]
-position = Vector3(0, 1.4, 0)
+position = Vector3(0, 1.6, -0.1)
 collision_layer = 2
 script = ExtResource("4_interior_volume")
 
@@ -121,85 +224,396 @@ script = ExtResource("4_interior_volume")
 shape = SubResource("BoxShape3D_interior_volume")
 
 [node name="Floor" type="Node3D" parent="Interior"]
+position = Vector3(0, 0, 0.43)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Interior/Floor"]
+[node name="MainPlate" type="MeshInstance3D" parent="Interior/Floor"]
 material_override = ExtResource("7_ship_floor")
-mesh = SubResource("BoxMesh_floor")
+mesh = ExtResource("19_floor_mesh")
+
+[node name="CenterWalkway" type="MeshInstance3D" parent="Interior/Floor"]
+position = Vector3(0, 0.14, -0.05)
+material_override = ExtResource("15_ship_rubber")
+mesh = SubResource("BoxMesh_floor_walkway")
+
+[node name="LeftForwardPanel" type="MeshInstance3D" parent="Interior/Floor"]
+position = Vector3(-1.45, 0.17, -2.35)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_floor_panel")
+
+[node name="RightForwardPanel" type="MeshInstance3D" parent="Interior/Floor"]
+position = Vector3(1.45, 0.17, -2.35)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_floor_panel")
+
+[node name="LeftMidPanel" type="MeshInstance3D" parent="Interior/Floor"]
+position = Vector3(-1.45, 0.17, -0.55)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_floor_panel")
+
+[node name="RightMidPanel" type="MeshInstance3D" parent="Interior/Floor"]
+position = Vector3(1.45, 0.17, -0.55)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_floor_panel")
+
+[node name="LeftRearPanel" type="MeshInstance3D" parent="Interior/Floor"]
+position = Vector3(-1.45, 0.17, 1.25)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_floor_panel")
+
+[node name="RightRearPanel" type="MeshInstance3D" parent="Interior/Floor"]
+position = Vector3(1.45, 0.17, 1.25)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_floor_panel")
 
 [node name="LeftWall" type="Node3D" parent="Interior"]
-position = Vector3(-3.05, 1.25, 0)
+position = Vector3(-2.45, 1.18, -0.18)
+rotation = Vector3(0, 0, 0.11)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Interior/LeftWall"]
+[node name="UpperPanel" type="MeshInstance3D" parent="Interior/LeftWall"]
 material_override = ExtResource("8_ship_wall")
-mesh = SubResource("BoxMesh_wall_long")
+mesh = ExtResource("20_wall_mesh")
+
+[node name="LowerPanel" type="MeshInstance3D" parent="Interior/LeftWall"]
+position = Vector3(0.05, -0.65, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_lower_wall")
 
 [node name="RightWall" type="Node3D" parent="Interior"]
-position = Vector3(3.05, 1.25, 0)
+position = Vector3(2.45, 1.18, -0.18)
+rotation = Vector3(0, 0, -0.11)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Interior/RightWall"]
+[node name="UpperPanel" type="MeshInstance3D" parent="Interior/RightWall"]
 material_override = ExtResource("8_ship_wall")
-mesh = SubResource("BoxMesh_wall_long")
+mesh = ExtResource("20_wall_mesh")
 
-[node name="ForwardWall" type="Node3D" parent="Interior"]
-position = Vector3(0, 1.25, -3.55)
+[node name="LowerPanel" type="MeshInstance3D" parent="Interior/RightWall"]
+position = Vector3(-0.05, -0.65, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_lower_wall")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Interior/ForwardWall"]
+[node name="ForwardBulkhead" type="MeshInstance3D" parent="Interior"]
+position = Vector3(0, 1.25, -4.08)
 material_override = ExtResource("8_ship_wall")
-mesh = SubResource("BoxMesh_wall_short")
+mesh = ExtResource("21_forward_bulkhead_mesh")
+
+[node name="RearBulkhead" type="MeshInstance3D" parent="Interior"]
+position = Vector3(0, 1.25, 3.62)
+material_override = ExtResource("8_ship_wall")
+mesh = ExtResource("22_rear_bulkhead_mesh")
+
+[node name="CeilingSpine" type="MeshInstance3D" parent="Interior"]
+position = Vector3(0, 2.55, -0.5)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_ceiling_spine")
 
 [node name="CeilingLightStrip" type="MeshInstance3D" parent="Interior"]
-position = Vector3(0, 2.45, -0.4)
+position = Vector3(0, 2.66, -0.45)
 material_override = ExtResource("11_ship_accent")
 mesh = SubResource("BoxMesh_light_strip")
 
+[node name="LeftSideLight" type="MeshInstance3D" parent="Interior"]
+position = Vector3(-2.23, 1.92, -0.2)
+rotation = Vector3(0, 0, 0.08)
+material_override = ExtResource("11_ship_accent")
+mesh = SubResource("BoxMesh_side_light")
+
+[node name="RightSideLight" type="MeshInstance3D" parent="Interior"]
+position = Vector3(2.23, 1.92, -0.2)
+rotation = Vector3(0, 0, -0.08)
+material_override = ExtResource("11_ship_accent")
+mesh = SubResource("BoxMesh_side_light")
+
+[node name="Ribs" type="Node3D" parent="Interior"]
+
+[node name="LeftForwardRib" type="MeshInstance3D" parent="Interior/Ribs"]
+visible = false
+position = Vector3(-2.18, 1.35, -2.8)
+rotation = Vector3(0, 0, 0.18)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_rib_vertical")
+
+[node name="RightForwardRib" type="MeshInstance3D" parent="Interior/Ribs"]
+visible = false
+position = Vector3(2.18, 1.35, -2.8)
+rotation = Vector3(0, 0, -0.18)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_rib_vertical")
+
+[node name="ForwardCrossRib" type="MeshInstance3D" parent="Interior/Ribs"]
+visible = false
+position = Vector3(0, 2.25, -2.8)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_rib_cross")
+
+[node name="LeftRearRib" type="MeshInstance3D" parent="Interior/Ribs"]
+visible = false
+position = Vector3(-2.18, 1.35, 1.7)
+rotation = Vector3(0, 0, 0.18)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_rib_vertical")
+
+[node name="RightRearRib" type="MeshInstance3D" parent="Interior/Ribs"]
+visible = false
+position = Vector3(2.18, 1.35, 1.7)
+rotation = Vector3(0, 0, -0.18)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_rib_vertical")
+
+[node name="RearCrossRib" type="MeshInstance3D" parent="Interior/Ribs"]
+visible = false
+position = Vector3(0, 2.25, 1.7)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_rib_cross")
+
+[node name="ForwardFrame" type="MeshInstance3D" parent="Interior/Ribs"]
+position = Vector3(0, 1.12, -2.8)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = ExtResource("30_cabin_rib_frame_mesh")
+
+[node name="MidFrame" type="MeshInstance3D" parent="Interior/Ribs"]
+position = Vector3(0, 1.12, -0.5)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = ExtResource("30_cabin_rib_frame_mesh")
+
+[node name="RearFrame" type="MeshInstance3D" parent="Interior/Ribs"]
+position = Vector3(0, 1.12, 1.7)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = ExtResource("30_cabin_rib_frame_mesh")
+
+[node name="Cockpit" type="Node3D" parent="Interior"]
+
+[node name="ConsoleBase" type="MeshInstance3D" parent="Interior/Cockpit"]
+position = Vector3(0, 0.74, -3.34)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = ExtResource("23_console_mesh")
+
+[node name="ConsoleSlope" type="MeshInstance3D" parent="Interior/Cockpit"]
+position = Vector3(0, 1.16, -3.58)
+rotation = Vector3(-0.34, 0, 0)
+material_override = ExtResource("8_ship_wall")
+mesh = SubResource("BoxMesh_console_slope")
+
+[node name="CenterScreen" type="MeshInstance3D" parent="Interior/Cockpit"]
+position = Vector3(0, 1.27, -3.86)
+rotation = Vector3(-0.34, 0, 0)
+material_override = ExtResource("17_ship_screen")
+mesh = ExtResource("28_screen_cluster_mesh")
+
+[node name="LeftScreen" type="MeshInstance3D" parent="Interior/Cockpit"]
+visible = false
+position = Vector3(-0.85, 1.25, -3.75)
+rotation = Vector3(-0.34, -0.18, 0)
+material_override = ExtResource("17_ship_screen")
+mesh = SubResource("BoxMesh_screen_small")
+
+[node name="RightScreen" type="MeshInstance3D" parent="Interior/Cockpit"]
+visible = false
+position = Vector3(0.85, 1.25, -3.75)
+rotation = Vector3(-0.34, 0.18, 0)
+material_override = ExtResource("17_ship_screen")
+mesh = SubResource("BoxMesh_screen_small")
+
+[node name="LeftButton" type="MeshInstance3D" parent="Interior/Cockpit"]
+visible = false
+position = Vector3(-0.48, 1.03, -3.52)
+material_override = ExtResource("18_ship_warning")
+mesh = SubResource("BoxMesh_button")
+
+[node name="RightButton" type="MeshInstance3D" parent="Interior/Cockpit"]
+visible = false
+position = Vector3(0.48, 1.03, -3.52)
+material_override = ExtResource("18_ship_warning")
+mesh = SubResource("BoxMesh_button")
+
+[node name="ControlCluster" type="MeshInstance3D" parent="Interior/Cockpit"]
+position = Vector3(0, 1.0, -3.48)
+rotation = Vector3(-0.28, 0, 0)
+material_override = ExtResource("18_ship_warning")
+mesh = ExtResource("29_control_cluster_mesh")
+
+[node name="CanopyGlassInterior" type="MeshInstance3D" parent="Interior/Cockpit"]
+position = Vector3(0, 2.82, -3.75)
+rotation = Vector3(-0.42, 0, 0)
+material_override = ExtResource("16_ship_glass")
+mesh = SubResource("BoxMesh_canopy_glass")
+
+[node name="CanopyFrontFrame" type="MeshInstance3D" parent="Interior/Cockpit"]
+position = Vector3(0, 1.9, -5.65)
+rotation = Vector3(-0.42, 0, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_canopy_frame_front")
+
+[node name="CanopyRearFrame" type="MeshInstance3D" parent="Interior/Cockpit"]
+position = Vector3(0, 3.46, -1.78)
+rotation = Vector3(-0.42, 0, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_canopy_frame_front")
+
+[node name="CanopyLeftFrame" type="MeshInstance3D" parent="Interior/Cockpit"]
+position = Vector3(-1.8, 2.68, -3.72)
+rotation = Vector3(-0.42, 0, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_canopy_frame_side")
+
+[node name="CanopyRightFrame" type="MeshInstance3D" parent="Interior/Cockpit"]
+position = Vector3(1.8, 2.68, -3.72)
+rotation = Vector3(-0.42, 0, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_canopy_frame_side")
+
 [node name="ExteriorHatch" type="Area3D" parent="."]
-position = Vector3(0, 1.3, 4.25)
+position = Vector3(0, 1.28, 4.38)
 script = ExtResource("1_hatch")
 TargetMarkerPath = NodePath("../Markers/InteriorSpawn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ExteriorHatch"]
 material_override = ExtResource("9_ship_hatch")
-mesh = SubResource("BoxMesh_hatch")
+mesh = ExtResource("26_hatch_door_mesh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ExteriorHatch"]
 shape = SubResource("BoxShape3D_interaction")
 
+[node name="ExteriorHatchFrameTop" type="MeshInstance3D" parent="ExteriorHatch"]
+visible = false
+position = Vector3(0, 1.02, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_hatch_frame_top")
+
+[node name="ExteriorHatchFrameBottom" type="MeshInstance3D" parent="ExteriorHatch"]
+visible = false
+position = Vector3(0, -1.02, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_hatch_frame_top")
+
+[node name="ExteriorHatchFrameLeft" type="MeshInstance3D" parent="ExteriorHatch"]
+visible = false
+position = Vector3(-1.1, 0, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_hatch_frame_side")
+
+[node name="ExteriorHatchFrameRight" type="MeshInstance3D" parent="ExteriorHatch"]
+visible = false
+position = Vector3(1.1, 0, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_hatch_frame_side")
+
+[node name="ExteriorHatchFrame" type="MeshInstance3D" parent="ExteriorHatch"]
+material_override = ExtResource("14_ship_panel_dark")
+mesh = ExtResource("27_hatch_frame_mesh")
+
 [node name="InteriorHatch" type="Area3D" parent="."]
-position = Vector3(0, 1.3, 2.75)
+position = Vector3(0, 1.34, 4.25)
 script = ExtResource("1_hatch")
 EntersShip = false
 TargetMarkerPath = NodePath("../Markers/ExteriorExit")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="InteriorHatch"]
 material_override = ExtResource("9_ship_hatch")
-mesh = SubResource("BoxMesh_hatch")
+mesh = ExtResource("26_hatch_door_mesh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteriorHatch"]
 shape = SubResource("BoxShape3D_interaction")
 
+[node name="InteriorHatchFrameTop" type="MeshInstance3D" parent="InteriorHatch"]
+visible = false
+position = Vector3(0, 1.02, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_hatch_frame_top")
+
+[node name="InteriorHatchFrameBottom" type="MeshInstance3D" parent="InteriorHatch"]
+visible = false
+position = Vector3(0, -1.02, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_hatch_frame_top")
+
+[node name="InteriorHatchFrameLeft" type="MeshInstance3D" parent="InteriorHatch"]
+visible = false
+position = Vector3(-1.1, 0, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_hatch_frame_side")
+
+[node name="InteriorHatchFrameRight" type="MeshInstance3D" parent="InteriorHatch"]
+visible = false
+position = Vector3(1.1, 0, 0)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_hatch_frame_side")
+
+[node name="InteriorHatchFrame" type="MeshInstance3D" parent="InteriorHatch"]
+material_override = ExtResource("14_ship_panel_dark")
+mesh = ExtResource("27_hatch_frame_mesh")
+
 [node name="PilotSeat" type="Area3D" parent="."]
-position = Vector3(0, 1.05, -1.9)
+position = Vector3(0, 1.04, -3.35)
 script = ExtResource("2_seat")
 SeatAnchorPath = NodePath("../Markers/SeatAnchor")
 SeatExitPath = NodePath("../Markers/SeatExit")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PilotSeat"]
-material_override = ExtResource("10_ship_seat")
-mesh = SubResource("BoxMesh_seat")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PilotSeat"]
-shape = SubResource("BoxShape3D_interaction")
+shape = SubResource("BoxShape3D_seat_interaction")
+
+[node name="SeatVisual" type="Node3D" parent="PilotSeat"]
+
+[node name="Pedestal" type="MeshInstance3D" parent="PilotSeat/SeatVisual"]
+position = Vector3(0, -0.42, 0.18)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("CylinderMesh_seat_pedestal")
+
+[node name="Base" type="MeshInstance3D" parent="PilotSeat/SeatVisual"]
+position = Vector3(0, -0.02, 0.13)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = ExtResource("24_chair_frame_mesh")
+
+[node name="Cushion" type="MeshInstance3D" parent="PilotSeat/SeatVisual"]
+position = Vector3(0, -0.02, 0.13)
+material_override = ExtResource("10_ship_seat")
+mesh = ExtResource("25_chair_cushions_mesh")
+
+[node name="Back" type="MeshInstance3D" parent="PilotSeat/SeatVisual"]
+visible = false
+position = Vector3(0, 0.64, 0.54)
+rotation = Vector3(-0.22, 0, 0)
+material_override = ExtResource("10_ship_seat")
+mesh = SubResource("BoxMesh_seat_back")
+
+[node name="Headrest" type="MeshInstance3D" parent="PilotSeat/SeatVisual"]
+visible = false
+position = Vector3(0, 1.22, 0.68)
+rotation = Vector3(-0.22, 0, 0)
+material_override = ExtResource("15_ship_rubber")
+mesh = SubResource("BoxMesh_seat_headrest")
+
+[node name="LeftArm" type="MeshInstance3D" parent="PilotSeat/SeatVisual"]
+visible = false
+position = Vector3(-0.68, 0.32, 0.08)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_seat_arm")
+
+[node name="RightArm" type="MeshInstance3D" parent="PilotSeat/SeatVisual"]
+visible = false
+position = Vector3(0.68, 0.32, 0.08)
+material_override = ExtResource("14_ship_panel_dark")
+mesh = SubResource("BoxMesh_seat_arm")
+
+[node name="LeftArmPad" type="MeshInstance3D" parent="PilotSeat/SeatVisual"]
+position = Vector3(-0.68, 0.47, -0.08)
+material_override = ExtResource("15_ship_rubber")
+mesh = SubResource("BoxMesh_button")
+
+[node name="RightArmPad" type="MeshInstance3D" parent="PilotSeat/SeatVisual"]
+position = Vector3(0.68, 0.47, -0.08)
+material_override = ExtResource("15_ship_rubber")
+mesh = SubResource("BoxMesh_button")
 
 [node name="Markers" type="Node3D" parent="."]
 
 [node name="InteriorSpawn" type="Marker3D" parent="Markers"]
-position = Vector3(0, 1.2, 1.55)
+position = Vector3(0, 1.12, 3.25)
 
 [node name="ExteriorExit" type="Marker3D" parent="Markers"]
-position = Vector3(0, 1.2, 5.0)
+position = Vector3(0, 1.18, 5.42)
 
 [node name="SeatAnchor" type="Marker3D" parent="Markers"]
-position = Vector3(0, 1.2, -1.9)
+position = Vector3(0, 1.16, -3.35)
 
 [node name="SeatExit" type="Marker3D" parent="Markers"]
-position = Vector3(0, 1.2, -0.4)
+position = Vector3(0, 1.12, -1.85)
