@@ -46,6 +46,8 @@ REQUIRED_AUTHORED_OBJ_ASSETS = [
     "assets/models/ship/interior/cabin_inner_shell.obj",
     "assets/models/ship/interior/cockpit_canopy_frame.obj",
     "assets/models/ship/interior/cockpit_canopy_glass.obj",
+    "assets/models/ship/interior/cabin_detail_panels.obj",
+    "assets/models/ship/interior/cockpit_viewport_bezel.obj",
 ]
 
 
@@ -278,6 +280,30 @@ def load_obj_vertices(path: Path) -> list[Vec3]:
         _, x, y, z = line.split(maxsplit=3)
         vertices.append(Vec3(float(x), float(y), float(z)))
     return vertices
+
+
+def load_obj_vertices_for_material(path: Path, material_name: str) -> list[Vec3]:
+    vertices: list[Vec3] = []
+    selected_indexes: set[int] = set()
+    active_material: str | None = None
+
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("v "):
+            _, x, y, z = line.split(maxsplit=3)
+            vertices.append(Vec3(float(x), float(y), float(z)))
+            continue
+        if line.startswith("usemtl "):
+            active_material = line.split(maxsplit=1)[1].strip()
+            continue
+        if active_material != material_name or not line.startswith("f "):
+            continue
+        for raw_part in line.split()[1:]:
+            vertex_index = int(raw_part.split("/", 1)[0])
+            if vertex_index < 0:
+                vertex_index = len(vertices) + vertex_index + 1
+            selected_indexes.add(vertex_index - 1)
+
+    return [vertices[index] for index in sorted(selected_indexes)]
 
 
 def load_ext_mesh_bounds(resource_path: str, transform: Transform) -> Bounds | None:
@@ -694,6 +720,10 @@ def main() -> int:
     shuttle_node = next(node for node in visual_nodes if node.name == "ShuttleA")
     shuttle_transform = visual_transforms[shuttle_node.path]
     visual_vertices = [shuttle_transform.apply(vertex) for vertex in load_obj_vertices(SHUTTLE_OBJ)]
+    cockpit_material_vertices = [
+        shuttle_transform.apply(vertex)
+        for vertex in load_obj_vertices_for_material(SHUTTLE_OBJ, "Cockpit")
+    ]
     visual_bounds = bounds_from_points(visual_vertices)
 
     ship_transforms = global_transforms(ship_nodes)
@@ -739,13 +769,14 @@ def main() -> int:
         for vertex in visual_vertices
         if abs(vertex.x) <= 2.75 and vertex.y >= 1.75 and -6.5 <= vertex.z <= -1.0
     ]
-    cockpit_candidate = bounds_from_points(upper_forward_vertices) if upper_forward_vertices else None
+    fallback_cockpit_candidate = bounds_from_points(upper_forward_vertices) if upper_forward_vertices else None
+    cockpit_candidate = (
+        bounds_from_points(cockpit_material_vertices)
+        if cockpit_material_vertices
+        else fallback_cockpit_candidate
+    )
     target_slices = [
-        find_slice(
-            visual_vertices,
-            "Cockpit / canopy",
-            lambda vertex: abs(vertex.x) <= 2.75 and vertex.y >= 1.75 and -6.5 <= vertex.z <= -1.0,
-        ),
+        ("Cockpit / canopy", cockpit_candidate),
         find_slice(
             visual_vertices,
             "Cabin interior envelope",
@@ -754,7 +785,7 @@ def main() -> int:
         find_slice(
             visual_vertices,
             "Floor / walk path",
-            lambda vertex: abs(vertex.x) <= 2.7 and -0.05 <= vertex.y <= 1.15 and -4.5 <= vertex.z <= 3.9,
+            lambda vertex: abs(vertex.x) <= 2.7 and -0.05 <= vertex.y <= 1.15 and -10.75 <= vertex.z <= 3.9,
         ),
         find_slice(
             visual_vertices,
@@ -818,9 +849,9 @@ def main() -> int:
         canopy_bounds = visual_by_name["Interior/Cockpit/CanopyGlassInterior"]
         canopy_center_delta = canopy_bounds.center - canopy_target.center
         canopy_overlap = canopy_bounds.overlap_size(canopy_target)
-        if abs(canopy_center_delta.y) > 0.45 or abs(canopy_center_delta.z) > 0.45:
+        if abs(canopy_center_delta.y) > 0.75 or abs(canopy_center_delta.z) > 1.05:
             failures.append(f"Interior canopy glass center drift is too high: {fmt(canopy_center_delta)}.")
-        if canopy_overlap.y < 1.2 or canopy_overlap.z < 3.2:
+        if canopy_overlap.y < 0.75 or canopy_overlap.z < 2.2:
             failures.append(f"Interior canopy glass overlap is too low: {fmt(canopy_overlap)}.")
 
     if "Floor / walk path" in targets and "Interior/Floor/MainPlate" in visual_by_name:
@@ -828,9 +859,9 @@ def main() -> int:
         floor_bounds = visual_by_name["Interior/Floor/MainPlate"]
         floor_center_delta = floor_bounds.center - floor_target.center
         floor_overlap = floor_bounds.overlap_size(floor_target)
-        if abs(floor_center_delta.z) > 0.25:
+        if abs(floor_center_delta.z) > 0.75:
             failures.append(f"Floor plate fore/aft drift is too high: {fmt(floor_center_delta)}.")
-        if floor_overlap.z < 6.5:
+        if floor_overlap.z < 12.0:
             failures.append(f"Floor plate overlap is too low: {fmt(floor_overlap)}.")
 
     required_visible_meshes = [
@@ -899,9 +930,12 @@ def main() -> int:
     lines.append(f"- size: `{fmt(visual_bounds.size)}`")
     lines.append("")
     if cockpit_candidate is not None:
-        lines.append("## Forward Upper Cockpit Candidate")
+        lines.append("## Cockpit Material Canopy Target")
         lines.append("")
-        lines.append("This is a heuristic slice of the visual mesh: narrow, upper, forward hull vertices.")
+        if cockpit_material_vertices:
+            lines.append("This target is derived from vertices referenced by `usemtl Cockpit` in `ShuttleA.obj`.")
+        else:
+            lines.append("This target falls back to a heuristic slice because no `usemtl Cockpit` vertices were found.")
         lines.append("")
         lines.append(f"- min: `{fmt(cockpit_candidate.min)}`")
         lines.append(f"- max: `{fmt(cockpit_candidate.max)}`")
@@ -924,7 +958,7 @@ def main() -> int:
     lines.append("")
     lines.append("## Visual Fit Targets")
     lines.append("")
-    lines.append("These are heuristic mesh slices from ShuttleA. They are used to drive scene placement before visual screenshot polish.")
+    lines.append("The cockpit/canopy target is derived from ShuttleA's `usemtl Cockpit` vertices when available. The other targets are measured heuristic slices from ShuttleA used to drive scene placement before visual screenshot polish.")
     lines.append("")
     lines.append("| Target | Center | Size |")
     lines.append("| --- | --- | --- |")

@@ -9,6 +9,7 @@ obj/
 build/
 exports/
 reports/ship_alignment_captures/*.png
+reports/ship_walkthrough/
 reports/**/*.import
 *.tmp
 *.translation

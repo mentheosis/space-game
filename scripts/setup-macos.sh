@@ -68,6 +68,12 @@ export PATH="${DOTNET_DIR}:\$PATH"
 export GODOT_BIN="${godot_bin}"
 EOF
 
+if [[ -x "/Applications/Blender.app/Contents/MacOS/Blender" ]]; then
+  cat >> "${TOOLS_DIR}/env.sh" <<EOF
+export BLENDER_BIN="/Applications/Blender.app/Contents/MacOS/Blender"
+EOF
+fi
+
 chmod +x "${TOOLS_DIR}/env.sh"
 
 echo
@@ -77,5 +83,14 @@ echo "  source .tools/env.sh"
 echo
 echo "Installed Godot:"
 echo "  ${godot_app}"
+if [[ -x "/Applications/Blender.app/Contents/MacOS/Blender" ]]; then
+  echo
+  echo "Detected Blender:"
+  echo "  /Applications/Blender.app/Contents/MacOS/Blender"
+else
+  echo
+  echo "Blender was not detected. Install it for 0.2.1c modeling workflow:"
+  echo "  brew install --cask blender"
+fi
 echo
 "${DOTNET_DIR}/dotnet" --info | sed -n '1,12p'

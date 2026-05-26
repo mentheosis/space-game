@@ -44,7 +44,7 @@ position = Vector3(0, 51.1, 0)
 script = ExtResource("2_spawn_point")
 
 [node name="NorthTower" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 57, -18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 50, 10)
 material_override = ExtResource("4_landmark")
 mesh = SubResource("BoxMesh_landmark")
 

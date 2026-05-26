@@ -2,9 +2,10 @@
 
 [resource]
 transparency = 1
-albedo_color = Color(0.25, 0.75, 0.92, 0.34)
+albedo_color = Color(0.04, 0.18, 0.22, 0.08)
+cull_mode = 2
 metallic = 0.0
-roughness = 0.08
+roughness = 0.09
 emission_enabled = true
-emission = Color(0.02, 0.16, 0.22, 1)
-emission_energy_multiplier = 0.18
+emission = Color(0.0, 0.03, 0.04, 1)
+emission_energy_multiplier = 0.02

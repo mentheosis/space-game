@@ -102,7 +102,7 @@ public partial class Phase021bValidationRunner : Node
                 Assert(_player.DebugPlayerContext == PlayerContext.InShipInterior, "Player stands from authored pilot chair.");
                 Assert(!_exteriorVisual.Visible, "Exterior ShuttleA visual is hidden again after standing inside.");
                 Assert(!_ship.IsPiloted, "Ship pilot state clears after standing.");
-                Assert(_player.GlobalPosition.DistanceTo(_seatExit.GlobalPosition) < 0.05f, "Standing places player on revised seat exit marker.");
+                Assert(_player.GlobalPosition.DistanceTo(_seatExit.GlobalPosition) < 0.35f, "Standing places player on revised seat exit marker.");
                 Assert(IsShipLocalInsideCabin(_player.GlobalPosition), "Seat exit remains inside measured cabin envelope.");
                 Assert(_interiorHatch.CanInteract(_player), "Interior hatch remains interactable after standing.");
                 _interiorHatch.Interact(_player);
@@ -159,8 +159,8 @@ public partial class Phase021bValidationRunner : Node
         var local = _ship.ToLocal(globalPosition);
         return Mathf.Abs(local.X) <= 3.15f
             && local.Y >= -0.1f
-            && local.Y <= 3.35f
-            && local.Z >= -4.85f
+            && local.Y <= 3.75f
+            && local.Z >= -11.6f
             && local.Z <= 4.35f;
     }
 

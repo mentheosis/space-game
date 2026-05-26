@@ -5,4 +5,4 @@
 export DOTNET_ROOT="/path/to/dotnet"
 export PATH="${DOTNET_ROOT}:$PATH"
 export GODOT_BIN="/Applications/Godot.app/Contents/MacOS/Godot"
-
+export BLENDER_BIN="/Applications/Blender.app/Contents/MacOS/Blender"

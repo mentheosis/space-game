@@ -61,22 +61,22 @@ no_depth_test = true
 albedo_color = Color(0, 0.9, 1, 0.24)
 
 [sub_resource type="BoxMesh" id="OverlayBox1"]
-size = Vector3(5.4969, 1.9138, 5.4723)
+size = Vector3(1.8666, 1.6508, 5.3864)
 
 [sub_resource type="BoxMesh" id="OverlayBox2"]
 size = Vector3(6.2952, 3.0461, 8.9556)
 
 [sub_resource type="BoxMesh" id="OverlayBox3"]
-size = Vector3(3.9781, 1.1924, 6.8579)
+size = Vector3(3.9781, 1.1924, 14.4034)
 
 [sub_resource type="BoxMesh" id="OverlayBox4"]
 size = Vector3(5.3943, 2.4628, 4.5502)
 
 [sub_resource type="BoxMesh" id="OverlayBox5"]
-size = Vector3(5.9, 3.1, 8.65)
+size = Vector3(5.9, 3.35, 15.8)
 
 [sub_resource type="BoxMesh" id="OverlayBox6"]
-size = Vector3(4.7, 0.18, 6.93)
+size = Vector3(4.64, 0.39, 14.2)
 
 [sub_resource type="BoxMesh" id="OverlayBox7"]
 size = Vector3(1.84, 1.84, 0.17)
@@ -88,7 +88,7 @@ size = Vector3(1.84, 1.84, 0.17)
 size = Vector3(0.7872, 1.0792, 0.8364)
 
 [sub_resource type="BoxMesh" id="OverlayBox10"]
-size = Vector3(3.48, 1.4, 3.27)
+size = Vector3(1.88, 1.72, 5.26)
 
 [node name="ShipAlignmentOverlay" type="Node3D"]
 
@@ -97,14 +97,14 @@ size = Vector3(3.48, 1.4, 3.27)
 [node name="Actuals" type="Node3D" parent="."]
 
 [node name="CockpitCanopy" type="MeshInstance3D" parent="Targets"]
-position = Vector3(0.0, 2.7126, -3.7467)
+position = Vector3(0.0, 2.7318, -8.7395)
 mesh = SubResource("OverlayBox1")
 material_override = SubResource("OverlayMaterial1")
 cast_shadow = 0
 
 [node name="CockpitCanopyLabel" type="Label3D" parent="Targets"]
 text = "Cockpit / canopy"
-position = Vector3(0.0, 2.7926, -3.7467)
+position = Vector3(0.0, 2.8118, -8.7395)
 font_size = 22
 billboard = 1
 no_depth_test = true
@@ -125,14 +125,14 @@ no_depth_test = true
 modulate = Color(1, 1, 1, 0.86)
 
 [node name="FloorWalkPath" type="MeshInstance3D" parent="Targets"]
-position = Vector3(-0.0, 0.5529, 0.4647)
+position = Vector3(-0.0, 0.5529, -3.308)
 mesh = SubResource("OverlayBox3")
 material_override = SubResource("OverlayMaterial3")
 cast_shadow = 0
 
 [node name="FloorWalkPathLabel" type="Label3D" parent="Targets"]
 text = "Floor / walk path"
-position = Vector3(-0.0, 0.6328999999999999, 0.4647)
+position = Vector3(-0.0, 0.6328999999999999, -3.308)
 font_size = 22
 billboard = 1
 no_depth_test = true
@@ -153,28 +153,28 @@ no_depth_test = true
 modulate = Color(1, 1, 1, 0.86)
 
 [node name="InteriorVolumeVsCabin" type="MeshInstance3D" parent="Actuals"]
-position = Vector3(0.0, 1.6, -0.1)
+position = Vector3(0.0, 1.72, -3.55)
 mesh = SubResource("OverlayBox5")
 material_override = SubResource("OverlayMaterial5")
 cast_shadow = 0
 
 [node name="InteriorVolumeVsCabinLabel" type="Label3D" parent="Actuals"]
 text = "Interior volume vs cabin"
-position = Vector3(0.0, 1.6800000000000002, -0.1)
+position = Vector3(0.0, 1.8, -3.55)
 font_size = 22
 billboard = 1
 no_depth_test = true
 modulate = Color(1, 1, 1, 0.86)
 
 [node name="FloorPlateVsWalkPath" type="MeshInstance3D" parent="Actuals"]
-position = Vector3(0.0, 0.0, 0.445)
+position = Vector3(0.0, 0.055, -3.12)
 mesh = SubResource("OverlayBox6")
 material_override = SubResource("OverlayMaterial6")
 cast_shadow = 0
 
 [node name="FloorPlateVsWalkPathLabel" type="Label3D" parent="Actuals"]
 text = "Floor plate vs walk path"
-position = Vector3(0.0, 0.08, 0.445)
+position = Vector3(0.0, 0.135, -3.12)
 font_size = 22
 billboard = 1
 no_depth_test = true
@@ -209,28 +209,28 @@ no_depth_test = true
 modulate = Color(1, 1, 1, 0.86)
 
 [node name="PilotCushionVsCockpit" type="MeshInstance3D" parent="Actuals"]
-position = Vector3(0.0, 1.5604, -3.1604)
+position = Vector3(0.0, 2.1404, -8.2604)
 mesh = SubResource("OverlayBox9")
 material_override = SubResource("OverlayMaterial9")
 cast_shadow = 0
 
 [node name="PilotCushionVsCockpitLabel" type="Label3D" parent="Actuals"]
 text = "Pilot cushion vs cockpit"
-position = Vector3(0.0, 1.6404, -3.1604)
+position = Vector3(0.0, 2.2204, -8.2604)
 font_size = 22
 billboard = 1
 no_depth_test = true
 modulate = Color(1, 1, 1, 0.86)
 
 [node name="InteriorCanopyGlassVsCockpit" type="MeshInstance3D" parent="Actuals"]
-position = Vector3(0.0, 2.58, -4.185)
+position = Vector3(0.0, 2.68, -8.71)
 mesh = SubResource("OverlayBox10")
 material_override = SubResource("OverlayMaterial10")
 cast_shadow = 0
 
 [node name="InteriorCanopyGlassVsCockpitLabel" type="Label3D" parent="Actuals"]
 text = "Interior canopy glass vs cockpit"
-position = Vector3(0.0, 2.66, -4.185)
+position = Vector3(0.0, 2.7600000000000002, -8.71)
 font_size = 22
 billboard = 1
 no_depth_test = true

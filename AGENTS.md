@@ -58,6 +58,23 @@ Expected space-game profiles:
 - `dotnet build`
 - `import godot project`
 - `review 0.2.1b host`
+- `bootstrap ShuttleA Blender scene` (needed for 0.2.1c once available)
+- `validate ShuttleA modeling workflow` (needed for 0.2.1c once available)
+- `review 0.2.1c host` (needed for full Blender/Godot review once available)
+
+0.2.1c Blender workflow scripts expect `BLENDER_BIN` to point to the host
+Blender executable, for example:
+
+```sh
+export BLENDER_BIN=/Applications/Blender.app/Contents/MacOS/Blender
+```
+
+The 0.2.1c host profiles should run:
+
+```sh
+scripts/bootstrap-shuttle-a-blender.sh
+scripts/validate-shuttle-a-modeling-workflow.sh
+```
 
 ### Starting A Host Job
 

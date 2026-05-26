@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]
 [ext_resource type="PackedScene" path="res://scenes/planets/PlanetB.tscn" id="2_planet_b"]
@@ -30,6 +30,30 @@ ambient_light_energy = 0.46
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="SphereMesh" id="SphereMesh_primary_sun"]
+radius = 8.0
+height = 16.0
+radial_segments = 32
+rings = 16
+
+[sub_resource type="SphereMesh" id="SphereMesh_red_star"]
+radius = 5.0
+height = 10.0
+radial_segments = 24
+rings = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_primary_sun"]
+albedo_color = Color(1, 0.88, 0.58, 1)
+emission_enabled = true
+emission = Color(1, 0.82, 0.38, 1)
+emission_energy_multiplier = 9.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_red_star"]
+albedo_color = Color(1, 0.2, 0.13, 1)
+emission_enabled = true
+emission = Color(1, 0.08, 0.04, 1)
+emission_energy_multiplier = 4.0
+
 [node name="Phase5TestWorld" type="Node3D"]
 
 [node name="PlanetBody" parent="." instance=ExtResource("1_planet")]
@@ -52,6 +76,22 @@ position = Vector3(0, 51.1, -9)
 transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 120, 0)
 light_energy = 2.85
 shadow_enabled = true
+
+[node name="PrimarySunVisual" type="MeshInstance3D" parent="."]
+position = Vector3(420, 520, -520)
+mesh = SubResource("SphereMesh_primary_sun")
+material_override = SubResource("StandardMaterial3D_primary_sun")
+
+[node name="RedFillLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, 0.353553, -0.353553, 0, 0.707107, 0.707107, 0.5, 0.612372, -0.612372, 0, -120, 0)
+light_color = Color(1, 0.23, 0.16, 1)
+light_energy = 0.55
+shadow_enabled = false
+
+[node name="RedStarVisual" type="MeshInstance3D" parent="."]
+position = Vector3(-420, -520, 520)
+mesh = SubResource("SphereMesh_red_star")
+material_override = SubResource("StandardMaterial3D_red_star")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_space")

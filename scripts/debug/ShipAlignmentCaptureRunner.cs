@@ -28,8 +28,8 @@ public partial class ShipAlignmentCaptureRunner : Node
         new("08_interior_cockpit_backlook_overlay", new Vector3(-4.15f, 1.85f, -3.45f), new Vector3(0.0f, 1.22f, 1.70f), 66.0f, true, true),
         new("09_player_entry_forward", new Vector3(0.0f, 1.62f, 3.05f), new Vector3(0.0f, 1.55f, -0.95f), 76.0f, false),
         new("09_player_entry_forward_overlay", new Vector3(0.0f, 1.62f, 3.05f), new Vector3(0.0f, 1.55f, -0.95f), 76.0f, true),
-        new("10_pilot_eye_forward", new Vector3(0.0f, 1.54f, -3.00f), new Vector3(0.0f, 1.82f, -5.55f), 74.0f, false),
-        new("10_pilot_eye_forward_overlay", new Vector3(0.0f, 1.54f, -3.00f), new Vector3(0.0f, 1.82f, -5.55f), 74.0f, true),
+        new("10_pilot_eye_forward", new Vector3(0.0f, 2.04f, -8.55f), new Vector3(0.0f, 2.42f, -11.20f), 78.0f, false),
+        new("10_pilot_eye_forward_overlay", new Vector3(0.0f, 2.04f, -8.55f), new Vector3(0.0f, 2.42f, -11.20f), 78.0f, true),
     };
 
     private ShipController _ship = null!;
