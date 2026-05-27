@@ -53,8 +53,10 @@ fi
 if [[ -x "${GODOT_BIN}" ]] || command -v "${GODOT_BIN}" >/dev/null 2>&1; then
   echo "Capturing ShuttleA interior walkthrough"
   scripts/capture-ship-walkthrough.sh
-  echo "Capturing ShuttleA cockpit review"
-  scripts/capture-ship-cockpit-review.sh
+  echo "Running ShuttleA interior runtime validation"
+  "${GODOT_BIN}" --headless --path . scenes/solar_system/Phase021bValidation.tscn
+  echo "Capturing ShuttleA cockpit walkthrough"
+  scripts/capture-ship-cockpit-walkthrough.sh
 fi
 
 echo "ShuttleA modeling workflow validation passed."

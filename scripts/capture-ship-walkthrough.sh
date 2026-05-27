@@ -15,6 +15,7 @@ if [ -z "${GODOT_BIN:-}" ]; then
 fi
 
 "$GODOT_BIN" --path . res://scenes/debug/ShipWalkthroughCapture.tscn
-python3 tools/raw_rgb_to_gif.py
+python3 tools/raw_rgb_to_review_artifacts.py reports/ship_walkthrough ship_walkthrough
 
-echo "Walkthrough GIF: reports/ship_walkthrough/ship_walkthrough.gif"
+echo "Walkthrough MP4: reports/ship_walkthrough/ship_walkthrough_current.mp4"
+echo "Walkthrough contact sheet: reports/ship_walkthrough/ship_walkthrough_contact_sheet_current.png"

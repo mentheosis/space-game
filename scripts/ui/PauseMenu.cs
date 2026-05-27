@@ -23,6 +23,7 @@ public partial class PauseMenu : CanvasLayer
         ("ship_translate_up", "Ascent", Key.Space, 2),
         ("ship_translate_down", "Descend", Key.Shift, 2),
         ("ship_brake", "Dampen", Key.Ctrl, 2),
+        ("ship_toggle_camera", "View Toggle", Key.V, 2),
     };
 
     private readonly (string ActionName, string Label, Key DefaultKey, int Column)[] _walkBindings =

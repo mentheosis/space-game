@@ -10,6 +10,7 @@ public partial class ShipInteriorMaterialOverrides : Node
     [Export] public Material? DarkPanelMaterial { get; set; }
     [Export] public Material? RubberMaterial { get; set; }
     [Export] public Material? ScreenMaterial { get; set; }
+    [Export] public Material? WarmPracticalMaterial { get; set; }
     [Export] public Material? SeatMaterial { get; set; }
     [Export] public Material? WarningMaterial { get; set; }
 
@@ -56,11 +57,23 @@ public partial class ShipInteriorMaterialOverrides : Node
     private Material? SelectMaterial(string normalized)
     {
         if (normalized.Contains("canopy_glass")
+            || normalized.Contains("canopyglass")
+            || normalized.Contains("windscreen_glass")
+            || normalized.Contains("side_glass")
+            || normalized.Contains("dome_glass")
             || normalized.Contains("canopy_subtle")
             || normalized.Contains("glass_edge")
-            || normalized.Contains("crown_glass"))
+            || normalized.Contains("crown_glass")
+            || normalized.Contains("glass"))
         {
             return CanopyGlassMaterial;
+        }
+
+        if (normalized.Contains("warm_lens")
+            || normalized.Contains("practical_lens")
+            || normalized.Contains("amber_lens"))
+        {
+            return WarmPracticalMaterial;
         }
 
         if (normalized.Contains("screen")

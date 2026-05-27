@@ -57,12 +57,13 @@ echo "Running 0.2.1b Godot validation"
 echo "Capturing 0.2.1b alignment screenshots"
 scripts/capture-ship-alignment.sh
 
-echo "Capturing 0.2.1b walkthrough GIF"
+echo "Capturing 0.2.1b walkthrough MP4 and contact sheet"
 scripts/capture-ship-walkthrough.sh
 
 echo "0.2.1b host review passed."
 echo "Review dashboard: reports/ship_alignment_dashboard.html"
 echo "Review checklist: reports/ship_alignment_review_checklist.md"
 echo "Completion audit: reports/ship_phase_0_2_1b_completion_audit.md"
-echo "Walkthrough GIF: reports/ship_walkthrough/ship_walkthrough.gif"
+echo "Walkthrough MP4: reports/ship_walkthrough/ship_walkthrough_current.mp4"
+echo "Walkthrough contact sheet: reports/ship_walkthrough/ship_walkthrough_contact_sheet_current.png"
 echo "Host review log: reports/ship_phase_0_2_1b_host_review.log"

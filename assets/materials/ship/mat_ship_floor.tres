@@ -1,6 +1,12 @@
-[gd_resource type="StandardMaterial3D" format=3]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/ship/interior_materials/dark_floor_roughness.png" id="1_roughness"]
 
 [resource]
-albedo_color = Color(0.095, 0.115, 0.12, 1)
-metallic = 0.04
-roughness = 0.92
+albedo_color = Color(0.024, 0.026, 0.028, 1)
+cull_mode = 2
+metallic = 0.40
+roughness = 0.26
+roughness_texture = ExtResource("1_roughness")
+uv1_scale = Vector3(2.2, 2.2, 1)
+uv1_triplanar = true

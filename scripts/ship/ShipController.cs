@@ -2,7 +2,14 @@ using Godot;
 
 public partial class ShipController : RigidBody3D
 {
+    private enum PilotCameraMode
+    {
+        ExteriorOrbit,
+        CockpitFirstPerson
+    }
+
     [Export] public NodePath SeatAnchorPath { get; set; } = "Markers/SeatAnchor";
+    [Export] public NodePath PilotEyePath { get; set; } = "Markers/PilotEye";
     [Export] public NodePath ShipCameraPath { get; set; } = "ShipCamera";
     [Export] public NodePath ExteriorVisualPath { get; set; } = "OpenGameArtShuttleVisual";
     [Export] public NodePath ExteriorGlassPath { get; set; } = "CockpitGlassExterior";
@@ -25,8 +32,13 @@ public partial class ShipController : RigidBody3D
     [Export] public bool InvertOrbitCameraY { get; set; } = false;
     [Export] public float OrbitCameraMinPitchDegrees { get; set; } = -35.0f;
     [Export] public float OrbitCameraMaxPitchDegrees { get; set; } = 75.0f;
+    [Export] public float CockpitCameraHorizontalSensitivity { get; set; } = 0.0025f;
+    [Export] public float CockpitCameraVerticalSensitivity { get; set; } = 0.0025f;
+    [Export] public float CockpitCameraMinPitchDegrees { get; set; } = -35.0f;
+    [Export] public float CockpitCameraMaxPitchDegrees { get; set; } = 55.0f;
 
     private Marker3D _seatAnchor = null!;
+    private Marker3D? _pilotEye;
     private Camera3D _shipCamera = null!;
     private Node3D? _exteriorVisual;
     private Node3D? _exteriorGlass;
@@ -38,8 +50,11 @@ public partial class ShipController : RigidBody3D
     private Vector3 _gravityAcceleration = Vector3.Zero;
     private Vector3 _gravityUp = Vector3.Up;
     private bool _isLanded = true;
+    private PilotCameraMode _pilotCameraMode = PilotCameraMode.ExteriorOrbit;
     private float _orbitYaw;
     private float _orbitPitch = Mathf.DegToRad(22.0f);
+    private float _cockpitYaw;
+    private float _cockpitPitch;
 
     public bool IsPiloted => _pilot is not null;
     public bool IsLanded => _isLanded;
@@ -49,11 +64,13 @@ public partial class ShipController : RigidBody3D
     public string ActiveGravityBodyName => _activeGravityBody?.Name ?? "Zero-G";
     public float SurfaceDistance => _activeGravityBody?.GetDistanceToSurface(GlobalPosition) ?? float.PositiveInfinity;
     public bool CanUseHatches => _isLanded && Speed <= MaxLandedSpeed;
+    public bool IsCockpitCameraActive => _pilotCameraMode == PilotCameraMode.CockpitFirstPerson;
 
     public override void _Ready()
     {
         EnsureShipInputActions();
         _seatAnchor = GetNode<Marker3D>(SeatAnchorPath);
+        _pilotEye = GetNodeOrNull<Marker3D>(PilotEyePath);
         _shipCamera = GetNode<Camera3D>(ShipCameraPath);
         _exteriorVisual = GetNodeOrNull<Node3D>(ExteriorVisualPath);
         _exteriorGlass = GetNodeOrNull<Node3D>(ExteriorGlassPath);
@@ -65,7 +82,7 @@ public partial class ShipController : RigidBody3D
         Freeze = true;
         _isLanded = true;
         SetInteriorViewActive(false);
-        UpdateOrbitCamera();
+        UpdatePilotCamera();
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -77,14 +94,7 @@ public partial class ShipController : RigidBody3D
 
         if (@event is InputEventMouseMotion motion)
         {
-            var yawDirection = InvertOrbitCameraX ? 1.0f : -1.0f;
-            var pitchDirection = InvertOrbitCameraY ? 1.0f : -1.0f;
-            _orbitYaw += motion.Relative.X * OrbitCameraHorizontalSensitivity * yawDirection;
-            _orbitPitch = Mathf.Clamp(
-                _orbitPitch + motion.Relative.Y * OrbitCameraVerticalSensitivity * pitchDirection,
-                Mathf.DegToRad(OrbitCameraMinPitchDegrees),
-                Mathf.DegToRad(OrbitCameraMaxPitchDegrees));
-            UpdateOrbitCamera();
+            UpdateMouseLook(motion);
         }
     }
 
@@ -95,6 +105,11 @@ public partial class ShipController : RigidBody3D
 
         if (_pilot is not null)
         {
+            if (Input.IsActionJustPressed("ship_toggle_camera"))
+            {
+                TogglePilotCameraMode();
+            }
+
             if (HasPilotInput())
             {
                 Freeze = false;
@@ -107,7 +122,7 @@ public partial class ShipController : RigidBody3D
             }
 
             _pilot.ForceSeatTransform(_seatAnchor.GlobalTransform);
-            UpdateOrbitCamera();
+            UpdatePilotCamera();
         }
         else if (_isLanded)
         {
@@ -120,11 +135,12 @@ public partial class ShipController : RigidBody3D
     public void SetPilot(PlayerController player)
     {
         _pilot = player;
+        _pilotCameraMode = PilotCameraMode.ExteriorOrbit;
         SetInteriorViewActive(false);
         _shipCamera.Current = true;
         player.SetPlayerCameraActive(false);
         player.ForceSeatTransform(_seatAnchor.GlobalTransform);
-        UpdateOrbitCamera();
+        UpdatePilotCamera();
     }
 
     public void ClearPilot(PlayerController player)
@@ -132,6 +148,7 @@ public partial class ShipController : RigidBody3D
         if (_pilot == player)
         {
             _pilot = null;
+            _pilotCameraMode = PilotCameraMode.ExteriorOrbit;
             _shipCamera.Current = false;
             SetInteriorViewActive(true);
             player.SetPlayerCameraActive(true);
@@ -278,6 +295,62 @@ public partial class ShipController : RigidBody3D
             || Input.IsActionPressed("ship_roll_right");
     }
 
+    private void TogglePilotCameraMode()
+    {
+        _pilotCameraMode = _pilotCameraMode == PilotCameraMode.ExteriorOrbit
+            ? PilotCameraMode.CockpitFirstPerson
+            : PilotCameraMode.ExteriorOrbit;
+
+        if (_pilotCameraMode == PilotCameraMode.CockpitFirstPerson)
+        {
+            _cockpitYaw = 0.0f;
+            _cockpitPitch = 0.0f;
+        }
+
+        SetInteriorViewActive(_pilotCameraMode == PilotCameraMode.CockpitFirstPerson);
+        UpdatePilotCamera();
+    }
+
+    private void UpdateMouseLook(InputEventMouseMotion motion)
+    {
+        var yawDirection = InvertOrbitCameraX ? 1.0f : -1.0f;
+        var pitchDirection = InvertOrbitCameraY ? 1.0f : -1.0f;
+
+        if (_pilotCameraMode == PilotCameraMode.CockpitFirstPerson)
+        {
+            _cockpitYaw = Mathf.Clamp(
+                _cockpitYaw + motion.Relative.X * CockpitCameraHorizontalSensitivity * yawDirection,
+                Mathf.DegToRad(-70.0f),
+                Mathf.DegToRad(70.0f));
+            _cockpitPitch = Mathf.Clamp(
+                _cockpitPitch + motion.Relative.Y * CockpitCameraVerticalSensitivity * pitchDirection,
+                Mathf.DegToRad(CockpitCameraMinPitchDegrees),
+                Mathf.DegToRad(CockpitCameraMaxPitchDegrees));
+        }
+        else
+        {
+            _orbitYaw += motion.Relative.X * OrbitCameraHorizontalSensitivity * yawDirection;
+            _orbitPitch = Mathf.Clamp(
+                _orbitPitch + motion.Relative.Y * OrbitCameraVerticalSensitivity * pitchDirection,
+                Mathf.DegToRad(OrbitCameraMinPitchDegrees),
+                Mathf.DegToRad(OrbitCameraMaxPitchDegrees));
+        }
+
+        UpdatePilotCamera();
+    }
+
+    private void UpdatePilotCamera()
+    {
+        if (_pilotCameraMode == PilotCameraMode.CockpitFirstPerson)
+        {
+            UpdateCockpitCamera();
+        }
+        else
+        {
+            UpdateOrbitCamera();
+        }
+    }
+
     private void UpdateOrbitCamera()
     {
         if (_shipCamera is null)
@@ -295,6 +368,21 @@ public partial class ShipController : RigidBody3D
         var cameraPosition = target + offset;
         var cameraTransform = new Transform3D(Basis.Identity, cameraPosition);
         _shipCamera.Transform = cameraTransform.LookingAt(target, Vector3.Up);
+        _shipCamera.Fov = 72.0f;
+    }
+
+    private void UpdateCockpitCamera()
+    {
+        if (_shipCamera is null)
+        {
+            return;
+        }
+
+        var baseTransform = _pilotEye?.Transform
+            ?? new Transform3D(_seatAnchor.Transform.Basis, _seatAnchor.Transform.Origin + new Vector3(0.0f, 0.14f, -0.34f));
+        var lookBasis = Basis.FromEuler(new Vector3(_cockpitPitch, _cockpitYaw, 0.0f));
+        _shipCamera.Transform = new Transform3D(baseTransform.Basis * lookBasis, baseTransform.Origin);
+        _shipCamera.Fov = 78.0f;
     }
 
     private static void EnsureShipInputActions()
@@ -312,6 +400,7 @@ public partial class ShipController : RigidBody3D
         EnsureKeyAction("ship_yaw_right", Key.Right);
         EnsureKeyAction("ship_roll_left", Key.Q);
         EnsureKeyAction("ship_roll_right", Key.E);
+        EnsureKeyAction("ship_toggle_camera", Key.V);
     }
 
     private static void EnsureKeyAction(string actionName, Key key)

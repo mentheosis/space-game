@@ -6,7 +6,7 @@ public partial class ShipWalkthroughCaptureRunner : Node
     public enum ReviewMode
     {
         Walkthrough,
-        Cockpit
+        CockpitWalkthrough
     }
 
     [Export] public NodePath ShipPath { get; set; } = "../Ship";
@@ -88,7 +88,7 @@ public partial class ShipWalkthroughCaptureRunner : Node
             }
 
             var name = node.Name.ToString();
-            if (name is "BlenderInteriorVisual" or "InteriorLight" or "CockpitGlow")
+            if (name is "BlenderInteriorVisual" || node is Light3D)
             {
                 continue;
             }
@@ -120,7 +120,11 @@ public partial class ShipWalkthroughCaptureRunner : Node
         }
 
         var progress = FrameCount <= 1 ? 1.0f : _frame / (float)(FrameCount - 1);
-        var pose = Mode == ReviewMode.Cockpit ? CockpitPose(progress) : WalkthroughPose(progress);
+        var pose = Mode switch
+        {
+            ReviewMode.CockpitWalkthrough => CockpitWalkthroughPose(progress),
+            _ => WalkthroughPose(progress)
+        };
         var shipTransform = _ship.GlobalTransform;
         var cameraPosition = shipTransform * pose.Position;
         var lookTarget = shipTransform * pose.Target;
@@ -168,128 +172,172 @@ public partial class ShipWalkthroughCaptureRunner : Node
 
     private WalkthroughCameraPose WalkthroughPose(float progress)
     {
-        if (progress < 0.24f)
+        var start = new Vector3(0.0f, 1.58f, 2.12f);
+        var aftReview = new Vector3(0.0f, 1.60f, 1.54f);
+        var cockpit = new Vector3(0.0f, 2.34f, -7.35f);
+        var noseTarget = new Vector3(0.0f, 1.46f, -10.76f);
+        var aftTarget = new Vector3(0.0f, 1.64f, 3.54f);
+
+        if (progress < 0.30f)
         {
-            var t = SmoothStep(progress / 0.24f);
-            return new WalkthroughCameraPose(
-                Lerp(new Vector3(0.0f, 1.58f, 3.30f), new Vector3(0.0f, 1.58f, 0.68f), t),
-                Lerp(new Vector3(0.0f, 1.48f, 0.90f), new Vector3(0.0f, 1.46f, -1.25f), t)
-            );
+            var t = SmoothStep(progress / 0.30f);
+            var position = Lerp(start, cockpit, t);
+            var yaw = Mathf.Sin(t * Mathf.Tau * 1.80f) * 0.32f;
+            var pitch = Mathf.Sin(t * Mathf.Tau * 1.35f + 0.55f) * 0.22f;
+            var target = new Vector3(yaw, position.Y + 0.04f + pitch, position.Z - 2.72f);
+            return new WalkthroughCameraPose(position, target);
         }
 
-        if (progress < 0.36f)
+        if (progress < 0.58f)
         {
-            var t = SmoothStep((progress - 0.24f) / 0.12f);
-            return new WalkthroughCameraPose(
-                new Vector3(0.0f, 1.58f, 0.70f),
-                Lerp(new Vector3(0.0f, 1.46f, -1.25f), new Vector3(0.0f, 0.22f, -0.55f), t)
-            );
+            var reviewT = SmoothStep((progress - 0.30f) / 0.28f);
+            Vector3 noseReviewTarget;
+            if (reviewT < 0.20f)
+            {
+                var t = SmoothStep(reviewT / 0.20f);
+                noseReviewTarget = Lerp(new Vector3(0.0f, 2.45f, -10.50f), noseTarget, t);
+            }
+            else if (reviewT < 0.40f)
+            {
+                var t = SmoothStep((reviewT - 0.20f) / 0.20f);
+                noseReviewTarget = Lerp(noseTarget, new Vector3(-1.10f, 1.74f, -9.72f), t);
+            }
+            else if (reviewT < 0.60f)
+            {
+                var t = SmoothStep((reviewT - 0.40f) / 0.20f);
+                noseReviewTarget = Lerp(new Vector3(-1.10f, 1.74f, -9.72f), new Vector3(1.10f, 1.74f, -9.72f), t);
+            }
+            else if (reviewT < 0.80f)
+            {
+                var t = SmoothStep((reviewT - 0.60f) / 0.20f);
+                noseReviewTarget = Lerp(new Vector3(1.10f, 1.74f, -9.72f), new Vector3(0.0f, 3.18f, -9.92f), t);
+            }
+            else
+            {
+                var t = SmoothStep((reviewT - 0.80f) / 0.20f);
+                noseReviewTarget = Lerp(new Vector3(0.0f, 3.18f, -9.92f), new Vector3(0.0f, 1.16f, -10.12f), t);
+            }
+
+            return new WalkthroughCameraPose(cockpit, noseReviewTarget);
         }
 
-        if (progress < 0.48f)
+        if (progress < 0.64f)
         {
-            var t = SmoothStep((progress - 0.36f) / 0.12f);
-            return new WalkthroughCameraPose(
-                new Vector3(0.0f, 1.58f, 0.70f),
-                Lerp(new Vector3(0.0f, 0.22f, -0.55f), new Vector3(0.0f, 2.18f, -0.35f), t)
-            );
+            var turnT = SmoothStep((progress - 0.58f) / 0.06f);
+            var target = Lerp(new Vector3(0.0f, 1.16f, -10.12f), aftTarget, turnT);
+            return new WalkthroughCameraPose(cockpit, target);
         }
 
-        if (progress < 0.66f)
+        if (progress < 0.78f)
         {
-            var t = SmoothStep((progress - 0.48f) / 0.18f);
-            return new WalkthroughCameraPose(
-                Lerp(new Vector3(0.0f, 1.58f, 0.70f), new Vector3(0.0f, 1.56f, -3.20f), t),
-                Lerp(new Vector3(0.0f, 2.18f, -0.35f), new Vector3(0.0f, 1.58f, -4.85f), t)
-            );
+            var returnT = SmoothStep((progress - 0.64f) / 0.14f);
+            var returnPosition = Lerp(cockpit, aftReview, returnT);
+            var rearYaw = Mathf.Sin(returnT * Mathf.Tau * 1.20f + 0.3f) * 0.34f;
+            var rearPitch = Mathf.Sin(returnT * Mathf.Tau * 1.05f + 1.1f) * 0.22f;
+            var rearTarget = new Vector3(rearYaw, returnPosition.Y + 0.10f + rearPitch, Mathf.Min(3.54f, returnPosition.Z + 2.08f));
+            return new WalkthroughCameraPose(returnPosition, rearTarget);
         }
 
-        if (progress < 0.76f)
+        if (progress < 0.96f)
         {
-            var t = SmoothStep((progress - 0.66f) / 0.10f);
-            return new WalkthroughCameraPose(
-                new Vector3(0.0f, 1.56f, -3.20f),
-                Lerp(new Vector3(0.0f, 1.58f, -4.85f), new Vector3(-1.70f, 1.28f, -3.50f), t)
-            );
+            var tailReviewT = SmoothStep((progress - 0.78f) / 0.18f);
+            Vector3 tailReviewTarget;
+            if (tailReviewT < 0.20f)
+            {
+                var t = SmoothStep(tailReviewT / 0.20f);
+                tailReviewTarget = Lerp(aftTarget, new Vector3(0.0f, 0.64f, 3.48f), t);
+            }
+            else if (tailReviewT < 0.40f)
+            {
+                var t = SmoothStep((tailReviewT - 0.20f) / 0.20f);
+                tailReviewTarget = Lerp(new Vector3(0.0f, 0.64f, 3.48f), new Vector3(-1.20f, 1.16f, 3.34f), t);
+            }
+            else if (tailReviewT < 0.60f)
+            {
+                var t = SmoothStep((tailReviewT - 0.40f) / 0.20f);
+                tailReviewTarget = Lerp(new Vector3(-1.20f, 1.16f, 3.34f), new Vector3(1.20f, 1.16f, 3.34f), t);
+            }
+            else if (tailReviewT < 0.80f)
+            {
+                var t = SmoothStep((tailReviewT - 0.60f) / 0.20f);
+                tailReviewTarget = Lerp(new Vector3(1.20f, 1.16f, 3.34f), new Vector3(0.0f, 2.42f, 3.34f), t);
+            }
+            else
+            {
+                var t = SmoothStep((tailReviewT - 0.80f) / 0.20f);
+                tailReviewTarget = Lerp(new Vector3(0.0f, 2.42f, 3.34f), new Vector3(0.0f, 2.14f, -1.40f), t);
+            }
+
+            return new WalkthroughCameraPose(aftReview, tailReviewTarget);
         }
 
-        if (progress < 0.86f)
-        {
-            var t = SmoothStep((progress - 0.76f) / 0.10f);
-            return new WalkthroughCameraPose(
-                new Vector3(0.0f, 1.56f, -3.20f),
-                Lerp(new Vector3(-1.70f, 1.28f, -3.50f), new Vector3(1.70f, 1.70f, -4.25f), t)
-            );
-        }
-
-        if (progress < 0.92f)
-        {
-            var t = SmoothStep((progress - 0.86f) / 0.06f);
-            return new WalkthroughCameraPose(
-                Lerp(new Vector3(0.0f, 1.56f, -3.20f), new Vector3(0.0f, 1.62f, -5.45f), t),
-                Lerp(new Vector3(1.70f, 1.70f, -4.25f), new Vector3(0.0f, 1.90f, -7.15f), t)
-            );
-        }
-
-        var finalT = SmoothStep((progress - 0.92f) / 0.08f);
-        return new WalkthroughCameraPose(
-            new Vector3(0.0f, 2.34f, -8.72f),
-            Lerp(new Vector3(0.0f, 2.58f, -10.10f), new Vector3(0.0f, 3.05f, -13.10f), finalT)
-        );
+        var finalReviewT = SmoothStep((progress - 0.96f) / 0.04f);
+        var reviewTarget = Lerp(new Vector3(0.0f, 2.14f, -1.40f), new Vector3(0.0f, 2.36f, -5.80f), finalReviewT);
+        return new WalkthroughCameraPose(aftReview, reviewTarget);
     }
 
-    private WalkthroughCameraPose CockpitPose(float progress)
+    private WalkthroughCameraPose CockpitWalkthroughPose(float progress)
     {
-        if (progress < 0.18f)
+        var stairBase = new Vector3(0.0f, 1.56f, -5.82f);
+        var stairTop = new Vector3(0.0f, 1.86f, -6.58f);
+        var reviewStation = new Vector3(0.0f, 2.34f, -7.08f);
+        var forwardTarget = new Vector3(0.0f, 2.08f, -9.88f);
+        var leftTarget = new Vector3(-2.18f, 2.00f, -8.82f);
+        var leftUpTarget = OrbitLookTarget(reviewStation, -Mathf.Pi / 2.0f, 0.92f, 2.95f);
+
+        if (progress < 0.16f)
         {
-            var t = SmoothStep(progress / 0.18f);
-            return new WalkthroughCameraPose(
-                Lerp(new Vector3(0.0f, 1.70f, -5.88f), new Vector3(0.0f, 1.82f, -6.72f), t),
-                Lerp(new Vector3(0.0f, 1.96f, -8.35f), new Vector3(0.0f, 2.18f, -8.45f), t)
-            );
+            var t = SmoothStep(progress / 0.16f);
+            var position = Lerp(stairBase, stairTop, t);
+            var target = Lerp(new Vector3(0.0f, 1.86f, -8.10f), new Vector3(0.0f, 2.02f, -8.88f), t);
+            return new WalkthroughCameraPose(position, target);
         }
 
-        if (progress < 0.34f)
+        if (progress < 0.30f)
         {
-            var t = SmoothStep((progress - 0.18f) / 0.16f);
-            return new WalkthroughCameraPose(
-                Lerp(new Vector3(-0.78f, 1.78f, -6.82f), new Vector3(-0.84f, 1.70f, -7.60f), t),
-                Lerp(new Vector3(0.0f, 1.32f, -9.70f), new Vector3(-0.64f, 1.18f, -9.25f), t)
-            );
+            var t = SmoothStep((progress - 0.16f) / 0.14f);
+            var position = Lerp(stairTop, reviewStation, t);
+            var target = Lerp(new Vector3(0.0f, 2.04f, -8.85f), forwardTarget, t);
+            return new WalkthroughCameraPose(position, target);
         }
 
-        if (progress < 0.50f)
+        if (progress < 0.42f)
         {
-            var t = SmoothStep((progress - 0.34f) / 0.16f);
-            return new WalkthroughCameraPose(
-                Lerp(new Vector3(0.84f, 1.70f, -7.60f), new Vector3(0.78f, 1.78f, -6.82f), t),
-                Lerp(new Vector3(0.64f, 1.18f, -9.25f), new Vector3(0.0f, 1.32f, -9.70f), t)
-            );
+            var t = SmoothStep((progress - 0.30f) / 0.12f);
+            var target = Lerp(forwardTarget, leftTarget, t);
+            return new WalkthroughCameraPose(reviewStation, target);
         }
 
-        if (progress < 0.66f)
+        if (progress < 0.54f)
         {
-            var t = SmoothStep((progress - 0.50f) / 0.16f);
-            return new WalkthroughCameraPose(
-                Lerp(new Vector3(0.0f, 2.24f, -8.92f), new Vector3(0.0f, 2.32f, -8.92f), t),
-                Lerp(new Vector3(0.0f, 1.26f, -9.82f), new Vector3(0.0f, 1.70f, -10.22f), t)
-            );
+            var t = SmoothStep((progress - 0.42f) / 0.12f);
+            var target = Lerp(leftTarget, leftUpTarget, t);
+            return new WalkthroughCameraPose(reviewStation, target);
         }
 
-        if (progress < 0.82f)
+        float scanT;
+        float yaw;
+        float pitchOffset;
+        if (progress < 0.77f)
         {
-            var t = SmoothStep((progress - 0.66f) / 0.16f);
-            return new WalkthroughCameraPose(
-                new Vector3(0.0f, 2.36f, -8.86f),
-                Lerp(new Vector3(0.0f, 2.46f, -11.40f), new Vector3(0.0f, 3.18f, -9.05f), t)
-            );
+            scanT = SmoothStep((progress - 0.54f) / 0.23f);
+            yaw = Mathf.Lerp(-Mathf.Pi / 2.0f, Mathf.Pi, scanT);
+            pitchOffset = Mathf.Lerp(0.92f, 0.08f, scanT) + Mathf.Sin(scanT * Mathf.Pi) * 0.10f;
+        }
+        else if (progress < 0.85f)
+        {
+            yaw = Mathf.Pi;
+            pitchOffset = 0.08f;
+        }
+        else
+        {
+            scanT = SmoothStep((progress - 0.85f) / 0.15f);
+            yaw = Mathf.Lerp(Mathf.Pi, Mathf.Tau, scanT);
+            pitchOffset = Mathf.Lerp(0.08f, 0.06f, scanT) + Mathf.Sin(scanT * Mathf.Pi) * 0.08f;
         }
 
-        var finalT = SmoothStep((progress - 0.82f) / 0.18f);
-        return new WalkthroughCameraPose(
-            new Vector3(0.0f, 2.38f, -8.82f),
-            Lerp(new Vector3(0.0f, 2.50f, -11.60f), new Vector3(0.0f, 3.05f, -13.10f), finalT)
-        );
+        var scanTarget = OrbitLookTarget(reviewStation, yaw, pitchOffset, 2.95f);
+        return new WalkthroughCameraPose(reviewStation, scanTarget);
     }
 
     private void ResetOutputDirectory()
@@ -326,6 +374,15 @@ public partial class ShipWalkthroughCaptureRunner : Node
     }
 
     private static Vector3 Lerp(Vector3 from, Vector3 to, float t) => from.Lerp(to, t);
+
+    private static Vector3 OrbitLookTarget(Vector3 position, float yaw, float pitchOffset, float distance)
+    {
+        return new Vector3(
+            position.X + Mathf.Sin(yaw) * distance,
+            position.Y + pitchOffset,
+            position.Z - Mathf.Cos(yaw) * distance
+        );
+    }
 
     private static float SmoothStep(float t)
     {

@@ -86,7 +86,7 @@ material_override = SubResource("StandardMaterial3D_primary_sun")
 transform = Transform3D(-0.866025, 0.353553, -0.353553, 0, 0.707107, 0.707107, 0.5, 0.612372, -0.612372, 0, -120, 0)
 light_color = Color(1, 0.23, 0.16, 1)
 light_energy = 0.55
-shadow_enabled = false
+shadow_enabled = true
 
 [node name="RedStarVisual" type="MeshInstance3D" parent="."]
 position = Vector3(-420, -520, 520)
