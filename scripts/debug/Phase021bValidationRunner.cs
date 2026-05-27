@@ -95,20 +95,21 @@ public partial class Phase021bValidationRunner : Node
                 break;
             case 30:
                 Assert(_player.DebugPlayerContext == PlayerContext.Seated, "Player sits in authored pilot chair.");
-                Assert(_exteriorVisual.Visible, "Exterior ShuttleA visual is restored for seated ship camera view.");
+                Assert(_ship.IsCockpitCameraActive, "Ship defaults to cockpit first-person view after sitting.");
+                Assert(!_exteriorVisual.Visible, "Exterior ShuttleA visual is hidden for default seated cockpit first-person view.");
                 Assert(_ship.IsPiloted, "Ship pilot state is active after sitting.");
                 Assert(_player.GlobalPosition.DistanceTo(_seatAnchor.GlobalPosition) < 0.05f, "Seated player aligns to revised seat anchor.");
                 Input.ActionPress("ship_toggle_camera");
                 break;
             case 31:
-                Assert(_ship.IsCockpitCameraActive, "Ship camera toggles to cockpit first-person view while piloted.");
-                Assert(!_exteriorVisual.Visible, "Exterior ShuttleA visual is hidden for piloted cockpit first-person view.");
+                Assert(!_ship.IsCockpitCameraActive, "Ship camera toggles to exterior orbital view while piloted.");
+                Assert(_exteriorVisual.Visible, "Exterior ShuttleA visual is restored after toggling to orbital ship view.");
                 Input.ActionRelease("ship_toggle_camera");
                 Input.ActionPress("ship_toggle_camera");
                 break;
             case 32:
-                Assert(!_ship.IsCockpitCameraActive, "Ship camera toggles back to exterior orbital view while piloted.");
-                Assert(_exteriorVisual.Visible, "Exterior ShuttleA visual is restored after returning to orbital ship view.");
+                Assert(_ship.IsCockpitCameraActive, "Ship camera toggles back to cockpit first-person view while piloted.");
+                Assert(!_exteriorVisual.Visible, "Exterior ShuttleA visual is hidden after returning to cockpit first-person view.");
                 Input.ActionRelease("ship_toggle_camera");
                 _pilotSeat.Interact(_player);
                 break;
@@ -211,7 +212,7 @@ public partial class Phase021bValidationRunner : Node
 
         var route = new[]
         {
-            new TraversalSample("hatch spawn floor", new Vector3(0.0f, 1.10f, 3.20f), 0.26f, 0.12f),
+            new TraversalSample("hatch spawn floor", new Vector3(0.0f, 1.10f, 2.35f), 0.26f, 0.12f),
             new TraversalSample("mid cabin floor", new Vector3(0.0f, 1.10f, 0.20f), 0.26f, 0.12f),
             new TraversalSample("forward cabin floor", new Vector3(0.0f, 1.10f, -3.70f), 0.26f, 0.12f),
             new TraversalSample("cockpit threshold floor", new Vector3(0.0f, 1.20f, -5.45f), 0.30f, 0.12f),

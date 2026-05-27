@@ -37,6 +37,10 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float ZeroGravityThrust { get; set; } = 8.0f;
     [Export] public float ZeroGravityBrakeStrength { get; set; } = 16.0f;
     [Export] public float ZeroGravityDamping { get; set; } = 0.05f;
+    [Export] public float ShipInteriorGravityAcceleration { get; set; } = 18.0f;
+    [Export] public float ShipInteriorAftExitLocalZ { get; set; } = 4.75f;
+    [Export] public Vector3 ShipInteriorBoundsMin { get; set; } = new(-2.55f, -0.8f, -11.3f);
+    [Export] public Vector3 ShipInteriorBoundsMax { get; set; } = new(2.55f, 3.8f, 4.35f);
     [Export] public float OxygenMax { get; set; } = 120.0f;
     [Export] public NodePath ViewPivotPath { get; set; } = "ViewPivot";
     [Export] public NodePath CameraPath { get; set; } = "ViewPivot/Camera3D";
@@ -57,6 +61,10 @@ public partial class PlayerController : CharacterBody3D
     private float _oxygen;
     private bool _jetpackFiring;
     private IInteractable? _seatedInteractable;
+    private ShipController? _interiorShip;
+    private Transform3D _shipLocalTransform = Transform3D.Identity;
+    private Vector3 _shipLocalVelocity = Vector3.Zero;
+    private uint _defaultPlatformFloorLayers;
 
     public bool DebugGrounded => IsOnFloor();
     public Vector3 DebugUpDirection => _lastUp;
@@ -73,6 +81,12 @@ public partial class PlayerController : CharacterBody3D
     public PlayerContext DebugPlayerContext => _playerContext;
     public bool DebugMovementEnabled => IsMovementEnabled;
     public IInteractable? SeatedInteractable => _seatedInteractable;
+    public bool DebugUsingShipInteriorFrame => _interiorShip is not null && _playerContext == PlayerContext.InShipInterior;
+    public string DebugGravityFrame => DebugUsingShipInteriorFrame
+        ? "Ship Interior"
+        : _lastGravityAcceleration.Length() <= ZeroGravityThreshold
+            ? "Space / Zero-G"
+            : "Planetary / External";
 
     private bool IsMovementEnabled => _playerContext != PlayerContext.Seated;
 
@@ -83,6 +97,7 @@ public partial class PlayerController : CharacterBody3D
         _collisionShape = GetNode<CollisionShape3D>(CollisionShapePath);
         _jetpackFuel = JetpackFuelMax;
         _oxygen = OxygenMax;
+        _defaultPlatformFloorLayers = PlatformFloorLayers;
         FloorStopOnSlope = true;
         MotionMode = MotionModeEnum.Grounded;
         Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -105,6 +120,7 @@ public partial class PlayerController : CharacterBody3D
         var deltaSeconds = (float)delta;
         _jetpackFiring = false;
 
+        ApplyShipInteriorFrame();
         UpdateGravityState();
         UpdateMovementMode();
         UpdateBodyAlignment(deltaSeconds);
@@ -117,6 +133,8 @@ public partial class PlayerController : CharacterBody3D
             Velocity = Vector3.Zero;
             MoveAndSlide();
         }
+        CaptureShipInteriorFrame();
+        UpdateShipInteriorContainment();
         UpdateSuitResources(deltaSeconds);
     }
 
@@ -124,6 +142,11 @@ public partial class PlayerController : CharacterBody3D
     {
         _playerContext = context;
         _collisionShape.Disabled = context == PlayerContext.Seated;
+        if (context != PlayerContext.InShipInterior)
+        {
+            ClearShipInteriorFrame();
+        }
+        PlatformFloorLayers = context == PlayerContext.InShipInterior ? 0u : _defaultPlatformFloorLayers;
         if (context != PlayerContext.Seated)
         {
             _seatedInteractable = null;
@@ -139,6 +162,7 @@ public partial class PlayerController : CharacterBody3D
     {
         GlobalTransform = targetTransform;
         Velocity = Vector3.Zero;
+        CaptureShipInteriorFrame();
     }
 
     public void ForceSeatTransform(Transform3D seatTransform)
@@ -154,8 +178,61 @@ public partial class PlayerController : CharacterBody3D
         _camera.Current = active;
     }
 
+    public void AttachToShipInteriorFrame(ShipController? ship, bool preserveRelativeVelocity = false)
+    {
+        _interiorShip = ship;
+
+        if (_interiorShip is null)
+        {
+            _shipLocalTransform = Transform3D.Identity;
+            _shipLocalVelocity = Vector3.Zero;
+            return;
+        }
+
+        var shipTransform = _interiorShip.GlobalTransform;
+        var shipBasis = shipTransform.Basis.Orthonormalized();
+        _shipLocalTransform = shipTransform.AffineInverse() * GlobalTransform;
+
+        var frameVelocity = preserveRelativeVelocity
+            ? _interiorShip.LinearVelocity + _interiorShip.AngularVelocity.Cross(GlobalPosition - _interiorShip.GlobalPosition)
+            : Vector3.Zero;
+        _shipLocalVelocity = shipBasis.Inverse() * (Velocity - frameVelocity);
+    }
+
+    public void ClearShipInteriorFrame()
+    {
+        _interiorShip = null;
+        _shipLocalTransform = Transform3D.Identity;
+        _shipLocalVelocity = Vector3.Zero;
+    }
+
+    public void DetachFromShipInteriorFrame(bool inheritShipMomentum)
+    {
+        if (_interiorShip is not null && inheritShipMomentum)
+        {
+            var shipBasis = _interiorShip.GlobalTransform.Basis.Orthonormalized();
+            var radiusFromShipCenter = GlobalPosition - _interiorShip.GlobalPosition;
+            Velocity = _interiorShip.LinearVelocity
+                + _interiorShip.AngularVelocity.Cross(radiusFromShipCenter)
+                + shipBasis * _shipLocalVelocity;
+        }
+
+        ClearShipInteriorFrame();
+    }
+
     private void UpdateGravityState()
     {
+        if (_playerContext == PlayerContext.InShipInterior && _interiorShip is not null)
+        {
+            var shipBasis = _interiorShip.GlobalTransform.Basis.Orthonormalized();
+            _activeGravityBodyName = $"{_interiorShip.Name} Interior";
+            _lastUp = shipBasis.Y.Normalized();
+            _lastGravityDirection = -_lastUp;
+            _lastGravityAcceleration = _lastGravityDirection * ShipInteriorGravityAcceleration;
+            UpDirection = _lastUp;
+            return;
+        }
+
         var service = GravityService.Instance;
         var body = service?.GetBestBody(GlobalPosition);
 
@@ -174,6 +251,57 @@ public partial class PlayerController : CharacterBody3D
         }
 
         UpDirection = _lastUp;
+    }
+
+    private void ApplyShipInteriorFrame()
+    {
+        if (_playerContext != PlayerContext.InShipInterior || _interiorShip is null)
+        {
+            return;
+        }
+
+        GlobalTransform = _interiorShip.GlobalTransform * _shipLocalTransform;
+        Velocity = _interiorShip.GlobalTransform.Basis.Orthonormalized() * _shipLocalVelocity;
+    }
+
+    private void CaptureShipInteriorFrame()
+    {
+        if (_playerContext != PlayerContext.InShipInterior || _interiorShip is null)
+        {
+            return;
+        }
+
+        _shipLocalTransform = _interiorShip.GlobalTransform.AffineInverse() * GlobalTransform;
+        _shipLocalVelocity = _interiorShip.GlobalTransform.Basis.Orthonormalized().Inverse() * Velocity;
+    }
+
+    private void UpdateShipInteriorContainment()
+    {
+        if (_playerContext != PlayerContext.InShipInterior || _interiorShip is null)
+        {
+            return;
+        }
+
+        if (IsInsideShipInteriorBounds(_shipLocalTransform.Origin)
+            && _shipLocalTransform.Origin.Z <= ShipInteriorAftExitLocalZ)
+        {
+            return;
+        }
+
+        var ship = _interiorShip;
+        DetachFromShipInteriorFrame(inheritShipMomentum: true);
+        SetPlayerContext(PlayerContext.OnFoot);
+        ship.SetInteriorViewActive(false);
+    }
+
+    private bool IsInsideShipInteriorBounds(Vector3 shipLocalPosition)
+    {
+        return shipLocalPosition.X >= ShipInteriorBoundsMin.X
+            && shipLocalPosition.X <= ShipInteriorBoundsMax.X
+            && shipLocalPosition.Y >= ShipInteriorBoundsMin.Y
+            && shipLocalPosition.Y <= ShipInteriorBoundsMax.Y
+            && shipLocalPosition.Z >= ShipInteriorBoundsMin.Z
+            && shipLocalPosition.Z <= ShipInteriorBoundsMax.Z;
     }
 
     private void UpdateMovementMode()

@@ -51,6 +51,8 @@ else
 fi
 
 if [[ -x "${GODOT_BIN}" ]] || command -v "${GODOT_BIN}" >/dev/null 2>&1; then
+  echo "Running airborne ship interior frame validation"
+  "${GODOT_BIN}" --headless --path . scenes/solar_system/Phase4Validation.tscn
   echo "Capturing ShuttleA interior walkthrough"
   scripts/capture-ship-walkthrough.sh
   echo "Running ShuttleA interior runtime validation"

@@ -237,6 +237,72 @@ position = Vector3(2.35, 1.82, 6.08)
 material_override = ExtResource("11_ship_accent")
 mesh = SubResource("BoxMesh_thruster")
 
+[node name="ExteriorHatchUndersideLights" type="Node3D" parent="."]
+
+[node name="LeftFixture" type="MeshInstance3D" parent="ExteriorHatchUndersideLights"]
+position = Vector3(-0.72, 0.22, 3.72)
+rotation = Vector3(0, 0, -0.16)
+scale = Vector3(2.6, 1.0, 1.25)
+material_override = ExtResource("11_ship_accent")
+mesh = SubResource("BoxMesh_button")
+
+[node name="RightFixture" type="MeshInstance3D" parent="ExteriorHatchUndersideLights"]
+position = Vector3(0.72, 0.22, 3.72)
+rotation = Vector3(0, 0, 0.16)
+scale = Vector3(2.6, 1.0, 1.25)
+material_override = ExtResource("11_ship_accent")
+mesh = SubResource("BoxMesh_button")
+
+[node name="LeftHatchStrip" type="MeshInstance3D" parent="ExteriorHatchUndersideLights"]
+position = Vector3(-1.02, 0.46, 4.02)
+rotation = Vector3(0, 0, -0.22)
+scale = Vector3(1.0, 1.0, 0.42)
+material_override = ExtResource("11_ship_accent")
+mesh = SubResource("BoxMesh_side_light")
+
+[node name="RightHatchStrip" type="MeshInstance3D" parent="ExteriorHatchUndersideLights"]
+position = Vector3(1.02, 0.46, 4.02)
+rotation = Vector3(0, 0, 0.22)
+scale = Vector3(1.0, 1.0, 0.42)
+material_override = ExtResource("11_ship_accent")
+mesh = SubResource("BoxMesh_side_light")
+
+[node name="LeftFixtureGlow" type="OmniLight3D" parent="ExteriorHatchUndersideLights"]
+position = Vector3(-0.82, 0.56, 3.92)
+light_color = Color(1, 0.76, 0.48, 1)
+light_energy = 0.75
+light_specular = 0.55
+omni_range = 2.4
+omni_attenuation = 1.65
+
+[node name="RightFixtureGlow" type="OmniLight3D" parent="ExteriorHatchUndersideLights"]
+position = Vector3(0.82, 0.56, 3.92)
+light_color = Color(1, 0.76, 0.48, 1)
+light_energy = 0.75
+light_specular = 0.55
+omni_range = 2.4
+omni_attenuation = 1.65
+
+[node name="LeftPoolLight" type="SpotLight3D" parent="ExteriorHatchUndersideLights"]
+position = Vector3(-0.72, 0.18, 3.72)
+rotation = Vector3(-1.5708, 0, -0.12)
+light_color = Color(1, 0.78, 0.50, 1)
+light_energy = 1.8
+light_specular = 0.35
+spot_range = 6.2
+spot_angle = 52.0
+spot_attenuation = 1.45
+
+[node name="RightPoolLight" type="SpotLight3D" parent="ExteriorHatchUndersideLights"]
+position = Vector3(0.72, 0.18, 3.72)
+rotation = Vector3(-1.5708, 0, 0.12)
+light_color = Color(1, 0.78, 0.50, 1)
+light_energy = 1.8
+light_specular = 0.35
+spot_range = 6.2
+spot_angle = 52.0
+spot_attenuation = 1.45
+
 [node name="ShipCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.955336, 0.29552, 0, -0.29552, 0.955336, 0, 6.8, 16.5)
 fov = 72.0
@@ -902,7 +968,7 @@ mesh = SubResource("BoxMesh_button")
 [node name="Markers" type="Node3D" parent="."]
 
 [node name="InteriorSpawn" type="Marker3D" parent="Markers"]
-position = Vector3(0, 1.12, 3.25)
+position = Vector3(0, 1.12, 2.35)
 
 [node name="ExteriorExit" type="Marker3D" parent="Markers"]
 position = Vector3(0, 1.18, 5.42)
@@ -914,4 +980,4 @@ position = Vector3(0, 2.04, -8.55)
 position = Vector3(0, 2.18, -8.92)
 
 [node name="SeatExit" type="Marker3D" parent="Markers"]
-position = Vector3(0, 1.22, -5.65)
+position = Vector3(0, 1.82, -7.42)

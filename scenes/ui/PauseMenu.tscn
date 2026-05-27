@@ -29,9 +29,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -520.0
-offset_top = -270.0
+offset_top = -330.0
 offset_right = 520.0
-offset_bottom = 270.0
+offset_bottom = 330.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
@@ -72,68 +72,126 @@ text = "1.00x"
 horizontal_alignment = 2
 
 [node name="Tabs" type="TabContainer" parent="Panel/MarginContainer/Root"]
-custom_minimum_size = Vector2(0, 400)
+custom_minimum_size = Vector2(0, 500)
 size_flags_vertical = 3
 
 [node name="Flight" type="VBoxContainer" parent="Panel/MarginContainer/Root/Tabs"]
 theme_override_constants/separation = 10
 
-[node name="Camera" type="VBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight"]
+[node name="OrbitCamera" type="VBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight"]
 theme_override_constants/separation = 6
 
-[node name="CameraTitle" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera"]
+[node name="CameraTitle" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera"]
 label_settings = SubResource("LabelSettings_menu")
-text = "Camera"
+text = "Orbital Camera"
 
-[node name="LookX" type="HBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera"]
+[node name="LookX" type="HBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera"]
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera/LookX"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera/LookX"]
 custom_minimum_size = Vector2(150, 0)
 label_settings = SubResource("LabelSettings_menu")
 text = "Look X"
 
-[node name="Slider" type="HSlider" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera/LookX"]
+[node name="Slider" type="HSlider" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera/LookX"]
 custom_minimum_size = Vector2(250, 0)
 min_value = 0.001
 max_value = 0.015
 step = 0.0005
 value = 0.003
 
-[node name="Value" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera/LookX"]
+[node name="Value" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera/LookX"]
 custom_minimum_size = Vector2(70, 0)
 label_settings = SubResource("LabelSettings_menu")
 text = "0.0030"
 horizontal_alignment = 2
 
-[node name="LookY" type="HBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera"]
+[node name="LookY" type="HBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera"]
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera/LookY"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera/LookY"]
 custom_minimum_size = Vector2(150, 0)
 label_settings = SubResource("LabelSettings_menu")
 text = "Look Y"
 
-[node name="Slider" type="HSlider" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera/LookY"]
+[node name="Slider" type="HSlider" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera/LookY"]
 custom_minimum_size = Vector2(250, 0)
 min_value = 0.001
 max_value = 0.015
 step = 0.0005
 value = 0.003
 
-[node name="Value" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera/LookY"]
+[node name="Value" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera/LookY"]
 custom_minimum_size = Vector2(70, 0)
 label_settings = SubResource("LabelSettings_menu")
 text = "0.0030"
 horizontal_alignment = 2
 
-[node name="Inverts" type="HBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera"]
+[node name="Inverts" type="HBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera"]
 theme_override_constants/separation = 18
 
-[node name="InvertX" type="CheckBox" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera/Inverts"]
+[node name="InvertX" type="CheckBox" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera/Inverts"]
 text = "Invert X"
 
-[node name="InvertY" type="CheckBox" parent="Panel/MarginContainer/Root/Tabs/Flight/Camera/Inverts"]
+[node name="InvertY" type="CheckBox" parent="Panel/MarginContainer/Root/Tabs/Flight/OrbitCamera/Inverts"]
+text = "Invert Y"
+
+[node name="CockpitCamera" type="VBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight"]
+theme_override_constants/separation = 6
+
+[node name="CameraTitle" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera"]
+label_settings = SubResource("LabelSettings_menu")
+text = "Cockpit Camera"
+
+[node name="LookX" type="HBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera"]
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera/LookX"]
+custom_minimum_size = Vector2(150, 0)
+label_settings = SubResource("LabelSettings_menu")
+text = "Look X"
+
+[node name="Slider" type="HSlider" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera/LookX"]
+custom_minimum_size = Vector2(250, 0)
+min_value = 0.001
+max_value = 0.015
+step = 0.0005
+value = 0.0025
+
+[node name="Value" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera/LookX"]
+custom_minimum_size = Vector2(70, 0)
+label_settings = SubResource("LabelSettings_menu")
+text = "0.0025"
+horizontal_alignment = 2
+
+[node name="LookY" type="HBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera"]
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera/LookY"]
+custom_minimum_size = Vector2(150, 0)
+label_settings = SubResource("LabelSettings_menu")
+text = "Look Y"
+
+[node name="Slider" type="HSlider" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera/LookY"]
+custom_minimum_size = Vector2(250, 0)
+min_value = 0.001
+max_value = 0.015
+step = 0.0005
+value = 0.0025
+
+[node name="Value" type="Label" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera/LookY"]
+custom_minimum_size = Vector2(70, 0)
+label_settings = SubResource("LabelSettings_menu")
+text = "0.0025"
+horizontal_alignment = 2
+
+[node name="Inverts" type="HBoxContainer" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera"]
+theme_override_constants/separation = 18
+
+[node name="InvertX" type="CheckBox" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera/Inverts"]
+text = "Invert X"
+
+[node name="InvertY" type="CheckBox" parent="Panel/MarginContainer/Root/Tabs/Flight/CockpitCamera/Inverts"]
 text = "Invert Y"
 
 [node name="Divider" type="HSeparator" parent="Panel/MarginContainer/Root/Tabs/Flight"]

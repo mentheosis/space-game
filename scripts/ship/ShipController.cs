@@ -34,6 +34,8 @@ public partial class ShipController : RigidBody3D
     [Export] public float OrbitCameraMaxPitchDegrees { get; set; } = 75.0f;
     [Export] public float CockpitCameraHorizontalSensitivity { get; set; } = 0.0025f;
     [Export] public float CockpitCameraVerticalSensitivity { get; set; } = 0.0025f;
+    [Export] public bool InvertCockpitCameraX { get; set; } = false;
+    [Export] public bool InvertCockpitCameraY { get; set; } = false;
     [Export] public float CockpitCameraMinPitchDegrees { get; set; } = -35.0f;
     [Export] public float CockpitCameraMaxPitchDegrees { get; set; } = 55.0f;
 
@@ -55,10 +57,13 @@ public partial class ShipController : RigidBody3D
     private float _orbitPitch = Mathf.DegToRad(22.0f);
     private float _cockpitYaw;
     private float _cockpitPitch;
+    private bool _preserveUnpilotedTrajectory;
+    private Vector3 _preservedLinearVelocity = Vector3.Zero;
+    private Vector3 _preservedAngularVelocity = Vector3.Zero;
 
     public bool IsPiloted => _pilot is not null;
     public bool IsLanded => _isLanded;
-    public float Speed => LinearVelocity.Length();
+    public float Speed => _preserveUnpilotedTrajectory ? _preservedLinearVelocity.Length() : LinearVelocity.Length();
     public Vector3 GravityAcceleration => _gravityAcceleration;
     public float GravityMagnitude => _gravityAcceleration.Length();
     public string ActiveGravityBodyName => _activeGravityBody?.Name ?? "Zero-G";
@@ -78,6 +83,8 @@ public partial class ShipController : RigidBody3D
         _exteriorGlassDefaultVisible = _exteriorGlass?.Visible ?? true;
         CacheInteriorOnlyCanopyNodes();
         _shipCamera.Current = false;
+        ContactMonitor = true;
+        MaxContactsReported = 16;
         GravityScale = 0.0f;
         Freeze = true;
         _isLanded = true;
@@ -100,11 +107,14 @@ public partial class ShipController : RigidBody3D
 
     public override void _PhysicsProcess(double delta)
     {
+        var deltaSeconds = (float)delta;
         UpdateGravityState();
         UpdateLandedState();
 
         if (_pilot is not null)
         {
+            _preserveUnpilotedTrajectory = false;
+
             if (Input.IsActionJustPressed("ship_toggle_camera"))
             {
                 TogglePilotCameraMode();
@@ -118,14 +128,19 @@ public partial class ShipController : RigidBody3D
 
             if (!Freeze)
             {
-                ApplyPilotInput((float)delta);
+                ApplyPilotInput(deltaSeconds);
             }
 
             _pilot.ForceSeatTransform(_seatAnchor.GlobalTransform);
             UpdatePilotCamera();
         }
+        else if (_preserveUnpilotedTrajectory && !_isLanded)
+        {
+            PreserveUnpilotedTrajectory(deltaSeconds);
+        }
         else if (_isLanded)
         {
+            _preserveUnpilotedTrajectory = false;
             LinearVelocity = Vector3.Zero;
             AngularVelocity = Vector3.Zero;
             Freeze = true;
@@ -135,8 +150,10 @@ public partial class ShipController : RigidBody3D
     public void SetPilot(PlayerController player)
     {
         _pilot = player;
-        _pilotCameraMode = PilotCameraMode.ExteriorOrbit;
-        SetInteriorViewActive(false);
+        _pilotCameraMode = PilotCameraMode.CockpitFirstPerson;
+        _cockpitYaw = 0.0f;
+        _cockpitPitch = 0.0f;
+        SetInteriorViewActive(true);
         _shipCamera.Current = true;
         player.SetPlayerCameraActive(false);
         player.ForceSeatTransform(_seatAnchor.GlobalTransform);
@@ -147,6 +164,14 @@ public partial class ShipController : RigidBody3D
     {
         if (_pilot == player)
         {
+            if (!_isLanded && !Freeze)
+            {
+                _preservedLinearVelocity = LinearVelocity;
+                _preservedAngularVelocity = AngularVelocity;
+                _preserveUnpilotedTrajectory = true;
+                Sleeping = false;
+            }
+
             _pilot = null;
             _pilotCameraMode = PilotCameraMode.ExteriorOrbit;
             _shipCamera.Current = false;
@@ -187,8 +212,14 @@ public partial class ShipController : RigidBody3D
         return CanUseHatches;
     }
 
+    public bool CanStandFromSeat()
+    {
+        return true;
+    }
+
     public void ForceLandedForValidation()
     {
+        _preserveUnpilotedTrajectory = false;
         LinearVelocity = Vector3.Zero;
         AngularVelocity = Vector3.Zero;
         Freeze = true;
@@ -201,15 +232,32 @@ public partial class ShipController : RigidBody3D
         _gravityAcceleration = _activeGravityBody?.GetGravityAcceleration(GlobalPosition) ?? Vector3.Zero;
         _gravityUp = _gravityAcceleration.LengthSquared() > 0.0001f ? -_gravityAcceleration.Normalized() : GlobalTransform.Basis.Y;
 
-        if (!Freeze && _gravityAcceleration.LengthSquared() > 0.0001f)
+        if (!Freeze && !_preserveUnpilotedTrajectory && _gravityAcceleration.LengthSquared() > 0.0001f)
         {
             ApplyCentralForce(_gravityAcceleration * Mass);
         }
     }
 
+    private void PreserveUnpilotedTrajectory(float delta)
+    {
+        Sleeping = false;
+        Freeze = false;
+        _preservedLinearVelocity += _gravityAcceleration * delta;
+
+        if (HasNonPlayerContact())
+        {
+            _preservedLinearVelocity = LinearVelocity;
+            _preservedAngularVelocity = AngularVelocity;
+            return;
+        }
+
+        LinearVelocity = _preservedLinearVelocity;
+        AngularVelocity = _preservedAngularVelocity;
+    }
+
     private void UpdateLandedState()
     {
-        if (Freeze)
+        if (Freeze && !_preserveUnpilotedTrajectory)
         {
             _isLanded = true;
             return;
@@ -220,6 +268,19 @@ public partial class ShipController : RigidBody3D
         _isLanded = surfaceDistance <= LandingDistance
             && Speed <= MaxLandedSpeed
             && uprightDot >= MinLandingUpDot;
+    }
+
+    private bool HasNonPlayerContact()
+    {
+        foreach (var body in GetCollidingBodies())
+        {
+            if (body is not PlayerController)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void ApplyPilotInput(float delta)
@@ -313,11 +374,10 @@ public partial class ShipController : RigidBody3D
 
     private void UpdateMouseLook(InputEventMouseMotion motion)
     {
-        var yawDirection = InvertOrbitCameraX ? 1.0f : -1.0f;
-        var pitchDirection = InvertOrbitCameraY ? 1.0f : -1.0f;
-
         if (_pilotCameraMode == PilotCameraMode.CockpitFirstPerson)
         {
+            var yawDirection = InvertCockpitCameraX ? 1.0f : -1.0f;
+            var pitchDirection = InvertCockpitCameraY ? 1.0f : -1.0f;
             _cockpitYaw = Mathf.Clamp(
                 _cockpitYaw + motion.Relative.X * CockpitCameraHorizontalSensitivity * yawDirection,
                 Mathf.DegToRad(-70.0f),
@@ -329,6 +389,8 @@ public partial class ShipController : RigidBody3D
         }
         else
         {
+            var yawDirection = InvertOrbitCameraX ? 1.0f : -1.0f;
+            var pitchDirection = InvertOrbitCameraY ? 1.0f : -1.0f;
             _orbitYaw += motion.Relative.X * OrbitCameraHorizontalSensitivity * yawDirection;
             _orbitPitch = Mathf.Clamp(
                 _orbitPitch + motion.Relative.Y * OrbitCameraVerticalSensitivity * pitchDirection,
@@ -400,7 +462,7 @@ public partial class ShipController : RigidBody3D
         EnsureKeyAction("ship_yaw_right", Key.Right);
         EnsureKeyAction("ship_roll_left", Key.Q);
         EnsureKeyAction("ship_roll_right", Key.E);
-        EnsureKeyAction("ship_toggle_camera", Key.V);
+        EnsureKeyAction("ship_toggle_camera", Key.C);
     }
 
     private static void EnsureKeyAction(string actionName, Key key)

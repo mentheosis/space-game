@@ -19,9 +19,9 @@ public partial class PilotSeat : Area3D, IInteractable
 
     public string GetPrompt(PlayerController player)
     {
-        if (player.DebugPlayerContext == PlayerContext.Seated && _ship is not null && !_ship.CanExitShip())
+        if (player.DebugPlayerContext == PlayerContext.Seated && _ship is not null && !_ship.CanStandFromSeat())
         {
-            return "Ship Airborne";
+            return "Cannot Stand";
         }
 
         return player.DebugPlayerContext == PlayerContext.Seated ? "F Stand" : "F Sit";
@@ -31,7 +31,7 @@ public partial class PilotSeat : Area3D, IInteractable
     {
         if (player.DebugPlayerContext == PlayerContext.InShipInterior)
         {
-            return _ship is null || _ship.CanUseHatches;
+            return true;
         }
 
         return player.DebugPlayerContext == PlayerContext.Seated;
@@ -46,7 +46,7 @@ public partial class PilotSeat : Area3D, IInteractable
 
         if (player.DebugPlayerContext == PlayerContext.Seated)
         {
-            if (_ship is not null && !_ship.CanExitShip())
+            if (_ship is not null && !_ship.CanStandFromSeat())
             {
                 return;
             }
@@ -64,6 +64,7 @@ public partial class PilotSeat : Area3D, IInteractable
         player.MoveToTransform(_seatAnchor.GlobalTransform);
         player.SetPlayerContext(PlayerContext.Seated);
         player.SetSeatedInteractable(this);
+        player.ClearShipInteriorFrame();
         _ship?.SetInteriorViewActive(false);
         _ship?.SetPilot(player);
     }
@@ -73,6 +74,7 @@ public partial class PilotSeat : Area3D, IInteractable
         player.MoveToTransform(_seatExit.GlobalTransform);
         _ship?.ClearPilot(player);
         player.SetPlayerContext(PlayerContext.InShipInterior);
+        player.AttachToShipInteriorFrame(_ship);
         _ship?.SetInteriorViewActive(true);
     }
 }

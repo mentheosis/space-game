@@ -44,8 +44,18 @@ public partial class ShipHatch : Area3D, IInteractable
             return;
         }
 
-        player.MoveToTransform(_targetMarker.GlobalTransform);
-        player.SetPlayerContext(EntersShip ? PlayerContext.InShipInterior : PlayerContext.OnFoot);
+        if (EntersShip)
+        {
+            player.MoveToTransform(_targetMarker.GlobalTransform);
+            player.SetPlayerContext(PlayerContext.InShipInterior);
+            player.AttachToShipInteriorFrame(_ship);
+        }
+        else
+        {
+            player.MoveToTransform(_targetMarker.GlobalTransform);
+            player.DetachFromShipInteriorFrame(inheritShipMomentum: true);
+            player.SetPlayerContext(PlayerContext.OnFoot);
+        }
         _ship?.SetInteriorViewActive(EntersShip);
     }
 }

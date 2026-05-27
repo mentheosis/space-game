@@ -849,27 +849,10 @@ def create_cockpit_lighting_sprint_pass(
         0.006,
     )
 
-    for side in [-1.0, 1.0]:
-        label = "L" if side < 0 else "R"
-        add_beveled_cube(
-            f"CockpitLighting02_canopy_rim_dark_recess_{label}",
-            (side * 0.735, 1.850, -8.88),
-            (0.034, 0.042, 0.54),
-            dark_mat,
-            target,
-            0.008,
-        )
-        add_beveled_cube(
-            f"CockpitLighting02_canopy_rim_cool_lens_{label}",
-            (side * 0.714, 1.852, -8.88),
-            (0.020, 0.024, 0.34),
-            screen_mat,
-            target,
-            0.005,
-        )
-
-    # No glowing fixture on the seat back; it read as an odd artifact in the
-    # cockpit review path and competed with the canopy silhouette.
+    # Keep the canopy edge free of tiny floating lamps. Earlier rim fixtures
+    # were too small to read as mounted hardware in the cockpit walkthrough.
+    # No glowing fixture on the seat back; it read as an odd artifact and
+    # competed with the canopy silhouette.
 
 
 def create_cockpit_access_architecture(
@@ -1483,10 +1466,13 @@ def create_visible_canopy_and_tail_seals(
             target,
             0.014,
         )
-        add_cylinder_between(
-            f"Canopy_visible_outer_glass_seal_{label}",
-            (side * 0.58, 1.72, -10.78),
-            (side * 1.10, 2.20, -7.02),
+        add_tube_polyline(
+            f"Canopy_visible_outer_glass_full_length_seal_{label}",
+            [
+                (side * 0.58, 1.72, -10.78),
+                (side * 1.10, 2.20, -7.02),
+                (side * 1.16, 2.36, -5.52),
+            ],
             0.018,
             rubber_mat,
             target,
@@ -1494,7 +1480,8 @@ def create_visible_canopy_and_tail_seals(
         )
 
     add_cylinder_between("Canopy_visible_front_cross_seal", (-0.52, 1.82, -10.92), (0.52, 1.82, -10.92), 0.020, rubber_mat, target, 12)
-    add_cylinder_between("Canopy_visible_overhead_crown_seal", (0.0, 2.42, -10.16), (0.0, 3.18, -7.20), 0.014, rubber_mat, target, 10)
+    # No overhead center crown seal. The canopy should read as one clear dome
+    # without a top-center structural rib.
 
     # Aft hatch: add an unmistakable inner pressure door and surrounding
     # closeout panels so the tail does not read as an open arch from reverse
@@ -1537,7 +1524,7 @@ def create_canopy_glass_readability_pass(
         add_cylinder_between(
             f"CanopyReflection_long_soft_arc_{label}",
             (side * 0.58, 2.30, -10.18),
-            (side * 0.98, 2.82, -7.30),
+            (side * 1.10, 2.54, -5.56),
             0.006,
             reflection_mat,
             target,
@@ -1546,7 +1533,7 @@ def create_canopy_glass_readability_pass(
         add_cylinder_between(
             f"CanopyReflection_lower_edge_catch_{label}",
             (side * 0.62, 1.62, -10.46),
-            (side * 1.00, 1.96, -7.58),
+            (side * 1.08, 1.72, -5.58),
             0.004,
             reflection_mat,
             target,
@@ -1567,7 +1554,8 @@ def create_canopy_glass_readability_pass(
             )
 
     add_cylinder_between("CanopyReflection_front_soft_header", (-0.46, 2.18, -10.62), (0.46, 2.18, -10.62), 0.005, reflection_mat, target, 10)
-    add_cylinder_between("CanopyInterior_thin_center_laminate_line", (0.0, 2.36, -10.12), (0.0, 3.10, -7.38), 0.006, rubber_mat, target, 8)
+    # No top-center canopy bow: the exterior reads as a broad fighter canopy,
+    # and the center line made the cockpit look busier and less transparent.
 
 
 def create_interior_enclosure_polish_pass(
@@ -2403,23 +2391,9 @@ def create_solo_falcon_reference_brightness_pass(
             0.004,
         )
 
-    for index, z in enumerate([-8.72, -8.05]):
-        add_beveled_cube(
-            f"SoloFalconCockpitOverheadWhiteFixture_{index}",
-            (0.0, 2.075, z),
-            (0.78, 0.050, 0.34),
-            bright_mat,
-            target,
-            0.022,
-        )
-        add_beveled_cube(
-            f"SoloFalconCockpitOverheadWarmLens_{index}",
-            (0.0, 2.035, z),
-            (0.48, 0.018, 0.070),
-            warm_luminous_mat,
-            target,
-            0.006,
-        )
+    # Do not place white overhead fixtures above the pilot seat. In the cockpit
+    # walkthrough they read as two flat square objects sitting on top of the
+    # chair instead of as ceiling-mounted lighting.
 
     # Inboard bright pads are deliberately closer to the walking volume than
     # the outer shell pads so the first-person walkthrough reads the reference
@@ -2603,26 +2577,69 @@ def create_cockpit_viewport_cleanup_pass(
 
     for side in [-1.0, 1.0]:
         label = "L" if side < 0 else "R"
-        add_cylinder_between(
-            f"CockpitClean_side_structural_bow_{label}",
-            (side * 0.78, 1.54, -10.30),
-            (side * 1.05, 2.20, -7.05),
-            0.018,
+        add_tube_polyline(
+            f"CockpitClean_side_structural_full_canopy_bow_{label}",
+            [
+                (side * 0.78, 1.54, -10.30),
+                (side * 1.05, 2.20, -7.05),
+                (side * 1.16, 2.42, -5.52),
+            ],
+            0.026,
             trim_mat,
             target,
             14,
         )
-        add_cylinder_between(
-            f"CockpitClean_side_inner_rubber_seal_{label}",
-            (side * 0.70, 1.66, -10.22),
-            (side * 0.96, 2.14, -7.10),
-            0.012,
+        add_tube_polyline(
+            f"CockpitClean_side_inner_full_canopy_gasket_{label}",
+            [
+                (side * 0.70, 1.66, -10.22),
+                (side * 0.96, 2.14, -7.10),
+                (side * 1.06, 2.32, -5.54),
+            ],
+            0.014,
             rubber_mat,
             target,
             12,
         )
         # Keep the side canopy below the bow visually open; broad dark panels
         # here made the cockpit read as an opaque tunnel.
+        add_tube_polyline(
+            f"CockpitClean_side_lower_full_canopy_return_{label}",
+            [
+                (side * 0.74, 1.50, -7.02),
+                (side * 0.90, 1.56, -6.28),
+                (side * 1.08, 1.66, -5.54),
+            ],
+            0.020,
+            trim_mat,
+            target,
+            12,
+        )
+        add_beveled_cube(
+            f"CockpitClean_rear_canopy_anchor_socket_upper_{label}",
+            (side * 1.15, 2.38, -5.50),
+            (0.22, 0.20, 0.20),
+            trim_mat,
+            target,
+            0.030,
+        )
+        add_beveled_cube(
+            f"CockpitClean_rear_canopy_anchor_socket_lower_{label}",
+            (side * 1.08, 1.66, -5.50),
+            (0.20, 0.18, 0.22),
+            trim_mat,
+            target,
+            0.026,
+        )
+        add_cylinder_between(
+            f"CockpitClean_rear_canopy_anchor_web_{label}",
+            (side * 1.14, 2.30, -5.50),
+            (side * 1.08, 1.72, -5.50),
+            0.022,
+            trim_mat,
+            target,
+            12,
+        )
 
 
 def create_cockpit_reference_detail_pass(
@@ -2634,43 +2651,10 @@ def create_cockpit_reference_detail_pass(
     target: bpy.types.Collection,
 ) -> None:
     """Add compact reference-style cockpit detail around, not over, the viewport."""
-    for side in [-1.0, 1.0]:
-        label = "L" if side < 0 else "R"
-        for index, (y, z) in enumerate([(1.88, -10.25), (2.04, -9.55), (2.18, -8.70), (2.28, -7.82)]):
-            add_beveled_cube(
-                f"CockpitRef_window_frame_bolt_{label}_{index}",
-                (side * 0.835, y, z),
-                (0.030, 0.026, 0.030),
-                bolt_mat,
-                target,
-                0.006,
-            )
-        # Side panels, vent slats, conduits, and amber chips were removed from
-        # the canopy zone for this pass. Keep the detail around the viewports,
-        # not in front of the glass.
-
-    add_beveled_cube("CockpitRef_seat_dark_pedestal_core", (0.0, 1.255, -8.35), (0.36, 0.18, 0.52), dark_mat, target, 0.028)
-    add_beveled_cube("CockpitRef_seat_front_mount_bar", (0.0, 1.435, -8.72), (0.62, 0.042, 0.050), trim_mat, target, 0.012)
-    add_beveled_cube("CockpitRef_seat_rear_mount_bar", (0.0, 1.435, -7.98), (0.50, 0.038, 0.050), trim_mat, target, 0.012)
-    for side in [-1.0, 1.0]:
-        label = "L" if side < 0 else "R"
-        add_cylinder_between(
-            f"CockpitRef_seat_side_support_{label}",
-            (side * 0.31, 1.40, -8.68),
-            (side * 0.38, 1.63, -8.12),
-            0.018,
-            trim_mat,
-            target,
-            8,
-        )
-        add_beveled_cube(
-            f"CockpitRef_seat_base_bolt_{label}",
-            (side * 0.23, 1.535, -8.66),
-            (0.044, 0.020, 0.044),
-            bolt_mat,
-            target,
-            0.006,
-        )
+    # This pass used to add tiny canopy bolts and a second layer of seat
+    # hardware. In the cockpit walkthrough those pieces read as floating
+    # artifacts and made the pilot seat look like a flat table. The current
+    # canopy frame and PilotSeatV2 now own those silhouettes.
 
 
 def create_subtle_surface_wear_pass(
@@ -3057,14 +3041,15 @@ def create_reference_pilot_seat_v2(
 
     lower_pad = create_tapered_prism("PilotSeatV2_lower_back_fabric_pad", (0.0, 1.78, -8.00), (0.48, 0.12, 0.075), (0.38, 0.09, 0.055), seat_mat, target, 0.030)
     lower_pad.rotation_euler[0] = math.radians(-12.0)
-    upper_pad = create_tapered_prism("PilotSeatV2_upper_shoulder_pad", (0.0, 1.98, -7.88), (0.36, 0.10, 0.060), (0.26, 0.07, 0.045), seat_mat, target, 0.024)
+    upper_pad = create_tapered_prism("PilotSeatV2_upper_shoulder_pad", (0.0, 1.95, -7.89), (0.24, 0.075, 0.052), (0.18, 0.055, 0.038), seat_mat, target, 0.018)
     upper_pad.rotation_euler[0] = math.radians(-12.0)
-    add_beveled_cube("PilotSeatV2_compact_head_pad", (0.0, 2.105, -7.80), (0.30, 0.070, 0.060), seat_mat, target, 0.024)
+    # Avoid a headrest block here. From the cockpit walkthrough it read as a
+    # flat object sitting on the chair and obstructed the canopy view.
 
     for side in [-1.0, 1.0]:
         label = "L" if side < 0 else "R"
         add_beveled_cube(f"PilotSeatV2_side_bucket_bolster_{label}", (side * 0.35, 1.66, -8.32), (0.085, 0.26, 0.42), shell_mat, target, 0.030)
-        add_beveled_cube(f"PilotSeatV2_shoulder_side_frame_{label}", (side * 0.31, 1.89, -7.92), (0.070, 0.42, 0.060), shell_mat, target, 0.022)
+        add_beveled_cube(f"PilotSeatV2_shoulder_side_frame_{label}", (side * 0.28, 1.86, -7.93), (0.052, 0.32, 0.052), shell_mat, target, 0.018)
         add_cylinder_between(f"PilotSeatV2_rear_tubular_support_{label}", (side * 0.34, 1.42, -8.02), (side * 0.28, 1.92, -7.84), 0.020, trim_mat, target, 10)
         add_beveled_cube(f"PilotSeatV2_low_arm_pad_{label}", (side * 0.43, 1.62, -8.42), (0.10, 0.045, 0.36), rubber_mat, target, 0.020)
         add_beveled_cube(f"PilotSeatV2_harness_slot_{label}", (side * 0.15, 1.96, -7.82), (0.045, 0.018, 0.036), rubber_mat, target, 0.006)
@@ -3521,7 +3506,7 @@ def create_initial_interior() -> None:
         add_cylinder_between(
             f"Cockpit_clean_upper_grab_rail_{label}",
             (side * 0.88, 1.42, -9.80),
-            (side * 1.02, 1.62, -7.05),
+            (side * 1.10, 1.70, -5.54),
             0.022,
             rubber_mat,
             interior,

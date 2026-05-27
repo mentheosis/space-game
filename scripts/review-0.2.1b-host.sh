@@ -51,6 +51,9 @@ echo "Building C# project"
 echo "Importing Godot project"
 "${GODOT_BIN}" --headless --path . --import
 
+echo "Running airborne ship interior frame validation"
+"${GODOT_BIN}" --headless --path . scenes/solar_system/Phase4Validation.tscn
+
 echo "Running 0.2.1b Godot validation"
 "${GODOT_BIN}" --headless --path . scenes/solar_system/Phase021bValidation.tscn
 
