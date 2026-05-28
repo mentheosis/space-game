@@ -86,9 +86,11 @@ def validate_scale_proxy_report(report: dict) -> list[str]:
     if report.get("proxy_count", 0) <= 0:
         errors.append("Scale proxy report has no proxies")
     proxy_ids = {proxy.get("id") for proxy in report.get("proxies", [])}
-    for required_id in ["standing_player_capsule", "seated_pilot_capsule", "pilot_eye_to_canopy", "rear_ramp_path"]:
+    for required_id in ["standing_player_capsule", "seated_pilot_capsule", "pilot_eye_to_canopy"]:
         if required_id not in proxy_ids:
             errors.append(f"Scale proxy report is missing required proxy: {required_id}")
+    if not ({"rear_ramp_path", "belly_ramp_path", "ramp_path"} & proxy_ids):
+        errors.append("Scale proxy report is missing required ramp path proxy.")
     return errors
 
 

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "ship_id": "prototype_shuttle",
+  "lights": [
+    {
+      "id": "cargo_warm_left",
+      "godot_node": "CargoWarmLeft",
+      "godot_type": "OmniLight3D",
+      "parent": "Lights",
+      "position": [
+        -2.0,
+        2.9,
+        0.35
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.76,
+          0.46,
+          1.0
+        ],
+        "light_energy": 0.9,
+        "omni_range": 4.5
+      }
+    },
+    {
+      "id": "cargo_warm_right",
+      "godot_node": "CargoWarmRight",
+      "godot_type": "OmniLight3D",
+      "parent": "Lights",
+      "position": [
+        2.0,
+        2.9,
+        0.35
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.76,
+          0.46,
+          1.0
+        ],
+        "light_energy": 0.9,
+        "omni_range": 4.5
+      }
+    },
+    {
+      "id": "cockpit_soft_key",
+      "godot_node": "CockpitSoftKey",
+      "godot_type": "OmniLight3D",
+      "parent": "Lights",
+      "position": [
+        0.0,
+        4.0,
+        -6.6
+      ],
+      "properties": {
+        "light_color": [
+          0.72,
+          0.86,
+          1.0,
+          1.0
+        ],
+        "light_energy": 0.65,
+        "omni_range": 3.6
+      }
+    }
+  ]
+}

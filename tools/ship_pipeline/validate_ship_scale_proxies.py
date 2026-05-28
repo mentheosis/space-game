@@ -19,8 +19,8 @@ REQUIRED_PROXIES = {
     "standing_player_capsule",
     "seated_pilot_capsule",
     "pilot_eye_to_canopy",
-    "rear_ramp_path",
 }
+RAMP_PROXY_IDS = {"rear_ramp_path", "belly_ramp_path", "ramp_path"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -127,14 +127,17 @@ def validate_marker_segment(proxy: dict, markers: dict[str, list[float]], errors
         return
     length = distance(start, end)
     if proxy.get("type") == "ray":
-        if not 0.2 <= length <= 3.0:
+        max_length = 5.0 if proxy_id == "pilot_eye_to_canopy" else 3.0
+        if not 0.2 <= length <= max_length:
             errors.append({"proxy": proxy_id, "status": "implausible_ray_length", "length": round(length, 4)})
     elif proxy.get("type") == "segment":
-        if not 0.5 <= length <= 4.0:
+        max_length = 5.5 if proxy_id in RAMP_PROXY_IDS else 4.0
+        if not 0.5 <= length <= max_length:
             errors.append({"proxy": proxy_id, "status": "implausible_segment_length", "length": round(length, 4)})
-        if proxy_id == "rear_ramp_path":
+        if proxy_id in RAMP_PROXY_IDS:
             if float(end[1]) >= float(start[1]):
                 errors.append({"proxy": proxy_id, "status": "ramp_end_not_below_start"})
+        if proxy_id == "rear_ramp_path":
             if float(end[2]) <= float(start[2]):
                 errors.append({"proxy": proxy_id, "status": "ramp_end_not_aft_of_start"})
 
@@ -148,6 +151,8 @@ def validate(proxy_contract: dict, marker_contract: dict) -> list[dict[str, obje
     ids = {proxy.get("id") for proxy in proxies}
     for required_id in sorted(REQUIRED_PROXIES - ids):
         errors.append({"proxy": required_id, "status": "missing_required_proxy"})
+    if not (ids & RAMP_PROXY_IDS):
+        errors.append({"proxy": "ramp_path", "status": "missing_required_ramp_proxy"})
 
     markers = markers_by_node(marker_contract)
     for proxy in proxies:

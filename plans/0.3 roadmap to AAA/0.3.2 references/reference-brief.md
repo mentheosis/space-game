@@ -28,6 +28,8 @@ Source:
 Use for:
 
 - broad shuttle proportions and exterior massing
+- side/top/front silhouette relationships
+- raised forward cockpit/neck mass above a larger belly/cargo mass
 - forward cockpit/canopy placement
 - swept/functional exterior silhouette language
 - underside belly volume that can support a ramp/cargo deck concept
@@ -44,6 +46,8 @@ Do not copy:
 Design note:
 
 The new ship should be a clean replacement asset inspired by the broad ShuttleA read: swept exterior, forward canopy, large belly volume, and practical explorer craft stance. It should not copy ShuttleA's current rear view as a hatch design. The production prototype should instead use a forward-opening ramp/hatch in the underside belly section. The ramp should lead into a lower cargo deck, with stairs or a short internal rise up into a cockpit deck. It should not inherit ShuttleA's cramped cockpit/interior mismatch or manual scene-history artifacts.
+
+The first generated `prototype_shuttle` blockout should not be treated as a design reference. It proved the pipeline only. The next pass should return to ShuttleA exterior screenshots and this brief to lock silhouette and gross volume before collision or traversal is evaluated.
 
 ### Cockpit References
 
@@ -89,19 +93,22 @@ Design note:
 
 The current desired mood is readable sci-fi interior rather than uniformly bright showroom. We should borrow material realism, fixture logic, and surface detail discipline without forcing the new shuttle into the exact brightness or panel style of the reference.
 
-## 0.3.2a Blockout Targets
+## 0.3.2a Exterior Silhouette And Volume Lock Targets
 
 The first implementation pass should prove:
 
-- exterior hull can contain the desired interior
-- forward-opening belly ramp aligns with the lower cargo deck
-- lower cargo deck has enough volume to feel like a real entry/cargo space
-- cockpit deck sits above the cargo deck and is reached by stairs, ramp, or a short internal rise
+- exterior hull silhouette reads correctly before gameplay traversal is tested
+- lower belly cargo mass and raised forward cockpit/neck mass are clear in side view
+- top view has swept shuttle proportions rather than a boxy rectangular body
+- front view supports enough volume for a believable two-level interior
+- forward-opening belly ramp is placed at the front of the belly/cargo mass, slightly aft of the cockpit nose
+- gross lower cargo deck and upper cockpit deck volume proxies fit inside the hull
 - cockpit canopy aligns with two pilot/copilot eye positions
 - both seated pilot proxies fit under canopy
-- standing player proxy fits in the cockpit/cabin areas where intended
-- pilot and copilot can see through the canopy without opaque obstruction
-- player capsule can move from belly ramp to cargo deck to cockpit deck
+- standing player proxies fit in the intended cargo and cockpit volume envelopes
+- pilot and copilot sightline rays pass through the canopy volume without opaque obstruction
+
+Traversal from belly ramp to cockpit is intentionally deferred until the silhouette and gross volumes are approved.
 
 ## Initial Dimension Targets
 

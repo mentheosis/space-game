@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "ship_id": "prototype_shuttle",
+  "units": "meters",
+  "floorplan_candidate": {
+    "id": "reset_no_walkable_floorplan",
+    "ramp_floor_edge_z_offset": 1.25,
+    "ramp_hinge_y_offset": -0.06,
+    "ramp_tip_y_delta": -1.98,
+    "ramp_tip_z_delta": -3.95,
+    "ramp_aperture_z_min_delta": -1.45,
+    "ramp_aperture_z_max_from_original_floor": 0.8,
+    "cargo_forward_floor_trim": 1.25,
+    "stair_count": 10,
+    "stair_depth_scale": 1.08,
+    "stair_width": 1.0,
+    "stair_lane_gap": 0.18,
+    "cockpit_entry_depth": 3.2,
+    "cockpit_entry_z_bias": -0.42,
+    "disable_walkable_floorplan": true
+  },
+  "player": {
+    "radius": 0.36,
+    "max_step_height": 0.48,
+    "minimum_landing_depth": 1.1,
+    "minimum_overlap": 0.24
+  },
+  "surfaces": [],
+  "route": [
+    "forward_belly_ramp",
+    "cargo_forward_lower",
+    "left_stair_09",
+    "left_stair_00",
+    "cockpit_entry_landing",
+    "cockpit_floor"
+  ],
+  "notes": [
+    "Static collision layout contract generated from deterministic prototype shuttle volumes.",
+    "The route uses both side stair lanes; left is listed as representative and right is validated separately."
+  ]
+}

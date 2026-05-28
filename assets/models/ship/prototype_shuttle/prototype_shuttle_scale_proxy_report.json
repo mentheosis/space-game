@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "ship_id": "prototype_shuttle",
+  "source_contract": "assets/source/blender/ships/prototype_shuttle/prototype_shuttle_scale_proxy_contract.json",
+  "proxy_count": 6,
+  "proxies": [
+    {
+      "id": "standing_player_capsule",
+      "type": "capsule",
+      "position": [
+        0.0,
+        -0.57748,
+        -0.18828
+      ],
+      "radius": 0.38,
+      "height": 1.78,
+      "label": "standing player at cargo entry"
+    },
+    {
+      "id": "standing_player_cockpit_capsule",
+      "type": "capsule",
+      "position": [
+        -0.0,
+        1.94149,
+        -10.09859
+      ],
+      "radius": 0.38,
+      "height": 1.78,
+      "label": "standing player on raised cockpit deck"
+    },
+    {
+      "id": "seated_pilot_capsule",
+      "type": "capsule",
+      "position": [
+        -0.55,
+        1.68285,
+        -13.64876
+      ],
+      "radius": 0.34,
+      "height": 1.12,
+      "label": "seated pilot"
+    },
+    {
+      "id": "seated_copilot_capsule",
+      "type": "capsule",
+      "position": [
+        0.55,
+        1.68285,
+        -13.64876
+      ],
+      "radius": 0.34,
+      "height": 1.12,
+      "label": "seated copilot"
+    },
+    {
+      "id": "pilot_eye_to_canopy",
+      "type": "ray",
+      "start_marker": "PilotEye",
+      "end_marker": "CanopyTarget",
+      "label": "pilot eye to canopy"
+    },
+    {
+      "id": "belly_ramp_path",
+      "type": "segment",
+      "start_marker": "RampStart",
+      "end_marker": "RampEnd",
+      "label": "forward-opening belly ramp path"
+    }
+  ]
+}

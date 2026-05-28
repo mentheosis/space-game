@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/debug/PrototypeShuttleDebugLoader.cs" id="1_loader"]
+[ext_resource type="Script" path="res://scripts/debug/FlythroughCameraController.cs" id="2_camera"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_space"]
+sky_top_color = Color(0.004, 0.008, 0.02, 1)
+sky_horizon_color = Color(0.02, 0.025, 0.04, 1)
+ground_bottom_color = Color(0.004, 0.008, 0.02, 1)
+ground_horizon_color = Color(0.02, 0.025, 0.04, 1)
+sun_angle_max = 2.0
+
+[sub_resource type="Sky" id="Sky_space"]
+sky_material = SubResource("ProceduralSkyMaterial_space")
+
+[sub_resource type="Environment" id="Environment_space"]
+background_mode = 2
+sky = SubResource("Sky_space")
+ambient_light_source = 3
+ambient_light_color = Color(0.45, 0.52, 0.62, 1)
+ambient_light_energy = 0.9
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="PrototypeShuttleFlythrough" type="Node3D"]
+
+[node name="PrototypeShuttleDebugLoader" type="Node3D" parent="."]
+script = ExtResource("1_loader")
+PlayerPath = NodePath("../__NoPlayer__")
+ShuttlePosition = Vector3(0, 0, 0)
+ShowInterior = false
+AddDebugTraversalCollision = false
+ShowCollisionVisualReference = false
+
+[node name="FlythroughCamera" type="Camera3D" parent="."]
+transform = Transform3D(0.965926, -0.0669873, 0.25, 0, 0.965926, 0.258819, -0.258819, -0.25, 0.933013, 0, 4, -26)
+script = ExtResource("2_camera")
+MoveSpeed = 9.0
+ToggleTargetPath = NodePath("../PrototypeShuttleDebugLoader/PrototypeShuttleBlockout/Interior")
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 18, -10)
+light_energy = 3.2
+shadow_enabled = true
+
+[node name="SoftFill" type="OmniLight3D" parent="."]
+position = Vector3(-8, 7, 10)
+light_energy = 2.8
+omni_range = 42.0
+
+[node name="CockpitReviewLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 4, -10)
+light_energy = 3.4
+omni_range = 18.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_space")

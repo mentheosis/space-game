@@ -1,0 +1,141 @@
+{
+	"checkpoint_count": 9,
+	"events": [
+		{
+			"checkpoint_index": 0,
+			"frame": 0,
+			"grounded": false,
+			"message": "Traversal route has 9 checkpoints.",
+			"player_position": [
+				0.0,
+				55.2971420288086,
+				-3.67759990692139
+			],
+			"status": "start"
+		},
+		{
+			"checkpoint_index": 0,
+			"frame": 1,
+			"grounded": false,
+			"message": "Reached ramp_bottom.",
+			"player_position": [
+				0.0,
+				55.2903785705566,
+				-3.67882061004639
+			],
+			"status": "checkpoint"
+		},
+		{
+			"checkpoint_index": 1,
+			"frame": 17,
+			"grounded": true,
+			"message": "Reached ramp_top.",
+			"player_position": [
+				0.0,
+				56.890869140625,
+				-0.389054983854294
+			],
+			"status": "checkpoint"
+		},
+		{
+			"checkpoint_index": 2,
+			"frame": 28,
+			"grounded": true,
+			"message": "Reached cargo_forward_lower.",
+			"player_position": [
+				0.0,
+				57.3230743408203,
+				1.58663523197174
+			],
+			"status": "checkpoint"
+		},
+		{
+			"checkpoint_index": 3,
+			"frame": 36,
+			"grounded": true,
+			"message": "Reached left_stair_09.",
+			"player_position": [
+				-1.68750298023224,
+				57.6323509216309,
+				1.8001184463501
+			],
+			"status": "checkpoint"
+		},
+		{
+			"checkpoint_index": 4,
+			"frame": 40,
+			"grounded": true,
+			"message": "Reached left_stair_06.",
+			"player_position": [
+				-2.08636236190796,
+				57.9419898986816,
+				1.09869158267975
+			],
+			"status": "checkpoint"
+		},
+		{
+			"checkpoint_index": 5,
+			"frame": 50,
+			"grounded": true,
+			"message": "Reached left_stair_03.",
+			"player_position": [
+				-2.2048487663269,
+				58.7530860900879,
+				-0.31407368183136
+			],
+			"status": "checkpoint"
+		},
+		{
+			"checkpoint_index": 6,
+			"frame": 74,
+			"grounded": true,
+			"message": "Reached left_stair_00.",
+			"player_position": [
+				-2.22384476661682,
+				59.4979057312012,
+				-1.64934492111206
+			],
+			"status": "checkpoint"
+		},
+		{
+			"checkpoint_index": 7,
+			"frame": 90,
+			"grounded": true,
+			"message": "Reached cockpit_entry_landing.",
+			"player_position": [
+				-0.476626366376877,
+				59.8066673278809,
+				-3.26714277267456
+			],
+			"status": "checkpoint"
+		},
+		{
+			"checkpoint_index": 8,
+			"frame": 109,
+			"grounded": true,
+			"message": "Reached cockpit_floor.",
+			"player_position": [
+				-0.00668675964698195,
+				59.8030891418457,
+				-4.8924674987793
+			],
+			"status": "checkpoint"
+		},
+		{
+			"checkpoint_index": 9,
+			"frame": 109,
+			"grounded": true,
+			"message": "Prototype shuttle traversal validation passed.",
+			"player_position": [
+				-0.00668675964698195,
+				59.8030891418457,
+				-4.8924674987793
+			],
+			"status": "pass"
+		}
+	],
+	"frames": 109,
+	"message": "Prototype shuttle traversal validation passed.",
+	"pass": true,
+	"schema_version": 1
+}

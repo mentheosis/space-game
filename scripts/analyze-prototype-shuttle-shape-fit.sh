@@ -10,7 +10,7 @@ if [[ -f "${ROOT_DIR}/.tools/env.sh" ]]; then
 fi
 
 BLENDER_BIN="${BLENDER_BIN:-blender}"
-SOURCE_BLEND="${ROOT_DIR}/assets/source/blender/ships/shuttle_a/shuttle_a_interior.blend"
+SOURCE_BLEND="${ROOT_DIR}/assets/source/blender/ships/prototype_shuttle/prototype_shuttle.blend"
 
 if [[ ! -x "${BLENDER_BIN}" ]] && ! command -v "${BLENDER_BIN}" >/dev/null 2>&1; then
   echo "ERROR: Blender executable not found: ${BLENDER_BIN}" >&2
@@ -21,10 +21,9 @@ fi
 
 if [[ ! -f "${SOURCE_BLEND}" ]]; then
   echo "ERROR: Missing Blender source scene: ${SOURCE_BLEND}" >&2
-  echo "Run scripts/bootstrap-shuttle-a-blender.sh first." >&2
+  echo "Run scripts/bootstrap-prototype-shuttle-blender.sh first." >&2
   exit 1
 fi
 
 export SPACE_GAME_ROOT="${ROOT_DIR}"
-"${BLENDER_BIN}" --background "${SOURCE_BLEND}" --python tools/blender/export_shuttle_a.py
-
+"${BLENDER_BIN}" --background "${SOURCE_BLEND}" --python tools/blender/analyze_prototype_shuttle_shape_fit.py

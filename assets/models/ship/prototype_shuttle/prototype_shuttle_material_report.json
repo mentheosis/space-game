@@ -1,0 +1,63 @@
+{
+  "ship_id": "prototype_shuttle",
+  "material_count": 9,
+  "materials": {
+    "proto_belly_ramp_blockout": {
+      "object_count": 1,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_canopy_smoked_glass_volume": {
+      "object_count": 1,
+      "groups": [
+        "exterior"
+      ]
+    },
+    "proto_cargo_volume_amber": {
+      "object_count": 1,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_cockpit_volume_cyan": {
+      "object_count": 1,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_emissive_warm_strip": {
+      "object_count": 2,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_hull_warm_white_silhouette": {
+      "object_count": 1,
+      "groups": [
+        "exterior"
+      ]
+    },
+    "proto_seat_dark_fabric_blockout": {
+      "object_count": 2,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_transition_volume_green": {
+      "object_count": 3,
+      "groups": [
+        "collision",
+        "interior"
+      ]
+    },
+    "proto_wing_dark_graphite_blockout": {
+      "object_count": 3,
+      "groups": [
+        "exterior",
+        "interior"
+      ]
+    }
+  },
+  "warnings": []
+}

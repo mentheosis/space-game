@@ -38,6 +38,10 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float ZeroGravityBrakeStrength { get; set; } = 16.0f;
     [Export] public float ZeroGravityDamping { get; set; } = 0.05f;
     [Export] public float ShipInteriorGravityAcceleration { get; set; } = 18.0f;
+    [Export] public bool AutoStepEnabled { get; set; } = true;
+    [Export] public float AutoStepHeight { get; set; } = 0.48f;
+    [Export] public float AutoStepForwardProbe { get; set; } = 0.24f;
+    [Export] public float AutoStepDownProbe { get; set; } = 0.72f;
     [Export] public float ShipInteriorAftExitLocalZ { get; set; } = 4.75f;
     [Export] public Vector3 ShipInteriorBoundsMin { get; set; } = new(-2.55f, -0.8f, -11.3f);
     [Export] public Vector3 ShipInteriorBoundsMax { get; set; } = new(2.55f, 3.8f, 4.35f);
@@ -65,6 +69,7 @@ public partial class PlayerController : CharacterBody3D
     private Transform3D _shipLocalTransform = Transform3D.Identity;
     private Vector3 _shipLocalVelocity = Vector3.Zero;
     private uint _defaultPlatformFloorLayers;
+    private int _autoStepCount;
 
     public bool DebugGrounded => IsOnFloor();
     public Vector3 DebugUpDirection => _lastUp;
@@ -82,6 +87,7 @@ public partial class PlayerController : CharacterBody3D
     public bool DebugMovementEnabled => IsMovementEnabled;
     public IInteractable? SeatedInteractable => _seatedInteractable;
     public bool DebugUsingShipInteriorFrame => _interiorShip is not null && _playerContext == PlayerContext.InShipInterior;
+    public int DebugAutoStepCount => _autoStepCount;
     public string DebugGravityFrame => DebugUsingShipInteriorFrame
         ? "Ship Interior"
         : _lastGravityAcceleration.Length() <= ZeroGravityThreshold
@@ -388,6 +394,8 @@ public partial class PlayerController : CharacterBody3D
     private void ApplySurfaceMovement(float delta, Vector2 input)
     {
         var desiredDirection = GetSurfaceMoveDirection(input);
+        var transformBeforeMove = GlobalTransform;
+        var wasOnFloor = IsOnFloor();
         var velocity = Velocity;
         var verticalSpeed = velocity.Dot(_lastUp);
         var verticalVelocity = _lastUp * verticalSpeed;
@@ -406,6 +414,55 @@ public partial class PlayerController : CharacterBody3D
         ApplyJetpack(delta, input, ref velocity);
         Velocity = velocity;
         MoveAndSlide();
+        TryAutoStepUp(wasOnFloor, transformBeforeMove, desiredDirection, delta);
+    }
+
+    private bool TryAutoStepUp(bool wasOnFloor, Transform3D transformBeforeMove, Vector3 desiredDirection, float delta)
+    {
+        if (!AutoStepEnabled
+            || !wasOnFloor
+            || !IsOnFloor()
+            || desiredDirection.LengthSquared() < 0.0001f
+            || Input.IsActionJustPressed("jump"))
+        {
+            return false;
+        }
+
+        var startPosition = transformBeforeMove.Origin;
+        var horizontalProgress = ProjectOnPlane(GlobalPosition - startPosition, _lastUp).Length();
+        var expectedProgress = Mathf.Min(WalkSpeed * delta, AutoStepForwardProbe);
+        if (horizontalProgress >= expectedProgress * 0.55f)
+        {
+            return false;
+        }
+
+        var stepUp = _lastUp * AutoStepHeight;
+        if (TestMove(transformBeforeMove, stepUp))
+        {
+            return false;
+        }
+
+        var forward = desiredDirection.Normalized();
+        var forwardDistance = Mathf.Max(AutoStepForwardProbe, WalkSpeed * delta);
+        var liftedTransform = transformBeforeMove.Translated(stepUp);
+        var forwardMotion = forward * forwardDistance;
+        if (TestMove(liftedTransform, forwardMotion))
+        {
+            return false;
+        }
+
+        GlobalTransform = liftedTransform.Translated(forwardMotion);
+        var snapCollision = MoveAndCollide(-_lastUp * (AutoStepHeight + AutoStepDownProbe));
+        if (snapCollision is null)
+        {
+            GlobalTransform = transformBeforeMove;
+            return false;
+        }
+
+        var horizontalVelocity = ProjectOnPlane(Velocity, _lastUp);
+        Velocity = horizontalVelocity;
+        _autoStepCount++;
+        return true;
     }
 
     private void ApplyAirborneMovement(float delta, Vector2 input, float airControl)

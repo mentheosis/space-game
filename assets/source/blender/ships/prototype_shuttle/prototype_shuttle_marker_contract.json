@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "ship_id": "prototype_shuttle",
+  "markers": [
+    {
+      "id": "InteriorSpawn",
+      "godot_node": "InteriorSpawn",
+      "position": [
+        0.0,
+        -0.57748,
+        -0.18828
+      ]
+    },
+    {
+      "id": "ExteriorExit",
+      "godot_node": "ExteriorExit",
+      "position": [
+        0.0,
+        -3.65286,
+        -3.6776
+      ]
+    },
+    {
+      "id": "SeatAnchor",
+      "godot_node": "SeatAnchor",
+      "position": [
+        -0.55,
+        1.68285,
+        -13.64876
+      ]
+    },
+    {
+      "id": "PilotEye",
+      "godot_node": "PilotEye",
+      "position": [
+        -0.55,
+        2.26285,
+        -14.26876
+      ]
+    },
+    {
+      "id": "SeatExit",
+      "godot_node": "SeatExit",
+      "position": [
+        0.0,
+        1.51043,
+        -7.19391
+      ]
+    },
+    {
+      "id": "CanopyTarget",
+      "godot_node": "CanopyTarget",
+      "position": [
+        0.0,
+        2.37256,
+        -18.97402
+      ]
+    },
+    {
+      "id": "HatchCenter",
+      "godot_node": "HatchCenter",
+      "position": [
+        0.0,
+        0.35,
+        -1.8276
+      ]
+    },
+    {
+      "id": "RampStart",
+      "godot_node": "RampStart",
+      "position": [
+        0.0,
+        -1.73286,
+        0.2724
+      ]
+    },
+    {
+      "id": "RampEnd",
+      "godot_node": "RampEnd",
+      "position": [
+        0.0,
+        -3.65286,
+        -3.6776
+      ]
+    },
+    {
+      "id": "CopilotSeatAnchor",
+      "godot_node": "CopilotSeatAnchor",
+      "position": [
+        0.55,
+        1.68285,
+        -13.64876
+      ]
+    },
+    {
+      "id": "CopilotEye",
+      "godot_node": "CopilotEye",
+      "position": [
+        0.55,
+        2.26285,
+        -14.26876
+      ]
+    },
+    {
+      "id": "CargoDeckCenter",
+      "godot_node": "CargoDeckCenter",
+      "position": [
+        -0.0,
+        0.35927,
+        6.91557
+      ]
+    },
+    {
+      "id": "CockpitDeckCenter",
+      "godot_node": "CockpitDeckCenter",
+      "position": [
+        -0.0,
+        1.94149,
+        -10.09859
+      ]
+    }
+  ]
+}
