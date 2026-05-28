@@ -15,6 +15,7 @@ ROOT = Path(os.environ.get("SPACE_GAME_ROOT", Path.cwd())).resolve()
 SOURCE_DIR = ROOT / "assets/source/blender/ships/prototype_shuttle"
 SOURCE_BLEND = SOURCE_DIR / "prototype_shuttle.blend"
 MODEL_DIR = ROOT / "assets/models/ship/prototype_shuttle"
+ACTIVE_FLOORPLAN_CANDIDATE = MODEL_DIR / "active_floorplan_candidate.json"
 REPORT_DIR = ROOT / "reports/prototype_shuttle"
 SHUTTLE_OBJ = ROOT / "assets/models/ship/placeholders/oga_3d_space_ship_pack/ShuttleA.obj"
 MARKER_CONTRACT = SOURCE_DIR / "prototype_shuttle_marker_contract.json"
@@ -54,11 +55,16 @@ DEFAULT_FLOORPLAN_CANDIDATE = {
 def load_floorplan_candidate() -> dict[str, object]:
     candidate = dict(DEFAULT_FLOORPLAN_CANDIDATE)
     candidate_path = os.environ.get("PROTOTYPE_SHUTTLE_FLOORPLAN_CANDIDATE")
+    if not candidate_path and ACTIVE_FLOORPLAN_CANDIDATE.exists():
+        candidate_path = str(ACTIVE_FLOORPLAN_CANDIDATE)
     if candidate_path:
         payload = json.loads(Path(candidate_path).read_text(encoding="utf-8"))
         if not isinstance(payload, dict):
             raise ValueError(f"Floorplan candidate must be a JSON object: {candidate_path}")
         candidate.update(payload)
+    if os.environ.get("PROTOTYPE_SHUTTLE_SAVE_ACTIVE_FLOORPLAN") == "1":
+        ACTIVE_FLOORPLAN_CANDIDATE.parent.mkdir(parents=True, exist_ok=True)
+        ACTIVE_FLOORPLAN_CANDIDATE.write_text(json.dumps(candidate, indent=2) + "\n", encoding="utf-8")
     return candidate
 
 

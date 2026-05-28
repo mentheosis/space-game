@@ -157,7 +157,7 @@
         "blender_min": [
           -4.4282,
           -12.35308,
-          -3.76193
+          -3.76221
         ],
         "blender_max": [
           4.4282,
@@ -166,7 +166,7 @@
         ],
         "godot_min": [
           -4.4282,
-          -3.76193,
+          -3.76221,
           12.35308
         ],
         "godot_max": [
@@ -247,21 +247,21 @@
             "blender_min": [
               -1.55,
               -0.2724,
-              -3.76193
+              -3.76221
             ],
             "blender_max": [
               1.55,
               3.6776,
-              -1.74379
+              -1.80351
             ],
             "godot_min": [
               -1.55,
-              -3.76193,
+              -3.76221,
               0.2724
             ],
             "godot_max": [
               1.55,
-              -1.74379,
+              -1.80351,
               -3.6776
             ]
           }
@@ -509,34 +509,214 @@
       ]
     },
     "collision": {
-      "object_count": 1,
-      "mesh_count": 1,
-      "triangle_count": 12,
+      "object_count": 26,
+      "mesh_count": 26,
+      "triangle_count": 312,
       "bounds": {
         "blender_min": [
-          -0.05,
-          -0.05,
-          -1000.04999
+          -4.42936,
+          -14.80873,
+          -3.72221
         ],
         "blender_max": [
-          0.05,
-          0.05,
-          -999.95001
+          4.42936,
+          18.16716,
+          0.90383
         ],
         "godot_min": [
-          -0.05,
-          -1000.04999,
-          0.05
+          -4.42936,
+          -3.72221,
+          14.80873
         ],
         "godot_max": [
-          0.05,
-          -999.95001,
-          -0.05
+          4.42936,
+          0.90383,
+          -18.16716
         ]
       },
       "objects": [
         {
-          "name": "COL_TEMP_DisabledFloorplanMarker",
+          "name": "COL_TEMP_CargoForwardLowerFloor",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_cargo_volume_amber"
+          ],
+          "bounds": {
+            "blender_min": [
+              -4.42936,
+              -4.28451,
+              -1.65745
+            ],
+            "blender_max": [
+              4.42936,
+              -0.0224,
+              -1.57745
+            ],
+            "godot_min": [
+              -4.42936,
+              -1.65745,
+              4.28451
+            ],
+            "godot_max": [
+              4.42936,
+              -1.57745,
+              0.0224
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_CargoMidLowerFloor",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_cargo_volume_amber"
+          ],
+          "bounds": {
+            "blender_min": [
+              -4.28835,
+              -9.54662,
+              -1.71286
+            ],
+            "blender_max": [
+              4.28835,
+              -4.63532,
+              -1.63286
+            ],
+            "godot_min": [
+              -4.28835,
+              -1.71286,
+              9.54662
+            ],
+            "godot_max": [
+              4.28835,
+              -1.63286,
+              4.63532
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_CargoAftLowerFloor",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_cargo_volume_amber"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.58406,
+              -14.80873,
+              -0.28237
+            ],
+            "blender_max": [
+              2.58406,
+              -9.89743,
+              -0.20237
+            ],
+            "godot_min": [
+              -2.58406,
+              -0.28237,
+              14.80873
+            ],
+            "godot_max": [
+              2.58406,
+              -0.20237,
+              9.89743
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_CockpitVolumeFloor",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_cockpit_volume_cyan"
+          ],
+          "bounds": {
+            "blender_min": [
+              -1.80078,
+              2.03002,
+              0.82383
+            ],
+            "blender_max": [
+              1.80078,
+              18.16716,
+              0.90383
+            ],
+            "godot_min": [
+              -1.80078,
+              0.82383,
+              -2.03002
+            ],
+            "godot_max": [
+              1.80078,
+              0.90383,
+              -18.16716
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_ForwardBellyOpenRamp",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_belly_ramp_blockout"
+          ],
+          "bounds": {
+            "blender_min": [
+              -1.55,
+              -0.2724,
+              -3.72221
+            ],
+            "blender_max": [
+              1.55,
+              3.6776,
+              -1.80351
+            ],
+            "godot_min": [
+              -1.55,
+              -3.72221,
+              0.2724
+            ],
+            "godot_max": [
+              1.55,
+              -1.80351,
+              -3.6776
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_CockpitEntryLanding",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_cockpit_volume_cyan"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              2.12402,
+              0.82383
+            ],
+            "blender_max": [
+              2.67,
+              5.32402,
+              0.90383
+            ],
+            "godot_min": [
+              -2.67,
+              0.82383,
+              -2.12402
+            ],
+            "godot_max": [
+              2.67,
+              0.90383,
+              -5.32402
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep00",
           "type": "MESH",
           "triangle_count": 12,
           "material_slots": [
@@ -544,24 +724,594 @@
           ],
           "bounds": {
             "blender_min": [
-              -0.05,
-              -0.05,
-              -1000.04999
+              -2.67,
+              1.92414,
+              0.64226
             ],
             "blender_max": [
-              0.05,
-              0.05,
-              -999.95001
+              -1.67,
+              2.39756,
+              0.74226
             ],
             "godot_min": [
-              -0.05,
-              -1000.04999,
-              0.05
+              -2.67,
+              0.64226,
+              -1.92414
             ],
             "godot_max": [
-              0.05,
-              -999.95001,
-              -0.05
+              -1.67,
+              0.74226,
+              -2.39756
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep01",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              1.48579,
+              0.39914
+            ],
+            "blender_max": [
+              -1.67,
+              1.95921,
+              0.49914
+            ],
+            "godot_min": [
+              -2.67,
+              0.39914,
+              -1.48579
+            ],
+            "godot_max": [
+              -1.67,
+              0.49914,
+              -1.95921
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep02",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              1.04745,
+              0.15601
+            ],
+            "blender_max": [
+              -1.67,
+              1.52086,
+              0.25601
+            ],
+            "godot_min": [
+              -2.67,
+              0.15601,
+              -1.04745
+            ],
+            "godot_max": [
+              -1.67,
+              0.25601,
+              -1.52086
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep03",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              0.6091,
+              -0.08712
+            ],
+            "blender_max": [
+              -1.67,
+              1.08251,
+              0.01288
+            ],
+            "godot_min": [
+              -2.67,
+              -0.08712,
+              -0.6091
+            ],
+            "godot_max": [
+              -1.67,
+              0.01288,
+              -1.08251
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep04",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              0.17075,
+              -0.33025
+            ],
+            "blender_max": [
+              -1.67,
+              0.64417,
+              -0.23025
+            ],
+            "godot_min": [
+              -2.67,
+              -0.33025,
+              -0.17075
+            ],
+            "godot_max": [
+              -1.67,
+              -0.23025,
+              -0.64417
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep05",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              -0.2676,
+              -0.57338
+            ],
+            "blender_max": [
+              -1.67,
+              0.20582,
+              -0.47338
+            ],
+            "godot_min": [
+              -2.67,
+              -0.57338,
+              0.2676
+            ],
+            "godot_max": [
+              -1.67,
+              -0.47338,
+              -0.20582
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep06",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              -0.70595,
+              -0.8165
+            ],
+            "blender_max": [
+              -1.67,
+              -0.23253,
+              -0.7165
+            ],
+            "godot_min": [
+              -2.67,
+              -0.8165,
+              0.70595
+            ],
+            "godot_max": [
+              -1.67,
+              -0.7165,
+              0.23253
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep07",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              -1.14429,
+              -1.05963
+            ],
+            "blender_max": [
+              -1.67,
+              -0.67088,
+              -0.95963
+            ],
+            "godot_min": [
+              -2.67,
+              -1.05963,
+              1.14429
+            ],
+            "godot_max": [
+              -1.67,
+              -0.95963,
+              0.67088
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep08",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              -1.58264,
+              -1.30276
+            ],
+            "blender_max": [
+              -1.67,
+              -1.10923,
+              -1.20276
+            ],
+            "godot_min": [
+              -2.67,
+              -1.30276,
+              1.58264
+            ],
+            "godot_max": [
+              -1.67,
+              -1.20276,
+              1.10923
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_LeftCargoToCockpitTransitionStep09",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              -2.67,
+              -2.02099,
+              -1.54589
+            ],
+            "blender_max": [
+              -1.67,
+              -1.54757,
+              -1.44589
+            ],
+            "godot_min": [
+              -2.67,
+              -1.54589,
+              2.02099
+            ],
+            "godot_max": [
+              -1.67,
+              -1.44589,
+              1.54757
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep00",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              1.92414,
+              0.64226
+            ],
+            "blender_max": [
+              2.67,
+              2.39756,
+              0.74226
+            ],
+            "godot_min": [
+              1.67,
+              0.64226,
+              -1.92414
+            ],
+            "godot_max": [
+              2.67,
+              0.74226,
+              -2.39756
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep01",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              1.48579,
+              0.39914
+            ],
+            "blender_max": [
+              2.67,
+              1.95921,
+              0.49914
+            ],
+            "godot_min": [
+              1.67,
+              0.39914,
+              -1.48579
+            ],
+            "godot_max": [
+              2.67,
+              0.49914,
+              -1.95921
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep02",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              1.04745,
+              0.15601
+            ],
+            "blender_max": [
+              2.67,
+              1.52086,
+              0.25601
+            ],
+            "godot_min": [
+              1.67,
+              0.15601,
+              -1.04745
+            ],
+            "godot_max": [
+              2.67,
+              0.25601,
+              -1.52086
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep03",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              0.6091,
+              -0.08712
+            ],
+            "blender_max": [
+              2.67,
+              1.08251,
+              0.01288
+            ],
+            "godot_min": [
+              1.67,
+              -0.08712,
+              -0.6091
+            ],
+            "godot_max": [
+              2.67,
+              0.01288,
+              -1.08251
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep04",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              0.17075,
+              -0.33025
+            ],
+            "blender_max": [
+              2.67,
+              0.64417,
+              -0.23025
+            ],
+            "godot_min": [
+              1.67,
+              -0.33025,
+              -0.17075
+            ],
+            "godot_max": [
+              2.67,
+              -0.23025,
+              -0.64417
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep05",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              -0.2676,
+              -0.57338
+            ],
+            "blender_max": [
+              2.67,
+              0.20582,
+              -0.47338
+            ],
+            "godot_min": [
+              1.67,
+              -0.57338,
+              0.2676
+            ],
+            "godot_max": [
+              2.67,
+              -0.47338,
+              -0.20582
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep06",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              -0.70595,
+              -0.8165
+            ],
+            "blender_max": [
+              2.67,
+              -0.23253,
+              -0.7165
+            ],
+            "godot_min": [
+              1.67,
+              -0.8165,
+              0.70595
+            ],
+            "godot_max": [
+              2.67,
+              -0.7165,
+              0.23253
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep07",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              -1.14429,
+              -1.05963
+            ],
+            "blender_max": [
+              2.67,
+              -0.67088,
+              -0.95963
+            ],
+            "godot_min": [
+              1.67,
+              -1.05963,
+              1.14429
+            ],
+            "godot_max": [
+              2.67,
+              -0.95963,
+              0.67088
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep08",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              -1.58264,
+              -1.30276
+            ],
+            "blender_max": [
+              2.67,
+              -1.10923,
+              -1.20276
+            ],
+            "godot_min": [
+              1.67,
+              -1.30276,
+              1.58264
+            ],
+            "godot_max": [
+              2.67,
+              -1.20276,
+              1.10923
+            ]
+          }
+        },
+        {
+          "name": "COL_TEMP_RightCargoToCockpitTransitionStep09",
+          "type": "MESH",
+          "triangle_count": 12,
+          "material_slots": [
+            "proto_transition_volume_green"
+          ],
+          "bounds": {
+            "blender_min": [
+              1.67,
+              -2.02099,
+              -1.54589
+            ],
+            "blender_max": [
+              2.67,
+              -1.54757,
+              -1.44589
+            ],
+            "godot_min": [
+              1.67,
+              -1.54589,
+              2.02099
+            ],
+            "godot_max": [
+              2.67,
+              -1.44589,
+              1.54757
             ]
           }
         }
@@ -607,7 +1357,7 @@
     ],
     "RampStart": [
       0.0,
-      -1.73286,
+      -1.79286,
       0.2724
     ],
     "RampEnd": [

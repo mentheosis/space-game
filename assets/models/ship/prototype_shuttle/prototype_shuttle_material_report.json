@@ -3,8 +3,9 @@
   "material_count": 9,
   "materials": {
     "proto_belly_ramp_blockout": {
-      "object_count": 1,
+      "object_count": 2,
       "groups": [
+        "collision",
         "interior"
       ]
     },
@@ -15,14 +16,16 @@
       ]
     },
     "proto_cargo_volume_amber": {
-      "object_count": 1,
+      "object_count": 4,
       "groups": [
+        "collision",
         "interior"
       ]
     },
     "proto_cockpit_volume_cyan": {
-      "object_count": 1,
+      "object_count": 3,
       "groups": [
+        "collision",
         "interior"
       ]
     },
@@ -45,7 +48,7 @@
       ]
     },
     "proto_transition_volume_green": {
-      "object_count": 3,
+      "object_count": 22,
       "groups": [
         "collision",
         "interior"

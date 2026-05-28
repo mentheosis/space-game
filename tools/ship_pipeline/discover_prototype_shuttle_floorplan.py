@@ -212,11 +212,13 @@ def copy_result(src: Path, dst: Path) -> None:
         shutil.copy2(src, dst)
 
 
-def evaluate_candidate(candidate: dict[str, Any], run_traversal: bool, build_import: bool) -> dict[str, Any]:
+def evaluate_candidate(candidate: dict[str, Any], run_traversal: bool, build_import: bool, save_active: bool = False) -> dict[str, Any]:
     candidate_path = CANDIDATE_DIR / f"{candidate['id']}.json"
     candidate_path.write_text(json.dumps(candidate, indent=2) + "\n", encoding="utf-8")
     env = os.environ.copy()
     env["PROTOTYPE_SHUTTLE_FLOORPLAN_CANDIDATE"] = str(candidate_path)
+    if save_active:
+        env["PROTOTYPE_SHUTTLE_SAVE_ACTIVE_FLOORPLAN"] = "1"
 
     result: dict[str, Any] = {
         "id": candidate["id"],
@@ -345,7 +347,7 @@ def write_report(
 
 def restore_selected_candidate(selected: dict[str, Any]) -> dict[str, Any]:
     print(f"Restoring selected candidate {selected['id']} into generated assets")
-    restored = evaluate_candidate(selected["candidate"], run_traversal=True, build_import=True)
+    restored = evaluate_candidate(selected["candidate"], run_traversal=True, build_import=True, save_active=True)
     restored["restored_selected_candidate"] = True
     return restored
 
