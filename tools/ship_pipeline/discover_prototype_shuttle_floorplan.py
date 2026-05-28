@@ -33,6 +33,7 @@ DEFAULT_CANDIDATE: dict[str, Any] = {
     "ramp_tip_z_delta": -3.95,
     "ramp_aperture_z_min_delta": -1.45,
     "ramp_aperture_z_max_from_original_floor": 0.80,
+    "ramp_aperture_z_max_delta": 0.65,
     "cargo_forward_floor_trim": 1.25,
     "stair_count": 10,
     "stair_depth_scale": 1.08,

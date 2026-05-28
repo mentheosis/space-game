@@ -188,6 +188,36 @@ ship_volume_extract --ship-id <id> --config <ship-volume-config.json>
 
 The output should be the same report/evidence package regardless of ship type.
 
+## Collision Floor Discovery Stage
+
+After semantic volumes and connectivity pass, add an automated floorplan
+discovery stage before detailed interior art.
+
+The prototype shuttle proved this workflow:
+
+1. Start from an intentionally invalid no-walkable-floorplan state.
+2. Generate candidate walkable surfaces from semantic volumes:
+   - entry/ramp surface,
+   - ramp-to-main-deck connection,
+   - main floor segments,
+   - stairs/ramps/transition lanes,
+   - cockpit/bridge landing,
+   - cockpit/bridge floor.
+3. Export a machine-readable collision layout report.
+4. Run static adjacency validation.
+5. Run real engine traversal validation with the player controller.
+6. Score candidates by traversal success, low auto-step reliance, fewer special
+   cases, landing depth, small gaps/lips, and staying inside the interior
+   envelope.
+7. Persist the selected candidate as the active floorplan for subsequent
+   export/review profiles.
+8. Use human playtest as the final acceptance check after automated validation.
+
+This stage should not depend on a human-approved golden floorplan. A golden
+baseline may be useful for a prototype calibration pass, but the repeatable
+pipeline for new ships should run blind and use any baseline only for post-hoc
+comparison.
+
 ## Lessons From Prototype Shuttle
 
 - Do not rely on hand-placed boxes for interior planning.
@@ -197,4 +227,3 @@ The output should be the same report/evidence package regardless of ship type.
 - Prismatic sections are a better intermediate representation for fuselage spaces.
 - Connectivity must be explicit and measurable.
 - Animated hatches and ramps should be modeled as special-case assemblies after volume lock.
-

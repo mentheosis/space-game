@@ -10,6 +10,7 @@
     "ramp_tip_z_delta": -3.95,
     "ramp_aperture_z_min_delta": -1.45,
     "ramp_aperture_z_max_from_original_floor": 0.8,
+    "ramp_aperture_z_max_delta": 0.65,
     "cargo_forward_floor_trim": 1.0,
     "stair_count": 10,
     "stair_depth_scale": 1.08,
@@ -18,6 +19,44 @@
     "cockpit_entry_depth": 3.2,
     "cockpit_entry_z_bias": -0.42,
     "disable_walkable_floorplan": false
+  },
+  "ramp_aperture": {
+    "contract": {
+      "width": 3.1,
+      "hinge": [
+        0.0,
+        -1.79286,
+        0.2724
+      ],
+      "tip": [
+        0.0,
+        -3.65286,
+        -3.6776
+      ]
+    },
+    "aperture": {
+      "x_min": -1.922,
+      "x_max": 1.922,
+      "y_min": -1.97286,
+      "y_max": 0.67714,
+      "z_min": -1.1776,
+      "z_max": 0.9224
+    },
+    "removed_exterior_faces": 32,
+    "exterior_portal_cut": {
+      "x_min": -1.68,
+      "x_max": 1.68,
+      "y_min": -2.44286,
+      "y_max": 0.67714,
+      "z_min": -2.9576,
+      "z_max": -1.2576
+    }
+  },
+  "ramp_portal_opening": {
+    "x_min": -1.68,
+    "x_max": 1.68,
+    "y_min": -1.87286,
+    "y_max": 0.67714
   },
   "player": {
     "radius": 0.36,

@@ -91,7 +91,7 @@
     "exterior": {
       "object_count": 1,
       "mesh_count": 1,
-      "triangle_count": 34594,
+      "triangle_count": 34464,
       "bounds": {
         "blender_min": [
           -13.77095,
@@ -118,7 +118,7 @@
         {
           "name": "ExactShuttleAReferenceBlockoutExterior",
           "type": "MESH",
-          "triangle_count": 34594,
+          "triangle_count": 34464,
           "material_slots": [
             "proto_hull_warm_white_silhouette",
             "proto_wing_dark_graphite_blockout",
@@ -152,25 +152,25 @@
     "interior": {
       "object_count": 11,
       "mesh_count": 11,
-      "triangle_count": 192,
+      "triangle_count": 194,
       "bounds": {
         "blender_min": [
-          -4.4282,
+          -4.42936,
           -12.35308,
           -3.76221
         ],
         "blender_max": [
-          4.4282,
+          4.42936,
           18.16716,
           4.2918
         ],
         "godot_min": [
-          -4.4282,
+          -4.42936,
           -3.76221,
           12.35308
         ],
         "godot_max": [
-          4.4282,
+          4.42936,
           4.2918,
           -18.16716
         ]
@@ -179,28 +179,28 @@
         {
           "name": "VOLUME_LowerBellyCargoPrismaticEnvelope",
           "type": "MESH",
-          "triangle_count": 32,
+          "triangle_count": 34,
           "material_slots": [
             "proto_cargo_volume_amber"
           ],
           "bounds": {
             "blender_min": [
-              -4.4282,
+              -4.42936,
               -12.35308,
               -1.67286
             ],
             "blender_max": [
-              4.4282,
+              4.42936,
               -1.65345,
               4.2918
             ],
             "godot_min": [
-              -4.4282,
+              -4.42936,
               -1.67286,
               12.35308
             ],
             "godot_max": [
-              4.4282,
+              4.42936,
               4.2918,
               1.65345
             ]
@@ -276,7 +276,7 @@
           "bounds": {
             "blender_min": [
               -1.84,
-              0.1776,
+              -0.9224,
               -1.97286
             ],
             "blender_max": [
@@ -287,7 +287,7 @@
             "godot_min": [
               -1.84,
               -1.97286,
-              -0.1776
+              0.9224
             ],
             "godot_max": [
               -1.68,
@@ -306,7 +306,7 @@
           "bounds": {
             "blender_min": [
               1.68,
-              0.1776,
+              -0.9224,
               -1.97286
             ],
             "blender_max": [
@@ -317,7 +317,7 @@
             "godot_min": [
               1.68,
               -1.97286,
-              -0.1776
+              0.9224
             ],
             "godot_max": [
               1.84,

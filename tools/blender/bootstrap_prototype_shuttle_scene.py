@@ -41,6 +41,7 @@ DEFAULT_FLOORPLAN_CANDIDATE = {
     "ramp_tip_z_delta": -3.95,
     "ramp_aperture_z_min_delta": -1.45,
     "ramp_aperture_z_max_from_original_floor": 0.80,
+    "ramp_aperture_z_max_delta": 0.65,
     "cargo_forward_floor_trim": 1.25,
     "stair_count": 10,
     "stair_depth_scale": 1.08,
@@ -350,6 +351,7 @@ def add_cargo_section_prism(
     target: bpy.types.Collection,
     x_offset: float = 0.0,
     width_scale: float = 1.0,
+    front_opening: dict[str, float] | None = None,
 ) -> bpy.types.Object:
     if len(sections) < 2:
         raise ValueError("Cargo section prism needs at least two sections")
@@ -376,7 +378,67 @@ def add_cargo_section_prism(
     verts = [to_blender_loc(point) for point in verts_godot]
     ring_count = len(sections)
     ring_size = 6
-    faces: list[tuple[int, ...]] = [tuple(range(ring_size - 1, -1, -1))]
+    faces: list[tuple[int, ...]] = []
+    if front_opening is None:
+        faces.append(tuple(range(ring_size - 1, -1, -1)))
+    else:
+        # Build a deterministic hatch opening in the front cap instead of
+        # leaving a full polygonal wall across the ramp access. This is a cap
+        # cut only; the longitudinal prism sides are still generated below.
+        first = sections[0]
+        cap_z = first["z"]
+        cap_bottom = first["bottom"]
+        cap_mid = first["mid"]
+        cap_top = first["top"]
+        cap_lower = first["lower_half_width"] * width_scale
+        cap_upper = first["upper_half_width"] * width_scale
+        cap_x_min = x_offset - max(cap_lower, cap_upper)
+        cap_x_max = x_offset + max(cap_lower, cap_upper)
+        opening_x_min = max(cap_x_min, x_offset + float(front_opening["x_min"]))
+        opening_x_max = min(cap_x_max, x_offset + float(front_opening["x_max"]))
+        opening_y_min = max(cap_bottom, float(front_opening["y_min"]))
+        opening_y_max = min(cap_top, float(front_opening["y_max"]))
+
+        def add_cap_quad(points: list[tuple[float, float, float]]) -> None:
+            base_index = len(verts)
+            verts.extend(to_blender_loc(point) for point in points)
+            faces.append(tuple(range(base_index + len(points) - 1, base_index - 1, -1)))
+
+        if opening_x_min > cap_x_min + 0.05:
+            add_cap_quad([
+                (cap_x_min, cap_bottom, cap_z),
+                (opening_x_min, cap_bottom, cap_z),
+                (opening_x_min, cap_top, cap_z),
+                (cap_x_min, cap_top, cap_z),
+            ])
+        if opening_x_max < cap_x_max - 0.05:
+            add_cap_quad([
+                (opening_x_max, cap_bottom, cap_z),
+                (cap_x_max, cap_bottom, cap_z),
+                (cap_x_max, cap_top, cap_z),
+                (opening_x_max, cap_top, cap_z),
+            ])
+        if opening_y_max < cap_top - 0.05:
+            add_cap_quad([
+                (opening_x_min, opening_y_max, cap_z),
+                (opening_x_max, opening_y_max, cap_z),
+                (opening_x_max, cap_top, cap_z),
+                (opening_x_min, cap_top, cap_z),
+            ])
+        if opening_y_min > cap_bottom + 0.05:
+            add_cap_quad([
+                (opening_x_min, cap_bottom, cap_z),
+                (opening_x_max, cap_bottom, cap_z),
+                (opening_x_max, opening_y_min, cap_z),
+                (opening_x_min, opening_y_min, cap_z),
+            ])
+        cap_cut = {
+            "x_min": round(opening_x_min, 5),
+            "x_max": round(opening_x_max, 5),
+            "y_min": round(opening_y_min, 5),
+            "y_max": round(opening_y_max, 5),
+            "z": round(cap_z, 5),
+        }
     last = (ring_count - 1) * ring_size
     faces.append(tuple(last + index for index in range(ring_size)))
     for ring_index in range(ring_count - 1):
@@ -389,6 +451,8 @@ def add_cargo_section_prism(
     mesh.update()
     obj = bpy.data.objects.new(name, mesh)
     obj.data.materials.append(mat)
+    if front_opening is not None:
+        obj["front_hatch_opening"] = json.dumps(cap_cut)
     target.objects.link(obj)
     bevel = obj.modifiers.new("cargo prism bevel", "BEVEL")
     bevel.width = 0.045
@@ -564,7 +628,10 @@ def derive_forward_ramp_contract(
             "y_min": cargo_forward_floor_y - 0.30,
             "y_max": cargo_forward_floor_y + 2.35,
             "z_min": cargo_floor_edge_z + float(floorplan_candidate["ramp_aperture_z_min_delta"]),
-            "z_max": cargo_forward_floor_z + float(floorplan_candidate["ramp_aperture_z_max_from_original_floor"]),
+            "z_max": max(
+                cargo_forward_floor_z + float(floorplan_candidate["ramp_aperture_z_max_from_original_floor"]),
+                cargo_floor_edge_z + float(floorplan_candidate["ramp_aperture_z_max_delta"]),
+            ),
         },
     }
 
@@ -880,6 +947,24 @@ def create_reference_mesh_exterior(
     target: bpy.types.Collection,
     ramp_contract: dict[str, object] | None = None,
 ) -> bpy.types.Object:
+    exterior_portal_cut: dict[str, float] | None = None
+    if ramp_contract is not None:
+        aperture = ramp_contract["aperture"]
+        assert isinstance(aperture, dict)
+        hinge = ramp_contract["hinge"]
+        width = float(ramp_contract["width"])
+        assert isinstance(hinge, tuple)
+        frame_inner_half_width = (width + 0.42) * 0.5 - 0.08
+        z_max = float(aperture["z_min"]) - 0.08
+        exterior_portal_cut = {
+            "x_min": -frame_inner_half_width,
+            "x_max": frame_inner_half_width,
+            "y_min": float(hinge[1]) - 0.65,
+            "y_max": float(aperture["y_max"]),
+            "z_min": z_max - 1.70,
+            "z_max": z_max,
+        }
+
     def point_inside_aperture(point: tuple[float, float, float], margin: float = 0.0) -> bool:
         if ramp_contract is None:
             return False
@@ -898,15 +983,36 @@ def create_reference_mesh_exterior(
         if len(points) < 3:
             return False
         centroid = tuple(sum(point[axis] for point in points) / len(points) for axis in range(3))
+        if exterior_portal_cut is not None and (
+            float(exterior_portal_cut["x_min"]) <= centroid[0] <= float(exterior_portal_cut["x_max"])
+            and float(exterior_portal_cut["y_min"]) <= centroid[1] <= float(exterior_portal_cut["y_max"])
+            and float(exterior_portal_cut["z_min"]) <= centroid[2] <= float(exterior_portal_cut["z_max"])
+        ):
+            return True
         if point_inside_aperture(centroid, margin=0.08):
             return True
-        if not any(point_inside_aperture(point, margin=0.16) for point in points):
-            return False
         aperture = ramp_contract["aperture"]
         assert isinstance(aperture, dict)
+        if any(point_inside_aperture(point, margin=0.16) for point in points):
+            # Keep upper hull/canopy faces that merely share a wide triangle with
+            # the cut area. The ramp aperture is a lower-belly operation.
+            return centroid[1] <= float(aperture["y_max"]) + 0.2
+
+        axis_bounds = []
+        for axis in range(3):
+            values = [point[axis] for point in points]
+            axis_bounds.append((min(values), max(values)))
+        overlaps_aperture = (
+            axis_bounds[0][1] >= float(aperture["x_min"]) - 0.08
+            and axis_bounds[0][0] <= float(aperture["x_max"]) + 0.08
+            and axis_bounds[1][1] >= float(aperture["y_min"]) - 0.08
+            and axis_bounds[1][0] <= float(aperture["y_max"]) + 0.08
+            and axis_bounds[2][1] >= float(aperture["z_min"]) - 0.08
+            and axis_bounds[2][0] <= float(aperture["z_max"]) + 0.08
+        )
         # Keep upper hull/canopy faces that merely share a wide triangle with
         # the cut area. The ramp aperture is a lower-belly operation.
-        return centroid[1] <= float(aperture["y_max"]) + 0.2
+        return overlaps_aperture and centroid[1] <= float(aperture["y_max"]) + 0.35
 
     all_reference_points = [point for points in reference_by_material.values() for point in points]
     reference_center = point_bounds(all_reference_points)["center"]
@@ -914,6 +1020,7 @@ def create_reference_mesh_exterior(
     raw_godot: list[tuple[float, float, float] | None] = [None]
     faces: list[tuple[int, ...]] = []
     face_materials: list[str] = []
+    removed_aperture_faces = 0
     current_material = "Hull"
     for line in SHUTTLE_OBJ.read_text(encoding="utf-8").splitlines():
         if line.startswith("v "):
@@ -931,6 +1038,7 @@ def create_reference_mesh_exterior(
         face = tuple(int(part.split("/")[0]) - 1 for part in line.split()[1:])
         if len(face) >= 3:
             if face_crosses_aperture(face, raw_godot):
+                removed_aperture_faces += 1
                 continue
             faces.append(face)
             face_materials.append(current_material)
@@ -940,6 +1048,12 @@ def create_reference_mesh_exterior(
     mesh.from_pydata(verts, [], faces)
     mesh.update()
     obj = bpy.data.objects.new("ExactShuttleAReferenceBlockoutExterior", mesh)
+    obj["ramp_aperture_removed_faces"] = removed_aperture_faces
+    if exterior_portal_cut is not None:
+        obj["forward_ramp_exterior_portal_cut"] = json.dumps({
+            key: round(float(value), 5)
+            for key, value in exterior_portal_cut.items()
+        })
     slot_by_material: dict[str, int] = {}
     for material_name in ("Hull", "Accent", "Cockpit"):
         slot_by_material[material_name] = len(obj.data.materials)
@@ -1071,7 +1185,20 @@ def create_scene() -> None:
     cargo_prism_sections = derive_cargo_prism_sections(volume_boxes)
     transition_prism_sections = derive_transition_prism_sections(volume_boxes, cargo_prism_sections)
     ramp_contract = derive_forward_ramp_contract(volume_boxes, cargo_prism_sections, floorplan_candidate)
-    create_reference_mesh_exterior(
+    ramp_hinge = tuple(ramp_contract["hinge"])
+    ramp_tip = tuple(ramp_contract["tip"])
+    ramp_width = float(ramp_contract["width"])
+    aperture = ramp_contract["aperture"]
+    assert isinstance(aperture, dict)
+    frame_width = ramp_width + 0.42
+    frame_inner_half_width = frame_width * 0.5 - 0.08
+    ramp_portal_opening = {
+        "x_min": -frame_inner_half_width,
+        "x_max": frame_inner_half_width,
+        "y_min": ramp_hinge[1] - 0.08,
+        "y_max": float(aperture["y_max"]),
+    }
+    reference_exterior = create_reference_mesh_exterior(
         reference_by_material,
         {"Hull": hull_mat, "Accent": wing_mat, "Cockpit": glass_mat},
         exterior,
@@ -1084,16 +1211,19 @@ def create_scene() -> None:
         if key in volume_boxes
     ]
     if len(cargo_prism_sections) >= 2:
-        add_cargo_section_prism("VOLUME_LowerBellyCargoPrismaticEnvelope", cargo_prism_sections, cargo_mat, interior)
+        add_cargo_section_prism(
+            "VOLUME_LowerBellyCargoPrismaticEnvelope",
+            cargo_prism_sections,
+            cargo_mat,
+            interior,
+            front_opening=ramp_portal_opening,
+        )
     elif cargo_segment_keys:
         for key in cargo_segment_keys:
             add_cube(f"VOLUME_{key.title().replace('_', '')}Envelope", volume_boxes[key]["position"], volume_boxes[key]["size"], cargo_mat, interior, 0.035)
     else:
         add_cube("VOLUME_LowerBellyCargoDeckEnvelope", volume_boxes["cargo"]["position"], volume_boxes["cargo"]["size"], cargo_mat, interior, 0.035)
     add_cube("VOLUME_RaisedForwardCockpitDeckEnvelope", volume_boxes["cockpit"]["position"], volume_boxes["cockpit"]["size"], cockpit_mat, interior, 0.035)
-    ramp_hinge = tuple(ramp_contract["hinge"])
-    ramp_tip = tuple(ramp_contract["tip"])
-    ramp_width = float(ramp_contract["width"])
     add_open_ramp_panel(
         "VOLUME_ForwardBellyRampOpenPanel",
         ramp_hinge,
@@ -1103,13 +1233,10 @@ def create_scene() -> None:
         ramp_mat,
         interior,
     )
-    aperture = ramp_contract["aperture"]
-    assert isinstance(aperture, dict)
     aperture_center_z = (float(aperture["z_min"]) + float(aperture["z_max"])) * 0.5
     aperture_depth = float(aperture["z_max"]) - float(aperture["z_min"])
     aperture_mid_y = (float(aperture["y_min"]) + float(aperture["y_max"])) * 0.5
     aperture_height = float(aperture["y_max"]) - float(aperture["y_min"])
-    frame_width = ramp_width + 0.42
     add_cube("ForwardRampApertureLeftFrame", (-frame_width * 0.5, aperture_mid_y, aperture_center_z), (0.16, aperture_height, aperture_depth), wing_mat, interior, 0.03)
     add_cube("ForwardRampApertureRightFrame", (frame_width * 0.5, aperture_mid_y, aperture_center_z), (0.16, aperture_height, aperture_depth), wing_mat, interior, 0.03)
     if len(transition_prism_sections) >= 2:
@@ -1415,6 +1542,23 @@ def create_scene() -> None:
         "ship_id": "prototype_shuttle",
         "units": "meters",
         "floorplan_candidate": floorplan_candidate,
+        "ramp_aperture": {
+            "contract": {
+                key: ([round(v, 5) for v in value] if isinstance(value, tuple) else value)
+                for key, value in ramp_contract.items()
+                if key != "aperture"
+            },
+            "aperture": {
+                key: round(float(value), 5)
+                for key, value in ramp_contract["aperture"].items()
+            },
+            "removed_exterior_faces": int(reference_exterior.get("ramp_aperture_removed_faces", 0)),
+            "exterior_portal_cut": json.loads(str(reference_exterior.get("forward_ramp_exterior_portal_cut", "{}"))),
+        },
+        "ramp_portal_opening": {
+            key: round(float(value), 5)
+            for key, value in ramp_portal_opening.items()
+        },
         "player": {
             "radius": 0.36,
             "max_step_height": 0.48,
