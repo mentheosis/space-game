@@ -16,6 +16,7 @@ fi
 
 "$GODOT_BIN" --path . res://scenes/debug/ShipWalkthroughCapture.tscn
 python3 tools/raw_rgb_to_review_artifacts.py reports/ship_walkthrough ship_walkthrough
+python3 tools/ship_pipeline/standardize_evidence.py
 
 echo "Walkthrough MP4: reports/ship_walkthrough/ship_walkthrough_current.mp4"
 echo "Walkthrough contact sheet: reports/ship_walkthrough/ship_walkthrough_contact_sheet_current.png"

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "ship_id": "shuttle_a",
+  "source_contract": "assets/source/blender/ships/shuttle_a/shuttle_a_scale_proxy_contract.json",
+  "proxy_count": 4,
+  "proxies": [
+    {
+      "id": "standing_player_capsule",
+      "type": "capsule",
+      "position": [
+        0.0,
+        0.9,
+        2.35
+      ],
+      "radius": 0.32,
+      "height": 1.8,
+      "purpose": "Standing player clearance reference at interior spawn."
+    },
+    {
+      "id": "seated_pilot_capsule",
+      "type": "capsule",
+      "position": [
+        0.0,
+        1.45,
+        -8.55
+      ],
+      "radius": 0.32,
+      "height": 1.25,
+      "purpose": "Seated pilot clearance reference under canopy."
+    },
+    {
+      "id": "pilot_eye_to_canopy",
+      "type": "ray",
+      "start_marker": "PilotEye",
+      "end_marker": "CanopyTarget",
+      "purpose": "Pilot view should exit through the canopy, not an opaque cockpit object."
+    },
+    {
+      "id": "rear_ramp_path",
+      "type": "segment",
+      "start_marker": "RampStart",
+      "end_marker": "RampEnd",
+      "purpose": "Future rear ramp traversal and hatch scale reference."
+    }
+  ]
+}

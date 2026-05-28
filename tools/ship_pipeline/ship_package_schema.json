@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "ship_package": {
+    "required_fields": [
+      "ship_id",
+      "coordinate_space",
+      "markers"
+    ],
+    "coordinate_space": "Godot ship-local coordinates: +X right, +Y up, -Z forward",
+    "required_exports": [
+      "ship_interior.glb",
+      "ship_collision.glb",
+      "ship_markers.json",
+      "ship_light_report.json",
+      "ship_scale_proxy_report.json",
+      "ship_asset_report.json"
+    ]
+  },
+  "marker": {
+    "required_fields": [
+      "id",
+      "godot_node",
+      "position"
+    ],
+    "id_format": "lower_snake_case",
+    "godot_node_format": "PascalCase marker node name under scenes/ship/Ship.tscn:Markers",
+    "position": {
+      "type": "float[3]",
+      "units": "meters",
+      "space": "Godot ship-local"
+    }
+  },
+  "required_markers": [
+    {
+      "id": "interior_spawn",
+      "godot_node": "InteriorSpawn",
+      "purpose": "Player placement after hatch entry."
+    },
+    {
+      "id": "exterior_exit",
+      "godot_node": "ExteriorExit",
+      "purpose": "Player placement just outside the rear hatch."
+    },
+    {
+      "id": "seat_anchor",
+      "godot_node": "SeatAnchor",
+      "purpose": "Pilot seated body/camera anchor."
+    },
+    {
+      "id": "pilot_eye",
+      "godot_node": "PilotEye",
+      "purpose": "First-person cockpit camera eye point."
+    },
+    {
+      "id": "seat_exit",
+      "godot_node": "SeatExit",
+      "purpose": "Player placement when standing from the pilot seat."
+    },
+    {
+      "id": "canopy_target",
+      "godot_node": "CanopyTarget",
+      "purpose": "Cockpit sightline/canopy validation target."
+    },
+    {
+      "id": "hatch_center",
+      "godot_node": "HatchCenter",
+      "purpose": "Rear hatch/ramp design reference."
+    },
+    {
+      "id": "ramp_start",
+      "godot_node": "RampStart",
+      "purpose": "Future rear ramp hinge/top traversal reference."
+    },
+    {
+      "id": "ramp_end",
+      "godot_node": "RampEnd",
+      "purpose": "Future rear ramp foot/bottom traversal reference."
+    }
+  ],
+  "validation": {
+    "scene_marker_tolerance_m": 0.001,
+    "finite_position_required": true,
+    "missing_required_marker_is_error": true,
+    "scene_drift_is_error": true,
+    "light_contract_required": true,
+    "scale_proxy_contract_required": true
+  }
+}

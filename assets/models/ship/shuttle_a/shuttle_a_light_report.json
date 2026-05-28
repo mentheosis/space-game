@@ -1,0 +1,727 @@
+{
+  "schema_version": 1,
+  "ship_id": "shuttle_a",
+  "source_contract": "assets/source/blender/ships/shuttle_a/shuttle_a_light_contract.json",
+  "light_count": 31,
+  "lights": [
+    {
+      "id": "left_fixture_glow",
+      "godot_node": "LeftFixtureGlow",
+      "godot_type": "OmniLight3D",
+      "parent": "ExteriorHatchUndersideLights",
+      "position": [
+        -0.82,
+        0.56,
+        3.92
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.76,
+          0.48,
+          1.0
+        ],
+        "light_energy": 0.75,
+        "light_specular": 0.55,
+        "omni_range": 2.4,
+        "omni_attenuation": 1.65
+      }
+    },
+    {
+      "id": "right_fixture_glow",
+      "godot_node": "RightFixtureGlow",
+      "godot_type": "OmniLight3D",
+      "parent": "ExteriorHatchUndersideLights",
+      "position": [
+        0.82,
+        0.56,
+        3.92
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.76,
+          0.48,
+          1.0
+        ],
+        "light_energy": 0.75,
+        "light_specular": 0.55,
+        "omni_range": 2.4,
+        "omni_attenuation": 1.65
+      }
+    },
+    {
+      "id": "left_pool_light",
+      "godot_node": "LeftPoolLight",
+      "godot_type": "SpotLight3D",
+      "parent": "ExteriorHatchUndersideLights",
+      "position": [
+        -0.72,
+        0.18,
+        3.72
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.78,
+          0.5,
+          1.0
+        ],
+        "light_energy": 1.8,
+        "light_specular": 0.35,
+        "spot_range": 6.2,
+        "spot_angle": 52.0,
+        "spot_attenuation": 1.45
+      },
+      "rotation": [
+        -1.5708,
+        0.0,
+        -0.12
+      ]
+    },
+    {
+      "id": "right_pool_light",
+      "godot_node": "RightPoolLight",
+      "godot_type": "SpotLight3D",
+      "parent": "ExteriorHatchUndersideLights",
+      "position": [
+        0.72,
+        0.18,
+        3.72
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.78,
+          0.5,
+          1.0
+        ],
+        "light_energy": 1.8,
+        "light_specular": 0.35,
+        "spot_range": 6.2,
+        "spot_angle": 52.0,
+        "spot_attenuation": 1.45
+      },
+      "rotation": [
+        -1.5708,
+        0.0,
+        0.12
+      ]
+    },
+    {
+      "id": "interior_light",
+      "godot_node": "InteriorLight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.0,
+        2.45,
+        -0.15
+      ],
+      "properties": {
+        "light_energy": 0.22,
+        "light_specular": 0.36,
+        "omni_range": 4.25,
+        "omni_attenuation": 1.95
+      }
+    },
+    {
+      "id": "cockpit_glow",
+      "godot_node": "CockpitGlow",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.0,
+        1.35,
+        -8.25
+      ],
+      "properties": {
+        "light_color": [
+          0.38,
+          0.78,
+          0.84,
+          1.0
+        ],
+        "light_energy": 0.22,
+        "light_specular": 0.38,
+        "omni_range": 1.45,
+        "omni_attenuation": 2.15
+      }
+    },
+    {
+      "id": "cockpit_console_warm_left",
+      "godot_node": "CockpitConsoleWarmLeft",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.52,
+        1.18,
+        -9.38
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.63,
+          0.34,
+          1.0
+        ],
+        "light_energy": 0.28,
+        "light_specular": 0.56,
+        "omni_range": 1.08,
+        "omni_attenuation": 2.45
+      }
+    },
+    {
+      "id": "cockpit_console_warm_right",
+      "godot_node": "CockpitConsoleWarmRight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.52,
+        1.18,
+        -9.38
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.63,
+          0.34,
+          1.0
+        ],
+        "light_energy": 0.28,
+        "light_specular": 0.56,
+        "omni_range": 1.08,
+        "omni_attenuation": 2.45
+      }
+    },
+    {
+      "id": "cockpit_footwell_warm",
+      "godot_node": "CockpitFootwellWarm",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.0,
+        0.82,
+        -8.62
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.58,
+          0.3,
+          1.0
+        ],
+        "light_energy": 0.22,
+        "light_specular": 0.48,
+        "omni_range": 1.18,
+        "omni_attenuation": 2.55
+      }
+    },
+    {
+      "id": "cockpit_canopy_rim_cool_left",
+      "godot_node": "CockpitCanopyRimCoolLeft",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.74,
+        1.86,
+        -8.85
+      ],
+      "properties": {
+        "light_color": [
+          0.7,
+          0.84,
+          0.88,
+          1.0
+        ],
+        "light_energy": 0.13,
+        "light_specular": 0.42,
+        "omni_range": 1.1,
+        "omni_attenuation": 2.65
+      }
+    },
+    {
+      "id": "cockpit_canopy_rim_cool_right",
+      "godot_node": "CockpitCanopyRimCoolRight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.74,
+        1.86,
+        -8.85
+      ],
+      "properties": {
+        "light_color": [
+          0.7,
+          0.84,
+          0.88,
+          1.0
+        ],
+        "light_energy": 0.13,
+        "light_specular": 0.42,
+        "omni_range": 1.1,
+        "omni_attenuation": 2.65
+      }
+    },
+    {
+      "id": "cockpit_seat_back_warm_fill",
+      "godot_node": "CockpitSeatBackWarmFill",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.0,
+        1.92,
+        -8.06
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.55,
+          0.3,
+          1.0
+        ],
+        "light_energy": 0.0,
+        "light_specular": 0.36,
+        "omni_range": 1.18,
+        "omni_attenuation": 2.7
+      }
+    },
+    {
+      "id": "cockpit_overhead_warm_left",
+      "godot_node": "CockpitOverheadWarmLeft",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.3,
+        2.02,
+        -8.74
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.74,
+          0.48,
+          1.0
+        ],
+        "light_energy": 0.3,
+        "light_specular": 0.48,
+        "omni_range": 1.34,
+        "omni_attenuation": 2.35
+      }
+    },
+    {
+      "id": "cockpit_overhead_warm_right",
+      "godot_node": "CockpitOverheadWarmRight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.3,
+        2.02,
+        -8.08
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.76,
+          0.5,
+          1.0
+        ],
+        "light_energy": 0.28,
+        "light_specular": 0.48,
+        "omni_range": 1.3,
+        "omni_attenuation": 2.35
+      }
+    },
+    {
+      "id": "cockpit_side_panel_warm_left",
+      "godot_node": "CockpitSidePanelWarmLeft",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.82,
+        1.05,
+        -8.95
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.66,
+          0.38,
+          1.0
+        ],
+        "light_energy": 0.13,
+        "light_specular": 0.34,
+        "omni_range": 0.92,
+        "omni_attenuation": 2.7
+      }
+    },
+    {
+      "id": "cockpit_side_panel_warm_right",
+      "godot_node": "CockpitSidePanelWarmRight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.82,
+        1.05,
+        -8.95
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.66,
+          0.38,
+          1.0
+        ],
+        "light_energy": 0.13,
+        "light_specular": 0.34,
+        "omni_range": 0.92,
+        "omni_attenuation": 2.7
+      }
+    },
+    {
+      "id": "aft_practical_light",
+      "godot_node": "AftPracticalLight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.48,
+        2.04,
+        2.42
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.76,
+          0.48,
+          1.0
+        ],
+        "light_energy": 0.58,
+        "light_specular": 0.4,
+        "omni_range": 1.9,
+        "omni_attenuation": 1.85
+      }
+    },
+    {
+      "id": "mid_cabin_practical_light",
+      "godot_node": "MidCabinPracticalLight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.52,
+        2.08,
+        -0.82
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.78,
+          0.52,
+          1.0
+        ],
+        "light_energy": 0.54,
+        "light_specular": 0.4,
+        "omni_range": 2.05,
+        "omni_attenuation": 1.85
+      }
+    },
+    {
+      "id": "forward_practical_light",
+      "godot_node": "ForwardPracticalLight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.45,
+        2.08,
+        -4.42
+      ],
+      "properties": {
+        "light_color": [
+          0.86,
+          0.92,
+          1.0,
+          1.0
+        ],
+        "light_energy": 0.5,
+        "light_specular": 0.4,
+        "omni_range": 1.85,
+        "omni_attenuation": 1.85
+      }
+    },
+    {
+      "id": "lounge_ceiling_panel_light_aft",
+      "godot_node": "LoungeCeilingPanelLightAft",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.52,
+        2.18,
+        2.1
+      ],
+      "properties": {
+        "light_color": [
+          0.94,
+          0.96,
+          0.9,
+          1.0
+        ],
+        "light_energy": 0.24,
+        "light_specular": 0.5,
+        "omni_range": 1.65,
+        "omni_attenuation": 2.3
+      }
+    },
+    {
+      "id": "lounge_ceiling_panel_light_mid",
+      "godot_node": "LoungeCeilingPanelLightMid",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.5,
+        2.18,
+        0.35
+      ],
+      "properties": {
+        "light_color": [
+          0.94,
+          0.96,
+          0.9,
+          1.0
+        ],
+        "light_energy": 0.27,
+        "light_specular": 0.5,
+        "omni_range": 1.75,
+        "omni_attenuation": 2.25
+      }
+    },
+    {
+      "id": "lounge_ceiling_panel_light_forward",
+      "godot_node": "LoungeCeilingPanelLightForward",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.5,
+        2.18,
+        -3.15
+      ],
+      "properties": {
+        "light_color": [
+          0.94,
+          0.96,
+          0.9,
+          1.0
+        ],
+        "light_energy": 0.29,
+        "light_specular": 0.5,
+        "omni_range": 1.85,
+        "omni_attenuation": 2.25
+      }
+    },
+    {
+      "id": "left_cabin_sconce_aft",
+      "godot_node": "LeftCabinSconceAft",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.92,
+        1.74,
+        1.35
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.7,
+          0.42,
+          1.0
+        ],
+        "light_energy": 0.24,
+        "light_specular": 0.3,
+        "omni_range": 1.15,
+        "omni_attenuation": 1.9
+      }
+    },
+    {
+      "id": "right_cabin_sconce_mid",
+      "godot_node": "RightCabinSconceMid",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.92,
+        1.74,
+        -0.55
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.7,
+          0.42,
+          1.0
+        ],
+        "light_energy": 0.23,
+        "light_specular": 0.3,
+        "omni_range": 1.15,
+        "omni_attenuation": 1.9
+      }
+    },
+    {
+      "id": "left_cabin_sconce_forward",
+      "godot_node": "LeftCabinSconceForward",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.86,
+        1.72,
+        -3.22
+      ],
+      "properties": {
+        "light_color": [
+          0.82,
+          0.9,
+          1.0,
+          1.0
+        ],
+        "light_energy": 0.22,
+        "light_specular": 0.3,
+        "omni_range": 1.1,
+        "omni_attenuation": 1.9
+      }
+    },
+    {
+      "id": "low_path_light_aft_left",
+      "godot_node": "LowPathLightAftLeft",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.68,
+        0.52,
+        2.08
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.7,
+          0.42,
+          1.0
+        ],
+        "light_energy": 0.16,
+        "light_specular": 0.5,
+        "omni_range": 0.95,
+        "omni_attenuation": 2.4
+      }
+    },
+    {
+      "id": "low_path_light_aft_right",
+      "godot_node": "LowPathLightAftRight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.68,
+        0.52,
+        2.08
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.7,
+          0.42,
+          1.0
+        ],
+        "light_energy": 0.14,
+        "light_specular": 0.5,
+        "omni_range": 0.95,
+        "omni_attenuation": 2.4
+      }
+    },
+    {
+      "id": "low_path_light_mid_left",
+      "godot_node": "LowPathLightMidLeft",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.68,
+        0.52,
+        -0.66
+      ],
+      "properties": {
+        "light_color": [
+          0.74,
+          0.9,
+          1.0,
+          1.0
+        ],
+        "light_energy": 0.12,
+        "light_specular": 0.48,
+        "omni_range": 0.9,
+        "omni_attenuation": 2.45
+      }
+    },
+    {
+      "id": "low_path_light_mid_right",
+      "godot_node": "LowPathLightMidRight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.68,
+        0.52,
+        -2.02
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.72,
+          0.46,
+          1.0
+        ],
+        "light_energy": 0.15,
+        "light_specular": 0.5,
+        "omni_range": 0.95,
+        "omni_attenuation": 2.4
+      }
+    },
+    {
+      "id": "low_path_light_forward_left",
+      "godot_node": "LowPathLightForwardLeft",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        -0.68,
+        0.54,
+        -4.72
+      ],
+      "properties": {
+        "light_color": [
+          0.74,
+          0.9,
+          1.0,
+          1.0
+        ],
+        "light_energy": 0.13,
+        "light_specular": 0.5,
+        "omni_range": 0.95,
+        "omni_attenuation": 2.45
+      }
+    },
+    {
+      "id": "low_path_light_forward_right",
+      "godot_node": "LowPathLightForwardRight",
+      "godot_type": "OmniLight3D",
+      "parent": "Interior",
+      "position": [
+        0.68,
+        0.54,
+        -3.36
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.72,
+          0.46,
+          1.0
+        ],
+        "light_energy": 0.15,
+        "light_specular": 0.5,
+        "omni_range": 0.95,
+        "omni_attenuation": 2.4
+      }
+    }
+  ]
+}

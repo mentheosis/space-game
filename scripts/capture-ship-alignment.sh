@@ -22,6 +22,7 @@ python3 tools/ship_alignment_dashboard.py
 python3 tools/ship_capture_manifest.py --clean
 "$GODOT_BIN" --path . res://scenes/debug/ShipAlignmentCapture.tscn
 python3 tools/ship_capture_manifest.py --check
+"$GODOT_BIN" --path . res://scenes/debug/ShipReferenceCapture.tscn
 python3 tools/ship_phase_completion_audit.py
 python3 tools/ship_alignment_dashboard.py
 
@@ -31,3 +32,4 @@ echo "Dashboard: reports/ship_alignment_dashboard.html"
 echo "Capture manifest: reports/ship_alignment_captures.json"
 echo "Completion audit: reports/ship_phase_0_2_1b_completion_audit.md"
 echo "Screenshots: reports/ship_alignment_captures"
+echo "Reference screenshots: plans/0.3 roadmap to AAA/0.3.2 references"

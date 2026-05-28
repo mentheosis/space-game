@@ -3239,12 +3239,15 @@ def import_reference(target: bpy.types.Collection) -> None:
 
 def create_markers(target: bpy.types.Collection) -> None:
     marker_data = {
-        "InteriorSpawn": (0.0, 1.35, 3.95),
+        "InteriorSpawn": (0.0, 1.12, 2.35),
+        "ExteriorExit": (0.0, 1.18, 5.42),
         "SeatAnchor": (0.0, 2.04, -8.55),
-        "SeatExit": (0.0, 1.22, -5.65),
+        "SeatExit": (0.0, 1.82, -7.42),
         "PilotEye": (0.0, 2.18, -8.92),
         "CanopyTarget": (0.0, 2.75, -8.72),
         "HatchCenter": (0.0, 1.30, 4.35),
+        "RampStart": (0.0, 1.12, 4.20),
+        "RampEnd": (0.0, 0.52, 5.70),
     }
     for name, loc in marker_data.items():
         empty = bpy.data.objects.new(name, None)
@@ -3267,7 +3270,10 @@ def create_initial_interior() -> None:
     glass = collection("Interior_Glass")
     collision = collection("Collision_Proxy")
     markers = collection("Markers")
+    collection("Lights")
     collection("Review_Cameras")
+    collection("ScaleProxies")
+    collection("Disabled_Source")
 
     cockpit_bounds = read_material_bounds("Cockpit")
     write_reference_fit_report(cockpit_bounds)
