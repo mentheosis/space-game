@@ -55,8 +55,17 @@ echo "Using dotnet: ${DOTNET_BIN}"
 echo "Using Godot: ${GODOT_BIN}"
 echo "Using Blender: ${BLENDER_BIN}"
 
-echo "Bootstrapping prototype shuttle Blender scene"
-scripts/bootstrap-prototype-shuttle-blender.sh
+if [[ "${PROTOTYPE_SHUTTLE_REGENERATE_BLOCKOUT:-0}" == "1" ]]; then
+  echo "Regenerating prototype shuttle procedural Blender blockout"
+  PROTOTYPE_SHUTTLE_ALLOW_BOOTSTRAP_OVERWRITE=1 scripts/bootstrap-prototype-shuttle-blender.sh
+else
+  if [[ ! -f "${ROOT_DIR}/assets/source/blender/ships/prototype_shuttle/prototype_shuttle.blend" ]]; then
+    echo "ERROR: Missing authored prototype shuttle Blender source." >&2
+    echo "Run PROTOTYPE_SHUTTLE_REGENERATE_BLOCKOUT=1 scripts/review-prototype-shuttle-blockout.sh only if you intend to recreate it." >&2
+    exit 1
+  fi
+  echo "Using authored prototype shuttle Blender source"
+fi
 
 echo "Exporting prototype shuttle Blender package"
 scripts/export-prototype-shuttle-blender.sh

@@ -93,6 +93,33 @@ Design note:
 
 The current desired mood is readable sci-fi interior rather than uniformly bright showroom. We should borrow material realism, fixture logic, and surface detail discipline without forcing the new shuttle into the exact brightness or panel style of the reference.
 
+### Cargo Ramp And Lower Deck Reference
+
+File:
+
+- `cargo_ramp_ref.jpg`
+
+Use for:
+
+- forward ramp opening composition viewed from outside into the cargo bay
+- thick, rounded hatch frame and sidewall return surfaces around the opening
+- ramp surface paneling, edge rails, and inset tread detail
+- lower cargo deck wall/ceiling structure with strong manufactured panel rhythm
+- ceiling practical light strips that visibly explain the interior illumination
+- side equipment bays, vertical supports, grab points, vents, and recessed panels
+- clear central walking path from ramp into the interior
+
+Do not copy:
+
+- exact color blocking or faction markings
+- exact room proportions if they conflict with the prototype shuttle hull
+- exact rear bulkhead/door layout
+- high brightness level as a requirement
+
+Design note:
+
+The prototype shuttle lower deck should borrow the reference's sense that the ramp, hatch frame, sidewalls, ceiling, and floor are one coherent manufactured structure. The ramp should not read as a loose plank outside a hollow shell. The next structural pass should especially improve the ramp threshold, hatch frame thickness, cargo bay side panels, ceiling ribs/light housings, floor panel seams, and visible route into the ship.
+
 ## 0.3.2a Exterior Silhouette And Volume Lock Targets
 
 The first implementation pass should prove:
