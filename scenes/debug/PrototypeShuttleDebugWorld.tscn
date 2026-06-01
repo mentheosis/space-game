@@ -20,9 +20,17 @@ background_mode = 2
 sky = SubResource("Sky_space")
 ambient_light_source = 3
 ambient_light_color = Color(0.45, 0.52, 0.62, 1)
-ambient_light_energy = 0.85
+ambient_light_energy = 0.06
 tonemap_mode = 2
 glow_enabled = true
+ssao_enabled = true
+ssao_radius = 0.85
+ssao_intensity = 0.42
+ssr_enabled = true
+ssr_max_steps = 64
+ssr_fade_in = 0.15
+ssr_fade_out = 2.0
+ssr_depth_tolerance = 0.2
 
 [node name="PrototypeShuttleDebugWorld" type="Node3D"]
 
@@ -38,21 +46,6 @@ script = ExtResource("4_loader")
 transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 120, 0)
 light_energy = 3.2
 shadow_enabled = true
-
-[node name="FillLight" type="OmniLight3D" parent="."]
-position = Vector3(-6, 58, 8)
-light_energy = 2.8
-omni_range = 32.0
-
-[node name="CockpitReviewLight" type="OmniLight3D" parent="."]
-position = Vector3(0, 54, -10)
-light_energy = 3.6
-omni_range = 18.0
-
-[node name="CargoReviewLight" type="OmniLight3D" parent="."]
-position = Vector3(0, 53, 3)
-light_energy = 2.6
-omni_range = 22.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_space")

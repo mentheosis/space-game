@@ -1,6 +1,6 @@
 {
   "ship_id": "prototype_shuttle",
-  "material_count": 9,
+  "material_count": 34,
   "materials": {
     "proto_belly_ramp_blockout": {
       "object_count": 2,
@@ -43,6 +43,156 @@
     },
     "proto_seat_dark_fabric_blockout": {
       "object_count": 2,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_amber_status_light": {
+      "object_count": 87,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_blue_accent_panel": {
+      "object_count": 10,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_burnished_edge_metal": {
+      "object_count": 52,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_cargo_fabric_canvas": {
+      "object_count": 25,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_collision_walkable": {
+      "object_count": 2,
+      "groups": [
+        "collision"
+      ]
+    },
+    "proto_structural_cool_light_fixture": {
+      "object_count": 6,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_cyan_status_light": {
+      "object_count": 85,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_dark_inset_glass": {
+      "object_count": 44,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_dark_trim": {
+      "object_count": 224,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_floor_plate": {
+      "object_count": 44,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_hazard_warm_yellow": {
+      "object_count": 18,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_muted_service_green": {
+      "object_count": 10,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_pale_insulated_panel": {
+      "object_count": 33,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_rubber_gasket": {
+      "object_count": 141,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_scratched_edge_metal": {
+      "object_count": 115,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_seat_fabric_dark": {
+      "object_count": 12,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_seat_stitching": {
+      "object_count": 8,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_service_green_cargo_hard_case": {
+      "object_count": 9,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_smoked_glass": {
+      "object_count": 12,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_sooty_recess": {
+      "object_count": 59,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_stenciled_label_white": {
+      "object_count": 24,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_warm_light_fixture": {
+      "object_count": 54,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_warm_wall_panel": {
+      "object_count": 71,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_warm_worn_walk_path": {
+      "object_count": 17,
+      "groups": [
+        "interior"
+      ]
+    },
+    "proto_structural_worn_floor_insert": {
+      "object_count": 18,
       "groups": [
         "interior"
       ]

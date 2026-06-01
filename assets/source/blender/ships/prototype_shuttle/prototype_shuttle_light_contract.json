@@ -5,12 +5,12 @@
     {
       "id": "cargo_warm_left",
       "godot_node": "CargoWarmLeft",
-      "godot_type": "OmniLight3D",
+      "godot_type": "SpotLight3D",
       "parent": "Lights",
       "position": [
-        -2.0,
-        2.9,
-        0.35
+        -2.62,
+        2.22,
+        1.54
       ],
       "properties": {
         "light_color": [
@@ -19,19 +19,21 @@
           0.46,
           1.0
         ],
-        "light_energy": 0.9,
-        "omni_range": 4.5
+        "light_energy": 1.15,
+        "spot_range": 4.3,
+        "spot_angle": 32.0,
+        "spot_angle_attenuation": 2.0
       }
     },
     {
       "id": "cargo_warm_right",
       "godot_node": "CargoWarmRight",
-      "godot_type": "OmniLight3D",
+      "godot_type": "SpotLight3D",
       "parent": "Lights",
       "position": [
-        2.0,
-        2.9,
-        0.35
+        2.62,
+        2.22,
+        1.54
       ],
       "properties": {
         "light_color": [
@@ -40,19 +42,21 @@
           0.46,
           1.0
         ],
-        "light_energy": 0.9,
-        "omni_range": 4.5
+        "light_energy": 1.15,
+        "spot_range": 4.3,
+        "spot_angle": 32.0,
+        "spot_angle_attenuation": 2.0
       }
     },
     {
       "id": "cockpit_soft_key",
       "godot_node": "CockpitSoftKey",
-      "godot_type": "OmniLight3D",
+      "godot_type": "SpotLight3D",
       "parent": "Lights",
       "position": [
         0.0,
-        4.0,
-        -6.6
+        1.42,
+        -14.35
       ],
       "properties": {
         "light_color": [
@@ -61,8 +65,102 @@
           1.0,
           1.0
         ],
-        "light_energy": 0.65,
-        "omni_range": 3.6
+        "light_energy": 0.85,
+        "spot_range": 3.0,
+        "spot_angle": 30.0,
+        "spot_angle_attenuation": 2.0
+      }
+    },
+    {
+      "id": "cockpit_approach_left_a",
+      "godot_node": "CockpitApproachLeftA",
+      "godot_type": "SpotLight3D",
+      "parent": "Lights",
+      "position": [
+        -1.34,
+        1.18,
+        -6.3
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.73,
+          0.45,
+          1.0
+        ],
+        "light_energy": 1.55,
+        "spot_range": 4.5,
+        "spot_angle": 32.0,
+        "spot_angle_attenuation": 2.0
+      }
+    },
+    {
+      "id": "cockpit_approach_right_a",
+      "godot_node": "CockpitApproachRightA",
+      "godot_type": "SpotLight3D",
+      "parent": "Lights",
+      "position": [
+        1.34,
+        1.18,
+        -6.3
+      ],
+      "properties": {
+        "light_color": [
+          1.0,
+          0.73,
+          0.45,
+          1.0
+        ],
+        "light_energy": 1.55,
+        "spot_range": 4.5,
+        "spot_angle": 32.0,
+        "spot_angle_attenuation": 2.0
+      }
+    },
+    {
+      "id": "cockpit_approach_left_b",
+      "godot_node": "CockpitApproachLeftB",
+      "godot_type": "SpotLight3D",
+      "parent": "Lights",
+      "position": [
+        -1.34,
+        1.18,
+        -9.25
+      ],
+      "properties": {
+        "light_color": [
+          0.78,
+          0.9,
+          1.0,
+          1.0
+        ],
+        "light_energy": 1.35,
+        "spot_range": 4.0,
+        "spot_angle": 30.0,
+        "spot_angle_attenuation": 2.0
+      }
+    },
+    {
+      "id": "cockpit_approach_right_b",
+      "godot_node": "CockpitApproachRightB",
+      "godot_type": "SpotLight3D",
+      "parent": "Lights",
+      "position": [
+        1.34,
+        1.18,
+        -9.25
+      ],
+      "properties": {
+        "light_color": [
+          0.78,
+          0.9,
+          1.0,
+          1.0
+        ],
+        "light_energy": 1.35,
+        "spot_range": 4.0,
+        "spot_angle": 30.0,
+        "spot_angle_attenuation": 2.0
       }
     }
   ]

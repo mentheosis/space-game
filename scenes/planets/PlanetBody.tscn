@@ -10,13 +10,13 @@
 [ext_resource type="PackedScene" path="res://scenes/landmarks/PlanetALaunchLandmark.tscn" id="8_launch_landmark"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_planet"]
-radius = 50.0
-height = 100.0
+radius = 200.0
+height = 400.0
 radial_segments = 96
 rings = 48
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_planet"]
-radius = 50.0
+radius = 200.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_landmark"]
 size = Vector3(3, 14, 3)
@@ -25,9 +25,9 @@ size = Vector3(3, 14, 3)
 
 [node name="GravityBody" type="Node3D" parent="."]
 script = ExtResource("1_gravity_body")
-Radius = 50.0
+Radius = 200.0
 SurfaceGravity = 24.0
-InfluenceRadius = 250.0
+InfluenceRadius = 1000.0
 Priority = 0
 
 [node name="Surface" type="StaticBody3D" parent="."]
@@ -40,45 +40,45 @@ mesh = SubResource("SphereMesh_planet")
 shape = SubResource("SphereShape3D_planet")
 
 [node name="SpawnPoint" type="Marker3D" parent="."]
-position = Vector3(0, 51.1, 0)
+position = Vector3(0, 201.1, 0)
 script = ExtResource("2_spawn_point")
 
 [node name="NorthTower" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 50, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 200, 10)
 material_override = ExtResource("4_landmark")
 mesh = SubResource("BoxMesh_landmark")
 
 [node name="LaunchLandmark" parent="." instance=ExtResource("8_launch_landmark")]
 position = Vector3(13, 45, 18)
 script = ExtResource("5_surface_anchor")
-SurfaceRadius = 50.0
+SurfaceRadius = 200.0
 SurfaceOffset = 0.25
 YawDegrees = 20.0
 
 [node name="RockClusterNearShip" parent="." instance=ExtResource("6_rock_cluster")]
 position = Vector3(-14, 47, 18)
 script = ExtResource("5_surface_anchor")
-SurfaceRadius = 50.0
+SurfaceRadius = 200.0
 SurfaceOffset = 0.2
 YawDegrees = -35.0
 
 [node name="RockClusterNearTower" parent="." instance=ExtResource("6_rock_cluster")]
 position = Vector3(20, 43, -18)
 script = ExtResource("5_surface_anchor")
-SurfaceRadius = 50.0
+SurfaceRadius = 200.0
 SurfaceOffset = 0.2
 YawDegrees = 75.0
 
 [node name="RockClusterHorizon" parent="." instance=ExtResource("6_rock_cluster")]
 position = Vector3(-22, 40, -20)
 script = ExtResource("5_surface_anchor")
-SurfaceRadius = 50.0
+SurfaceRadius = 200.0
 SurfaceOffset = 0.2
 YawDegrees = 130.0
 
 [node name="SurfaceMarkerA" parent="." instance=ExtResource("7_surface_marker")]
 position = Vector3(-8, 48, -28)
 script = ExtResource("5_surface_anchor")
-SurfaceRadius = 50.0
+SurfaceRadius = 200.0
 SurfaceOffset = 0.1
 YawDegrees = 0.0

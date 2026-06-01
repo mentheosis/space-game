@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/debug/PrototypeShuttleMaterialWalkthroughCaptureRunner.cs" id="1_runner"]
+[ext_resource type="Material" path="res://assets/materials/environment/mat_starfield.tres" id="2_starfield"]
+
+[sub_resource type="Sky" id="Sky_space"]
+sky_material = ExtResource("2_starfield")
+
+[sub_resource type="Environment" id="Environment_space"]
+background_mode = 2
+sky = SubResource("Sky_space")
+ambient_light_source = 3
+ambient_light_color = Color(0.19, 0.20, 0.21, 1)
+ambient_light_energy = 0.055
+tonemap_mode = 2
+glow_enabled = true
+ssao_enabled = true
+ssao_radius = 0.85
+ssao_intensity = 0.42
+ssr_enabled = true
+ssr_max_steps = 64
+ssr_fade_in = 0.15
+ssr_fade_out = 2.0
+ssr_depth_tolerance = 0.2
+
+[node name="PrototypeShuttleMaterialWalkthroughCapture" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_space")
+
+[node name="PrototypeShuttleMaterialWalkthroughCaptureRunner" type="Node3D" parent="."]
+script = ExtResource("1_runner")

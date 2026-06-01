@@ -470,6 +470,36 @@
         0.1,
         0.47342
       ]
+    },
+    {
+      "id": "cockpit_entry_landing_aft_extension",
+      "kind": "floor_box",
+      "center": [
+        0.0,
+        0.86383,
+        -1.34
+      ],
+      "size": [
+        1.92,
+        0.08,
+        1.44
+      ],
+      "notes": "Centered structural detail pass extension for the aft landing surface above the ramp opening; kept out of side stair lanes."
+    },
+    {
+      "id": "cockpit_entry_landing_ramp_drop_guard_rail",
+      "kind": "barrier_box",
+      "center": [
+        0.0,
+        1.28,
+        -0.86
+      ],
+      "size": [
+        2.86,
+        0.76,
+        0.18
+      ],
+      "notes": "Top landing safety guard rail across the central drop toward the cargo ramp; leaves side stair landing paths open."
     }
   ],
   "route": [

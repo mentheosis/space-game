@@ -135,24 +135,19 @@ public partial class PauseMenu : CanvasLayer
         Visible = false;
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (TryHandlePendingBindingInput(@event))
+        {
+            GetViewport().SetInputAsHandled();
+        }
+    }
+
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (_pendingBindingAction.Length > 0)
+        if (TryHandlePendingBindingInput(@event))
         {
-            if (@event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
-            {
-                if (keyEvent.Keycode == Key.Escape)
-                {
-                    CancelBinding();
-                }
-                else
-                {
-                    ApplyBinding(_pendingBindingAction, _pendingBindingSection, keyEvent.Keycode);
-                }
-
-                GetViewport().SetInputAsHandled();
-            }
-
+            GetViewport().SetInputAsHandled();
             return;
         }
 
@@ -171,6 +166,30 @@ public partial class PauseMenu : CanvasLayer
         }
     }
 
+    private bool TryHandlePendingBindingInput(InputEvent @event)
+    {
+        if (_pendingBindingAction.Length == 0)
+        {
+            return false;
+        }
+
+        if (@event is not InputEventKey keyEvent || !keyEvent.Pressed || keyEvent.Echo)
+        {
+            return false;
+        }
+
+        if (keyEvent.Keycode == Key.Escape)
+        {
+            CancelBinding();
+        }
+        else
+        {
+            ApplyBinding(_pendingBindingAction, _pendingBindingSection, keyEvent.Keycode);
+        }
+
+        return true;
+    }
+
     public void ApplyUiScaleDeferred()
     {
         ApplyUiScale((float)_uiScaleSlider.Value);
@@ -178,6 +197,7 @@ public partial class PauseMenu : CanvasLayer
 
     private void OpenMenu()
     {
+        ApplySavedShipCameraSettingsToAllShips();
         Visible = true;
         Input.MouseMode = Input.MouseModeEnum.Visible;
     }
@@ -190,25 +210,25 @@ public partial class PauseMenu : CanvasLayer
 
     private void LoadCameraSettings()
     {
-        if (_ship is not null)
-        {
-            _ship.OrbitCameraHorizontalSensitivity = GetFloatSetting("flight_camera", "horizontal", _ship.OrbitCameraHorizontalSensitivity);
-            _ship.OrbitCameraVerticalSensitivity = GetFloatSetting("flight_camera", "vertical", _ship.OrbitCameraVerticalSensitivity);
-            _ship.InvertOrbitCameraX = GetBoolSetting("flight_camera", "invert_x", _ship.InvertOrbitCameraX);
-            _ship.InvertOrbitCameraY = GetBoolSetting("flight_camera", "invert_y", _ship.InvertOrbitCameraY);
-            _ship.CockpitCameraHorizontalSensitivity = GetFloatSetting("cockpit_camera", "horizontal", _ship.CockpitCameraHorizontalSensitivity);
-            _ship.CockpitCameraVerticalSensitivity = GetFloatSetting("cockpit_camera", "vertical", _ship.CockpitCameraVerticalSensitivity);
-            _ship.InvertCockpitCameraX = GetBoolSetting("cockpit_camera", "invert_x", _ship.InvertCockpitCameraX);
-            _ship.InvertCockpitCameraY = GetBoolSetting("cockpit_camera", "invert_y", _ship.InvertCockpitCameraY);
-            _flightLookXSlider.Value = _ship.OrbitCameraHorizontalSensitivity;
-            _flightLookYSlider.Value = _ship.OrbitCameraVerticalSensitivity;
-            _flightInvertX.ButtonPressed = _ship.InvertOrbitCameraX;
-            _flightInvertY.ButtonPressed = _ship.InvertOrbitCameraY;
-            _cockpitLookXSlider.Value = _ship.CockpitCameraHorizontalSensitivity;
-            _cockpitLookYSlider.Value = _ship.CockpitCameraVerticalSensitivity;
-            _cockpitInvertX.ButtonPressed = _ship.InvertCockpitCameraX;
-            _cockpitInvertY.ButtonPressed = _ship.InvertCockpitCameraY;
-        }
+        var defaultShip = _ship ?? GetFirstShipController();
+        var orbitHorizontal = GetFloatSetting("flight_camera", "horizontal", defaultShip?.OrbitCameraHorizontalSensitivity ?? 0.003f);
+        var orbitVertical = GetFloatSetting("flight_camera", "vertical", defaultShip?.OrbitCameraVerticalSensitivity ?? 0.003f);
+        var invertOrbitX = GetBoolSetting("flight_camera", "invert_x", defaultShip?.InvertOrbitCameraX ?? false);
+        var invertOrbitY = GetBoolSetting("flight_camera", "invert_y", defaultShip?.InvertOrbitCameraY ?? false);
+        var cockpitHorizontal = GetFloatSetting("cockpit_camera", "horizontal", defaultShip?.CockpitCameraHorizontalSensitivity ?? 0.0025f);
+        var cockpitVertical = GetFloatSetting("cockpit_camera", "vertical", defaultShip?.CockpitCameraVerticalSensitivity ?? 0.0025f);
+        var invertCockpitX = GetBoolSetting("cockpit_camera", "invert_x", defaultShip?.InvertCockpitCameraX ?? false);
+        var invertCockpitY = GetBoolSetting("cockpit_camera", "invert_y", defaultShip?.InvertCockpitCameraY ?? false);
+
+        ApplyShipCameraSettingsToAllShips(orbitHorizontal, orbitVertical, invertOrbitX, invertOrbitY, cockpitHorizontal, cockpitVertical, invertCockpitX, invertCockpitY);
+        _flightLookXSlider.Value = orbitHorizontal;
+        _flightLookYSlider.Value = orbitVertical;
+        _flightInvertX.ButtonPressed = invertOrbitX;
+        _flightInvertY.ButtonPressed = invertOrbitY;
+        _cockpitLookXSlider.Value = cockpitHorizontal;
+        _cockpitLookYSlider.Value = cockpitVertical;
+        _cockpitInvertX.ButtonPressed = invertCockpitX;
+        _cockpitInvertY.ButtonPressed = invertCockpitY;
 
         if (_player is not null)
         {
@@ -227,9 +247,9 @@ public partial class PauseMenu : CanvasLayer
 
     private void OnFlightLookXChanged(double value)
     {
-        if (_ship is not null)
+        foreach (var ship in GetShipControllers())
         {
-            _ship.OrbitCameraHorizontalSensitivity = (float)value;
+            ship.OrbitCameraHorizontalSensitivity = (float)value;
         }
 
         SaveSetting("flight_camera", "horizontal", value);
@@ -238,9 +258,9 @@ public partial class PauseMenu : CanvasLayer
 
     private void OnFlightLookYChanged(double value)
     {
-        if (_ship is not null)
+        foreach (var ship in GetShipControllers())
         {
-            _ship.OrbitCameraVerticalSensitivity = (float)value;
+            ship.OrbitCameraVerticalSensitivity = (float)value;
         }
 
         SaveSetting("flight_camera", "vertical", value);
@@ -260,9 +280,9 @@ public partial class PauseMenu : CanvasLayer
 
     private void OnCockpitLookXChanged(double value)
     {
-        if (_ship is not null)
+        foreach (var ship in GetShipControllers())
         {
-            _ship.CockpitCameraHorizontalSensitivity = (float)value;
+            ship.CockpitCameraHorizontalSensitivity = (float)value;
         }
 
         SaveSetting("cockpit_camera", "horizontal", value);
@@ -271,9 +291,9 @@ public partial class PauseMenu : CanvasLayer
 
     private void OnCockpitLookYChanged(double value)
     {
-        if (_ship is not null)
+        foreach (var ship in GetShipControllers())
         {
-            _ship.CockpitCameraVerticalSensitivity = (float)value;
+            ship.CockpitCameraVerticalSensitivity = (float)value;
         }
 
         SaveSetting("cockpit_camera", "vertical", value);
@@ -293,9 +313,9 @@ public partial class PauseMenu : CanvasLayer
 
     private void OnFlightInvertXToggled(bool pressed)
     {
-        if (_ship is not null)
+        foreach (var ship in GetShipControllers())
         {
-            _ship.InvertOrbitCameraX = pressed;
+            ship.InvertOrbitCameraX = pressed;
         }
 
         SaveSetting("flight_camera", "invert_x", pressed);
@@ -303,9 +323,9 @@ public partial class PauseMenu : CanvasLayer
 
     private void OnFlightInvertYToggled(bool pressed)
     {
-        if (_ship is not null)
+        foreach (var ship in GetShipControllers())
         {
-            _ship.InvertOrbitCameraY = pressed;
+            ship.InvertOrbitCameraY = pressed;
         }
 
         SaveSetting("flight_camera", "invert_y", pressed);
@@ -323,9 +343,9 @@ public partial class PauseMenu : CanvasLayer
 
     private void OnCockpitInvertXToggled(bool pressed)
     {
-        if (_ship is not null)
+        foreach (var ship in GetShipControllers())
         {
-            _ship.InvertCockpitCameraX = pressed;
+            ship.InvertCockpitCameraX = pressed;
         }
 
         SaveSetting("cockpit_camera", "invert_x", pressed);
@@ -333,9 +353,9 @@ public partial class PauseMenu : CanvasLayer
 
     private void OnCockpitInvertYToggled(bool pressed)
     {
-        if (_ship is not null)
+        foreach (var ship in GetShipControllers())
         {
-            _ship.InvertCockpitCameraY = pressed;
+            ship.InvertCockpitCameraY = pressed;
         }
 
         SaveSetting("cockpit_camera", "invert_y", pressed);
@@ -365,6 +385,70 @@ public partial class PauseMenu : CanvasLayer
 
         SaveSetting("ui", "scale", _uiScaleSlider.Value);
         ApplyUiScale((float)_uiScaleSlider.Value);
+    }
+
+    private void ApplySavedShipCameraSettingsToAllShips()
+    {
+        var defaultShip = _ship ?? GetFirstShipController();
+        ApplyShipCameraSettingsToAllShips(
+            GetFloatSetting("flight_camera", "horizontal", defaultShip?.OrbitCameraHorizontalSensitivity ?? 0.003f),
+            GetFloatSetting("flight_camera", "vertical", defaultShip?.OrbitCameraVerticalSensitivity ?? 0.003f),
+            GetBoolSetting("flight_camera", "invert_x", defaultShip?.InvertOrbitCameraX ?? false),
+            GetBoolSetting("flight_camera", "invert_y", defaultShip?.InvertOrbitCameraY ?? false),
+            GetFloatSetting("cockpit_camera", "horizontal", defaultShip?.CockpitCameraHorizontalSensitivity ?? 0.0025f),
+            GetFloatSetting("cockpit_camera", "vertical", defaultShip?.CockpitCameraVerticalSensitivity ?? 0.0025f),
+            GetBoolSetting("cockpit_camera", "invert_x", defaultShip?.InvertCockpitCameraX ?? false),
+            GetBoolSetting("cockpit_camera", "invert_y", defaultShip?.InvertCockpitCameraY ?? false));
+    }
+
+    private void ApplyShipCameraSettingsToAllShips(
+        float orbitHorizontal,
+        float orbitVertical,
+        bool invertOrbitX,
+        bool invertOrbitY,
+        float cockpitHorizontal,
+        float cockpitVertical,
+        bool invertCockpitX,
+        bool invertCockpitY)
+    {
+        foreach (var ship in GetShipControllers())
+        {
+            ship.OrbitCameraHorizontalSensitivity = orbitHorizontal;
+            ship.OrbitCameraVerticalSensitivity = orbitVertical;
+            ship.InvertOrbitCameraX = invertOrbitX;
+            ship.InvertOrbitCameraY = invertOrbitY;
+            ship.CockpitCameraHorizontalSensitivity = cockpitHorizontal;
+            ship.CockpitCameraVerticalSensitivity = cockpitVertical;
+            ship.InvertCockpitCameraX = invertCockpitX;
+            ship.InvertCockpitCameraY = invertCockpitY;
+        }
+    }
+
+    private ShipController? GetFirstShipController()
+    {
+        foreach (var ship in GetShipControllers())
+        {
+            return ship;
+        }
+
+        return null;
+    }
+
+    private IEnumerable<ShipController> GetShipControllers()
+    {
+        var seen = new HashSet<ShipController>();
+        if (_ship is not null && seen.Add(_ship))
+        {
+            yield return _ship;
+        }
+
+        foreach (var node in GetTree().GetNodesInGroup("ship_controllers"))
+        {
+            if (node is ShipController ship && seen.Add(ship))
+            {
+                yield return ship;
+            }
+        }
     }
 
     private void UpdateValueLabels()

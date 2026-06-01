@@ -13,6 +13,7 @@ public partial class ShipController : RigidBody3D
     [Export] public NodePath ShipCameraPath { get; set; } = "ShipCamera";
     [Export] public NodePath ExteriorVisualPath { get; set; } = "OpenGameArtShuttleVisual";
     [Export] public NodePath ExteriorGlassPath { get; set; } = "CockpitGlassExterior";
+    [Export] public bool HideExteriorDuringInteriorView { get; set; } = true;
     [Export] public float MainThrust { get; set; } = 30.0f;
     [Export] public float ReverseThrust { get; set; } = 15.0f;
     [Export] public float LateralThrust { get; set; } = 24.0f;
@@ -38,6 +39,9 @@ public partial class ShipController : RigidBody3D
     [Export] public bool InvertCockpitCameraY { get; set; } = false;
     [Export] public float CockpitCameraMinPitchDegrees { get; set; } = -35.0f;
     [Export] public float CockpitCameraMaxPitchDegrees { get; set; } = 55.0f;
+    [Export] public Vector3 InteriorBoundsMin { get; set; } = new(-2.55f, -0.8f, -11.3f);
+    [Export] public Vector3 InteriorBoundsMax { get; set; } = new(2.55f, 3.8f, 4.35f);
+    [Export] public float InteriorAftExitLocalZ { get; set; } = 4.75f;
 
     private Marker3D _seatAnchor = null!;
     private Marker3D? _pilotEye;
@@ -73,6 +77,7 @@ public partial class ShipController : RigidBody3D
 
     public override void _Ready()
     {
+        AddToGroup("ship_controllers");
         EnsureShipInputActions();
         _seatAnchor = GetNode<Marker3D>(SeatAnchorPath);
         _pilotEye = GetNodeOrNull<Marker3D>(PilotEyePath);
@@ -184,12 +189,12 @@ public partial class ShipController : RigidBody3D
     {
         if (_exteriorVisual is not null)
         {
-            _exteriorVisual.Visible = _exteriorVisualDefaultVisible && !active;
+            _exteriorVisual.Visible = _exteriorVisualDefaultVisible && (!active || !HideExteriorDuringInteriorView);
         }
 
         if (_exteriorGlass is not null)
         {
-            _exteriorGlass.Visible = _exteriorGlassDefaultVisible && !active;
+            _exteriorGlass.Visible = _exteriorGlassDefaultVisible && (!active || !HideExteriorDuringInteriorView);
         }
 
         foreach (var node in _interiorOnlyCanopyNodes)

@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://scripts/debug/PrototypeShuttleDebugLoader.cs" id="3_loader"]
+[ext_resource type="Script" path="res://scripts/debug/PrototypeShuttleLiftoffValidationRunner.cs" id="4_runner"]
+[ext_resource type="Material" path="res://assets/materials/planets/mat_planet_a_landmark.tres" id="5_platform_mat"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_landing_platform"]
+size = Vector3(56, 0.42, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_landing_platform"]
+size = Vector3(56, 0.42, 40)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_space"]
+sky_top_color = Color(0.004, 0.008, 0.02, 1)
+sky_horizon_color = Color(0.02, 0.025, 0.04, 1)
+ground_bottom_color = Color(0.004, 0.008, 0.02, 1)
+ground_horizon_color = Color(0.02, 0.025, 0.04, 1)
+sun_angle_max = 2.0
+
+[sub_resource type="Sky" id="Sky_space"]
+sky_material = SubResource("ProceduralSkyMaterial_space")
+
+[sub_resource type="Environment" id="Environment_space"]
+background_mode = 2
+sky = SubResource("Sky_space")
+ambient_light_source = 3
+ambient_light_color = Color(0.45, 0.52, 0.62, 1)
+ambient_light_energy = 0.18
+tonemap_mode = 2
+
+[node name="PrototypeShuttleLiftoffValidation" type="Node3D"]
+
+[node name="PlanetBody" parent="." instance=ExtResource("1_planet")]
+
+[node name="LandingPlatform" type="StaticBody3D" parent="."]
+position = Vector3(7, 200.72, -9)
+
+[node name="PlatformVisual" type="MeshInstance3D" parent="LandingPlatform"]
+material_override = ExtResource("5_platform_mat")
+mesh = SubResource("BoxMesh_landing_platform")
+
+[node name="PlatformCollision" type="CollisionShape3D" parent="LandingPlatform"]
+shape = SubResource("BoxShape3D_landing_platform")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector3(16, 201.4, -13)
+
+[node name="PrototypeShuttle" type="Node3D" parent="."]
+script = ExtResource("3_loader")
+ShuttlePosition = Vector3(16, 204.6, -9)
+MovePlayerToSpawnOnReady = false
+ShowCollisionVisualReference = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 120, 0)
+light_energy = 3.2
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_space")
+
+[node name="ValidationRunner" type="Node" parent="."]
+script = ExtResource("4_runner")

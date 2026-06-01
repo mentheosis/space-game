@@ -39,7 +39,6 @@ public partial class PrototypeShuttleTraversalValidationRunner : Node
         _player.GlobalPosition = start;
         _player.Velocity = Vector3.Zero;
         _player.SetPlayerContext(PlayerContext.OnFoot);
-        _player.AutoStepEnabled = true;
         Input.ActionPress("move_forward");
         Record("start", $"Traversal route has {_route.Count} checkpoints.");
     }

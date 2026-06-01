@@ -13,13 +13,13 @@
 [ext_resource type="PackedScene" path="res://scenes/landmarks/PlanetBLandingPadVisual.tscn" id="11_landing_pad_visual"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_planet_b"]
-radius = 45.0
-height = 90.0
+radius = 180.0
+height = 360.0
 radial_segments = 96
 rings = 48
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_planet_b"]
-radius = 45.0
+radius = 180.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_landing_pad"]
 size = Vector3(16, 0.8, 16)
@@ -34,13 +34,13 @@ size = Vector3(2.5, 16, 2.5)
 script = ExtResource("3_navigation_target")
 DisplayName = "Planet B"
 MarkerColor = Color(0.78, 0.45, 1, 1)
-TargetRadius = 45.0
+TargetRadius = 180.0
 
 [node name="PlanetBGravity" type="Node3D" parent="."]
 script = ExtResource("1_gravity_body")
-Radius = 45.0
+Radius = 180.0
 SurfaceGravity = 16.0
-InfluenceRadius = 220.0
+InfluenceRadius = 880.0
 Priority = 1
 UseFalloff = true
 EdgeGravity = 0.18
@@ -56,11 +56,11 @@ mesh = SubResource("SphereMesh_planet_b")
 shape = SubResource("SphereShape3D_planet_b")
 
 [node name="SpawnPoint" type="Marker3D" parent="."]
-position = Vector3(0, 46.1, 0)
+position = Vector3(0, 181.1, 0)
 script = ExtResource("2_spawn_point")
 
 [node name="LandingPad" type="StaticBody3D" parent="."]
-position = Vector3(0, 46.0, -12)
+position = Vector3(0, 181.0, -12)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LandingPad"]
 material_override = ExtResource("5_landing_pad")
@@ -72,51 +72,51 @@ shape = SubResource("BoxShape3D_landing_pad")
 [node name="PlanetBLandingPadVisual" parent="LandingPad" instance=ExtResource("11_landing_pad_visual")]
 
 [node name="Beacon" type="MeshInstance3D" parent="."]
-position = Vector3(0, 56, -24)
+position = Vector3(0, 191, -24)
 material_override = ExtResource("6_beacon")
 mesh = SubResource("BoxMesh_beacon")
 
 [node name="LandingMarker" type="Marker3D" parent="."]
-position = Vector3(0, 47.0, -12)
+position = Vector3(0, 182.0, -12)
 
 [node name="MineralArch" parent="." instance=ExtResource("10_mineral_arch")]
 position = Vector3(18, 36, -24)
 script = ExtResource("7_surface_anchor")
-SurfaceRadius = 45.0
+SurfaceRadius = 180.0
 SurfaceOffset = 0.2
 YawDegrees = -30.0
 
 [node name="RockClusterLeftApproach" parent="." instance=ExtResource("8_rock_cluster")]
 position = Vector3(-18, 38, -20)
 script = ExtResource("7_surface_anchor")
-SurfaceRadius = 45.0
+SurfaceRadius = 180.0
 SurfaceOffset = 0.2
 YawDegrees = 35.0
 
 [node name="RockClusterRightApproach" parent="." instance=ExtResource("8_rock_cluster")]
 position = Vector3(18, 38, -18)
 script = ExtResource("7_surface_anchor")
-SurfaceRadius = 45.0
+SurfaceRadius = 180.0
 SurfaceOffset = 0.2
 YawDegrees = -55.0
 
 [node name="RockClusterBeacon" parent="." instance=ExtResource("8_rock_cluster")]
 position = Vector3(-10, 39, -27)
 script = ExtResource("7_surface_anchor")
-SurfaceRadius = 45.0
+SurfaceRadius = 180.0
 SurfaceOffset = 0.2
 YawDegrees = 100.0
 
 [node name="PadMarkerLeft" parent="." instance=ExtResource("9_surface_marker")]
 position = Vector3(-9, 44, -18)
 script = ExtResource("7_surface_anchor")
-SurfaceRadius = 45.0
+SurfaceRadius = 180.0
 SurfaceOffset = 0.1
 YawDegrees = 0.0
 
 [node name="PadMarkerRight" parent="." instance=ExtResource("9_surface_marker")]
 position = Vector3(9, 44, -18)
 script = ExtResource("7_surface_anchor")
-SurfaceRadius = 45.0
+SurfaceRadius = 180.0
 SurfaceOffset = 0.1
 YawDegrees = 0.0

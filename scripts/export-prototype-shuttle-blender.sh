@@ -32,4 +32,14 @@ if [[ ! -f tools/blender/export_prototype_shuttle.py ]]; then
 fi
 
 export SPACE_GAME_ROOT="${ROOT_DIR}"
+
+if [[ "${PROTOTYPE_SHUTTLE_SKIP_STRUCTURAL_DETAIL:-0}" != "1" ]]; then
+  if [[ ! -f tools/blender/apply_prototype_shuttle_structural_detail.py ]]; then
+    echo "ERROR: Missing tools/blender/apply_prototype_shuttle_structural_detail.py" >&2
+    echo "Set PROTOTYPE_SHUTTLE_SKIP_STRUCTURAL_DETAIL=1 to export without the structural detail pass." >&2
+    exit 1
+  fi
+  "${BLENDER_BIN}" --background "${SOURCE_BLEND}" --python tools/blender/apply_prototype_shuttle_structural_detail.py
+fi
+
 "${BLENDER_BIN}" --background "${SOURCE_BLEND}" --python tools/blender/export_prototype_shuttle.py

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "ship_id": "prototype_shuttle",
+  "units": "meters",
+  "coordinate_space": "godot_ship_local",
+  "purpose": "Named exterior collision regions for prototype shuttle ship-world physics and later exterior traversal validation.",
+  "notes": [
+    "This contract replaces temporary hardcoded underside skids in PrototypeShuttleDebugLoader.",
+    "Regions marked ship_world_physics are intended for rigid-body contact with planets, platforms, terrain, and large obstacles.",
+    "Regions marked player_walkable may be used for player traversal validation. This first pass intentionally keeps support skids separate from the central ramp path."
+  ],
+  "player_clearance": {
+    "capsule_radius": 0.36,
+    "max_step_height": 0.48
+  },
+  "regions": [
+    {
+      "id": "left_belly_landing_skid",
+      "kind": "box",
+      "role": "ship_world_physics",
+      "walkable": false,
+      "center": [-3.55, -3.50, 5.20],
+      "size": [1.05, 0.30, 16.50],
+      "fit_target": "left lower belly outside the central ramp/cargo traversal path",
+      "rationale": "Provides stable platform/planet contact without placing a broad blocker through the interior or ramp."
+    },
+    {
+      "id": "right_belly_landing_skid",
+      "kind": "box",
+      "role": "ship_world_physics",
+      "walkable": false,
+      "center": [3.55, -3.50, 5.20],
+      "size": [1.05, 0.30, 16.50],
+      "fit_target": "right lower belly outside the central ramp/cargo traversal path",
+      "rationale": "Pairs with the left skid to support liftoff and landed state while leaving the central ramp route clear."
+    },
+    {
+      "id": "aft_belly_contact_plate",
+      "kind": "box",
+      "role": "ship_world_physics",
+      "walkable": false,
+      "center": [0.0, -2.78, 12.15],
+      "size": [4.40, 0.32, 3.30],
+      "fit_target": "aft underside belly near the cargo volume tail",
+      "rationale": "Adds a third contact region so the ship can rest with less rocking than two long side skids alone."
+    },
+    {
+      "id": "forward_neck_lower_contact",
+      "kind": "box",
+      "role": "ship_world_physics",
+      "walkable": false,
+      "center": [0.0, -2.86, -6.25],
+      "size": [2.60, 0.28, 2.40],
+      "fit_target": "lower neck area forward of the cargo ramp aperture",
+      "rationale": "Gives low-speed nose/neck contact a named region without crossing the open ramp."
+    }
+  ],
+  "initial_validation_targets": {
+    "must_not_block_ramp_center_x_range": [-1.65, 1.65],
+    "must_not_block_ramp_z_range": [-3.80, 0.40],
+    "ship_world_contact_bottom_y": -3.65,
+    "max_visual_fit_error_m": 0.75
+  }
+}

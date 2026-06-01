@@ -36,8 +36,8 @@ public partial class GravityService : Node
     public GravityBody? GetBestBody(Vector3 worldPosition)
     {
         GravityBody? best = null;
-        var bestPriority = int.MinValue;
         var bestSurfaceDistance = float.MaxValue;
+        var bestPriority = int.MinValue;
 
         foreach (var body in _bodies)
         {
@@ -49,13 +49,13 @@ public partial class GravityService : Node
             var surfaceDistance = Mathf.Abs(body.GetDistanceToSurface(worldPosition));
             if (
                 best is null
-                || body.Priority > bestPriority
-                || (body.Priority == bestPriority && surfaceDistance < bestSurfaceDistance)
+                || surfaceDistance < bestSurfaceDistance
+                || (Mathf.IsEqualApprox(surfaceDistance, bestSurfaceDistance) && body.Priority > bestPriority)
             )
             {
                 best = body;
-                bestPriority = body.Priority;
                 bestSurfaceDistance = surfaceDistance;
+                bestPriority = body.Priority;
             }
         }
 

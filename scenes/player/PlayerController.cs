@@ -38,7 +38,7 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float ZeroGravityBrakeStrength { get; set; } = 16.0f;
     [Export] public float ZeroGravityDamping { get; set; } = 0.05f;
     [Export] public float ShipInteriorGravityAcceleration { get; set; } = 18.0f;
-    [Export] public bool AutoStepEnabled { get; set; } = true;
+    [Export] public bool AutoStepEnabled { get; set; } = false;
     [Export] public float AutoStepHeight { get; set; } = 0.48f;
     [Export] public float AutoStepForwardProbe { get; set; } = 0.24f;
     [Export] public float AutoStepDownProbe { get; set; } = 0.72f;
@@ -289,7 +289,7 @@ public partial class PlayerController : CharacterBody3D
         }
 
         if (IsInsideShipInteriorBounds(_shipLocalTransform.Origin)
-            && _shipLocalTransform.Origin.Z <= ShipInteriorAftExitLocalZ)
+            && _shipLocalTransform.Origin.Z <= GetShipInteriorAftExitLocalZ())
         {
             return;
         }
@@ -302,12 +302,19 @@ public partial class PlayerController : CharacterBody3D
 
     private bool IsInsideShipInteriorBounds(Vector3 shipLocalPosition)
     {
-        return shipLocalPosition.X >= ShipInteriorBoundsMin.X
-            && shipLocalPosition.X <= ShipInteriorBoundsMax.X
-            && shipLocalPosition.Y >= ShipInteriorBoundsMin.Y
-            && shipLocalPosition.Y <= ShipInteriorBoundsMax.Y
-            && shipLocalPosition.Z >= ShipInteriorBoundsMin.Z
-            && shipLocalPosition.Z <= ShipInteriorBoundsMax.Z;
+        var boundsMin = _interiorShip?.InteriorBoundsMin ?? ShipInteriorBoundsMin;
+        var boundsMax = _interiorShip?.InteriorBoundsMax ?? ShipInteriorBoundsMax;
+        return shipLocalPosition.X >= boundsMin.X
+            && shipLocalPosition.X <= boundsMax.X
+            && shipLocalPosition.Y >= boundsMin.Y
+            && shipLocalPosition.Y <= boundsMax.Y
+            && shipLocalPosition.Z >= boundsMin.Z
+            && shipLocalPosition.Z <= boundsMax.Z;
+    }
+
+    private float GetShipInteriorAftExitLocalZ()
+    {
+        return _interiorShip?.InteriorAftExitLocalZ ?? ShipInteriorAftExitLocalZ;
     }
 
     private void UpdateMovementMode()
@@ -414,7 +421,10 @@ public partial class PlayerController : CharacterBody3D
         ApplyJetpack(delta, input, ref velocity);
         Velocity = velocity;
         MoveAndSlide();
-        TryAutoStepUp(wasOnFloor, transformBeforeMove, desiredDirection, delta);
+        if (AutoStepEnabled)
+        {
+            TryAutoStepUp(wasOnFloor, transformBeforeMove, desiredDirection, delta);
+        }
     }
 
     private bool TryAutoStepUp(bool wasOnFloor, Transform3D transformBeforeMove, Vector3 desiredDirection, float delta)

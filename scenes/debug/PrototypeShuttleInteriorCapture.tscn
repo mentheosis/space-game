@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/debug/PrototypeShuttleInteriorCaptureRunner.cs" id="1_runner"]
+[ext_resource type="Material" path="res://assets/materials/environment/mat_starfield.tres" id="2_starfield"]
+
+[sub_resource type="Sky" id="Sky_space"]
+sky_material = ExtResource("2_starfield")
+
+[sub_resource type="Environment" id="Environment_space"]
+background_mode = 2
+sky = SubResource("Sky_space")
+ambient_light_source = 3
+ambient_light_color = Color(0.36, 0.38, 0.4, 1)
+ambient_light_energy = 0.42
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="PrototypeShuttleInteriorCapture" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_space")
+
+[node name="PrototypeShuttleInteriorCaptureRunner" type="Node3D" parent="."]
+script = ExtResource("1_runner")

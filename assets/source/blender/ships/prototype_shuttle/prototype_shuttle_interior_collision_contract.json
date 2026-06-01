@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "ship_id": "prototype_shuttle",
+  "units": "meters",
+  "coordinate_space": "godot_ship_local",
+  "purpose": "Named first-pass interior enclosure collision regions for walls, ceiling, bulkheads, guards, and ramp aperture blockers. This contract is source data for generated player collision and debug overlays; it intentionally does not include floor/ramp traversal surfaces or ship-world physics support shapes.",
+  "source_contracts": [
+    "prototype_shuttle_collision_layout_contract.json",
+    "prototype_shuttle_exterior_collision_contract.json"
+  ],
+  "player_clearance": {
+    "capsule_radius": 0.36,
+    "capsule_height": 1.8,
+    "minimum_walkway_width": 1.2,
+    "minimum_head_clearance": 2.05
+  },
+  "generation_rules": [
+    "Collision regions are simplified blockers and should be less detailed than the visual mesh.",
+    "Regions marked wall or ceiling must block the player but must not be used for ship-world physics contact.",
+    "The forward ramp aperture remains open; only its side jambs, lintel, and threshold guard regions may block the player.",
+    "Stair and landing guards should prevent accidental falls without blocking either stair lane.",
+    "Cockpit canopy collision should preserve the transparent canopy view while preventing the player from clipping through glass or upper frames."
+  ],
+  "validation_targets": {
+    "must_keep_open_ramp_path_x_range": [-1.2, 1.2],
+    "must_keep_open_ramp_path_z_range": [-3.8, 0.9],
+    "cargo_walkway_x_range": [-1.55, 1.55],
+    "cargo_walkway_z_range": [0.9, 13.4],
+    "left_stair_walkway_x_range": [-2.75, -1.58],
+    "right_stair_walkway_x_range": [1.58, 2.75],
+    "cockpit_walkway_x_range": [-1.35, 1.35],
+    "cockpit_walkway_z_range": [-13.8, -3.2],
+    "no_collision_region_may_overlap_walkway_by_more_than_m": 0.12
+  },
+  "regions": [
+    {
+      "id": "cargo_left_wall_forward",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "wall",
+      "center": [-4.55, 0.35, 2.15],
+      "size": [0.28, 4.1, 4.35],
+      "fit_target": "left cargo wall beside the forward lower floor section"
+    },
+    {
+      "id": "cargo_right_wall_forward",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "wall",
+      "center": [4.55, 0.35, 2.15],
+      "size": [0.28, 4.1, 4.35],
+      "fit_target": "right cargo wall beside the forward lower floor section"
+    },
+    {
+      "id": "cargo_left_wall_mid",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "wall",
+      "center": [-4.35, 0.35, 7.1],
+      "size": [0.28, 4.15, 5.1],
+      "fit_target": "left cargo wall through the widest mid-belly section"
+    },
+    {
+      "id": "cargo_right_wall_mid",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "wall",
+      "center": [4.35, 0.35, 7.1],
+      "size": [0.28, 4.15, 5.1],
+      "fit_target": "right cargo wall through the widest mid-belly section"
+    },
+    {
+      "id": "cargo_left_wall_aft",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "wall",
+      "center": [-2.85, 1.05, 12.35],
+      "size": [0.28, 3.65, 5.2],
+      "fit_target": "left cargo wall where the aft lower hull narrows"
+    },
+    {
+      "id": "cargo_right_wall_aft",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "wall",
+      "center": [2.85, 1.05, 12.35],
+      "size": [0.28, 3.65, 5.2],
+      "fit_target": "right cargo wall where the aft lower hull narrows"
+    },
+    {
+      "id": "cargo_ceiling_forward",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "ceiling",
+      "center": [0.0, 2.55, 2.15],
+      "size": [8.65, 0.26, 4.35],
+      "fit_target": "forward cargo overhead shell below the cockpit neck"
+    },
+    {
+      "id": "cargo_ceiling_mid",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "ceiling",
+      "center": [0.0, 2.65, 7.1],
+      "size": [8.35, 0.26, 5.1],
+      "fit_target": "mid cargo ceiling under the main belly"
+    },
+    {
+      "id": "cargo_ceiling_aft",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "ceiling",
+      "center": [0.0, 2.9, 12.35],
+      "size": [5.35, 0.26, 5.2],
+      "fit_target": "aft cargo ceiling where the lower hull narrows"
+    },
+    {
+      "id": "cargo_aft_bulkhead",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "bulkhead",
+      "center": [0.0, 1.25, 14.9],
+      "size": [5.35, 3.45, 0.28],
+      "fit_target": "closed aft end of the accessible cargo bay"
+    },
+    {
+      "id": "ramp_left_jamb",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "door_frame",
+      "center": [-1.88, -1.55, -1.25],
+      "size": [0.26, 1.3, 2.2],
+      "fit_target": "left side of the open forward belly ramp aperture"
+    },
+    {
+      "id": "ramp_right_jamb",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "door_frame",
+      "center": [1.88, -1.55, -1.25],
+      "size": [0.26, 1.3, 2.2],
+      "fit_target": "right side of the open forward belly ramp aperture"
+    },
+    {
+      "id": "ramp_upper_lintel",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "door_frame",
+      "center": [0.0, 2.0, -1.25],
+      "size": [3.8, 0.22, 2.2],
+      "fit_target": "upper edge of the open forward belly ramp aperture"
+    },
+    {
+      "id": "left_stair_outer_guard",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "guard",
+      "center": [-3.05, 0.95, -0.25],
+      "size": [0.22, 2.6, 4.9],
+      "fit_target": "outer guard beside the left cockpit stair lane"
+    },
+    {
+      "id": "right_stair_outer_guard",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "guard",
+      "center": [3.05, 0.95, -0.25],
+      "size": [0.22, 2.6, 4.9],
+      "fit_target": "outer guard beside the right cockpit stair lane"
+    },
+    {
+      "id": "landing_rear_guard",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "guard",
+      "center": [0.0, 1.35, -2.05],
+      "size": [2.55, 1.05, 0.22],
+      "fit_target": "low guard at the cockpit landing edge above the ramp void"
+    },
+    {
+      "id": "left_landing_inner_guard",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "guard",
+      "center": [-1.38, 1.35, -2.25],
+      "size": [0.24, 1.2, 1.3],
+      "fit_target": "inner guard at the top of the left stair landing beside the ramp void"
+    },
+    {
+      "id": "right_landing_inner_guard",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "guard",
+      "center": [1.38, 1.35, -2.25],
+      "size": [0.24, 1.2, 1.3],
+      "fit_target": "inner guard at the top of the right stair landing beside the ramp void"
+    },
+    {
+      "id": "cockpit_left_wall",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "wall",
+      "center": [-2.0, 2.15, -9.1],
+      "size": [0.22, 2.9, 10.6],
+      "fit_target": "left cockpit side wall under the canopy frame"
+    },
+    {
+      "id": "cockpit_right_wall",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "wall",
+      "center": [2.0, 2.15, -9.1],
+      "size": [0.22, 2.9, 10.6],
+      "fit_target": "right cockpit side wall under the canopy frame"
+    },
+    {
+      "id": "cockpit_canopy_upper_blocker",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "canopy",
+      "center": [0.0, 3.62, -9.1],
+      "size": [3.75, 0.22, 10.6],
+      "fit_target": "simplified upper canopy/glass collision volume"
+    },
+    {
+      "id": "cockpit_forward_glass_blocker",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "canopy",
+      "center": [0.0, 2.25, -14.1],
+      "size": [3.3, 2.5, 0.22],
+      "fit_target": "front canopy glass blocker ahead of the pilot seats"
+    },
+    {
+      "id": "cockpit_rear_bulkhead_left",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "bulkhead",
+      "center": [-2.25, 1.65, -3.3],
+      "size": [0.75, 2.55, 0.25],
+      "fit_target": "left bulkhead shoulder at the transition from cargo stairs to cockpit"
+    },
+    {
+      "id": "cockpit_rear_bulkhead_right",
+      "kind": "box",
+      "role": "player_enclosure",
+      "surface": "bulkhead",
+      "center": [2.25, 1.65, -3.3],
+      "size": [0.75, 2.55, 0.25],
+      "fit_target": "right bulkhead shoulder at the transition from cargo stairs to cockpit"
+    }
+  ]
+}

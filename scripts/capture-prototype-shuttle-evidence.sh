@@ -48,4 +48,8 @@ if [[ -f tools/ship_pipeline/standardize_evidence.py ]]; then
   python3 tools/ship_pipeline/standardize_evidence.py
 fi
 
+if [[ -f scripts/capture-prototype-shuttle-interior-evidence.sh ]]; then
+  bash scripts/capture-prototype-shuttle-interior-evidence.sh
+fi
+
 echo "Prototype shuttle evidence capture passed."

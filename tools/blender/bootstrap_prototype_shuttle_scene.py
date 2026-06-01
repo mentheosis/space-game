@@ -1159,7 +1159,7 @@ def create_scene() -> None:
     proxies = collection("ScaleProxies")
     collection("Disabled_Source")
 
-    hull_mat = material("proto_hull_warm_white_silhouette", (0.78, 0.8, 0.78, 0.86), 0.62, 0.05, alpha=0.86)
+    hull_mat = material("proto_hull_warm_white_silhouette", (0.78, 0.8, 0.78, 1.0), 0.62, 0.05)
     wing_mat = material("proto_wing_dark_graphite_blockout", (0.16, 0.17, 0.17, 1), 0.7, 0.1)
     glass_mat = material("proto_canopy_smoked_glass_volume", (0.04, 0.16, 0.20, 0.40), 0.08, 0.0, alpha=0.40)
     cargo_mat = material("proto_cargo_volume_amber", (1.0, 0.56, 0.12, 0.34), 0.72, 0.0, alpha=0.34)
