@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "ship_id": "shuttle_p3",
+  "source_skin": "assets/models/ship/prototype_shuttle/prototype_shuttle_exterior.glb",
+  "voxel_size": 0.25,
+  "local_refine_voxel_size": 0.125,
+  "player_capsule_radius": 0.42,
+  "standing_height": 1.82,
+  "clearance_margin": 0.18,
+  "shell_margin": 0.22,
+  "central_x_quantiles": [
+    0.34,
+    0.66
+  ],
+  "central_y_quantiles": [
+    0.18,
+    0.82
+  ],
+  "traversal": {
+    "max_step_height": 0.45,
+    "max_neighbor_distance": 1.25,
+    "connector_max_neighbor_distance": 5.0,
+    "vertical_cost_scale": 2.0,
+    "connector_max_step_height": 6.0
+  },
+  "semantic_region_hint": {
+    "cargo_z_fraction": [
+      0.44,
+      0.82
+    ],
+    "cockpit_z_fraction": [
+      0.1,
+      0.46
+    ],
+    "transition_z_fraction": [
+      0.28,
+      0.6
+    ],
+    "ramp_threshold_z_fraction": [
+      0.3,
+      0.5
+    ]
+  }
+}

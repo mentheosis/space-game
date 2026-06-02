@@ -242,12 +242,18 @@ def apply_uniform_runtime_stair_heights(surfaces: dict[str, Surface]) -> None:
             if surface is None or surface.center is None or surface.size is None:
                 continue
 
-            center = (surface.center[0], top_y - surface.size[1] * 0.5, surface.center[2])
+            size = (surface.size[0], surface.size[1], max(surface.size[2], 0.72))
+            center_z = surface.center[2]
+            if index == 0:
+                top_step_aft_extension = 0.65
+                size = (size[0], size[1], size[2] + top_step_aft_extension)
+                center_z = surface.center[2] + top_step_aft_extension * 0.5
+            center = (surface.center[0], top_y - size[1] * 0.5, center_z)
             surfaces[surface_id] = Surface(
                 id=surface.id,
                 kind=surface.kind,
                 center=center,
-                size=surface.size,
+                size=size,
                 hinge=surface.hinge,
                 tip=surface.tip,
                 width=surface.width,
@@ -259,7 +265,7 @@ def apply_uniform_runtime_stair_heights(surfaces: dict[str, Surface]) -> None:
             id=extension.id,
             kind=extension.kind,
             center=(0.0, landing_top - extension.size[1] * 0.5, extension.center[2]),
-            size=(min(landing.size[0], 3.1), extension.size[1], extension.size[2]),
+            size=(min(landing.size[0], 4.1), extension.size[1], extension.size[2]),
             hinge=extension.hinge,
             tip=extension.tip,
             width=extension.width,
@@ -460,6 +466,122 @@ def support_width(surface: Surface, player_radius: float) -> dict[str, Any]:
     }
 
 
+def add_quality_check(checks: list[dict[str, Any]], check_id: str, status: str, reason: str, details: dict[str, Any] | None = None) -> None:
+    checks.append(
+        {
+            "id": check_id,
+            "status": status,
+            "reason": reason,
+            "details": details or {},
+        }
+    )
+
+
+def additional_layout_checks(surfaces: dict[str, Surface], regions: list[Region], max_uniformity_delta: float = 0.04) -> list[dict[str, Any]]:
+    checks: list[dict[str, Any]] = []
+
+    stair_route = ["cargo_forward_lower"] + [f"left_stair_{index:02d}" for index in range(9, -1, -1)] + ["cockpit_entry_landing"]
+    if all(surface_id in surfaces for surface_id in stair_route):
+        deltas = [
+            surfaces[to_id].y_top - surfaces[from_id].y_top
+            for from_id, to_id in zip(stair_route, stair_route[1:])
+        ]
+        spread = max(deltas) - min(deltas)
+        add_quality_check(
+            checks,
+            "stair_riser_uniformity",
+            "FAIL" if spread > max_uniformity_delta else "PASS",
+            "stair and landing riser heights must be uniform enough for traversal helper",
+            {"deltas": [round(delta, 4) for delta in deltas], "spread": round(spread, 4), "max_allowed": max_uniformity_delta},
+        )
+    else:
+        add_quality_check(checks, "stair_riser_uniformity", "FAIL", "missing stair route surfaces for riser uniformity check")
+
+    extension = surfaces.get("cockpit_entry_landing_aft_extension")
+    side_steps = [surfaces.get("left_stair_00"), surfaces.get("right_stair_00")]
+    if extension is not None and all(step is not None for step in side_steps):
+        overlaps = {
+            step.id: {
+                "x_overlap": round(interval_overlap(extension.x_min, extension.x_max, step.x_min, step.x_max), 4),
+                "z_overlap": round(interval_overlap(extension.z_min, extension.z_max, step.z_min, step.z_max), 4),
+            }
+            for step in side_steps
+            if step is not None
+        }
+        bad = any(
+            item["z_overlap"] > 0.08 and (item["x_overlap"] < 0.25 or item["x_overlap"] > 0.55)
+            for item in overlaps.values()
+        )
+        add_quality_check(
+            checks,
+            "landing_extension_stair_transition_overlap",
+            "FAIL" if bad else "PASS",
+            "landing extension must overlap each top stair enough to avoid a side-wall seam, but not cover the full stair lane",
+            {"overlaps": overlaps, "minimum": 0.25, "maximum": 0.55},
+        )
+        central_width = extension.x_max - extension.x_min
+        add_quality_check(
+            checks,
+            "landing_extension_central_width",
+            "FAIL" if central_width < 2.8 else "PASS",
+            "landing extension must be wide enough to support the central stair-top turn",
+            {"width": round(central_width, 4), "minimum": 2.8},
+        )
+    else:
+        add_quality_check(checks, "landing_extension_shape", "FAIL", "missing landing extension or top stair surfaces")
+
+    clear_zone = {
+        "x_min": -2.85,
+        "x_max": 2.85,
+        "z_min": -3.05,
+        "z_max": -1.45,
+        "y_min": 0.8,
+        "y_max": 2.2,
+    }
+    blockers = []
+    for region in regions:
+        if region.surface not in {"wall", "door_frame", "guard", "bulkhead"}:
+            continue
+        if region.id == "landing_rear_guard":
+            continue
+        x_overlap = interval_overlap(clear_zone["x_min"], clear_zone["x_max"], region.x_min, region.x_max)
+        z_overlap = interval_overlap(clear_zone["z_min"], clear_zone["z_max"], region.z_min, region.z_max)
+        y_overlap = interval_overlap(clear_zone["y_min"], clear_zone["y_max"], region.y_min, region.y_max)
+        if x_overlap > 0.08 and z_overlap > 0.08 and y_overlap > 0.08:
+            blockers.append(
+                {
+                    "id": region.id,
+                    "surface": region.surface,
+                    "x_overlap": round(x_overlap, 4),
+                    "z_overlap": round(z_overlap, 4),
+                    "y_overlap": round(y_overlap, 4),
+                }
+            )
+    add_quality_check(
+        checks,
+        "top_landing_clear_turn_envelope",
+        "FAIL" if blockers else "PASS",
+        "top landing turn envelope must be clear of extra wall/guard/door-frame blockers",
+        {"blockers": blockers, "clear_zone": clear_zone},
+    )
+
+    forbidden_region_ids = {
+        "left_landing_inner_guard",
+        "right_landing_inner_guard",
+        "ramp_upper_lintel",
+    }
+    present_forbidden = sorted(region.id for region in regions if region.id in forbidden_region_ids)
+    add_quality_check(
+        checks,
+        "top_landing_no_extra_collision_clutter",
+        "FAIL" if present_forbidden else "PASS",
+        "top landing should only keep the central ramp-edge guard, not extra inner guards or floating lintels",
+        {"present_forbidden_regions": present_forbidden},
+    )
+
+    return checks
+
+
 def status_counts(items: list[dict[str, Any]]) -> dict[str, int]:
     counts = {"PASS": 0, "WARN": 0, "FAIL": 0}
     for item in items:
@@ -467,12 +589,12 @@ def status_counts(items: list[dict[str, Any]]) -> dict[str, int]:
     return counts
 
 
-def overall_status(transitions: list[dict[str, Any]], samples: list[dict[str, Any]], missing: list[str]) -> str:
+def overall_status(transitions: list[dict[str, Any]], samples: list[dict[str, Any]], quality_checks: list[dict[str, Any]], missing: list[str]) -> str:
     if missing:
         return "FAIL"
-    if any(item["status"] == "FAIL" for item in transitions + samples):
+    if any(item["status"] == "FAIL" for item in transitions + samples + quality_checks):
         return "FAIL"
-    if any(item["status"] == "WARN" for item in transitions + samples):
+    if any(item["status"] == "WARN" for item in transitions + samples + quality_checks):
         return "WARN"
     return "PASS"
 
@@ -568,6 +690,7 @@ def write_markdown(path: Path, report: dict[str, Any]) -> None:
         f"- Missing required surfaces: {len(report['missing_surfaces'])}",
         f"- Transition counts: {report['transition_counts']}",
         f"- Sample counts: {report['sample_counts']}",
+        f"- Quality check counts: {report['quality_check_counts']}",
         f"- Helper-required transitions: {report['helper_required_count']}",
         "",
     ]
@@ -595,6 +718,9 @@ def write_markdown(path: Path, report: dict[str, Any]) -> None:
             f"- **{item['status']}** `{item['surface']}` sample {item['sample']} at {item['position']}: "
             f"head={head.get('clearance')} via {head.get('ceiling')}, lateral={lateral.get('clearance')}, support_width={support.get('width')}"
         )
+    lines.extend(["", "## Quality Checks", ""])
+    for item in report["quality_checks"]:
+        lines.append(f"- **{item['status']}** `{item['id']}`: {item['reason']} {item['details']}")
     lines.append("")
     path.write_text("\n".join(lines))
 
@@ -633,6 +759,7 @@ def main() -> int:
         for a, b in zip(route, route[1:])
     ]
     samples = sample_surfaces(route, surfaces, regions, args.player_height, args.player_radius)
+    quality_checks = additional_layout_checks(surfaces, regions)
 
     blocking = []
     warnings = []
@@ -650,21 +777,29 @@ def main() -> int:
             blocking.append(text)
         elif sample["status"] == "WARN":
             warnings.append(text)
+    for check in quality_checks:
+        text = f"{check['id']}: {check['reason']}"
+        if check["status"] == "FAIL":
+            blocking.append(text)
+        elif check["status"] == "WARN":
+            warnings.append(text)
 
     report = {
         "schema_version": 1,
-        "status": overall_status(transitions, samples, missing),
+        "status": overall_status(transitions, samples, quality_checks, missing),
         "layout_path": str(args.layout.relative_to(ROOT)),
         "interior_contract_path": str(args.interior_contract.relative_to(ROOT)),
         "route": route,
         "missing_surfaces": missing,
         "transition_counts": status_counts(transitions),
         "sample_counts": status_counts(samples),
+        "quality_check_counts": status_counts(quality_checks),
         "helper_required_count": sum(1 for transition in transitions if transition["helper_required"]),
         "blocking_issues": blocking,
         "warnings": warnings,
         "transitions": transitions,
         "samples": samples,
+        "quality_checks": quality_checks,
         "evidence": {
             "top_svg": str(args.top_svg.relative_to(ROOT)),
             "side_svg": str(args.side_svg.relative_to(ROOT)),

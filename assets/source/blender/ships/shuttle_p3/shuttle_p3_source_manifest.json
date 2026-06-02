@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "ship_id": "shuttle_p3",
+  "status": "milestone_one_glb_skin_source",
+  "accepted_skin_source_glb": "assets/models/ship/prototype_shuttle/prototype_shuttle_exterior.glb",
+  "generated_exterior_glb": "assets/models/ship/shuttle_p3/shuttle_p3_exterior.glb",
+  "note": "Clean Blender source is pending host Blender/MCP profile availability; this milestone uses the accepted exterior GLB skin only."
+}

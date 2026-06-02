@@ -39,13 +39,13 @@ public partial class PrototypeShuttleTraversalValidationRunner : Node
         _player.GlobalPosition = start;
         _player.Velocity = Vector3.Zero;
         _player.SetPlayerContext(PlayerContext.OnFoot);
-        Input.ActionPress("move_forward");
+        ReleaseMovementInput();
         Record("start", $"Traversal route has {_route.Count} checkpoints.");
     }
 
     public override void _ExitTree()
     {
-        Input.ActionRelease("move_forward");
+        ReleaseMovementInput();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -78,7 +78,7 @@ public partial class PrototypeShuttleTraversalValidationRunner : Node
         }
 
         var target = _route[_routeIndex];
-        FaceTarget(target.Position);
+        ApplyMovementInput(target.Position);
 
         if (HorizontalDistance(_player.GlobalPosition, target.Position) <= CheckpointTolerance)
         {
@@ -110,10 +110,19 @@ public partial class PrototypeShuttleTraversalValidationRunner : Node
         _route.Add(new RouteCheckpoint("ramp_top", rampStart + Vector3.Up * 0.95f));
 
         AddSurfaceCheckpoint(surfaces, "cargo_forward_lower", shuttleOffset);
-        AddSurfaceCheckpoint(surfaces, "left_stair_09", shuttleOffset);
-        AddSurfaceCheckpoint(surfaces, "left_stair_06", shuttleOffset);
-        AddSurfaceCheckpoint(surfaces, "left_stair_03", shuttleOffset);
-        AddSurfaceCheckpoint(surfaces, "left_stair_00", shuttleOffset);
+        var stairApproach = SurfaceCheckpoint(surfaces, "cargo_forward_lower", shuttleOffset);
+        var bottomStair = SurfaceCheckpoint(surfaces, "left_stair_09", shuttleOffset);
+        stairApproach.Name = "left_stair_approach";
+        stairApproach.Position = new Vector3(bottomStair.Position.X, stairApproach.Position.Y, stairApproach.Position.Z);
+        _route.Add(stairApproach);
+        for (var stepIndex = 9; stepIndex >= 0; stepIndex--)
+        {
+            AddSurfaceCheckpoint(surfaces, $"left_stair_{stepIndex:00}", shuttleOffset);
+        }
+        var leftLandingExit = SurfaceCheckpoint(surfaces, "cockpit_entry_landing", shuttleOffset);
+        leftLandingExit.Name = "left_landing_exit";
+        leftLandingExit.Position = new Vector3(bottomStair.Position.X, leftLandingExit.Position.Y, leftLandingExit.Position.Z);
+        _route.Add(leftLandingExit);
         AddSurfaceCheckpoint(surfaces, "cockpit_entry_landing", shuttleOffset);
 
         var cockpit = SurfaceCheckpoint(surfaces, "cockpit_floor", shuttleOffset);
@@ -151,7 +160,7 @@ public partial class PrototypeShuttleTraversalValidationRunner : Node
         }
 
         forward = forward.Normalized();
-        var right = forward.Cross(up).Normalized();
+        var right = up.Cross(forward).Normalized();
         var basis = new Basis(right, up, -forward).Orthonormalized();
         var transform = _player.GlobalTransform;
         transform.Basis = basis;
@@ -243,11 +252,69 @@ public partial class PrototypeShuttleTraversalValidationRunner : Node
         }
 
         _failed = true;
-        Input.ActionRelease("move_forward");
+        ReleaseMovementInput();
         Record("fail", message);
         WriteReport(false, message);
         GD.PushError($"FAIL: {message}");
         GetTree().Quit(1);
+    }
+
+    private void ApplyMovementInput(Vector3 target)
+    {
+        ReleaseMovementInput();
+
+        var up = _player.DebugUpDirection.LengthSquared() > 0.0001f ? _player.DebugUpDirection.Normalized() : Vector3.Up;
+        var toTarget = target - _player.GlobalPosition;
+        var horizontal = toTarget - up * toTarget.Dot(up);
+        if (horizontal.LengthSquared() < 0.0001f)
+        {
+            return;
+        }
+
+        var direction = horizontal.Normalized();
+        var basis = _player.GlobalTransform.Basis.Orthonormalized();
+        var forward = basis.Z * -1.0f;
+        forward = forward - up * forward.Dot(up);
+        if (forward.LengthSquared() > 0.0001f)
+        {
+            forward = forward.Normalized();
+        }
+
+        var right = basis.X;
+        right = right - up * right.Dot(up);
+        if (right.LengthSquared() > 0.0001f)
+        {
+            right = right.Normalized();
+        }
+
+        var forwardAmount = direction.Dot(forward);
+        var rightAmount = direction.Dot(right);
+        const float threshold = 0.22f;
+        if (forwardAmount > threshold)
+        {
+            Input.ActionPress("move_forward");
+        }
+        else if (forwardAmount < -threshold)
+        {
+            Input.ActionPress("move_back");
+        }
+
+        if (rightAmount > threshold)
+        {
+            Input.ActionPress("move_right");
+        }
+        else if (rightAmount < -threshold)
+        {
+            Input.ActionPress("move_left");
+        }
+    }
+
+    private static void ReleaseMovementInput()
+    {
+        Input.ActionRelease("move_forward");
+        Input.ActionRelease("move_back");
+        Input.ActionRelease("move_left");
+        Input.ActionRelease("move_right");
     }
 
     private void Record(string status, string message)

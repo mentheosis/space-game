@@ -446,7 +446,14 @@ public partial class PrototypeShuttleDebugLoader : Node3D
         }
 
         var size = ToVector3(surface.Size);
+        size.Z = Mathf.Max(size.Z, 0.72f);
         var center = new Vector3(surface.Center[0], topY - size.Y * 0.5f, surface.Center[2]);
+        if (stepIndex == 0)
+        {
+            const float topStepAftExtension = 0.65f;
+            size.Z += topStepAftExtension;
+            center.Z += topStepAftExtension * 0.5f;
+        }
         stairRoot.AddChild(new CollisionShape3D
         {
             Name = $"{id}_UniformCollision",
@@ -476,7 +483,7 @@ public partial class PrototypeShuttleDebugLoader : Node3D
             return;
         }
 
-        var size = new Vector3(Mathf.Min(landing.Size[0], 3.1f), extension.Size[1], extension.Size[2]);
+        var size = new Vector3(Mathf.Min(landing.Size[0], 4.1f), extension.Size[1], extension.Size[2]);
         var center = new Vector3(0.0f, landingTop - size.Y * 0.5f, extension.Center[2]);
         stairRoot.AddChild(new CollisionShape3D
         {

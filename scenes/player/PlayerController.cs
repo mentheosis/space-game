@@ -39,9 +39,10 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float ZeroGravityDamping { get; set; } = 0.05f;
     [Export] public float ShipInteriorGravityAcceleration { get; set; } = 18.0f;
     [Export] public bool AutoStepEnabled { get; set; } = true;
-    [Export] public float AutoStepHeight { get; set; } = 0.72f;
-    [Export] public float AutoStepForwardProbe { get; set; } = 0.42f;
-    [Export] public float AutoStepDownProbe { get; set; } = 0.72f;
+    [Export] public float AutoStepHeight { get; set; } = 1.1f;
+    [Export] public float AutoStepForwardProbe { get; set; } = 0.58f;
+    [Export] public float AutoStepDownProbe { get; set; } = 1.1f;
+    [Export] public bool AutoStepHorizontalCatchup { get; set; } = true;
     [Export] public int AutoStepProbeCount { get; set; } = 5;
     [Export] public float ShipInteriorAftExitLocalZ { get; set; } = 4.75f;
     [Export] public Vector3 ShipInteriorBoundsMin { get; set; } = new(-2.55f, -0.8f, -11.3f);
@@ -472,6 +473,16 @@ public partial class PlayerController : CharacterBody3D
         }
 
         GlobalPosition += liftMotion;
+        if (AutoStepHorizontalCatchup)
+        {
+            var remainingProgress = Mathf.Max(0.0f, expectedProgress - horizontalProgress);
+            var catchupMotion = forward * remainingProgress;
+            if (catchupMotion.LengthSquared() > 0.0001f && !TestMove(GlobalTransform, catchupMotion))
+            {
+                GlobalPosition += catchupMotion;
+            }
+        }
+
         Velocity = intendedHorizontalVelocity;
         _autoStepCount++;
         return true;
