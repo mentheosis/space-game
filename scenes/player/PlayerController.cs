@@ -42,6 +42,7 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float AutoStepHeight { get; set; } = 1.1f;
     [Export] public float AutoStepForwardProbe { get; set; } = 0.58f;
     [Export] public float AutoStepDownProbe { get; set; } = 1.1f;
+    [Export] public bool AutoStepUseSurfaceProjection { get; set; } = true;
     [Export] public bool AutoStepHorizontalCatchup { get; set; } = true;
     [Export] public int AutoStepProbeCount { get; set; } = 5;
     [Export] public float ShipInteriorAftExitLocalZ { get; set; } = 4.75f;
@@ -421,12 +422,72 @@ public partial class PlayerController : CharacterBody3D
 
         velocity = horizontalVelocity + verticalVelocity;
         ApplyJetpack(delta, input, ref velocity);
+
+        if (AutoStepUseSurfaceProjection
+            && !Input.IsActionJustPressed("jump")
+            && !_jetpackFiring
+            && TryProjectedSurfaceMove(wasOnFloor, transformBeforeMove, desiredDirection, horizontalVelocity, delta))
+        {
+            return;
+        }
+
         Velocity = velocity;
         MoveAndSlide();
         if (AutoStepEnabled)
         {
             TryVerticalTerrainAssist(wasOnFloor, transformBeforeMove, desiredDirection, horizontalVelocity, delta);
         }
+    }
+
+    private bool TryProjectedSurfaceMove(bool wasOnFloor, Transform3D transformBeforeMove, Vector3 desiredDirection, Vector3 intendedHorizontalVelocity, float delta)
+    {
+        if (!AutoStepEnabled
+            || !wasOnFloor
+            || desiredDirection.LengthSquared() < 0.0001f
+            || intendedHorizontalVelocity.LengthSquared() < 0.0001f)
+        {
+            return false;
+        }
+
+        if (!TryGetWalkableSurface(transformBeforeMove.Origin, out var currentSurface))
+        {
+            return false;
+        }
+
+        var horizontalMotion = ProjectOnPlane(intendedHorizontalVelocity * delta, _lastUp);
+        var maxMotion = Mathf.Min(horizontalMotion.Length(), AutoStepForwardProbe);
+        if (maxMotion <= 0.001f)
+        {
+            return false;
+        }
+
+        var probePosition = transformBeforeMove.Origin + horizontalMotion.Normalized() * maxMotion;
+        if (!TryGetWalkableSurface(probePosition, out var targetSurface))
+        {
+            return false;
+        }
+
+        var currentSurfaceHeight = currentSurface.Dot(_lastUp);
+        var targetSurfaceHeight = targetSurface.Dot(_lastUp);
+        var heightDelta = targetSurfaceHeight - currentSurfaceHeight;
+        if (Mathf.Abs(heightDelta) <= 0.02f)
+        {
+            return false;
+        }
+
+        if (heightDelta > AutoStepHeight || heightDelta < -AutoStepDownProbe)
+        {
+            return false;
+        }
+
+        var originSurfaceClearance = transformBeforeMove.Origin.Dot(_lastUp) - currentSurfaceHeight;
+        var targetOriginHeight = targetSurfaceHeight + originSurfaceClearance;
+        var projectedPosition = probePosition + _lastUp * (targetOriginHeight - probePosition.Dot(_lastUp));
+
+        GlobalPosition = projectedPosition;
+        Velocity = intendedHorizontalVelocity;
+        _autoStepCount++;
+        return true;
     }
 
     private bool TryVerticalTerrainAssist(bool wasOnFloor, Transform3D transformBeforeMove, Vector3 desiredDirection, Vector3 intendedHorizontalVelocity, float delta)
