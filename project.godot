@@ -106,6 +106,10 @@ debug_toggle={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_8="Walkable Support"
+
 [physics]
 
 3d/default_gravity=0.0

@@ -45,6 +45,13 @@ public partial class PlayerController : CharacterBody3D
     [Export] public bool AutoStepUseSurfaceProjection { get; set; } = true;
     [Export] public bool AutoStepHorizontalCatchup { get; set; } = true;
     [Export] public int AutoStepProbeCount { get; set; } = 5;
+    [Export] public float AutoStepLateralProbeSpacing { get; set; } = 0.24f;
+    [Export] public bool UseWalkableSupportSurfaces { get; set; } = true;
+    [Export(PropertyHint.Layers3DPhysics)] public uint WalkableSupportCollisionMask { get; set; } = 1u << 7;
+    [Export] public float WalkableSupportMaxRise { get; set; } = 1.15f;
+    [Export] public float WalkableSupportMaxDrop { get; set; } = 1.35f;
+    [Export] public float WalkableSupportProbePadding { get; set; } = 0.25f;
+    [Export] public float WalkableSupportJumpDetachTime { get; set; } = 0.22f;
     [Export] public float ShipInteriorAftExitLocalZ { get; set; } = 4.75f;
     [Export] public Vector3 ShipInteriorBoundsMin { get; set; } = new(-2.55f, -0.8f, -11.3f);
     [Export] public Vector3 ShipInteriorBoundsMax { get; set; } = new(2.55f, 3.8f, 4.35f);
@@ -73,6 +80,10 @@ public partial class PlayerController : CharacterBody3D
     private Vector3 _shipLocalVelocity = Vector3.Zero;
     private uint _defaultPlatformFloorLayers;
     private int _autoStepCount;
+    private bool _hasWalkableSupport;
+    private Vector3 _lastWalkableSupportPoint = Vector3.Zero;
+    private float _walkableSupportClearance = 0.9f;
+    private float _walkableSupportDetachTimer;
 
     public bool DebugGrounded => IsOnFloor();
     public Vector3 DebugUpDirection => _lastUp;
@@ -107,6 +118,10 @@ public partial class PlayerController : CharacterBody3D
         _jetpackFuel = JetpackFuelMax;
         _oxygen = OxygenMax;
         _defaultPlatformFloorLayers = PlatformFloorLayers;
+        if (_collisionShape.Shape is CapsuleShape3D capsule)
+        {
+            _walkableSupportClearance = capsule.Height * 0.5f;
+        }
         FloorStopOnSlope = true;
         MotionMode = MotionModeEnum.Grounded;
         Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -128,9 +143,11 @@ public partial class PlayerController : CharacterBody3D
     {
         var deltaSeconds = (float)delta;
         _jetpackFiring = false;
+        _walkableSupportDetachTimer = Mathf.Max(0.0f, _walkableSupportDetachTimer - deltaSeconds);
 
         ApplyShipInteriorFrame();
         UpdateGravityState();
+        UpdateWalkableSupportState();
         UpdateMovementMode();
         UpdateBodyAlignment(deltaSeconds);
         if (IsMovementEnabled)
@@ -328,7 +345,7 @@ public partial class PlayerController : CharacterBody3D
         {
             _movementMode = PlayerMovementMode.ZeroGravity;
         }
-        else if (IsOnFloor())
+        else if (IsOnFloor() || _hasWalkableSupport)
         {
             _movementMode = PlayerMovementMode.Surface;
         }
@@ -411,20 +428,40 @@ public partial class PlayerController : CharacterBody3D
         var verticalVelocity = _lastUp * verticalSpeed;
         var horizontalVelocity = velocity - verticalVelocity;
         var targetHorizontalVelocity = desiredDirection * WalkSpeed;
+        var jumpPressed = Input.IsActionJustPressed("jump");
 
         horizontalVelocity = horizontalVelocity.MoveToward(targetHorizontalVelocity, Acceleration * delta);
-        verticalVelocity += _lastGravityAcceleration * delta;
+        if (_hasWalkableSupport && !jumpPressed)
+        {
+            verticalVelocity = Vector3.Zero;
+        }
+        else
+        {
+            verticalVelocity += _lastGravityAcceleration * delta;
+        }
 
-        if (Input.IsActionJustPressed("jump"))
+        if (jumpPressed)
         {
             verticalVelocity = _lastUp * JumpSpeed;
+            _walkableSupportDetachTimer = WalkableSupportJumpDetachTime;
         }
 
         velocity = horizontalVelocity + verticalVelocity;
         ApplyJetpack(delta, input, ref velocity);
 
+        if (UseWalkableSupportSurfaces
+            && _hasWalkableSupport
+            && !jumpPressed
+            && !_jetpackFiring)
+        {
+            Velocity = horizontalVelocity;
+            MoveAndSlide();
+            TrySnapToWalkableSupportSurface();
+            return;
+        }
+
         if (AutoStepUseSurfaceProjection
-            && !Input.IsActionJustPressed("jump")
+            && !jumpPressed
             && !_jetpackFiring
             && TryProjectedSurfaceMove(wasOnFloor, transformBeforeMove, desiredDirection, horizontalVelocity, delta))
         {
@@ -443,7 +480,6 @@ public partial class PlayerController : CharacterBody3D
     {
         if (!AutoStepEnabled
             || !wasOnFloor
-            || desiredDirection.LengthSquared() < 0.0001f
             || intendedHorizontalVelocity.LengthSquared() < 0.0001f)
         {
             return false;
@@ -454,15 +490,19 @@ public partial class PlayerController : CharacterBody3D
             return false;
         }
 
-        var horizontalMotion = ProjectOnPlane(intendedHorizontalVelocity * delta, _lastUp);
-        var maxMotion = Mathf.Min(horizontalMotion.Length(), AutoStepForwardProbe);
-        if (maxMotion <= 0.001f)
+        if (!TryResolveAutoStepDirection(transformBeforeMove.Origin, desiredDirection, intendedHorizontalVelocity, out var forward))
         {
             return false;
         }
 
-        var probePosition = transformBeforeMove.Origin + horizontalMotion.Normalized() * maxMotion;
-        if (!TryGetWalkableSurface(probePosition, out var targetSurface))
+        var motionLength = ProjectOnPlane(intendedHorizontalVelocity * delta, _lastUp).Length();
+        if (motionLength <= 0.001f)
+        {
+            return false;
+        }
+
+        var horizontalMotion = forward * motionLength;
+        if (!TryGetProjectedSurfaceAhead(transformBeforeMove.Origin, forward, currentSurface, out var targetSurface))
         {
             return false;
         }
@@ -481,8 +521,9 @@ public partial class PlayerController : CharacterBody3D
         }
 
         var originSurfaceClearance = transformBeforeMove.Origin.Dot(_lastUp) - currentSurfaceHeight;
+        var projectedHorizontalPosition = transformBeforeMove.Origin + horizontalMotion;
         var targetOriginHeight = targetSurfaceHeight + originSurfaceClearance;
-        var projectedPosition = probePosition + _lastUp * (targetOriginHeight - probePosition.Dot(_lastUp));
+        var projectedPosition = projectedHorizontalPosition + _lastUp * (targetOriginHeight - projectedHorizontalPosition.Dot(_lastUp));
 
         GlobalPosition = projectedPosition;
         Velocity = intendedHorizontalVelocity;
@@ -494,7 +535,6 @@ public partial class PlayerController : CharacterBody3D
     {
         if (!AutoStepEnabled
             || !wasOnFloor
-            || desiredDirection.LengthSquared() < 0.0001f
             || Input.IsActionJustPressed("jump"))
         {
             return false;
@@ -508,13 +548,17 @@ public partial class PlayerController : CharacterBody3D
             return false;
         }
 
-        var forward = desiredDirection.Normalized();
+        if (!TryResolveAutoStepDirection(startPosition, desiredDirection, intendedHorizontalVelocity, out var forward))
+        {
+            return false;
+        }
+
         if (!TryGetWalkableSurface(GlobalPosition, out var currentSurface))
         {
             return false;
         }
 
-        if (!TryGetBestAheadSurface(forward, currentSurface, out var aheadSurface))
+        if (!TryGetProjectedSurfaceAhead(GlobalPosition, forward, currentSurface, out var aheadSurface))
         {
             return false;
         }
@@ -549,6 +593,106 @@ public partial class PlayerController : CharacterBody3D
         return true;
     }
 
+    private bool TryResolveAutoStepDirection(Vector3 startPosition, Vector3 desiredDirection, Vector3 intendedHorizontalVelocity, out Vector3 direction)
+    {
+        var intended = ProjectOnPlane(intendedHorizontalVelocity, _lastUp);
+        if (intended.LengthSquared() > 0.0001f)
+        {
+            direction = intended.Normalized();
+            return true;
+        }
+
+        var actual = ProjectOnPlane(GlobalPosition - startPosition, _lastUp);
+        if (actual.LengthSquared() > 0.0001f)
+        {
+            direction = actual.Normalized();
+            return true;
+        }
+
+        var desired = ProjectOnPlane(desiredDirection, _lastUp);
+        if (desired.LengthSquared() > 0.0001f)
+        {
+            direction = desired.Normalized();
+            return true;
+        }
+
+        direction = Vector3.Zero;
+        return false;
+    }
+
+    private void UpdateWalkableSupportState()
+    {
+        _hasWalkableSupport = false;
+        _lastWalkableSupportPoint = Vector3.Zero;
+        if (!UseWalkableSupportSurfaces || _walkableSupportDetachTimer > 0.0f)
+        {
+            return;
+        }
+
+        _hasWalkableSupport = TryGetWalkableSupportSurface(GlobalPosition, out _lastWalkableSupportPoint);
+    }
+
+    private bool TrySnapToWalkableSupportSurface()
+    {
+        if (!TryGetWalkableSupportSurface(GlobalPosition, out var supportPoint))
+        {
+            return false;
+        }
+
+        var targetOriginHeight = supportPoint.Dot(_lastUp) + _walkableSupportClearance;
+        var currentOriginHeight = GlobalPosition.Dot(_lastUp);
+        var heightDelta = targetOriginHeight - currentOriginHeight;
+        if (heightDelta > WalkableSupportMaxRise || heightDelta < -WalkableSupportMaxDrop)
+        {
+            return false;
+        }
+
+        if (Mathf.Abs(heightDelta) > 0.005f)
+        {
+            GlobalPosition += _lastUp * heightDelta;
+        }
+
+        Velocity = ProjectOnPlane(Velocity, _lastUp);
+        _lastWalkableSupportPoint = supportPoint;
+        _hasWalkableSupport = true;
+        return true;
+    }
+
+    private bool TryGetWalkableSupportSurface(Vector3 origin, out Vector3 surfacePosition)
+    {
+        surfacePosition = Vector3.Zero;
+        if (WalkableSupportCollisionMask == 0)
+        {
+            return false;
+        }
+
+        var from = origin + _lastUp * (WalkableSupportMaxRise + WalkableSupportProbePadding);
+        var to = origin - _lastUp * (WalkableSupportMaxDrop + WalkableSupportProbePadding);
+        var query = PhysicsRayQueryParameters3D.Create(
+            from,
+            to,
+            WalkableSupportCollisionMask,
+            new Godot.Collections.Array<Rid> { GetRid() });
+        query.CollideWithAreas = false;
+        query.CollideWithBodies = true;
+        query.HitBackFaces = false;
+
+        var hit = GetWorld3D().DirectSpaceState.IntersectRay(query);
+        if (hit.Count == 0)
+        {
+            return false;
+        }
+
+        var normal = hit["normal"].AsVector3();
+        if (normal.Dot(_lastUp) < 0.55f)
+        {
+            return false;
+        }
+
+        surfacePosition = hit["position"].AsVector3();
+        return true;
+    }
+
     private bool TryGetBestAheadSurface(Vector3 forward, Vector3 currentSurface, out Vector3 bestSurface)
     {
         var right = forward.Cross(_lastUp);
@@ -563,7 +707,7 @@ public partial class PlayerController : CharacterBody3D
         var found = false;
         bestSurface = Vector3.Zero;
 
-        foreach (var lateralOffset in new[] { 0.0f, -0.18f, 0.18f })
+        foreach (var lateralOffset in GetAutoStepLateralOffsets())
         {
             var probeOrigin = GlobalPosition + forward * probeDistance + right * lateralOffset;
             if (!TryGetWalkableSurface(probeOrigin, out var surface))
@@ -583,6 +727,59 @@ public partial class PlayerController : CharacterBody3D
         }
 
         return found;
+    }
+
+    private bool TryGetProjectedSurfaceAhead(Vector3 origin, Vector3 forward, Vector3 currentSurface, out Vector3 bestSurface)
+    {
+        var right = forward.Cross(_lastUp);
+        if (right.LengthSquared() < 0.0001f)
+        {
+            right = GlobalTransform.Basis.X;
+        }
+        right = right.Normalized();
+
+        var currentHeight = currentSurface.Dot(_lastUp);
+        var bestDistance = float.MaxValue;
+        var bestClimb = float.MaxValue;
+        var found = false;
+        bestSurface = Vector3.Zero;
+
+        var probeCount = Mathf.Max(2, AutoStepProbeCount);
+        for (var probeIndex = 1; probeIndex <= probeCount; probeIndex++)
+        {
+            var distance = AutoStepForwardProbe * (probeIndex / (float)probeCount);
+            foreach (var lateralOffset in GetAutoStepLateralOffsets())
+            {
+                var probeOrigin = origin + forward * distance + right * lateralOffset;
+                if (!TryGetWalkableSurface(probeOrigin, out var surface))
+                {
+                    continue;
+                }
+
+                var heightDelta = surface.Dot(_lastUp) - currentHeight;
+                if (heightDelta <= 0.02f || heightDelta > AutoStepHeight)
+                {
+                    continue;
+                }
+
+                if (distance < bestDistance - 0.001f
+                    || (Mathf.Abs(distance - bestDistance) <= 0.001f && heightDelta < bestClimb))
+                {
+                    bestDistance = distance;
+                    bestClimb = heightDelta;
+                    bestSurface = surface;
+                    found = true;
+                }
+            }
+        }
+
+        return found;
+    }
+
+    private float[] GetAutoStepLateralOffsets()
+    {
+        var spacing = Mathf.Max(0.0f, AutoStepLateralProbeSpacing);
+        return new[] { 0.0f, -spacing, spacing, -spacing * 1.75f, spacing * 1.75f };
     }
 
     private bool TryGetWalkableSurface(Vector3 origin, out Vector3 surfacePosition)

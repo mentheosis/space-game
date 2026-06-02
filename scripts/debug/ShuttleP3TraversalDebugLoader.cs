@@ -1,11 +1,16 @@
 using Godot;
+using GDict = Godot.Collections.Dictionary<string, Godot.Variant>;
 
 public partial class ShuttleP3TraversalDebugLoader : Node3D
 {
+    private const uint SolidCollisionLayer = 1u;
+    private const uint WalkableSupportCollisionLayer = 1u << 7;
+
     [Export] public NodePath PlayerPath { get; set; } = "../Player";
     [Export] public Vector3 ShuttlePosition { get; set; } = new(0.0f, 205.6f, 0.0f);
     [Export] public Vector3 PlayerSpawnPosition { get; set; } = new(0.0f, 201.15f, -8.0f);
     [Export] public string ExteriorScenePath { get; set; } = "res://assets/models/ship/shuttle_p3/shuttle_p3_exterior.glb";
+    [Export] public string EnclosureBandsPath { get; set; } = "res://assets/models/ship/shuttle_p3/shuttle_p3_enclosure_bands.json";
     [Export] public Key CollisionVisualToggleKey { get; set; } = Key.V;
 
     private Node3D? _collisionVisualRoot;
@@ -59,10 +64,18 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
         var collisionRoot = new StaticBody3D
         {
             Name = "TraversalCollision",
-            CollisionLayer = 1,
-            CollisionMask = 1
+            CollisionLayer = SolidCollisionLayer,
+            CollisionMask = SolidCollisionLayer
         };
         parent.AddChild(collisionRoot);
+
+        var supportRoot = new StaticBody3D
+        {
+            Name = "WalkableSupportSurfaces",
+            CollisionLayer = WalkableSupportCollisionLayer,
+            CollisionMask = 0
+        };
+        parent.AddChild(supportRoot);
 
         _collisionVisualRoot = new Node3D
         {
@@ -76,11 +89,12 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
         var stairMaterial = CreateMaterial(new Color(0.48f, 0.58f, 0.62f, 1.0f), metallic: 0.1f, roughness: 0.6f);
         var seatMaterial = CreateMaterial(new Color(0.1f, 0.12f, 0.15f, 1.0f), metallic: 0.0f, roughness: 0.75f);
         var railingMaterial = CreateMaterial(new Color(0.18f, 0.21f, 0.24f, 1.0f), metallic: 0.35f, roughness: 0.42f);
+        var wallMaterial = CreateMaterial(new Color(0.34f, 0.39f, 0.42f, 1.0f), metallic: 0.18f, roughness: 0.62f);
 
-        AddSlopedBox(collisionRoot, _collisionVisualRoot, "EntryRamp", new Vector3(0.0f, -3.55f, -6.2f), new Vector3(0.0f, -2.15f, -1.15f), 2.75f, 0.18f, rampMaterial);
-        AddBox(collisionRoot, _collisionVisualRoot, "CargoFloor", new Vector3(0.0f, -2.24f, 3.15f), new Vector3(5.8f, 0.18f, 8.8f), floorMaterial);
+        AddSlopedBox(supportRoot, _collisionVisualRoot, "EntryRamp", new Vector3(0.0f, -3.55f, -6.2f), new Vector3(0.0f, -2.15f, -1.15f), 2.75f, 0.18f, rampMaterial);
+        AddBox(supportRoot, _collisionVisualRoot, "CargoFloor", new Vector3(0.0f, -2.24f, 3.15f), new Vector3(5.8f, 0.18f, 8.8f), floorMaterial);
         AddCurvedStairPath(
-            collisionRoot,
+            supportRoot,
             _collisionVisualRoot,
             "CargoEdgeStairsLeft",
             new[]
@@ -95,7 +109,7 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
             10,
             stairMaterial);
         AddCurvedStairPath(
-            collisionRoot,
+            supportRoot,
             _collisionVisualRoot,
             "CargoEdgeStairsRight",
             new[]
@@ -109,13 +123,79 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
             0.86f,
             10,
             stairMaterial);
-        AddBox(collisionRoot, _collisionVisualRoot, "CockpitHallMergeFloor", new Vector3(0.0f, 0.36f, -4.15f), new Vector3(3.25f, 0.18f, 1.45f), floorMaterial);
-        AddBox(collisionRoot, _collisionVisualRoot, "CockpitHallwayFloor", new Vector3(0.0f, 0.36f, -7.35f), new Vector3(3.25f, 0.18f, 5.35f), floorMaterial);
+        AddBox(supportRoot, _collisionVisualRoot, "CockpitHallMergeFloor", new Vector3(0.0f, 0.36f, -4.15f), new Vector3(3.25f, 0.18f, 1.45f), floorMaterial);
+        AddBox(supportRoot, _collisionVisualRoot, "CockpitHallwayFloor", new Vector3(0.0f, 0.36f, -7.35f), new Vector3(3.25f, 0.18f, 5.35f), floorMaterial);
         AddLandingRailing(collisionRoot, _collisionVisualRoot, railingMaterial);
-        AddBox(collisionRoot, _collisionVisualRoot, "CockpitDeck", new Vector3(0.0f, 0.36f, -13.0f), new Vector3(3.5f, 0.18f, 6.6f), floorMaterial);
-        AddSlopedBox(collisionRoot, _collisionVisualRoot, "CockpitForwardFootwell", new Vector3(0.0f, 0.45f, -13.9f), new Vector3(0.0f, 0.02f, -16.5f), 2.35f, 0.14f, floorMaterial);
+        AddBox(supportRoot, _collisionVisualRoot, "CockpitDeck", new Vector3(0.0f, 0.36f, -13.0f), new Vector3(3.5f, 0.18f, 6.6f), floorMaterial);
+        AddSlopedBox(supportRoot, _collisionVisualRoot, "CockpitForwardFootwell", new Vector3(0.0f, 0.45f, -13.9f), new Vector3(0.0f, 0.02f, -16.5f), 2.35f, 0.14f, floorMaterial);
         AddSeat(collisionRoot, _collisionVisualRoot, "PilotSeatLeft", new Vector3(-0.68f, 0.92f, -14.05f), seatMaterial);
         AddSeat(collisionRoot, _collisionVisualRoot, "PilotSeatRight", new Vector3(0.68f, 0.92f, -14.05f), seatMaterial);
+        AddGeneratedInteriorEnclosureBands(collisionRoot, _collisionVisualRoot, wallMaterial);
+    }
+
+    private void AddGeneratedInteriorEnclosureBands(Node collisionRoot, Node3D visualRoot, Material wallMaterial)
+    {
+        if (!Godot.FileAccess.FileExists(EnclosureBandsPath))
+        {
+            GD.PushError($"Missing shuttle p3 enclosure band data: {EnclosureBandsPath}");
+            return;
+        }
+
+        var text = Godot.FileAccess.GetFileAsString(EnclosureBandsPath);
+        var parsed = Json.ParseString(text);
+        if (parsed.VariantType != Variant.Type.Dictionary)
+        {
+            GD.PushError($"Shuttle p3 enclosure band data is not an object: {EnclosureBandsPath}");
+            return;
+        }
+
+        var root = parsed.AsGodotDictionary<string, Variant>();
+        if (!root.TryGetValue("bands", out var bandsValue) || bandsValue.VariantType != Variant.Type.Array)
+        {
+            GD.PushError($"Shuttle p3 enclosure band data has no bands array: {EnclosureBandsPath}");
+            return;
+        }
+
+        foreach (var item in bandsValue.AsGodotArray())
+        {
+            if (item.VariantType != Variant.Type.Dictionary)
+            {
+                continue;
+            }
+
+            var band = item.AsGodotDictionary<string, Variant>();
+            var name = ReadString(band, "name", "GeneratedEnclosureBand");
+            var center = ReadVector3(band, "center");
+            var size = ReadVector3(band, "size");
+            if (size.X <= 0.0f || size.Y <= 0.0f || size.Z <= 0.0f)
+            {
+                GD.PushWarning($"Skipping invalid shuttle p3 enclosure band size for {name}: {size}");
+                continue;
+            }
+
+            AddBox(collisionRoot, visualRoot, name, center, size, wallMaterial);
+        }
+    }
+
+    private static string ReadString(GDict source, string key, string fallback)
+    {
+        return source.TryGetValue(key, out var value) ? value.AsString() : fallback;
+    }
+
+    private static Vector3 ReadVector3(GDict source, string key)
+    {
+        if (!source.TryGetValue(key, out var value) || value.VariantType != Variant.Type.Array)
+        {
+            return Vector3.Zero;
+        }
+
+        var array = value.AsGodotArray();
+        if (array.Count < 3)
+        {
+            return Vector3.Zero;
+        }
+
+        return new Vector3((float)array[0], (float)array[1], (float)array[2]);
     }
 
     private static void AddSeat(Node collisionRoot, Node3D visualRoot, string name, Vector3 position, Material material)
