@@ -105,7 +105,7 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
                 new Vector3(-1.85f, 0.45f, -3.05f),
                 new Vector3(-1.15f, 0.45f, -3.75f)
             },
-            0.86f,
+            1.08f,
             10,
             stairMaterial);
         AddCurvedStairPath(
@@ -120,7 +120,7 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
                 new Vector3(1.85f, 0.45f, -3.05f),
                 new Vector3(1.15f, 0.45f, -3.75f)
             },
-            0.86f,
+            1.08f,
             10,
             stairMaterial);
         AddBox(supportRoot, _collisionVisualRoot, "CockpitHallMergeFloor", new Vector3(0.0f, 0.36f, -4.15f), new Vector3(3.25f, 0.18f, 1.45f), floorMaterial);
@@ -133,7 +133,7 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
             new Vector3(-2.3f, -0.42f, -2.1f),
             new Vector3(-1.85f, 0.45f, -3.05f),
             new Vector3(-1.15f, 0.45f, -3.75f),
-        }, 0.46f, new Vector3(-0.68f, 0.45f, -3.34f), railingMaterial);
+        }, 0.68f, new Vector3(-0.68f, 0.45f, -3.34f), railingMaterial);
         AddCurvedStairInsideRailing(collisionRoot, _collisionVisualRoot, "Right", new[]
         {
             new Vector3(1.95f, -2.15f, -0.55f),
@@ -141,7 +141,7 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
             new Vector3(2.3f, -0.42f, -2.1f),
             new Vector3(1.85f, 0.45f, -3.05f),
             new Vector3(1.15f, 0.45f, -3.75f),
-        }, -0.46f, new Vector3(0.68f, 0.45f, -3.34f), railingMaterial);
+        }, -0.68f, new Vector3(0.68f, 0.45f, -3.34f), railingMaterial);
         AddBox(supportRoot, _collisionVisualRoot, "CockpitDeck", new Vector3(0.0f, 0.36f, -13.0f), new Vector3(3.5f, 0.18f, 6.6f), floorMaterial);
         AddSlopedBox(supportRoot, _collisionVisualRoot, "CockpitForwardFootwell", new Vector3(0.0f, 0.45f, -13.9f), new Vector3(0.0f, 0.02f, -16.5f), 2.35f, 0.14f, floorMaterial);
         AddSeat(collisionRoot, _collisionVisualRoot, "PilotSeatLeft", new Vector3(-0.68f, 0.92f, -14.05f), seatMaterial);
@@ -238,10 +238,13 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
         const float railThickness = 0.1f;
         const float postThickness = 0.1f;
 
-        var floorPoints = new Vector3[stairFloorPoints.Length + 1];
-        for (var index = 0; index < stairFloorPoints.Length; index++)
+        var segmentLengths = BuildPathSegmentLengths(stairFloorPoints, out var totalLength);
+        var railingPointCount = Mathf.Max(8, stairFloorPoints.Length * 2);
+        var floorPoints = new Vector3[railingPointCount + 1];
+        for (var index = 0; index < railingPointCount; index++)
         {
-            floorPoints[index] = stairFloorPoints[index] + new Vector3(insideXOffset, 0.0f, 0.0f);
+            var distance = totalLength * (index / (float)(railingPointCount - 1));
+            floorPoints[index] = SamplePath(stairFloorPoints, segmentLengths, distance) + new Vector3(insideXOffset, 0.0f, 0.0f);
         }
         floorPoints[^1] = landingFloorPoint;
 
@@ -286,14 +289,7 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
             return;
         }
 
-        var segmentLengths = new float[points.Length - 1];
-        var totalLength = 0.0f;
-        for (var index = 0; index < points.Length - 1; index++)
-        {
-            var delta = points[index + 1] - points[index];
-            segmentLengths[index] = new Vector2(delta.X, delta.Z).Length();
-            totalLength += segmentLengths[index];
-        }
+        var segmentLengths = BuildPathSegmentLengths(points, out var totalLength);
 
         if (totalLength <= 0.001f)
         {
@@ -316,6 +312,20 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
             var size = new Vector3(width, 0.16f, stepDepth + 0.04f);
             AddBox(collisionRoot, visualRoot, $"{name}_{stepIndex:00}", centerTop - new Vector3(0.0f, size.Y * 0.5f, 0.0f), size, material, new Vector3(0.0f, yaw, 0.0f));
         }
+    }
+
+    private static float[] BuildPathSegmentLengths(Vector3[] points, out float totalLength)
+    {
+        var segmentLengths = new float[Mathf.Max(0, points.Length - 1)];
+        totalLength = 0.0f;
+        for (var index = 0; index < points.Length - 1; index++)
+        {
+            var delta = points[index + 1] - points[index];
+            segmentLengths[index] = new Vector2(delta.X, delta.Z).Length();
+            totalLength += segmentLengths[index];
+        }
+
+        return segmentLengths;
     }
 
     private static Vector3 SamplePath(Vector3[] points, float[] segmentLengths, float distance)

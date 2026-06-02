@@ -4,438 +4,3975 @@
   "generator": "tools/ship_pipeline/generate_shuttle_p3_enclosure_bands.py",
   "source_voxel_file": "reports/ship_pipeline/shuttle_p3_voxel_fit/shuttle_p3_voxels_full_compact.json",
   "coordinate_space": "ship local",
-  "band_count": 19,
+  "band_count": 148,
   "bands": [
     {
-      "name": "CargoForwardLeftWall",
+      "name": "CargoForwardSlice00LeftWall",
       "kind": "wall",
       "center": [
-        -2.55,
-        0.315,
+        -2.8,
+        0.245,
+        -0.05
+      ],
+      "size": [
+        0.16,
+        5.13,
+        0.54
+      ],
+      "source": {
+        "zone": "CargoForward",
+        "slice": 0,
+        "slice_count": 3,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.85,
+        "sampled_ceiling_y": null,
+        "route_half_width": 2.5,
+        "z_min": -0.3,
+        "z_max": 0.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoForwardSlice00RightWall",
+      "kind": "wall",
+      "center": [
+        2.8,
+        0.245,
+        -0.05
+      ],
+      "size": [
+        0.16,
+        5.13,
+        0.54
+      ],
+      "source": {
+        "zone": "CargoForward",
+        "slice": 0,
+        "slice_count": 3,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.85,
+        "sampled_ceiling_y": null,
+        "route_half_width": 2.5,
+        "z_min": -0.3,
+        "z_max": 0.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoForwardSlice00Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.81,
+        -0.05
+      ],
+      "size": [
+        5.44,
+        0.16,
+        0.54
+      ],
+      "source": {
+        "zone": "CargoForward",
+        "slice": 0,
+        "slice_count": 3,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.85,
+        "sampled_ceiling_y": null,
+        "route_half_width": 2.5,
+        "z_min": -0.3,
+        "z_max": 0.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoForwardSlice01LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.78,
+        0.245,
         0.45
       ],
       "size": [
         0.16,
-        5.27,
-        1.5
+        5.13,
+        0.54
       ],
       "source": {
         "zone": "CargoForward",
-        "voxel_count": 421,
+        "slice": 1,
+        "slice_count": 3,
+        "voxel_count": 144,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 1.167,
-        "sampled_ceiling_y": 3.219,
+        "sampled_wall_half_width": 1.592,
+        "sampled_ceiling_y": 2.776,
         "route_half_width": 2.5,
-        "z_min": -0.3,
-        "z_max": 1.2
+        "z_min": 0.2,
+        "z_max": 0.7,
+        "sliced": true
       }
     },
     {
-      "name": "CargoForwardRightWall",
+      "name": "CargoForwardSlice01RightWall",
       "kind": "wall",
       "center": [
-        2.55,
-        0.315,
+        2.78,
+        0.245,
         0.45
       ],
       "size": [
         0.16,
-        5.27,
-        1.5
+        5.13,
+        0.54
       ],
       "source": {
         "zone": "CargoForward",
-        "voxel_count": 421,
+        "slice": 1,
+        "slice_count": 3,
+        "voxel_count": 144,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 1.167,
-        "sampled_ceiling_y": 3.219,
+        "sampled_wall_half_width": 1.592,
+        "sampled_ceiling_y": 2.776,
         "route_half_width": 2.5,
-        "z_min": -0.3,
-        "z_max": 1.2
+        "z_min": 0.2,
+        "z_max": 0.7,
+        "sliced": true
       }
     },
     {
-      "name": "CargoForwardCeiling",
+      "name": "CargoForwardSlice01Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.81,
+        0.45
+      ],
+      "size": [
+        5.4,
+        0.16,
+        0.54
+      ],
+      "source": {
+        "zone": "CargoForward",
+        "slice": 1,
+        "slice_count": 3,
+        "voxel_count": 144,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.592,
+        "sampled_ceiling_y": 2.776,
+        "route_half_width": 2.5,
+        "z_min": 0.2,
+        "z_max": 0.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoForwardSlice02LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.78,
+        0.315,
+        0.95
+      ],
+      "size": [
+        0.16,
+        5.27,
+        0.54
+      ],
+      "source": {
+        "zone": "CargoForward",
+        "slice": 2,
+        "slice_count": 3,
+        "voxel_count": 277,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.917,
+        "sampled_ceiling_y": 3.469,
+        "route_half_width": 2.5,
+        "z_min": 0.7,
+        "z_max": 1.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoForwardSlice02RightWall",
+      "kind": "wall",
+      "center": [
+        2.78,
+        0.315,
+        0.95
+      ],
+      "size": [
+        0.16,
+        5.27,
+        0.54
+      ],
+      "source": {
+        "zone": "CargoForward",
+        "slice": 2,
+        "slice_count": 3,
+        "voxel_count": 277,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.917,
+        "sampled_ceiling_y": 3.469,
+        "route_half_width": 2.5,
+        "z_min": 0.7,
+        "z_max": 1.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoForwardSlice02Ceiling",
       "kind": "ceiling",
       "center": [
         0.0,
         2.95,
-        0.45
+        0.95
       ],
       "size": [
-        4.94,
+        5.4,
         0.16,
-        1.5
+        0.54
       ],
       "source": {
         "zone": "CargoForward",
-        "voxel_count": 421,
+        "slice": 2,
+        "slice_count": 3,
+        "voxel_count": 277,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 1.167,
-        "sampled_ceiling_y": 3.219,
+        "sampled_wall_half_width": 0.917,
+        "sampled_ceiling_y": 3.469,
         "route_half_width": 2.5,
-        "z_min": -0.3,
-        "z_max": 1.2
+        "z_min": 0.7,
+        "z_max": 1.2,
+        "sliced": true
       }
     },
     {
-      "name": "CargoMainLeftWall",
+      "name": "CargoMainSlice00LeftWall",
       "kind": "wall",
       "center": [
-        -2.927,
-        0.2025,
-        4.45
+        -3.15,
+        0.095,
+        1.4708
       ],
       "size": [
         0.16,
-        5.045,
-        6.5
+        4.83,
+        0.5817
       ],
       "source": {
         "zone": "CargoMain",
-        "voxel_count": 3788,
+        "slice": 0,
+        "slice_count": 12,
+        "voxel_count": 201,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 2.927,
-        "sampled_ceiling_y": 2.725,
+        "sampled_wall_half_width": 4.222,
+        "sampled_ceiling_y": 2.027,
         "route_half_width": 2.8,
         "z_min": 1.2,
-        "z_max": 7.7
+        "z_max": 1.7416666666666667,
+        "sliced": true
       }
     },
     {
-      "name": "CargoMainRightWall",
+      "name": "CargoMainSlice00RightWall",
       "kind": "wall",
       "center": [
-        2.927,
-        0.2025,
-        4.45
+        3.15,
+        0.095,
+        1.4708
       ],
       "size": [
         0.16,
-        5.045,
-        6.5
+        4.83,
+        0.5817
       ],
       "source": {
         "zone": "CargoMain",
-        "voxel_count": 3788,
+        "slice": 0,
+        "slice_count": 12,
+        "voxel_count": 201,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 2.927,
-        "sampled_ceiling_y": 2.725,
+        "sampled_wall_half_width": 4.222,
+        "sampled_ceiling_y": 2.027,
         "route_half_width": 2.8,
         "z_min": 1.2,
-        "z_max": 7.7
+        "z_max": 1.7416666666666667,
+        "sliced": true
       }
     },
     {
-      "name": "CargoMainCeiling",
+      "name": "CargoMainSlice00Ceiling",
       "kind": "ceiling",
       "center": [
         0.0,
-        2.725,
-        4.45
+        2.51,
+        1.4708
       ],
       "size": [
-        5.694,
+        6.14,
         0.16,
-        6.5
+        0.5817
       ],
       "source": {
         "zone": "CargoMain",
-        "voxel_count": 3788,
+        "slice": 0,
+        "slice_count": 12,
+        "voxel_count": 201,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 2.927,
-        "sampled_ceiling_y": 2.725,
+        "sampled_wall_half_width": 4.222,
+        "sampled_ceiling_y": 2.027,
         "route_half_width": 2.8,
         "z_min": 1.2,
-        "z_max": 7.7
+        "z_max": 1.7416666666666667,
+        "sliced": true
       }
     },
     {
-      "name": "StairTransitionLeftWall",
+      "name": "CargoMainSlice01LeftWall",
       "kind": "wall",
       "center": [
-        -2.62,
-        0.4782,
-        -2.025
+        -3.08,
+        0.305,
+        2.0125
       ],
       "size": [
         0.16,
-        5.4164,
-        3.45
+        5.25,
+        0.5817
       ],
       "source": {
-        "zone": "StairTransition",
-        "voxel_count": 1798,
+        "zone": "CargoMain",
+        "slice": 1,
+        "slice_count": 12,
+        "voxel_count": 612,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 2.4476,
-        "sampled_ceiling_y": 3.1864,
-        "route_half_width": 2.35,
-        "z_min": -3.75,
-        "z_max": -0.3
+        "sampled_wall_half_width": 1.415,
+        "sampled_ceiling_y": 3.011,
+        "route_half_width": 2.8,
+        "z_min": 1.7416666666666667,
+        "z_max": 2.283333333333333,
+        "sliced": true
       }
     },
     {
-      "name": "StairTransitionRightWall",
+      "name": "CargoMainSlice01RightWall",
       "kind": "wall",
       "center": [
-        2.62,
-        0.4782,
-        -2.025
+        3.08,
+        0.305,
+        2.0125
       ],
       "size": [
         0.16,
-        5.4164,
-        3.45
+        5.25,
+        0.5817
       ],
       "source": {
-        "zone": "StairTransition",
-        "voxel_count": 1798,
+        "zone": "CargoMain",
+        "slice": 1,
+        "slice_count": 12,
+        "voxel_count": 612,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 2.4476,
-        "sampled_ceiling_y": 3.1864,
-        "route_half_width": 2.35,
-        "z_min": -3.75,
-        "z_max": -0.3
+        "sampled_wall_half_width": 1.415,
+        "sampled_ceiling_y": 3.011,
+        "route_half_width": 2.8,
+        "z_min": 1.7416666666666667,
+        "z_max": 2.283333333333333,
+        "sliced": true
       }
     },
     {
-      "name": "StairTransitionCeiling",
+      "name": "CargoMainSlice01Ceiling",
       "kind": "ceiling",
       "center": [
         0.0,
-        3.1864,
-        -2.025
+        2.93,
+        2.0125
       ],
       "size": [
-        5.08,
+        6.0,
         0.16,
-        3.45
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 1,
+        "slice_count": 12,
+        "voxel_count": 612,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.415,
+        "sampled_ceiling_y": 3.011,
+        "route_half_width": 2.8,
+        "z_min": 1.7416666666666667,
+        "z_max": 2.283333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice02LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        0.365,
+        2.5542
+      ],
+      "size": [
+        0.16,
+        5.37,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 2,
+        "slice_count": 12,
+        "voxel_count": 180,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.773,
+        "sampled_ceiling_y": 3.87,
+        "route_half_width": 2.8,
+        "z_min": 2.283333333333333,
+        "z_max": 2.825,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice02RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        0.365,
+        2.5542
+      ],
+      "size": [
+        0.16,
+        5.37,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 2,
+        "slice_count": 12,
+        "voxel_count": 180,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.773,
+        "sampled_ceiling_y": 3.87,
+        "route_half_width": 2.8,
+        "z_min": 2.283333333333333,
+        "z_max": 2.825,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice02Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.05,
+        2.5542
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 2,
+        "slice_count": 12,
+        "voxel_count": 180,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.773,
+        "sampled_ceiling_y": 3.87,
+        "route_half_width": 2.8,
+        "z_min": 2.283333333333333,
+        "z_max": 2.825,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice03LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        0.155,
+        3.0958
+      ],
+      "size": [
+        0.16,
+        4.95,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 3,
+        "slice_count": 12,
+        "voxel_count": 414,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.609,
+        "sampled_ceiling_y": 1.598,
+        "route_half_width": 2.8,
+        "z_min": 2.825,
+        "z_max": 3.3666666666666663,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice03RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        0.155,
+        3.0958
+      ],
+      "size": [
+        0.16,
+        4.95,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 3,
+        "slice_count": 12,
+        "voxel_count": 414,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.609,
+        "sampled_ceiling_y": 1.598,
+        "route_half_width": 2.8,
+        "z_min": 2.825,
+        "z_max": 3.3666666666666663,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice03Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.63,
+        3.0958
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 3,
+        "slice_count": 12,
+        "voxel_count": 414,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.609,
+        "sampled_ceiling_y": 1.598,
+        "route_half_width": 2.8,
+        "z_min": 2.825,
+        "z_max": 3.3666666666666663,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice04LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.15,
+        0.095,
+        3.6375
+      ],
+      "size": [
+        0.16,
+        4.83,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 4,
+        "slice_count": 12,
+        "voxel_count": 766,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.533,
+        "sampled_ceiling_y": 2.232,
+        "route_half_width": 2.8,
+        "z_min": 3.3666666666666663,
+        "z_max": 3.908333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice04RightWall",
+      "kind": "wall",
+      "center": [
+        3.15,
+        0.095,
+        3.6375
+      ],
+      "size": [
+        0.16,
+        4.83,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 4,
+        "slice_count": 12,
+        "voxel_count": 766,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.533,
+        "sampled_ceiling_y": 2.232,
+        "route_half_width": 2.8,
+        "z_min": 3.3666666666666663,
+        "z_max": 3.908333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice04Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.51,
+        3.6375
+      ],
+      "size": [
+        6.14,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 4,
+        "slice_count": 12,
+        "voxel_count": 766,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.533,
+        "sampled_ceiling_y": 2.232,
+        "route_half_width": 2.8,
+        "z_min": 3.3666666666666663,
+        "z_max": 3.908333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice05LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.15,
+        0.274,
+        4.1792
+      ],
+      "size": [
+        0.16,
+        5.188,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 5,
+        "slice_count": 12,
+        "voxel_count": 506,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.677,
+        "sampled_ceiling_y": 2.868,
+        "route_half_width": 2.8,
+        "z_min": 3.908333333333333,
+        "z_max": 4.45,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice05RightWall",
+      "kind": "wall",
+      "center": [
+        3.15,
+        0.274,
+        4.1792
+      ],
+      "size": [
+        0.16,
+        5.188,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 5,
+        "slice_count": 12,
+        "voxel_count": 506,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.677,
+        "sampled_ceiling_y": 2.868,
+        "route_half_width": 2.8,
+        "z_min": 3.908333333333333,
+        "z_max": 4.45,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice05Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.868,
+        4.1792
+      ],
+      "size": [
+        6.14,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 5,
+        "slice_count": 12,
+        "voxel_count": 506,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.677,
+        "sampled_ceiling_y": 2.868,
+        "route_half_width": 2.8,
+        "z_min": 3.908333333333333,
+        "z_max": 4.45,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice06LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        0.096,
+        4.7208
+      ],
+      "size": [
+        0.16,
+        4.832,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 6,
+        "slice_count": 12,
+        "voxel_count": 428,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.143,
+        "sampled_ceiling_y": 2.512,
+        "route_half_width": 2.8,
+        "z_min": 4.45,
+        "z_max": 4.991666666666666,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice06RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        0.096,
+        4.7208
+      ],
+      "size": [
+        0.16,
+        4.832,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 6,
+        "slice_count": 12,
+        "voxel_count": 428,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.143,
+        "sampled_ceiling_y": 2.512,
+        "route_half_width": 2.8,
+        "z_min": 4.45,
+        "z_max": 4.991666666666666,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice06Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.512,
+        4.7208
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 6,
+        "slice_count": 12,
+        "voxel_count": 428,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.143,
+        "sampled_ceiling_y": 2.512,
+        "route_half_width": 2.8,
+        "z_min": 4.45,
+        "z_max": 4.991666666666666,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice07LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        0.095,
+        5.2625
+      ],
+      "size": [
+        0.16,
+        4.83,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 7,
+        "slice_count": 12,
+        "voxel_count": 211,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.772,
+        "sampled_ceiling_y": 1.851,
+        "route_half_width": 2.8,
+        "z_min": 4.991666666666666,
+        "z_max": 5.533333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice07RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        0.095,
+        5.2625
+      ],
+      "size": [
+        0.16,
+        4.83,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 7,
+        "slice_count": 12,
+        "voxel_count": 211,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.772,
+        "sampled_ceiling_y": 1.851,
+        "route_half_width": 2.8,
+        "z_min": 4.991666666666666,
+        "z_max": 5.533333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice07Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.51,
+        5.2625
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 7,
+        "slice_count": 12,
+        "voxel_count": 211,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.772,
+        "sampled_ceiling_y": 1.851,
+        "route_half_width": 2.8,
+        "z_min": 4.991666666666666,
+        "z_max": 5.533333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice08LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        0.305,
+        5.8042
+      ],
+      "size": [
+        0.16,
+        5.25,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 8,
+        "slice_count": 12,
+        "voxel_count": 102,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.751,
+        "sampled_ceiling_y": 4.01,
+        "route_half_width": 2.8,
+        "z_min": 5.533333333333333,
+        "z_max": 6.075,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice08RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        0.305,
+        5.8042
+      ],
+      "size": [
+        0.16,
+        5.25,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 8,
+        "slice_count": 12,
+        "voxel_count": 102,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.751,
+        "sampled_ceiling_y": 4.01,
+        "route_half_width": 2.8,
+        "z_min": 5.533333333333333,
+        "z_max": 6.075,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice08Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.93,
+        5.8042
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 8,
+        "slice_count": 12,
+        "voxel_count": 102,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.751,
+        "sampled_ceiling_y": 4.01,
+        "route_half_width": 2.8,
+        "z_min": 5.533333333333333,
+        "z_max": 6.075,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice09LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        0.365,
+        6.3458
+      ],
+      "size": [
+        0.16,
+        5.37,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 9,
+        "slice_count": 12,
+        "voxel_count": 108,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.664,
+        "sampled_ceiling_y": 4.225,
+        "route_half_width": 2.8,
+        "z_min": 6.075,
+        "z_max": 6.616666666666667,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice09RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        0.365,
+        6.3458
+      ],
+      "size": [
+        0.16,
+        5.37,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 9,
+        "slice_count": 12,
+        "voxel_count": 108,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.664,
+        "sampled_ceiling_y": 4.225,
+        "route_half_width": 2.8,
+        "z_min": 6.075,
+        "z_max": 6.616666666666667,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice09Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.05,
+        6.3458
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 9,
+        "slice_count": 12,
+        "voxel_count": 108,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.664,
+        "sampled_ceiling_y": 4.225,
+        "route_half_width": 2.8,
+        "z_min": 6.075,
+        "z_max": 6.616666666666667,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice10LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        0.365,
+        6.8875
+      ],
+      "size": [
+        0.16,
+        5.37,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 10,
+        "slice_count": 12,
+        "voxel_count": 104,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.962,
+        "sampled_ceiling_y": 4.166,
+        "route_half_width": 2.8,
+        "z_min": 6.616666666666667,
+        "z_max": 7.158333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice10RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        0.365,
+        6.8875
+      ],
+      "size": [
+        0.16,
+        5.37,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 10,
+        "slice_count": 12,
+        "voxel_count": 104,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.962,
+        "sampled_ceiling_y": 4.166,
+        "route_half_width": 2.8,
+        "z_min": 6.616666666666667,
+        "z_max": 7.158333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice10Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.05,
+        6.8875
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 10,
+        "slice_count": 12,
+        "voxel_count": 104,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.962,
+        "sampled_ceiling_y": 4.166,
+        "route_half_width": 2.8,
+        "z_min": 6.616666666666667,
+        "z_max": 7.158333333333333,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice11LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        0.155,
+        7.4292
+      ],
+      "size": [
+        0.16,
+        4.95,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 11,
+        "slice_count": 12,
+        "voxel_count": 156,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.946,
+        "sampled_ceiling_y": 1.62,
+        "route_half_width": 2.8,
+        "z_min": 7.158333333333333,
+        "z_max": 7.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice11RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        0.155,
+        7.4292
+      ],
+      "size": [
+        0.16,
+        4.95,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 11,
+        "slice_count": 12,
+        "voxel_count": 156,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.946,
+        "sampled_ceiling_y": 1.62,
+        "route_half_width": 2.8,
+        "z_min": 7.158333333333333,
+        "z_max": 7.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CargoMainSlice11Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.63,
+        7.4292
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.5817
+      ],
+      "source": {
+        "zone": "CargoMain",
+        "slice": 11,
+        "slice_count": 12,
+        "voxel_count": 156,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.946,
+        "sampled_ceiling_y": 1.62,
+        "route_half_width": 2.8,
+        "z_min": 7.158333333333333,
+        "z_max": 7.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice00LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.38,
+        1.5915,
+        -3.5775
+      ],
+      "size": [
+        0.16,
+        2.817,
+        0.385
       ],
       "source": {
         "zone": "StairTransition",
-        "voxel_count": 1798,
+        "slice": 0,
+        "slice_count": 10,
+        "voxel_count": 0,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 2.4476,
-        "sampled_ceiling_y": 3.1864,
+        "sampled_wall_half_width": 2.7,
+        "sampled_ceiling_y": null,
         "route_half_width": 2.35,
         "z_min": -3.75,
-        "z_max": -0.3
+        "z_max": -3.405,
+        "sliced": true
       }
     },
     {
-      "name": "CockpitHallLeftWall",
+      "name": "StairTransitionSlice00RightWall",
       "kind": "wall",
       "center": [
-        -1.812,
+        2.38,
+        1.5915,
+        -3.5775
+      ],
+      "size": [
+        0.16,
+        2.817,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 0,
+        "slice_count": 10,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.7,
+        "sampled_ceiling_y": null,
+        "route_half_width": 2.35,
+        "z_min": -3.75,
+        "z_max": -3.405,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice00Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.0,
+        -3.5775
+      ],
+      "size": [
+        4.6,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 0,
+        "slice_count": 10,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.7,
+        "sampled_ceiling_y": null,
+        "route_half_width": 2.35,
+        "z_min": -3.75,
+        "z_max": -3.405,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice01LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.76,
+        1.4645,
+        -3.2325
+      ],
+      "size": [
+        0.16,
+        3.071,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 1,
+        "slice_count": 10,
+        "voxel_count": 196,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.33,
+        "sampled_ceiling_y": 2.974,
+        "route_half_width": 2.35,
+        "z_min": -3.405,
+        "z_max": -3.06,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice01RightWall",
+      "kind": "wall",
+      "center": [
+        2.76,
+        1.4645,
+        -3.2325
+      ],
+      "size": [
+        0.16,
+        3.071,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 1,
+        "slice_count": 10,
+        "voxel_count": 196,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.33,
+        "sampled_ceiling_y": 2.974,
+        "route_half_width": 2.35,
+        "z_min": -3.405,
+        "z_max": -3.06,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice01Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.0,
+        -3.2325
+      ],
+      "size": [
+        5.36,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 1,
+        "slice_count": 10,
+        "voxel_count": 196,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.33,
+        "sampled_ceiling_y": 2.974,
+        "route_half_width": 2.35,
+        "z_min": -3.405,
+        "z_max": -3.06,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice02LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.8229,
+        1.3375,
+        -2.8875
+      ],
+      "size": [
+        0.16,
+        3.325,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 2,
+        "slice_count": 10,
+        "voxel_count": 143,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.42,
+        "sampled_ceiling_y": 2.056,
+        "route_half_width": 2.35,
+        "z_min": -3.06,
+        "z_max": -2.715,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice02RightWall",
+      "kind": "wall",
+      "center": [
+        2.8229,
+        1.3375,
+        -2.8875
+      ],
+      "size": [
+        0.16,
+        3.325,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 2,
+        "slice_count": 10,
+        "voxel_count": 143,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.42,
+        "sampled_ceiling_y": 2.056,
+        "route_half_width": 2.35,
+        "z_min": -3.06,
+        "z_max": -2.715,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice02Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.0,
+        -2.8875
+      ],
+      "size": [
+        5.4857,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 2,
+        "slice_count": 10,
+        "voxel_count": 143,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.42,
+        "sampled_ceiling_y": 2.056,
+        "route_half_width": 2.35,
+        "z_min": -3.06,
+        "z_max": -2.715,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice03LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.1029,
+        1.2105,
+        -2.5425
+      ],
+      "size": [
+        0.16,
+        3.579,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 3,
+        "slice_count": 10,
+        "voxel_count": 186,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.555,
+        "sampled_ceiling_y": 1.953,
+        "route_half_width": 2.35,
+        "z_min": -2.715,
+        "z_max": -2.37,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice03RightWall",
+      "kind": "wall",
+      "center": [
+        3.1029,
+        1.2105,
+        -2.5425
+      ],
+      "size": [
+        0.16,
+        3.579,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 3,
+        "slice_count": 10,
+        "voxel_count": 186,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.555,
+        "sampled_ceiling_y": 1.953,
+        "route_half_width": 2.35,
+        "z_min": -2.715,
+        "z_max": -2.37,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice03Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.0,
+        -2.5425
+      ],
+      "size": [
+        6.0457,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 3,
+        "slice_count": 10,
+        "voxel_count": 186,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 3.555,
+        "sampled_ceiling_y": 1.953,
+        "route_half_width": 2.35,
+        "z_min": -2.715,
+        "z_max": -2.37,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice04LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        1.1525,
+        -2.1975
+      ],
+      "size": [
+        0.16,
+        3.971,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 4,
+        "slice_count": 10,
+        "voxel_count": 270,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.279,
+        "sampled_ceiling_y": 3.138,
+        "route_half_width": 2.35,
+        "z_min": -2.37,
+        "z_max": -2.025,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice04RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        1.1525,
+        -2.1975
+      ],
+      "size": [
+        0.16,
+        3.971,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 4,
+        "slice_count": 10,
+        "voxel_count": 270,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.279,
+        "sampled_ceiling_y": 3.138,
+        "route_half_width": 2.35,
+        "z_min": -2.37,
+        "z_max": -2.025,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice04Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.138,
+        -2.1975
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 4,
+        "slice_count": 10,
+        "voxel_count": 270,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.279,
+        "sampled_ceiling_y": 3.138,
+        "route_half_width": 2.35,
+        "z_min": -2.37,
+        "z_max": -2.025,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice05LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.08,
+        0.9565,
+        -1.8525
+      ],
+      "size": [
+        0.16,
+        4.087,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 5,
+        "slice_count": 10,
+        "voxel_count": 132,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.578,
+        "sampled_ceiling_y": 2.099,
+        "route_half_width": 2.35,
+        "z_min": -2.025,
+        "z_max": -1.6799999999999997,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice05RightWall",
+      "kind": "wall",
+      "center": [
+        3.08,
+        0.9565,
+        -1.8525
+      ],
+      "size": [
+        0.16,
+        4.087,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 5,
+        "slice_count": 10,
+        "voxel_count": 132,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.578,
+        "sampled_ceiling_y": 2.099,
+        "route_half_width": 2.35,
+        "z_min": -2.025,
+        "z_max": -1.6799999999999997,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice05Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.0,
+        -1.8525
+      ],
+      "size": [
+        6.0,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 5,
+        "slice_count": 10,
+        "voxel_count": 132,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.578,
+        "sampled_ceiling_y": 2.099,
+        "route_half_width": 2.35,
+        "z_min": -2.025,
+        "z_max": -1.6799999999999997,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice06LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.0457,
+        0.9645,
+        -1.5075
+      ],
+      "size": [
+        0.16,
+        4.611,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 6,
+        "slice_count": 10,
+        "voxel_count": 441,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.475,
+        "sampled_ceiling_y": 3.27,
+        "route_half_width": 2.35,
+        "z_min": -1.6799999999999997,
+        "z_max": -1.335,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice06RightWall",
+      "kind": "wall",
+      "center": [
+        3.0457,
+        0.9645,
+        -1.5075
+      ],
+      "size": [
+        0.16,
+        4.611,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 6,
+        "slice_count": 10,
+        "voxel_count": 441,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.475,
+        "sampled_ceiling_y": 3.27,
+        "route_half_width": 2.35,
+        "z_min": -1.6799999999999997,
+        "z_max": -1.335,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice06Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.27,
+        -1.5075
+      ],
+      "size": [
+        5.9314,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 6,
+        "slice_count": 10,
+        "voxel_count": 441,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.475,
+        "sampled_ceiling_y": 3.27,
+        "route_half_width": 2.35,
+        "z_min": -1.6799999999999997,
+        "z_max": -1.335,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice07LeftWall",
+      "kind": "wall",
+      "center": [
+        -3.0114,
+        0.8775,
+        -1.1625
+      ],
+      "size": [
+        0.16,
+        4.945,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 7,
+        "slice_count": 10,
+        "voxel_count": 132,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.721,
+        "sampled_ceiling_y": 3.383,
+        "route_half_width": 2.35,
+        "z_min": -1.335,
+        "z_max": -0.9899999999999998,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice07RightWall",
+      "kind": "wall",
+      "center": [
+        3.0114,
+        0.8775,
+        -1.1625
+      ],
+      "size": [
+        0.16,
+        4.945,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 7,
+        "slice_count": 10,
+        "voxel_count": 132,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.721,
+        "sampled_ceiling_y": 3.383,
+        "route_half_width": 2.35,
+        "z_min": -1.335,
+        "z_max": -0.9899999999999998,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice07Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.35,
+        -1.1625
+      ],
+      "size": [
+        5.8629,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 7,
+        "slice_count": 10,
+        "voxel_count": 132,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.721,
+        "sampled_ceiling_y": 3.383,
+        "route_half_width": 2.35,
+        "z_min": -1.335,
+        "z_max": -0.9899999999999998,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice08LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.9229,
+        0.7505,
+        -0.8175
+      ],
+      "size": [
+        0.16,
+        5.199,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 8,
+        "slice_count": 10,
+        "voxel_count": 154,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.757,
+        "sampled_ceiling_y": 3.4,
+        "route_half_width": 2.35,
+        "z_min": -0.9899999999999998,
+        "z_max": -0.645,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice08RightWall",
+      "kind": "wall",
+      "center": [
+        2.9229,
+        0.7505,
+        -0.8175
+      ],
+      "size": [
+        0.16,
+        5.199,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 8,
+        "slice_count": 10,
+        "voxel_count": 154,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.757,
+        "sampled_ceiling_y": 3.4,
+        "route_half_width": 2.35,
+        "z_min": -0.9899999999999998,
+        "z_max": -0.645,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice08Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.35,
+        -0.8175
+      ],
+      "size": [
+        5.6857,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 8,
+        "slice_count": 10,
+        "voxel_count": 154,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.757,
+        "sampled_ceiling_y": 3.4,
+        "route_half_width": 2.35,
+        "z_min": -0.9899999999999998,
+        "z_max": -0.645,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice09LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.7686,
+        0.5355,
+        -0.4725
+      ],
+      "size": [
+        0.16,
+        5.277,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 9,
+        "slice_count": 10,
+        "voxel_count": 144,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.759,
+        "sampled_ceiling_y": 3.174,
+        "route_half_width": 2.35,
+        "z_min": -0.645,
+        "z_max": -0.2999999999999998,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice09RightWall",
+      "kind": "wall",
+      "center": [
+        2.7686,
+        0.5355,
+        -0.4725
+      ],
+      "size": [
+        0.16,
+        5.277,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 9,
+        "slice_count": 10,
+        "voxel_count": 144,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.759,
+        "sampled_ceiling_y": 3.174,
+        "route_half_width": 2.35,
+        "z_min": -0.645,
+        "z_max": -0.2999999999999998,
+        "sliced": true
+      }
+    },
+    {
+      "name": "StairTransitionSlice09Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.174,
+        -0.4725
+      ],
+      "size": [
+        5.3771,
+        0.16,
+        0.385
+      ],
+      "source": {
+        "zone": "StairTransition",
+        "slice": 9,
+        "slice_count": 10,
+        "voxel_count": 144,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.759,
+        "sampled_ceiling_y": 3.174,
+        "route_half_width": 2.35,
+        "z_min": -0.645,
+        "z_max": -0.2999999999999998,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice00LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.905,
+        1.765,
+        -9.9312
+      ],
+      "size": [
+        0.16,
+        2.97,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 0,
+        "slice_count": 12,
+        "voxel_count": 68,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.44,
+        "sampled_ceiling_y": 3.336,
+        "route_half_width": 1.625,
+        "z_min": -10.2,
+        "z_max": -9.6625,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice00RightWall",
+      "kind": "wall",
+      "center": [
+        1.905,
+        1.765,
+        -9.9312
+      ],
+      "size": [
+        0.16,
+        2.97,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 0,
+        "slice_count": 12,
+        "voxel_count": 68,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.44,
+        "sampled_ceiling_y": 3.336,
+        "route_half_width": 1.625,
+        "z_min": -10.2,
+        "z_max": -9.6625,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice00Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.25,
+        -9.9312
+      ],
+      "size": [
+        3.65,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 0,
+        "slice_count": 12,
+        "voxel_count": 68,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.44,
+        "sampled_ceiling_y": 3.336,
+        "route_half_width": 1.625,
+        "z_min": -10.2,
+        "z_max": -9.6625,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice01LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.035,
         1.59,
-        -6.975
+        -9.3938
       ],
       "size": [
         0.16,
         2.62,
-        6.45
+        0.5775
       ],
       "source": {
         "zone": "CockpitHall",
-        "voxel_count": 750,
+        "slice": 1,
+        "slice_count": 12,
+        "voxel_count": 0,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 1.812,
-        "sampled_ceiling_y": 2.8072,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
         "route_half_width": 1.625,
-        "z_min": -10.2,
-        "z_max": -3.75
+        "z_min": -9.6625,
+        "z_max": -9.125,
+        "sliced": true
       }
     },
     {
-      "name": "CockpitHallRightWall",
+      "name": "CockpitHallSlice01RightWall",
       "kind": "wall",
       "center": [
-        1.812,
+        2.035,
         1.59,
-        -6.975
+        -9.3938
       ],
       "size": [
         0.16,
         2.62,
-        6.45
+        0.5775
       ],
       "source": {
         "zone": "CockpitHall",
-        "voxel_count": 750,
+        "slice": 1,
+        "slice_count": 12,
+        "voxel_count": 0,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 1.812,
-        "sampled_ceiling_y": 2.8072,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
         "route_half_width": 1.625,
-        "z_min": -10.2,
-        "z_max": -3.75
+        "z_min": -9.6625,
+        "z_max": -9.125,
+        "sliced": true
       }
     },
     {
-      "name": "CockpitHallCeiling",
+      "name": "CockpitHallSlice01Ceiling",
       "kind": "ceiling",
       "center": [
         0.0,
         2.9,
-        -6.975
+        -9.3938
       ],
       "size": [
-        3.464,
+        3.91,
         0.16,
-        6.45
+        0.5775
       ],
       "source": {
         "zone": "CockpitHall",
-        "voxel_count": 750,
+        "slice": 1,
+        "slice_count": 12,
+        "voxel_count": 0,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 1.812,
-        "sampled_ceiling_y": 2.8072,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
         "route_half_width": 1.625,
-        "z_min": -10.2,
-        "z_max": -3.75
+        "z_min": -9.6625,
+        "z_max": -9.125,
+        "sliced": true
       }
     },
     {
-      "name": "CockpitRearLeftWall",
+      "name": "CockpitHallSlice02LeftWall",
       "kind": "wall",
       "center": [
-        -1.75,
+        -2.035,
+        1.59,
+        -8.8562
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 2,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -9.125,
+        "z_max": -8.587499999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice02RightWall",
+      "kind": "wall",
+      "center": [
+        2.035,
+        1.59,
+        -8.8562
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 2,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -9.125,
+        "z_max": -8.587499999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice02Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.9,
+        -8.8562
+      ],
+      "size": [
+        3.91,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 2,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -9.125,
+        "z_max": -8.587499999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice03LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.035,
+        1.59,
+        -8.3187
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 3,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -8.587499999999999,
+        "z_max": -8.049999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice03RightWall",
+      "kind": "wall",
+      "center": [
+        2.035,
+        1.59,
+        -8.3187
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 3,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -8.587499999999999,
+        "z_max": -8.049999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice03Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.9,
+        -8.3187
+      ],
+      "size": [
+        3.91,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 3,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -8.587499999999999,
+        "z_max": -8.049999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice04LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.905,
+        1.709,
+        -7.7812
+      ],
+      "size": [
+        0.16,
+        2.858,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 4,
+        "slice_count": 12,
+        "voxel_count": 70,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.823,
+        "sampled_ceiling_y": 3.138,
+        "route_half_width": 1.625,
+        "z_min": -8.049999999999999,
+        "z_max": -7.512499999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice04RightWall",
+      "kind": "wall",
+      "center": [
+        1.905,
+        1.709,
+        -7.7812
+      ],
+      "size": [
+        0.16,
+        2.858,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 4,
+        "slice_count": 12,
+        "voxel_count": 70,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.823,
+        "sampled_ceiling_y": 3.138,
+        "route_half_width": 1.625,
+        "z_min": -8.049999999999999,
+        "z_max": -7.512499999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice04Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.138,
+        -7.7812
+      ],
+      "size": [
+        3.65,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 4,
+        "slice_count": 12,
+        "voxel_count": 70,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.823,
+        "sampled_ceiling_y": 3.138,
+        "route_half_width": 1.625,
+        "z_min": -8.049999999999999,
+        "z_max": -7.512499999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice05LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.035,
+        1.59,
+        -7.2437
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 5,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -7.512499999999999,
+        "z_max": -6.975,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice05RightWall",
+      "kind": "wall",
+      "center": [
+        2.035,
+        1.59,
+        -7.2437
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 5,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -7.512499999999999,
+        "z_max": -6.975,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice05Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.9,
+        -7.2437
+      ],
+      "size": [
+        3.91,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 5,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -7.512499999999999,
+        "z_max": -6.975,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice06LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.905,
+        1.59,
+        -6.7062
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 6,
+        "slice_count": 12,
+        "voxel_count": 18,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.286,
+        "sampled_ceiling_y": 2.196,
+        "route_half_width": 1.625,
+        "z_min": -6.975,
+        "z_max": -6.4375,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice06RightWall",
+      "kind": "wall",
+      "center": [
+        1.905,
+        1.59,
+        -6.7062
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 6,
+        "slice_count": 12,
+        "voxel_count": 18,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.286,
+        "sampled_ceiling_y": 2.196,
+        "route_half_width": 1.625,
+        "z_min": -6.975,
+        "z_max": -6.4375,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice06Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.9,
+        -6.7062
+      ],
+      "size": [
+        3.65,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 6,
+        "slice_count": 12,
+        "voxel_count": 18,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.286,
+        "sampled_ceiling_y": 2.196,
+        "route_half_width": 1.625,
+        "z_min": -6.975,
+        "z_max": -6.4375,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice07LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.035,
+        1.59,
+        -6.1687
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 7,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -6.4375,
+        "z_max": -5.8999999999999995,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice07RightWall",
+      "kind": "wall",
+      "center": [
+        2.035,
+        1.59,
+        -6.1687
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 7,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -6.4375,
+        "z_max": -5.8999999999999995,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice07Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.9,
+        -6.1687
+      ],
+      "size": [
+        3.91,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 7,
+        "slice_count": 12,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.975,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.625,
+        "z_min": -6.4375,
+        "z_max": -5.8999999999999995,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice08LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.036,
+        1.59,
+        -5.6312
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 8,
+        "slice_count": 12,
+        "voxel_count": 136,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.976,
+        "sampled_ceiling_y": 2.33,
+        "route_half_width": 1.625,
+        "z_min": -5.8999999999999995,
+        "z_max": -5.3625,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice08RightWall",
+      "kind": "wall",
+      "center": [
+        2.036,
+        1.59,
+        -5.6312
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 8,
+        "slice_count": 12,
+        "voxel_count": 136,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.976,
+        "sampled_ceiling_y": 2.33,
+        "route_half_width": 1.625,
+        "z_min": -5.8999999999999995,
+        "z_max": -5.3625,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice08Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.9,
+        -5.6312
+      ],
+      "size": [
+        3.912,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 8,
+        "slice_count": 12,
+        "voxel_count": 136,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.976,
+        "sampled_ceiling_y": 2.33,
+        "route_half_width": 1.625,
+        "z_min": -5.8999999999999995,
+        "z_max": -5.3625,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice09LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.905,
+        1.59,
+        -5.0938
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 9,
+        "slice_count": 12,
+        "voxel_count": 192,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.569,
+        "sampled_ceiling_y": 2.885,
+        "route_half_width": 1.625,
+        "z_min": -5.3625,
+        "z_max": -4.824999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice09RightWall",
+      "kind": "wall",
+      "center": [
+        1.905,
+        1.59,
+        -5.0938
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 9,
+        "slice_count": 12,
+        "voxel_count": 192,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.569,
+        "sampled_ceiling_y": 2.885,
+        "route_half_width": 1.625,
+        "z_min": -5.3625,
+        "z_max": -4.824999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice09Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.9,
+        -5.0938
+      ],
+      "size": [
+        3.65,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 9,
+        "slice_count": 12,
+        "voxel_count": 192,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.569,
+        "sampled_ceiling_y": 2.885,
+        "route_half_width": 1.625,
+        "z_min": -5.3625,
+        "z_max": -4.824999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice10LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.905,
+        1.59,
+        -4.5563
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 10,
+        "slice_count": 12,
+        "voxel_count": 154,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.818,
+        "sampled_ceiling_y": 2.538,
+        "route_half_width": 1.625,
+        "z_min": -4.824999999999999,
+        "z_max": -4.2875000000000005,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice10RightWall",
+      "kind": "wall",
+      "center": [
+        1.905,
+        1.59,
+        -4.5563
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 10,
+        "slice_count": 12,
+        "voxel_count": 154,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.818,
+        "sampled_ceiling_y": 2.538,
+        "route_half_width": 1.625,
+        "z_min": -4.824999999999999,
+        "z_max": -4.2875000000000005,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice10Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.9,
+        -4.5563
+      ],
+      "size": [
+        3.65,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 10,
+        "slice_count": 12,
+        "voxel_count": 154,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.818,
+        "sampled_ceiling_y": 2.538,
+        "route_half_width": 1.625,
+        "z_min": -4.824999999999999,
+        "z_max": -4.2875000000000005,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice11LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.05,
+        1.59,
+        -4.0188
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 11,
+        "slice_count": 12,
+        "voxel_count": 112,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.062,
+        "sampled_ceiling_y": 2.469,
+        "route_half_width": 1.625,
+        "z_min": -4.2875000000000005,
+        "z_max": -3.75,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice11RightWall",
+      "kind": "wall",
+      "center": [
+        2.05,
+        1.59,
+        -4.0188
+      ],
+      "size": [
+        0.16,
+        2.62,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 11,
+        "slice_count": 12,
+        "voxel_count": 112,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.062,
+        "sampled_ceiling_y": 2.469,
+        "route_half_width": 1.625,
+        "z_min": -4.2875000000000005,
+        "z_max": -3.75,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitHallSlice11Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.9,
+        -4.0188
+      ],
+      "size": [
+        3.94,
+        0.16,
+        0.5775
+      ],
+      "source": {
+        "zone": "CockpitHall",
+        "slice": 11,
+        "slice_count": 12,
+        "voxel_count": 112,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.062,
+        "sampled_ceiling_y": 2.469,
+        "route_half_width": 1.625,
+        "z_min": -4.2875000000000005,
+        "z_max": -3.75,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice00LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.03,
         1.7735,
-        -11.7
+        -12.95
       ],
       "size": [
         0.16,
         2.987,
-        3.0
+        0.54
       ],
       "source": {
         "zone": "CockpitRear",
-        "voxel_count": 419,
+        "slice": 0,
+        "slice_count": 6,
+        "voxel_count": 92,
         "voxel_size": 0.25,
         "sampled_wall_half_width": 0.647,
         "sampled_ceiling_y": 3.267,
         "route_half_width": 1.75,
         "z_min": -13.2,
-        "z_max": -10.2
+        "z_max": -12.7,
+        "sliced": true
       }
     },
     {
-      "name": "CockpitRearRightWall",
+      "name": "CockpitRearSlice00RightWall",
       "kind": "wall",
       "center": [
-        1.75,
+        2.03,
         1.7735,
-        -11.7
+        -12.95
       ],
       "size": [
         0.16,
         2.987,
-        3.0
+        0.54
       ],
       "source": {
         "zone": "CockpitRear",
-        "voxel_count": 419,
+        "slice": 0,
+        "slice_count": 6,
+        "voxel_count": 92,
         "voxel_size": 0.25,
         "sampled_wall_half_width": 0.647,
         "sampled_ceiling_y": 3.267,
         "route_half_width": 1.75,
         "z_min": -13.2,
-        "z_max": -10.2
+        "z_max": -12.7,
+        "sliced": true
       }
     },
     {
-      "name": "CockpitRearCeiling",
+      "name": "CockpitRearSlice00Ceiling",
       "kind": "ceiling",
       "center": [
         0.0,
         3.267,
-        -11.7
+        -12.95
       ],
       "size": [
-        3.34,
+        3.9,
         0.16,
-        3.0
+        0.54
       ],
       "source": {
         "zone": "CockpitRear",
-        "voxel_count": 419,
+        "slice": 0,
+        "slice_count": 6,
+        "voxel_count": 92,
         "voxel_size": 0.25,
         "sampled_wall_half_width": 0.647,
         "sampled_ceiling_y": 3.267,
         "route_half_width": 1.75,
         "z_min": -13.2,
-        "z_max": -10.2
+        "z_max": -12.7,
+        "sliced": true
       }
     },
     {
-      "name": "CockpitForwardLeftWall",
+      "name": "CockpitRearSlice01LeftWall",
       "kind": "wall",
       "center": [
-        -1.28,
+        -2.03,
+        1.64,
+        -12.45
+      ],
+      "size": [
+        0.16,
+        2.72,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 1,
+        "slice_count": 6,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.1,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.75,
+        "z_min": -12.7,
+        "z_max": -12.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice01RightWall",
+      "kind": "wall",
+      "center": [
+        2.03,
+        1.64,
+        -12.45
+      ],
+      "size": [
+        0.16,
+        2.72,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 1,
+        "slice_count": 6,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.1,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.75,
+        "z_min": -12.7,
+        "z_max": -12.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice01Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.0,
+        -12.45
+      ],
+      "size": [
+        3.9,
+        0.16,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 1,
+        "slice_count": 6,
+        "voxel_count": 0,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 2.1,
+        "sampled_ceiling_y": null,
+        "route_half_width": 1.75,
+        "z_min": -12.7,
+        "z_max": -12.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice02LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.03,
+        1.7485,
+        -11.95
+      ],
+      "size": [
+        0.16,
+        2.937,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 2,
+        "slice_count": 6,
+        "voxel_count": 115,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.825,
+        "sampled_ceiling_y": 3.217,
+        "route_half_width": 1.75,
+        "z_min": -12.2,
+        "z_max": -11.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice02RightWall",
+      "kind": "wall",
+      "center": [
+        2.03,
+        1.7485,
+        -11.95
+      ],
+      "size": [
+        0.16,
+        2.937,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 2,
+        "slice_count": 6,
+        "voxel_count": 115,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.825,
+        "sampled_ceiling_y": 3.217,
+        "route_half_width": 1.75,
+        "z_min": -12.2,
+        "z_max": -11.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice02Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.217,
+        -11.95
+      ],
+      "size": [
+        3.9,
+        0.16,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 2,
+        "slice_count": 6,
+        "voxel_count": 115,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.825,
+        "sampled_ceiling_y": 3.217,
+        "route_half_width": 1.75,
+        "z_min": -12.2,
+        "z_max": -11.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice03LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.03,
+        1.775,
+        -11.45
+      ],
+      "size": [
+        0.16,
+        2.99,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 3,
+        "slice_count": 6,
+        "voxel_count": 123,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.552,
+        "sampled_ceiling_y": 3.27,
+        "route_half_width": 1.75,
+        "z_min": -11.7,
+        "z_max": -11.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice03RightWall",
+      "kind": "wall",
+      "center": [
+        2.03,
+        1.775,
+        -11.45
+      ],
+      "size": [
+        0.16,
+        2.99,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 3,
+        "slice_count": 6,
+        "voxel_count": 123,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.552,
+        "sampled_ceiling_y": 3.27,
+        "route_half_width": 1.75,
+        "z_min": -11.7,
+        "z_max": -11.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice03Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.27,
+        -11.45
+      ],
+      "size": [
+        3.9,
+        0.16,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 3,
+        "slice_count": 6,
+        "voxel_count": 123,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.552,
+        "sampled_ceiling_y": 3.27,
+        "route_half_width": 1.75,
+        "z_min": -11.7,
+        "z_max": -11.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice04LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.03,
+        1.7235,
+        -10.95
+      ],
+      "size": [
+        0.16,
+        2.887,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 4,
+        "slice_count": 6,
+        "voxel_count": 60,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.384,
+        "sampled_ceiling_y": 3.167,
+        "route_half_width": 1.75,
+        "z_min": -11.2,
+        "z_max": -10.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice04RightWall",
+      "kind": "wall",
+      "center": [
+        2.03,
+        1.7235,
+        -10.95
+      ],
+      "size": [
+        0.16,
+        2.887,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 4,
+        "slice_count": 6,
+        "voxel_count": 60,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.384,
+        "sampled_ceiling_y": 3.167,
+        "route_half_width": 1.75,
+        "z_min": -11.2,
+        "z_max": -10.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice04Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.167,
+        -10.95
+      ],
+      "size": [
+        3.9,
+        0.16,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 4,
+        "slice_count": 6,
+        "voxel_count": 60,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.384,
+        "sampled_ceiling_y": 3.167,
+        "route_half_width": 1.75,
+        "z_min": -11.2,
+        "z_max": -10.7,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice05LeftWall",
+      "kind": "wall",
+      "center": [
+        -2.03,
+        1.6996,
+        -10.45
+      ],
+      "size": [
+        0.16,
+        2.8392,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 5,
+        "slice_count": 6,
+        "voxel_count": 29,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.141,
+        "sampled_ceiling_y": 3.1192,
+        "route_half_width": 1.75,
+        "z_min": -10.7,
+        "z_max": -10.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice05RightWall",
+      "kind": "wall",
+      "center": [
+        2.03,
+        1.6996,
+        -10.45
+      ],
+      "size": [
+        0.16,
+        2.8392,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 5,
+        "slice_count": 6,
+        "voxel_count": 29,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.141,
+        "sampled_ceiling_y": 3.1192,
+        "route_half_width": 1.75,
+        "z_min": -10.7,
+        "z_max": -10.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitRearSlice05Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.1192,
+        -10.45
+      ],
+      "size": [
+        3.9,
+        0.16,
+        0.54
+      ],
+      "source": {
+        "zone": "CockpitRear",
+        "slice": 5,
+        "slice_count": 6,
+        "voxel_count": 29,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.141,
+        "sampled_ceiling_y": 3.1192,
+        "route_half_width": 1.75,
+        "z_min": -10.7,
+        "z_max": -10.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice00LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.53,
         1.37,
-        -14.925
+        -16.3625
       ],
       "size": [
         0.16,
         2.86,
-        3.45
+        0.615
       ],
       "source": {
         "zone": "CockpitForward",
-        "voxel_count": 338,
+        "slice": 0,
+        "slice_count": 6,
+        "voxel_count": 53,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 0.8674,
-        "sampled_ceiling_y": 2.708,
+        "sampled_wall_half_width": 0.611,
+        "sampled_ceiling_y": 2.104,
         "route_half_width": 1.25,
         "z_min": -16.65,
-        "z_max": -13.2
+        "z_max": -16.075,
+        "sliced": true
       }
     },
     {
-      "name": "CockpitForwardRightWall",
+      "name": "CockpitForwardSlice00RightWall",
       "kind": "wall",
       "center": [
-        1.28,
+        1.53,
         1.37,
-        -14.925
+        -16.3625
       ],
       "size": [
         0.16,
         2.86,
-        3.45
+        0.615
       ],
       "source": {
         "zone": "CockpitForward",
-        "voxel_count": 338,
+        "slice": 0,
+        "slice_count": 6,
+        "voxel_count": 53,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 0.8674,
-        "sampled_ceiling_y": 2.708,
+        "sampled_wall_half_width": 0.611,
+        "sampled_ceiling_y": 2.104,
         "route_half_width": 1.25,
         "z_min": -16.65,
-        "z_max": -13.2
+        "z_max": -16.075,
+        "sliced": true
       }
     },
     {
-      "name": "CockpitForwardCeiling",
+      "name": "CockpitForwardSlice00Ceiling",
       "kind": "ceiling",
       "center": [
         0.0,
         2.8,
-        -14.925
+        -16.3625
       ],
       "size": [
-        2.4,
+        2.9,
         0.16,
-        3.45
+        0.615
       ],
       "source": {
         "zone": "CockpitForward",
-        "voxel_count": 338,
+        "slice": 0,
+        "slice_count": 6,
+        "voxel_count": 53,
         "voxel_size": 0.25,
-        "sampled_wall_half_width": 0.8674,
-        "sampled_ceiling_y": 2.708,
+        "sampled_wall_half_width": 0.611,
+        "sampled_ceiling_y": 2.104,
         "route_half_width": 1.25,
         "z_min": -16.65,
-        "z_max": -13.2
+        "z_max": -16.075,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice01LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.53,
+        1.37,
+        -15.7875
+      ],
+      "size": [
+        0.16,
+        2.86,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 1,
+        "slice_count": 6,
+        "voxel_count": 34,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.7426,
+        "sampled_ceiling_y": 2.382,
+        "route_half_width": 1.25,
+        "z_min": -16.075,
+        "z_max": -15.499999999999998,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice01RightWall",
+      "kind": "wall",
+      "center": [
+        1.53,
+        1.37,
+        -15.7875
+      ],
+      "size": [
+        0.16,
+        2.86,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 1,
+        "slice_count": 6,
+        "voxel_count": 34,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.7426,
+        "sampled_ceiling_y": 2.382,
+        "route_half_width": 1.25,
+        "z_min": -16.075,
+        "z_max": -15.499999999999998,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice01Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.8,
+        -15.7875
+      ],
+      "size": [
+        2.9,
+        0.16,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 1,
+        "slice_count": 6,
+        "voxel_count": 34,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.7426,
+        "sampled_ceiling_y": 2.382,
+        "route_half_width": 1.25,
+        "z_min": -16.075,
+        "z_max": -15.499999999999998,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice02LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.53,
+        1.37,
+        -15.2125
+      ],
+      "size": [
+        0.16,
+        2.86,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 2,
+        "slice_count": 6,
+        "voxel_count": 38,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.413,
+        "sampled_ceiling_y": 2.333,
+        "route_half_width": 1.25,
+        "z_min": -15.499999999999998,
+        "z_max": -14.924999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice02RightWall",
+      "kind": "wall",
+      "center": [
+        1.53,
+        1.37,
+        -15.2125
+      ],
+      "size": [
+        0.16,
+        2.86,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 2,
+        "slice_count": 6,
+        "voxel_count": 38,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.413,
+        "sampled_ceiling_y": 2.333,
+        "route_half_width": 1.25,
+        "z_min": -15.499999999999998,
+        "z_max": -14.924999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice02Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.8,
+        -15.2125
+      ],
+      "size": [
+        2.9,
+        0.16,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 2,
+        "slice_count": 6,
+        "voxel_count": 38,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.413,
+        "sampled_ceiling_y": 2.333,
+        "route_half_width": 1.25,
+        "z_min": -15.499999999999998,
+        "z_max": -14.924999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice03LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.53,
+        1.37,
+        -14.6375
+      ],
+      "size": [
+        0.16,
+        2.86,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 3,
+        "slice_count": 6,
+        "voxel_count": 69,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.609,
+        "sampled_ceiling_y": 2.458,
+        "route_half_width": 1.25,
+        "z_min": -14.924999999999999,
+        "z_max": -14.35,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice03RightWall",
+      "kind": "wall",
+      "center": [
+        1.53,
+        1.37,
+        -14.6375
+      ],
+      "size": [
+        0.16,
+        2.86,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 3,
+        "slice_count": 6,
+        "voxel_count": 69,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.609,
+        "sampled_ceiling_y": 2.458,
+        "route_half_width": 1.25,
+        "z_min": -14.924999999999999,
+        "z_max": -14.35,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice03Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.8,
+        -14.6375
+      ],
+      "size": [
+        2.9,
+        0.16,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 3,
+        "slice_count": 6,
+        "voxel_count": 69,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.609,
+        "sampled_ceiling_y": 2.458,
+        "route_half_width": 1.25,
+        "z_min": -14.924999999999999,
+        "z_max": -14.35,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice04LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.53,
+        1.37,
+        -14.0625
+      ],
+      "size": [
+        0.16,
+        2.86,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 4,
+        "slice_count": 6,
+        "voxel_count": 138,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.884,
+        "sampled_ceiling_y": 1.958,
+        "route_half_width": 1.25,
+        "z_min": -14.35,
+        "z_max": -13.774999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice04RightWall",
+      "kind": "wall",
+      "center": [
+        1.53,
+        1.37,
+        -14.0625
+      ],
+      "size": [
+        0.16,
+        2.86,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 4,
+        "slice_count": 6,
+        "voxel_count": 138,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.884,
+        "sampled_ceiling_y": 1.958,
+        "route_half_width": 1.25,
+        "z_min": -14.35,
+        "z_max": -13.774999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice04Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        2.8,
+        -14.0625
+      ],
+      "size": [
+        2.9,
+        0.16,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 4,
+        "slice_count": 6,
+        "voxel_count": 138,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 0.884,
+        "sampled_ceiling_y": 1.958,
+        "route_half_width": 1.25,
+        "z_min": -14.35,
+        "z_max": -13.774999999999999,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice05LeftWall",
+      "kind": "wall",
+      "center": [
+        -1.65,
+        1.495,
+        -13.4875
+      ],
+      "size": [
+        0.16,
+        3.11,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 5,
+        "slice_count": 6,
+        "voxel_count": 6,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.6,
+        "sampled_ceiling_y": 3.187,
+        "route_half_width": 1.25,
+        "z_min": -13.774999999999999,
+        "z_max": -13.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice05RightWall",
+      "kind": "wall",
+      "center": [
+        1.65,
+        1.495,
+        -13.4875
+      ],
+      "size": [
+        0.16,
+        3.11,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 5,
+        "slice_count": 6,
+        "voxel_count": 6,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.6,
+        "sampled_ceiling_y": 3.187,
+        "route_half_width": 1.25,
+        "z_min": -13.774999999999999,
+        "z_max": -13.2,
+        "sliced": true
+      }
+    },
+    {
+      "name": "CockpitForwardSlice05Ceiling",
+      "kind": "ceiling",
+      "center": [
+        0.0,
+        3.05,
+        -13.4875
+      ],
+      "size": [
+        3.14,
+        0.16,
+        0.615
+      ],
+      "source": {
+        "zone": "CockpitForward",
+        "slice": 5,
+        "slice_count": 6,
+        "voxel_count": 6,
+        "voxel_size": 0.25,
+        "sampled_wall_half_width": 1.6,
+        "sampled_ceiling_y": 3.187,
+        "route_half_width": 1.25,
+        "z_min": -13.774999999999999,
+        "z_max": -13.2,
+        "sliced": true
       }
     },
     {
@@ -443,12 +3980,12 @@
       "kind": "wall",
       "center": [
         0.0,
-        0.2025,
+        0.155,
         7.7
       ],
       "size": [
-        5.694,
-        5.045,
+        6.0,
+        4.95,
         0.16
       ],
       "source": {

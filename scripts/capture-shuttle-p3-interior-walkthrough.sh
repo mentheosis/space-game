@@ -24,6 +24,9 @@ if [[ ! -f "${CAPTURE_SCENE}" ]]; then
   exit 1
 fi
 
+echo "Validating shuttle p3 real player traversal"
+scripts/validate-shuttle-p3-player-traversal.sh
+
 rm -rf "${OUT_DIR}/frames"
 mkdir -p "${OUT_DIR}/frames"
 

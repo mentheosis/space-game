@@ -220,6 +220,36 @@ Acceptance:
 - nose, cargo, stair, and cockpit regions are closed enough to read as a real
   interior before art detail begins.
 
+### 6a. Validate Enclosure Quality Before Art
+
+Run an enclosure quality audit before treating generated walls and ceilings as
+accepted.
+
+Current p3 tool:
+
+- `tools/ship_pipeline/validate_shuttle_p3_enclosure_quality.py`
+- `scripts/validate-shuttle-p3-enclosure-quality.sh`
+
+The audit checks:
+
+- seam continuity between adjacent wall bands;
+- player-route clearance against stair, cargo, and cockpit feature voxels;
+- whether rectangular bands fit the voxel envelope or should become
+  polygon/mesh strips;
+- excessive protrusion outside the usable interior envelope.
+
+Current p3 report:
+
+- `reports/ship_pipeline/shuttle_p3_voxel_fit/shuttle_p3_enclosure_quality_report.md`
+
+Acceptance:
+
+- no seam failures;
+- no route-clearance failures;
+- no wall band marked as requiring polygon/mesh replacement;
+- failures must be solved in the generator, not by hand-editing the Godot
+  loader.
+
 ### 7. Produce Evidence Before Art Detail
 
 Each iteration should produce review evidence before moving to materials,
