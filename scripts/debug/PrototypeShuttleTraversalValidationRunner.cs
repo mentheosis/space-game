@@ -58,6 +58,7 @@ public partial class PrototypeShuttleTraversalValidationRunner : Node
         _frame++;
         if (_frame > MaxFrames)
         {
+            Record("diagnostic", "Traversal timeout collision snapshot.");
             Fail($"Timed out at checkpoint {_routeIndex + 1}/{_route.Count}: {_route[_routeIndex].Name}");
             return;
         }
@@ -88,6 +89,11 @@ public partial class PrototypeShuttleTraversalValidationRunner : Node
                 Pass();
                 return;
             }
+        }
+
+        if (_frame % 240 == 0)
+        {
+            Record("progress", $"Still moving toward {target.Name}.");
         }
     }
 
@@ -246,15 +252,60 @@ public partial class PrototypeShuttleTraversalValidationRunner : Node
 
     private void Record(string status, string message)
     {
+        var target = _route.Count > 0 && _routeIndex < _route.Count ? _route[_routeIndex] : new RouteCheckpoint("none", Vector3.Zero);
+        var shuttleLocal = _loader.ShuttlePosition == Vector3.Zero
+            ? _player.GlobalPosition
+            : _player.GlobalPosition - _loader.ShuttlePosition;
+
         _events.Add(new GDict
         {
             ["frame"] = _frame,
             ["status"] = status,
             ["message"] = message,
             ["player_position"] = new Godot.Collections.Array<float> { _player.GlobalPosition.X, _player.GlobalPosition.Y, _player.GlobalPosition.Z },
+            ["player_local_position"] = new Godot.Collections.Array<float> { shuttleLocal.X, shuttleLocal.Y, shuttleLocal.Z },
+            ["target_name"] = target.Name,
+            ["target_position"] = new Godot.Collections.Array<float> { target.Position.X, target.Position.Y, target.Position.Z },
+            ["target_distance_horizontal"] = HorizontalDistance(_player.GlobalPosition, target.Position),
             ["checkpoint_index"] = _routeIndex,
             ["grounded"] = _player.DebugGrounded,
+            ["slide_collision_count"] = _player.GetSlideCollisionCount(),
+            ["slide_colliders"] = ReadSlideColliders(),
+            ["slide_collision_details"] = ReadSlideCollisionDetails(),
         });
+    }
+
+    private Godot.Collections.Array<string> ReadSlideColliders()
+    {
+        var colliders = new Godot.Collections.Array<string>();
+        for (var index = 0; index < _player.GetSlideCollisionCount(); index++)
+        {
+            var collision = _player.GetSlideCollision(index);
+            var collider = collision.GetCollider();
+            colliders.Add(collider is Node node ? node.Name.ToString() : collider.ToString());
+        }
+
+        return colliders;
+    }
+
+    private Godot.Collections.Array<GDict> ReadSlideCollisionDetails()
+    {
+        var details = new Godot.Collections.Array<GDict>();
+        for (var index = 0; index < _player.GetSlideCollisionCount(); index++)
+        {
+            var collision = _player.GetSlideCollision(index);
+            var collider = collision.GetCollider();
+            var normal = collision.GetNormal();
+            var position = collision.GetPosition();
+            details.Add(new GDict
+            {
+                ["collider"] = collider is Node node ? node.Name.ToString() : collider.ToString(),
+                ["normal"] = new Godot.Collections.Array<float> { normal.X, normal.Y, normal.Z },
+                ["position"] = new Godot.Collections.Array<float> { position.X, position.Y, position.Z },
+            });
+        }
+
+        return details;
     }
 
     private void WriteReport(bool pass, string message)

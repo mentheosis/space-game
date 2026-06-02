@@ -38,10 +38,11 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float ZeroGravityBrakeStrength { get; set; } = 16.0f;
     [Export] public float ZeroGravityDamping { get; set; } = 0.05f;
     [Export] public float ShipInteriorGravityAcceleration { get; set; } = 18.0f;
-    [Export] public bool AutoStepEnabled { get; set; } = false;
-    [Export] public float AutoStepHeight { get; set; } = 0.48f;
-    [Export] public float AutoStepForwardProbe { get; set; } = 0.24f;
+    [Export] public bool AutoStepEnabled { get; set; } = true;
+    [Export] public float AutoStepHeight { get; set; } = 0.72f;
+    [Export] public float AutoStepForwardProbe { get; set; } = 0.42f;
     [Export] public float AutoStepDownProbe { get; set; } = 0.72f;
+    [Export] public int AutoStepProbeCount { get; set; } = 5;
     [Export] public float ShipInteriorAftExitLocalZ { get; set; } = 4.75f;
     [Export] public Vector3 ShipInteriorBoundsMin { get; set; } = new(-2.55f, -0.8f, -11.3f);
     [Export] public Vector3 ShipInteriorBoundsMax { get; set; } = new(2.55f, 3.8f, 4.35f);
@@ -423,15 +424,14 @@ public partial class PlayerController : CharacterBody3D
         MoveAndSlide();
         if (AutoStepEnabled)
         {
-            TryAutoStepUp(wasOnFloor, transformBeforeMove, desiredDirection, delta);
+            TryVerticalTerrainAssist(wasOnFloor, transformBeforeMove, desiredDirection, horizontalVelocity, delta);
         }
     }
 
-    private bool TryAutoStepUp(bool wasOnFloor, Transform3D transformBeforeMove, Vector3 desiredDirection, float delta)
+    private bool TryVerticalTerrainAssist(bool wasOnFloor, Transform3D transformBeforeMove, Vector3 desiredDirection, Vector3 intendedHorizontalVelocity, float delta)
     {
         if (!AutoStepEnabled
             || !wasOnFloor
-            || !IsOnFloor()
             || desiredDirection.LengthSquared() < 0.0001f
             || Input.IsActionJustPressed("jump"))
         {
@@ -441,37 +441,106 @@ public partial class PlayerController : CharacterBody3D
         var startPosition = transformBeforeMove.Origin;
         var horizontalProgress = ProjectOnPlane(GlobalPosition - startPosition, _lastUp).Length();
         var expectedProgress = Mathf.Min(WalkSpeed * delta, AutoStepForwardProbe);
-        if (horizontalProgress >= expectedProgress * 0.55f)
-        {
-            return false;
-        }
-
-        var stepUp = _lastUp * AutoStepHeight;
-        if (TestMove(transformBeforeMove, stepUp))
+        if (horizontalProgress >= expectedProgress * 0.45f)
         {
             return false;
         }
 
         var forward = desiredDirection.Normalized();
-        var forwardDistance = Mathf.Max(AutoStepForwardProbe, WalkSpeed * delta);
-        var liftedTransform = transformBeforeMove.Translated(stepUp);
-        var forwardMotion = forward * forwardDistance;
-        if (TestMove(liftedTransform, forwardMotion))
+        if (!TryGetWalkableSurface(GlobalPosition, out var currentSurface))
         {
             return false;
         }
 
-        GlobalTransform = liftedTransform.Translated(forwardMotion);
-        var snapCollision = MoveAndCollide(-_lastUp * (AutoStepHeight + AutoStepDownProbe));
-        if (snapCollision is null)
+        if (!TryGetBestAheadSurface(forward, currentSurface, out var aheadSurface))
         {
-            GlobalTransform = transformBeforeMove;
             return false;
         }
 
-        var horizontalVelocity = ProjectOnPlane(Velocity, _lastUp);
-        Velocity = horizontalVelocity;
+        var currentHeight = currentSurface.Dot(_lastUp);
+        var aheadHeight = aheadSurface.Dot(_lastUp);
+        var heightDelta = aheadHeight - currentHeight;
+        if (heightDelta <= 0.025f || heightDelta > AutoStepHeight)
+        {
+            return false;
+        }
+
+        var liftMotion = _lastUp * (heightDelta + 0.015f);
+        if (TestMove(GlobalTransform, liftMotion))
+        {
+            return false;
+        }
+
+        GlobalPosition += liftMotion;
+        Velocity = intendedHorizontalVelocity;
         _autoStepCount++;
+        return true;
+    }
+
+    private bool TryGetBestAheadSurface(Vector3 forward, Vector3 currentSurface, out Vector3 bestSurface)
+    {
+        var right = forward.Cross(_lastUp);
+        if (right.LengthSquared() < 0.0001f)
+        {
+            right = GlobalTransform.Basis.X;
+        }
+        right = right.Normalized();
+
+        var probeDistance = Mathf.Max(AutoStepForwardProbe, 0.28f);
+        var bestDelta = float.MaxValue;
+        var found = false;
+        bestSurface = Vector3.Zero;
+
+        foreach (var lateralOffset in new[] { 0.0f, -0.18f, 0.18f })
+        {
+            var probeOrigin = GlobalPosition + forward * probeDistance + right * lateralOffset;
+            if (!TryGetWalkableSurface(probeOrigin, out var surface))
+            {
+                continue;
+            }
+
+            var delta = surface.Dot(_lastUp) - currentSurface.Dot(_lastUp);
+            if (delta <= 0.025f || delta > AutoStepHeight || delta >= bestDelta)
+            {
+                continue;
+            }
+
+            bestDelta = delta;
+            bestSurface = surface;
+            found = true;
+        }
+
+        return found;
+    }
+
+    private bool TryGetWalkableSurface(Vector3 origin, out Vector3 surfacePosition)
+    {
+        var from = origin + _lastUp * (AutoStepHeight + 0.25f);
+        var to = origin - _lastUp * (AutoStepDownProbe + 0.25f);
+        var query = PhysicsRayQueryParameters3D.Create(
+            from,
+            to,
+            CollisionMask,
+            new Godot.Collections.Array<Rid> { GetRid() });
+        query.CollideWithAreas = false;
+        query.CollideWithBodies = true;
+        query.HitBackFaces = false;
+
+        var hit = GetWorld3D().DirectSpaceState.IntersectRay(query);
+        if (hit.Count == 0)
+        {
+            surfacePosition = Vector3.Zero;
+            return false;
+        }
+
+        var normal = hit["normal"].AsVector3();
+        if (normal.Dot(_lastUp) < 0.55f)
+        {
+            surfacePosition = Vector3.Zero;
+            return false;
+        }
+
+        surfacePosition = hit["position"].AsVector3();
         return true;
     }
 

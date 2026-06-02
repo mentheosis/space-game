@@ -14,6 +14,7 @@ public partial class PrototypeShuttleDebugLoader : Node3D
     [Export] public string CollisionScenePath { get; set; } = "res://assets/models/ship/prototype_shuttle/prototype_shuttle_collision.glb";
     [Export] public string ExteriorCollisionContractPath { get; set; } = "res://assets/source/blender/ships/prototype_shuttle/prototype_shuttle_exterior_collision_contract.json";
     [Export] public string InteriorCollisionContractPath { get; set; } = "res://assets/source/blender/ships/prototype_shuttle/prototype_shuttle_interior_collision_contract.json";
+    [Export] public string CollisionLayoutReportPath { get; set; } = "res://assets/models/ship/prototype_shuttle/prototype_shuttle_collision_layout_report.json";
     [Export] public bool ShowInterior { get; set; } = true;
     [Export] public bool HideReviewOnlyInteriorNodes { get; set; } = true;
     [Export] public bool AddDebugTraversalCollision { get; set; } = true;
@@ -198,6 +199,7 @@ public partial class PrototypeShuttleDebugLoader : Node3D
         AddPilotSeat(ship);
         AddShipWorldPhysicsCollisionFromContract(ship);
         AddInteriorEnclosureCollisionFromContract(ship);
+        AddUniformStairStepCollisionFromLayout(ship);
     }
 
     private static void AddMarker(Node parent, string name, Vector3 position, bool faceForward)
@@ -387,6 +389,126 @@ public partial class PrototypeShuttleDebugLoader : Node3D
         }
     }
 
+    private void AddUniformStairStepCollisionFromLayout(ShipController ship)
+    {
+        var report = LoadCollisionLayoutReport();
+        var surfaces = new Dictionary<string, CollisionLayoutSurface>();
+        foreach (var surface in report.Surfaces)
+        {
+            if (!string.IsNullOrEmpty(surface.Id))
+            {
+                surfaces[surface.Id] = surface;
+            }
+        }
+
+        if (!surfaces.TryGetValue("cargo_forward_lower", out var cargo)
+            || !surfaces.TryGetValue("cockpit_entry_landing", out var landing)
+            || cargo.Center.Count < 3
+            || cargo.Size.Count < 3
+            || landing.Center.Count < 3
+            || landing.Size.Count < 3)
+        {
+            GD.PushWarning("Could not create uniform prototype stair collision; missing cargo or landing layout surfaces.");
+            return;
+        }
+
+        var stairRoot = new StaticBody3D
+        {
+            Name = "PrototypeUniformStairStepCollision",
+            CollisionLayer = 1,
+            CollisionMask = 1
+        };
+        ship.AddChild(stairRoot);
+
+        var cargoTop = cargo.Center[1] + cargo.Size[1] * 0.5f;
+        var landingTop = landing.Center[1] + landing.Size[1] * 0.5f;
+        const int stepCount = 10;
+        for (var stepIndex = 0; stepIndex < stepCount; stepIndex++)
+        {
+            var rankFromBottom = stepCount - stepIndex;
+            var topY = Mathf.Lerp(cargoTop, landingTop, rankFromBottom / (float)(stepCount + 1));
+            AddUniformStairStep(stairRoot, _interiorCollisionVisual, surfaces, "left", stepIndex, topY);
+            AddUniformStairStep(stairRoot, _interiorCollisionVisual, surfaces, "right", stepIndex, topY);
+        }
+
+        AddWideLandingExtension(stairRoot, _interiorCollisionVisual, surfaces, landingTop);
+    }
+
+    private static void AddUniformStairStep(Node stairRoot, Node3D? debugRoot, Dictionary<string, CollisionLayoutSurface> surfaces, string side, int stepIndex, float topY)
+    {
+        var id = $"{side}_stair_{stepIndex:00}";
+        if (!surfaces.TryGetValue(id, out var surface)
+            || surface.Center.Count < 3
+            || surface.Size.Count < 3)
+        {
+            GD.PushWarning($"Could not create uniform stair collision for missing layout surface: {id}");
+            return;
+        }
+
+        var size = ToVector3(surface.Size);
+        var center = new Vector3(surface.Center[0], topY - size.Y * 0.5f, surface.Center[2]);
+        stairRoot.AddChild(new CollisionShape3D
+        {
+            Name = $"{id}_UniformCollision",
+            Position = center,
+            Shape = new BoxShape3D { Size = size }
+        });
+
+        debugRoot?.AddChild(new MeshInstance3D
+        {
+            Name = $"{id}_UniformCollisionDebug",
+            Position = center,
+            Mesh = new BoxMesh { Size = size },
+            MaterialOverride = CreateUniformStairCollisionDebugMaterial(),
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off
+        });
+    }
+
+    private static void AddWideLandingExtension(Node stairRoot, Node3D? debugRoot, Dictionary<string, CollisionLayoutSurface> surfaces, float landingTop)
+    {
+        if (!surfaces.TryGetValue("cockpit_entry_landing", out var landing)
+            || !surfaces.TryGetValue("cockpit_entry_landing_aft_extension", out var extension)
+            || landing.Size.Count < 3
+            || extension.Center.Count < 3
+            || extension.Size.Count < 3)
+        {
+            GD.PushWarning("Could not create wide cockpit landing extension; missing landing layout surfaces.");
+            return;
+        }
+
+        var size = new Vector3(Mathf.Min(landing.Size[0], 3.1f), extension.Size[1], extension.Size[2]);
+        var center = new Vector3(0.0f, landingTop - size.Y * 0.5f, extension.Center[2]);
+        stairRoot.AddChild(new CollisionShape3D
+        {
+            Name = "cockpit_entry_landing_aft_extension_WideCollision",
+            Position = center,
+            Shape = new BoxShape3D { Size = size }
+        });
+
+        debugRoot?.AddChild(new MeshInstance3D
+        {
+            Name = "cockpit_entry_landing_aft_extension_WideCollisionDebug",
+            Position = center,
+            Mesh = new BoxMesh { Size = size },
+            MaterialOverride = CreateUniformStairCollisionDebugMaterial(),
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off
+        });
+    }
+
+
+    private CollisionLayoutReport LoadCollisionLayoutReport()
+    {
+        var globalPath = ProjectSettings.GlobalizePath(CollisionLayoutReportPath);
+        if (!File.Exists(globalPath))
+        {
+            GD.PushError($"Missing prototype shuttle collision layout report: {CollisionLayoutReportPath}");
+            return new CollisionLayoutReport();
+        }
+
+        var json = File.ReadAllText(globalPath);
+        return JsonSerializer.Deserialize<CollisionLayoutReport>(json) ?? new CollisionLayoutReport();
+    }
+
     private InteriorCollisionContract LoadInteriorCollisionContract()
     {
         var globalPath = ProjectSettings.GlobalizePath(InteriorCollisionContractPath);
@@ -440,17 +562,39 @@ public partial class PrototypeShuttleDebugLoader : Node3D
         };
     }
 
+    private static StandardMaterial3D CreateUniformStairCollisionDebugMaterial()
+    {
+        return new StandardMaterial3D
+        {
+            AlbedoColor = new Color(0.0f, 1.0f, 0.35f, 0.44f),
+            Transparency = BaseMaterial3D.TransparencyEnum.Alpha,
+            ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
+            NoDepthTest = true,
+            CullMode = BaseMaterial3D.CullModeEnum.Disabled
+        };
+    }
+
     private void CreateTrimeshCollision(Node node)
     {
         if (node is MeshInstance3D meshInstance)
         {
-            meshInstance.CreateTrimeshCollision();
+            if (!ShouldSkipGeneratedCollisionMesh(meshInstance.Name.ToString()))
+            {
+                meshInstance.CreateTrimeshCollision();
+            }
         }
 
         foreach (var child in node.GetChildren())
         {
             CreateTrimeshCollision(child);
         }
+    }
+
+    private static bool ShouldSkipGeneratedCollisionMesh(string name)
+    {
+        return name.Contains("CargoToCockpitTransitionStep")
+            || name.Contains("CockpitEntryLandingRampDropGuardRail")
+            || name.Contains("CockpitEntryLandingAftExtension");
     }
 
     private void HideReviewOnlyNodes(Node node)
@@ -505,6 +649,12 @@ public partial class PrototypeShuttleDebugLoader : Node3D
     {
         if (node is MeshInstance3D meshInstance)
         {
+            if (ShouldSkipGeneratedCollisionMesh(meshInstance.Name.ToString()))
+            {
+                meshInstance.Visible = false;
+                return;
+            }
+
             var material = new StandardMaterial3D
             {
                 AlbedoColor = new Color(0.0f, 1.0f, 0.35f, 0.48f),
@@ -566,6 +716,24 @@ public partial class PrototypeShuttleDebugLoader : Node3D
 
         [JsonPropertyName("surface")]
         public string Surface { get; set; } = "";
+
+        [JsonPropertyName("center")]
+        public List<float> Center { get; set; } = new();
+
+        [JsonPropertyName("size")]
+        public List<float> Size { get; set; } = new();
+    }
+
+    private sealed class CollisionLayoutReport
+    {
+        [JsonPropertyName("surfaces")]
+        public List<CollisionLayoutSurface> Surfaces { get; set; } = new();
+    }
+
+    private sealed class CollisionLayoutSurface
+    {
+        [JsonPropertyName("id")]
+        public string Id { get; set; } = "";
 
         [JsonPropertyName("center")]
         public List<float> Center { get; set; } = new();

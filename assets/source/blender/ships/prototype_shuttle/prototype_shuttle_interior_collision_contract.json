@@ -142,15 +142,6 @@
       "fit_target": "right side of the open forward belly ramp aperture"
     },
     {
-      "id": "ramp_upper_lintel",
-      "kind": "box",
-      "role": "player_enclosure",
-      "surface": "door_frame",
-      "center": [0.0, 2.0, -1.25],
-      "size": [3.8, 0.22, 2.2],
-      "fit_target": "upper edge of the open forward belly ramp aperture"
-    },
-    {
       "id": "left_stair_outer_guard",
       "kind": "box",
       "role": "player_enclosure",
@@ -173,27 +164,9 @@
       "kind": "box",
       "role": "player_enclosure",
       "surface": "guard",
-      "center": [0.0, 1.35, -2.05],
-      "size": [2.55, 1.05, 0.22],
-      "fit_target": "low guard at the cockpit landing edge above the ramp void"
-    },
-    {
-      "id": "left_landing_inner_guard",
-      "kind": "box",
-      "role": "player_enclosure",
-      "surface": "guard",
-      "center": [-1.38, 1.35, -2.25],
-      "size": [0.24, 1.2, 1.3],
-      "fit_target": "inner guard at the top of the left stair landing beside the ramp void"
-    },
-    {
-      "id": "right_landing_inner_guard",
-      "kind": "box",
-      "role": "player_enclosure",
-      "surface": "guard",
-      "center": [1.38, 1.35, -2.25],
-      "size": [0.24, 1.2, 1.3],
-      "fit_target": "inner guard at the top of the right stair landing beside the ramp void"
+      "center": [0.0, 1.25, -0.86],
+      "size": [2.86, 0.9, 0.18],
+      "fit_target": "low guard at the central ramp void; kept aft of the stair-top landing path"
     },
     {
       "id": "cockpit_left_wall",
@@ -236,18 +209,18 @@
       "kind": "box",
       "role": "player_enclosure",
       "surface": "bulkhead",
-      "center": [-2.25, 1.65, -3.3],
-      "size": [0.75, 2.55, 0.25],
-      "fit_target": "left bulkhead shoulder at the transition from cargo stairs to cockpit"
+      "center": [-2.55, 1.65, -4.45],
+      "size": [0.45, 2.55, 0.25],
+      "fit_target": "left cockpit rear shoulder, moved forward/outboard to keep the stair-top turn clear"
     },
     {
       "id": "cockpit_rear_bulkhead_right",
       "kind": "box",
       "role": "player_enclosure",
       "surface": "bulkhead",
-      "center": [2.25, 1.65, -3.3],
-      "size": [0.75, 2.55, 0.25],
-      "fit_target": "right bulkhead shoulder at the transition from cargo stairs to cockpit"
+      "center": [2.55, 1.65, -4.45],
+      "size": [0.45, 2.55, 0.25],
+      "fit_target": "right cockpit rear shoulder, moved forward/outboard to keep the stair-top turn clear"
     }
   ]
 }
