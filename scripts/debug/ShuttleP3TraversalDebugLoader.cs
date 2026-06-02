@@ -126,6 +126,22 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
         AddBox(supportRoot, _collisionVisualRoot, "CockpitHallMergeFloor", new Vector3(0.0f, 0.36f, -4.15f), new Vector3(3.25f, 0.18f, 1.45f), floorMaterial);
         AddBox(supportRoot, _collisionVisualRoot, "CockpitHallwayFloor", new Vector3(0.0f, 0.36f, -7.35f), new Vector3(3.25f, 0.18f, 5.35f), floorMaterial);
         AddLandingRailing(collisionRoot, _collisionVisualRoot, railingMaterial);
+        AddCurvedStairInsideRailing(collisionRoot, _collisionVisualRoot, "Left", new[]
+        {
+            new Vector3(-1.95f, -2.15f, -0.55f),
+            new Vector3(-2.22f, -1.28f, -1.25f),
+            new Vector3(-2.3f, -0.42f, -2.1f),
+            new Vector3(-1.85f, 0.45f, -3.05f),
+            new Vector3(-1.15f, 0.45f, -3.75f),
+        }, 0.46f, new Vector3(-0.68f, 0.45f, -3.34f), railingMaterial);
+        AddCurvedStairInsideRailing(collisionRoot, _collisionVisualRoot, "Right", new[]
+        {
+            new Vector3(1.95f, -2.15f, -0.55f),
+            new Vector3(2.22f, -1.28f, -1.25f),
+            new Vector3(2.3f, -0.42f, -2.1f),
+            new Vector3(1.85f, 0.45f, -3.05f),
+            new Vector3(1.15f, 0.45f, -3.75f),
+        }, -0.46f, new Vector3(0.68f, 0.45f, -3.34f), railingMaterial);
         AddBox(supportRoot, _collisionVisualRoot, "CockpitDeck", new Vector3(0.0f, 0.36f, -13.0f), new Vector3(3.5f, 0.18f, 6.6f), floorMaterial);
         AddSlopedBox(supportRoot, _collisionVisualRoot, "CockpitForwardFootwell", new Vector3(0.0f, 0.45f, -13.9f), new Vector3(0.0f, 0.02f, -16.5f), 2.35f, 0.14f, floorMaterial);
         AddSeat(collisionRoot, _collisionVisualRoot, "PilotSeatLeft", new Vector3(-0.68f, 0.92f, -14.05f), seatMaterial);
@@ -212,6 +228,55 @@ public partial class ShuttleP3TraversalDebugLoader : Node3D
         AddBox(collisionRoot, visualRoot, "LandingAftCenterRailingMid", new Vector3(0.0f, floorTopY + 0.58f, aftEdgeZ), new Vector3(1.18f, 0.08f, 0.1f), material);
         AddBox(collisionRoot, visualRoot, "LandingAftCenterRailingPostLeft", new Vector3(-0.68f, floorTopY + 0.48f, aftEdgeZ), new Vector3(0.12f, 0.96f, 0.12f), material);
         AddBox(collisionRoot, visualRoot, "LandingAftCenterRailingPostRight", new Vector3(0.68f, floorTopY + 0.48f, aftEdgeZ), new Vector3(0.12f, 0.96f, 0.12f), material);
+    }
+
+    private static void AddCurvedStairInsideRailing(Node collisionRoot, Node3D visualRoot, string sideName, Vector3[] stairFloorPoints, float insideXOffset, Vector3 landingFloorPoint, Material material)
+    {
+        const float topRailHeight = 0.94f;
+        const float midRailHeight = 0.58f;
+        const float postHeight = 0.96f;
+        const float railThickness = 0.1f;
+        const float postThickness = 0.1f;
+
+        var floorPoints = new Vector3[stairFloorPoints.Length + 1];
+        for (var index = 0; index < stairFloorPoints.Length; index++)
+        {
+            floorPoints[index] = stairFloorPoints[index] + new Vector3(insideXOffset, 0.0f, 0.0f);
+        }
+        floorPoints[^1] = landingFloorPoint;
+
+        for (var index = 0; index < floorPoints.Length; index++)
+        {
+            var floorPoint = floorPoints[index];
+            AddBox(
+                collisionRoot,
+                visualRoot,
+                $"StairInsideRailing{sideName}Post_{index:00}",
+                floorPoint + new Vector3(0.0f, postHeight * 0.5f, 0.0f),
+                new Vector3(postThickness, postHeight, postThickness),
+                material);
+        }
+
+        for (var index = 0; index < floorPoints.Length - 1; index++)
+        {
+            AddRailSegment(collisionRoot, visualRoot, $"StairInsideRailing{sideName}Top_{index:00}", floorPoints[index] + new Vector3(0.0f, topRailHeight, 0.0f), floorPoints[index + 1] + new Vector3(0.0f, topRailHeight, 0.0f), railThickness, material);
+            AddRailSegment(collisionRoot, visualRoot, $"StairInsideRailing{sideName}Mid_{index:00}", floorPoints[index] + new Vector3(0.0f, midRailHeight, 0.0f), floorPoints[index + 1] + new Vector3(0.0f, midRailHeight, 0.0f), railThickness * 0.8f, material);
+        }
+    }
+
+    private static void AddRailSegment(Node collisionRoot, Node3D visualRoot, string name, Vector3 start, Vector3 end, float thickness, Material material)
+    {
+        var delta = end - start;
+        var horizontalLength = new Vector2(delta.X, delta.Z).Length();
+        var length = delta.Length();
+        if (length <= 0.001f)
+        {
+            return;
+        }
+
+        var pitch = -Mathf.Atan2(delta.Y, horizontalLength);
+        var yaw = Mathf.Atan2(delta.X, delta.Z);
+        AddBox(collisionRoot, visualRoot, name, (start + end) * 0.5f, new Vector3(thickness, thickness, length), material, new Vector3(pitch, yaw, 0.0f));
     }
 
     private static void AddCurvedStairPath(Node collisionRoot, Node3D visualRoot, string name, Vector3[] points, float width, int stepCount, Material material)

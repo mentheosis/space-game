@@ -341,13 +341,13 @@ public partial class PlayerController : CharacterBody3D
     {
         var gravityMagnitude = _lastGravityAcceleration.Length();
 
-        if (gravityMagnitude <= ZeroGravityThreshold)
-        {
-            _movementMode = PlayerMovementMode.ZeroGravity;
-        }
-        else if (IsOnFloor() || _hasWalkableSupport)
+        if (IsOnFloor() || _hasWalkableSupport)
         {
             _movementMode = PlayerMovementMode.Surface;
+        }
+        else if (gravityMagnitude <= ZeroGravityThreshold)
+        {
+            _movementMode = PlayerMovementMode.ZeroGravity;
         }
         else if (gravityMagnitude < WeakGravityThreshold)
         {
