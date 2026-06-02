@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "ship_id": "shuttle_p3",
+  "coordinate_space": "ship local",
+  "purpose": "Repeatable interior layout contract for Shuttle P3 traversal, enclosure generation, and validation.",
+  "player_capsule": {
+    "radius": 0.35,
+    "height": 1.8,
+    "origin_clearance": 0.9
+  },
+  "enclosure_generation": {
+    "default_slice_size": 0.58,
+    "stair_transition_slice_size": 0.38,
+    "wall_thickness": 0.16,
+    "ceiling_thickness": 0.16,
+    "max_wall_width_step": 0.28,
+    "stair_transition_max_wall_width_step": 0.38,
+    "stair_transition_initial_wall_half_width": 2.38
+  },
+  "enclosure_zones": [
+    {
+      "name": "CargoForward",
+      "z_min": -0.3,
+      "z_max": 1.2,
+      "walk_y_min": -2.24,
+      "walk_y_max": -2.24,
+      "route_half_width": 2.5,
+      "min_wall_half_width": 2.55,
+      "max_wall_half_width": 2.8,
+      "wall_percentile": 90,
+      "ceiling_percentile": 72,
+      "min_headroom": 5.05,
+      "max_ceiling_y": 2.95
+    },
+    {
+      "name": "CargoMain",
+      "z_min": 1.2,
+      "z_max": 7.7,
+      "walk_y_min": -2.24,
+      "walk_y_max": -2.24,
+      "route_half_width": 2.8,
+      "min_wall_half_width": 2.9,
+      "max_wall_half_width": 3.15,
+      "wall_percentile": 91,
+      "ceiling_percentile": 80,
+      "min_headroom": 4.75,
+      "max_ceiling_y": 3.05
+    },
+    {
+      "name": "StairTransition",
+      "z_min": -3.75,
+      "z_max": -0.3,
+      "walk_y_min": -2.15,
+      "walk_y_max": 0.45,
+      "route_half_width": 2.35,
+      "min_wall_half_width": 2.62,
+      "max_wall_half_width": 3.18,
+      "wall_percentile": 92,
+      "ceiling_percentile": 92,
+      "min_headroom": 2.55,
+      "max_ceiling_y": 3.35
+    },
+    {
+      "name": "CockpitHall",
+      "z_min": -10.2,
+      "z_max": -3.75,
+      "walk_y_min": 0.36,
+      "walk_y_max": 0.45,
+      "route_half_width": 1.625,
+      "min_wall_half_width": 1.72,
+      "max_wall_half_width": 2.05,
+      "wall_percentile": 92,
+      "ceiling_percentile": 90,
+      "min_headroom": 2.45,
+      "max_ceiling_y": 3.25
+    },
+    {
+      "name": "CockpitRear",
+      "z_min": -13.2,
+      "z_max": -10.2,
+      "walk_y_min": 0.36,
+      "walk_y_max": 0.45,
+      "route_half_width": 1.75,
+      "min_wall_half_width": 1.75,
+      "max_wall_half_width": 1.95,
+      "wall_percentile": 95,
+      "ceiling_percentile": 88,
+      "min_headroom": 2.55,
+      "max_ceiling_y": 3.35
+    },
+    {
+      "name": "CockpitForward",
+      "z_min": -16.65,
+      "z_max": -13.2,
+      "walk_y_min": 0.02,
+      "walk_y_max": 0.45,
+      "route_half_width": 1.25,
+      "min_wall_half_width": 1.28,
+      "max_wall_half_width": 1.65,
+      "wall_percentile": 95,
+      "ceiling_percentile": 88,
+      "min_headroom": 2.35,
+      "max_ceiling_y": 3.05
+    }
+  ],
+  "stair_paths": {
+    "cargo_to_cockpit_left": {
+      "surface_width": 1.08,
+      "wall_clearance": 0.24,
+      "points": [
+        [-1.95, -2.15, -0.55],
+        [-2.22, -1.28, -1.25],
+        [-2.3, -0.42, -2.1],
+        [-1.85, 0.45, -3.05],
+        [-1.15, 0.45, -3.75]
+      ]
+    }
+  },
+  "player_traversal_validation": {
+    "planar_tolerance": 0.48,
+    "maximum_seconds_per_checkpoint": 5.0,
+    "minimum_progress_meters": 0.22,
+    "stuck_seconds": 1.25,
+    "checkpoints": [
+      {"name": "Ramp lower", "local_origin": [0.0, -2.65, -5.45]},
+      {"name": "Ramp upper", "local_origin": [0.0, -1.35, -1.25]},
+      {"name": "Cargo room", "local_origin": [0.0, -1.34, 2.5]},
+      {"name": "Left stair foot", "local_origin": [-1.84, -1.25, -0.58]},
+      {"name": "Left stair middle", "local_origin": [-2.18, -0.3, -1.72]},
+      {"name": "Left stair upper", "local_origin": [-1.58, 0.55, -3.34]},
+      {"name": "Cockpit landing", "local_origin": [0.0, 1.26, -4.55]},
+      {"name": "Cockpit hallway", "local_origin": [0.0, 1.26, -8.5]},
+      {"name": "Pilot approach", "local_origin": [0.0, 1.26, -12.4]}
+    ]
+  }
+}

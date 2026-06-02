@@ -1,18 +1,20 @@
 using Godot;
 using Godot.Collections;
 using GArray = Godot.Collections.Array;
+using GDict = Godot.Collections.Dictionary<string, Godot.Variant>;
 
 public partial class ShuttleP3PlayerTraversalValidationRunner : Node3D
 {
     [Export] public NodePath PlayerPath { get; set; } = "../Player";
     [Export] public Vector3 ShuttleOrigin { get; set; } = new(0.0f, 205.6f, 0.0f);
+    [Export] public string LayoutContractPath { get; set; } = "res://assets/source/blender/ships/shuttle_p3/shuttle_p3_interior_layout_contract.json";
     [Export] public string ReportPath { get; set; } = "res://reports/ship_pipeline/shuttle_p3_player_traversal_validation_report.json";
     [Export] public float PlanarTolerance { get; set; } = 0.48f;
     [Export] public float MaximumSecondsPerCheckpoint { get; set; } = 5.0f;
     [Export] public float MinimumProgressMeters { get; set; } = 0.22f;
     [Export] public float StuckSeconds { get; set; } = 1.25f;
 
-    private readonly RoutePoint[] _route =
+    private RoutePoint[] _route =
     {
         new("Ramp lower", new Vector3(0.0f, -2.65f, -5.45f)),
         new("Ramp upper", new Vector3(0.0f, -1.35f, -1.25f)),
@@ -34,10 +36,72 @@ public partial class ShuttleP3PlayerTraversalValidationRunner : Node3D
 
     public override void _Ready()
     {
+        LoadLayoutContract();
         _player = GetNode<PlayerController>(PlayerPath);
         MovePlayerToLocal(_route[0].LocalOrigin);
         _bestDistanceToCheckpoint = DistanceToCurrentCheckpoint();
         Input.ActionPress("move_forward");
+    }
+
+    private void LoadLayoutContract()
+    {
+        if (!Godot.FileAccess.FileExists(LayoutContractPath))
+        {
+            GD.PushWarning($"Missing Shuttle P3 layout contract, using fallback traversal route: {LayoutContractPath}");
+            return;
+        }
+
+        var text = Godot.FileAccess.GetFileAsString(LayoutContractPath);
+        var parsed = Json.ParseString(text);
+        if (parsed.VariantType != Variant.Type.Dictionary)
+        {
+            GD.PushWarning($"Invalid Shuttle P3 layout contract, using fallback traversal route: {LayoutContractPath}");
+            return;
+        }
+
+        var root = parsed.AsGodotDictionary<string, Variant>();
+        if (!root.TryGetValue("player_traversal_validation", out var validationValue)
+            || validationValue.VariantType != Variant.Type.Dictionary)
+        {
+            GD.PushWarning("Shuttle P3 layout contract has no player_traversal_validation section.");
+            return;
+        }
+
+        var validation = validationValue.AsGodotDictionary<string, Variant>();
+        PlanarTolerance = ReadFloat(validation, "planar_tolerance", PlanarTolerance);
+        MaximumSecondsPerCheckpoint = ReadFloat(validation, "maximum_seconds_per_checkpoint", MaximumSecondsPerCheckpoint);
+        MinimumProgressMeters = ReadFloat(validation, "minimum_progress_meters", MinimumProgressMeters);
+        StuckSeconds = ReadFloat(validation, "stuck_seconds", StuckSeconds);
+
+        if (!validation.TryGetValue("checkpoints", out var checkpointsValue)
+            || checkpointsValue.VariantType != Variant.Type.Array)
+        {
+            GD.PushWarning("Shuttle P3 layout contract traversal section has no checkpoints array.");
+            return;
+        }
+
+        var checkpoints = checkpointsValue.AsGodotArray();
+        if (checkpoints.Count < 2)
+        {
+            GD.PushWarning("Shuttle P3 layout contract traversal route needs at least two checkpoints.");
+            return;
+        }
+
+        var route = new RoutePoint[checkpoints.Count];
+        for (var index = 0; index < checkpoints.Count; index++)
+        {
+            if (checkpoints[index].VariantType != Variant.Type.Dictionary)
+            {
+                GD.PushWarning($"Invalid Shuttle P3 traversal checkpoint at index {index}.");
+                return;
+            }
+
+            var checkpoint = checkpoints[index].AsGodotDictionary<string, Variant>();
+            var name = checkpoint.TryGetValue("name", out var nameValue) ? nameValue.AsString() : $"Checkpoint {index}";
+            route[index] = new RoutePoint(name, ReadVector3Array(checkpoint, "local_origin"));
+        }
+
+        _route = route;
     }
 
     public override void _ExitTree()
@@ -191,6 +255,23 @@ public partial class ShuttleP3PlayerTraversalValidationRunner : Node3D
     private static GArray FormatVector(Vector3 value)
     {
         return new GArray { Mathf.Snapped(value.X, 0.001f), Mathf.Snapped(value.Y, 0.001f), Mathf.Snapped(value.Z, 0.001f) };
+    }
+
+    private static float ReadFloat(GDict source, string key, float fallback)
+    {
+        return source.TryGetValue(key, out var value) ? (float)value.AsDouble() : fallback;
+    }
+
+    private static Vector3 ReadVector3Array(GDict source, string key)
+    {
+        if (!source.TryGetValue(key, out var value) || value.VariantType != Variant.Type.Array)
+            return Vector3.Zero;
+
+        var array = value.AsGodotArray();
+        if (array.Count < 3)
+            return Vector3.Zero;
+
+        return new Vector3((float)array[0], (float)array[1], (float)array[2]);
     }
 
     private readonly record struct RoutePoint(string Name, Vector3 LocalOrigin);

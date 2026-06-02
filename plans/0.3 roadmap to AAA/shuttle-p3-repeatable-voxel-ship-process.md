@@ -32,6 +32,7 @@ scaled exterior skin with the manually cut forward belly ramp doorway.
 ## Required Outputs
 
 - Exterior-only ship model package.
+- Ship-local interior layout contract.
 - Voxel interior report and projections.
 - Compact voxel serialization for script and LLM review.
 - Semantic region projection.
@@ -41,6 +42,35 @@ scaled exterior skin with the manually cut forward belly ramp doorway.
 - Godot review scene and evidence video/contact sheet.
 
 ## Process
+
+### 0. Author The Interior Layout Contract
+
+Before generating walls or accepting traversal, create a ship-local layout
+contract that records the human design decisions and player-scale constraints
+that should not remain hidden in scripts.
+
+Current `shuttle_p3` contract:
+
+- `assets/source/blender/ships/shuttle_p3/shuttle_p3_interior_layout_contract.json`
+
+The contract owns:
+
+- player capsule radius, height, and origin clearance;
+- enclosure generation slice sizes, wall thickness, smoothing limits, and stair
+  transition rules;
+- named enclosure zones with z spans, route widths, ceiling bounds, and voxel
+  sampling settings;
+- authored stair path points, stair width, and wall clearance;
+- real-player traversal validation checkpoints and tolerances.
+
+Acceptance:
+
+- generator and validation tools read this contract instead of carrying
+  ship-specific constants in code;
+- future ships can create their own contract without changing the generic
+  algorithm shape;
+- any later hand-authored layout decision is added to the contract before it is
+  used by tooling.
 
 ### 1. Lock The Exterior Skin
 
@@ -195,6 +225,10 @@ Current tool:
 
 - `tools/ship_pipeline/generate_shuttle_p3_enclosure_bands.py`
 
+Current source layout contract:
+
+- `assets/source/blender/ships/shuttle_p3/shuttle_p3_interior_layout_contract.json`
+
 Current generated contract:
 
 - `assets/models/ship/shuttle_p3/shuttle_p3_enclosure_bands.json`
@@ -233,7 +267,8 @@ Current p3 tool:
 The audit checks:
 
 - seam continuity between adjacent wall bands;
-- player-route clearance against stair, cargo, and cockpit feature voxels;
+- player-route clearance against stair, cargo, cockpit feature voxels, and
+  authored stair corridor geometry from the layout contract;
 - whether rectangular bands fit the voxel envelope or should become
   polygon/mesh strips;
 - excessive protrusion outside the usable interior envelope.
@@ -249,6 +284,30 @@ Acceptance:
 - no wall band marked as requiring polygon/mesh replacement;
 - failures must be solved in the generator, not by hand-editing the Godot
   loader.
+
+### 6b. Validate Real Player Traversal
+
+Static geometry checks are not enough. Run an actual Godot `PlayerController`
+route validation before accepting walkthrough evidence.
+
+Current p3 tools:
+
+- `scripts/validate-shuttle-p3-player-traversal.sh`
+- `scenes/debug/ShuttleP3PlayerTraversalValidation.tscn`
+- `scripts/debug/ShuttleP3PlayerTraversalValidationRunner.cs`
+
+Current report:
+
+- `reports/ship_pipeline/shuttle_p3_player_traversal_validation_report.json`
+
+Acceptance:
+
+- the real player capsule reaches every contract checkpoint from ramp entry to
+  pilot approach;
+- the validator fails on stalls, timeouts, or leaving the expected vertical
+  route envelope;
+- visual walkthrough capture should run this validation first so a cinematic
+  path cannot hide collision or traversal failures.
 
 ### 7. Produce Evidence Before Art Detail
 

@@ -3,6 +3,7 @@
   "ship_id": "shuttle_p3",
   "generator": "tools/ship_pipeline/generate_shuttle_p3_enclosure_bands.py",
   "source_voxel_file": "reports/ship_pipeline/shuttle_p3_voxel_fit/shuttle_p3_voxels_full_compact.json",
+  "source_layout_contract": "assets/source/blender/ships/shuttle_p3/shuttle_p3_interior_layout_contract.json",
   "coordinate_space": "ship local",
   "band_count": 148,
   "bands": [

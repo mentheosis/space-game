@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 VOXEL_PATH = ROOT / "reports/ship_pipeline/shuttle_p3_voxel_fit/shuttle_p3_voxels_full_compact.json"
 OUTPUT_PATH = ROOT / "assets/models/ship/shuttle_p3/shuttle_p3_enclosure_bands.json"
 REPORT_PATH = ROOT / "reports/ship_pipeline/shuttle_p3_voxel_fit/shuttle_p3_enclosure_bands_report.md"
+CONTRACT_PATH = ROOT / "assets/source/blender/ships/shuttle_p3/shuttle_p3_interior_layout_contract.json"
 
 
 ZONES = [
@@ -145,6 +146,19 @@ STAIR_LEFT_PATH = [
 ]
 STAIR_SURFACE_WIDTH = 1.08
 STAIR_WALL_CLEARANCE = 0.24
+
+
+def load_layout_contract() -> dict:
+    return json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+
+
+LAYOUT_CONTRACT = load_layout_contract()
+GENERATION_CONFIG = LAYOUT_CONTRACT["enclosure_generation"]
+ZONES = LAYOUT_CONTRACT["enclosure_zones"]
+STAIR_CONTRACT = LAYOUT_CONTRACT["stair_paths"]["cargo_to_cockpit_left"]
+STAIR_LEFT_PATH = [tuple(float(value) for value in point) for point in STAIR_CONTRACT["points"]]
+STAIR_SURFACE_WIDTH = float(STAIR_CONTRACT["surface_width"])
+STAIR_WALL_CLEARANCE = float(STAIR_CONTRACT["wall_clearance"])
 
 
 def sample_authored_stair_required_half_width(z_min: float, z_max: float) -> float | None:
@@ -373,20 +387,33 @@ def generate() -> tuple[dict, list[dict]]:
     raw = json.loads(VOXEL_PATH.read_text())
     voxels = raw["voxels"]
     voxel_size = float(raw["voxel_size"])
-    wall_thickness = 0.16
-    ceiling_thickness = 0.16
+    wall_thickness = float(GENERATION_CONFIG["wall_thickness"])
+    ceiling_thickness = float(GENERATION_CONFIG["ceiling_thickness"])
 
     bands: list[dict] = []
     report_rows: list[dict] = []
 
     for zone in ZONES:
-        target_slice_size = 0.38 if zone["name"] == "StairTransition" else 0.58
+        target_slice_size = (
+            float(GENERATION_CONFIG["stair_transition_slice_size"])
+            if zone["name"] == "StairTransition"
+            else float(GENERATION_CONFIG["default_slice_size"])
+        )
         slice_bounds = build_slice_bounds(zone["z_min"], zone["z_max"], target_slice_size)
         slice_samples = [sample_zone_slice(zone, voxels, z0, z1) for z0, z1 in slice_bounds]
-        smoothed_widths = smooth_values([sample["wall_half_width"] for sample in slice_samples], 0.28)
+        smoothed_widths = smooth_values(
+            [sample["wall_half_width"] for sample in slice_samples],
+            float(GENERATION_CONFIG["max_wall_width_step"]),
+        )
         if zone["name"] == "StairTransition" and smoothed_widths:
-            smoothed_widths[0] = min(smoothed_widths[0], 2.38)
-            smoothed_widths = smooth_values(smoothed_widths, 0.38)
+            smoothed_widths[0] = min(
+                smoothed_widths[0],
+                float(GENERATION_CONFIG["stair_transition_initial_wall_half_width"]),
+            )
+            smoothed_widths = smooth_values(
+                smoothed_widths,
+                float(GENERATION_CONFIG["stair_transition_max_wall_width_step"]),
+            )
         smoothed_ceilings = smooth_values([sample["ceiling_y"] for sample in slice_samples], 0.42)
 
         for index, ((z_min, z_max), sample, half_width, ceiling_y) in enumerate(
@@ -485,6 +512,7 @@ def generate() -> tuple[dict, list[dict]]:
         "ship_id": "shuttle_p3",
         "generator": "tools/ship_pipeline/generate_shuttle_p3_enclosure_bands.py",
         "source_voxel_file": str(VOXEL_PATH.relative_to(ROOT)),
+        "source_layout_contract": str(CONTRACT_PATH.relative_to(ROOT)),
         "coordinate_space": "ship local",
         "band_count": len(bands),
         "bands": bands,

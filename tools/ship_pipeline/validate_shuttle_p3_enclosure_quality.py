@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BANDS_PATH = ROOT / "assets/models/ship/shuttle_p3/shuttle_p3_enclosure_bands.json"
 VOXELS_PATH = ROOT / "reports/ship_pipeline/shuttle_p3_voxel_fit/shuttle_p3_voxels_full_compact.json"
 FEATURES_PATH = ROOT / "reports/ship_pipeline/shuttle_p3_voxel_fit/shuttle_p3_voxels_with_traversal_features.json"
+CONTRACT_PATH = ROOT / "assets/source/blender/ships/shuttle_p3/shuttle_p3_interior_layout_contract.json"
 REPORT_JSON = ROOT / "reports/ship_pipeline/shuttle_p3_voxel_fit/shuttle_p3_enclosure_quality_report.json"
 REPORT_MD = ROOT / "reports/ship_pipeline/shuttle_p3_voxel_fit/shuttle_p3_enclosure_quality_report.md"
 
@@ -109,15 +110,15 @@ def load_feature_voxels() -> list[tuple[float, float, float, str]]:
     return result
 
 
-STAIR_LEFT_PATH = [
-    (-1.95, -2.15, -0.55),
-    (-2.22, -1.28, -1.25),
-    (-2.30, -0.42, -2.10),
-    (-1.85, 0.45, -3.05),
-    (-1.15, 0.45, -3.75),
-]
-STAIR_SURFACE_WIDTH = 1.08
-STAIR_WALL_CLEARANCE = 0.24
+def load_layout_contract() -> dict:
+    return json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+
+
+LAYOUT_CONTRACT = load_layout_contract()
+STAIR_CONTRACT = LAYOUT_CONTRACT["stair_paths"]["cargo_to_cockpit_left"]
+STAIR_LEFT_PATH = [tuple(float(value) for value in point) for point in STAIR_CONTRACT["points"]]
+STAIR_SURFACE_WIDTH = float(STAIR_CONTRACT["surface_width"])
+STAIR_WALL_CLEARANCE = float(STAIR_CONTRACT["wall_clearance"])
 
 
 def authored_stair_required_half_width(z_min: float, z_max: float) -> float | None:
@@ -343,6 +344,7 @@ def main() -> int:
     payload = {
         "schema_version": 1,
         "ship_id": "shuttle_p3",
+        "source_layout_contract": str(CONTRACT_PATH.relative_to(ROOT)),
         "status": status,
         "wall_band_count": len(walls),
         "summary": summary,
