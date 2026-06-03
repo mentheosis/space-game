@@ -13,7 +13,7 @@ public partial class CargoCraneScaleReviewLoader : Node3D
     [Export] public string ObjectiveWalkableSurfacesPath { get; set; } = "res://assets/models/ship/cargo_crane/cargo_crane_objective_walkable_surfaces.json";
     [Export] public string EnclosureBandsPath { get; set; } = "res://assets/models/ship/cargo_crane/cargo_crane_enclosure_bands.json";
     [Export] public Vector3 ShipPosition { get; set; } = new(0.0f, 214.06f, 0.0f);
-    [Export] public Vector3 PlayerSpawnPosition { get; set; } = new(0.0f, 201.15f, -118.0f);
+    [Export] public Vector3 PlayerSpawnPosition { get; set; } = new(0.0f, 210.07f, -55.0f);
     [Export] public Key GhostToggleKey { get; set; } = Key.G;
     [Export] public Key ReferenceToggleKey { get; set; } = Key.R;
     [Export] public Key SemanticToggleKey { get; set; } = Key.B;
@@ -280,8 +280,8 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         var collisionRoot = new StaticBody3D
         {
             Name = "TraversalSurfaceCollision",
-            CollisionLayer = SolidCollisionLayer | WalkableSupportCollisionLayer,
-            CollisionMask = SolidCollisionLayer
+            CollisionLayer = WalkableSupportCollisionLayer,
+            CollisionMask = 0
         };
         shipRoot.AddChild(collisionRoot);
 
@@ -448,8 +448,8 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         {
             Name = $"{name}Collision",
             Position = center,
-            CollisionLayer = SolidCollisionLayer | WalkableSupportCollisionLayer,
-            CollisionMask = 1
+            CollisionLayer = WalkableSupportCollisionLayer,
+            CollisionMask = 0
         };
         collisionRoot.AddChild(body);
         body.AddChild(new CollisionShape3D { Shape = new BoxShape3D { Size = size } });
@@ -489,8 +489,8 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         {
             Name = $"{name}Collision",
             Transform = new Transform3D(basis, center),
-            CollisionLayer = SolidCollisionLayer | WalkableSupportCollisionLayer,
-            CollisionMask = 1
+            CollisionLayer = WalkableSupportCollisionLayer,
+            CollisionMask = 0
         };
         collisionRoot.AddChild(body);
         body.AddChild(new CollisionShape3D { Shape = new BoxShape3D { Size = size } });

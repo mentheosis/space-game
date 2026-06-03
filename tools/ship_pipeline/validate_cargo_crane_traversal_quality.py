@@ -123,6 +123,41 @@ def validate() -> dict:
         if not supported_start or not supported_end:
             errors.append({"check": "route_endpoint_support", "segment": index, "start_supported": supported_start, "end_supported": supported_end})
 
+    hatch_reports = []
+    surfaces_by_name = {surface["name"]: surface for surface in traversal["surfaces"]}
+    for entrance in contract.get("entrance_hatches", []):
+        side_sign = -1.0 if entrance["side"] == "port" else 1.0
+        cx, _cy, cz = entrance["cut_center"]
+        threshold = [cx - side_sign * 0.35, entrance["entry_floor_y"], cz]
+        interior = [side_sign * 4.2, entrance["entry_floor_y"], cz]
+        expected_names = [
+            f"{entrance['name']}_exterior_ramp",
+            f"{entrance['name']}_hatch_to_corridor",
+        ]
+        missing = [name for name in expected_names if name not in surfaces_by_name]
+        threshold_supported = any(point_supported_by_surface(threshold, surface, tolerance=1.0) for surface in traversal["surfaces"])
+        interior_supported = any(point_supported_by_surface(interior, surface, tolerance=1.0) for surface in traversal["surfaces"])
+        hatch_reports.append(
+            {
+                "name": entrance["name"],
+                "threshold": threshold,
+                "interior": interior,
+                "missing_surfaces": missing,
+                "threshold_supported": threshold_supported,
+                "interior_supported": interior_supported,
+            }
+        )
+        if missing or not threshold_supported or not interior_supported:
+            errors.append(
+                {
+                    "check": "entrance_hatch_traversal",
+                    "hatch": entrance["name"],
+                    "missing_surfaces": missing,
+                    "threshold_supported": threshold_supported,
+                    "interior_supported": interior_supported,
+                }
+            )
+
     return {
         "schema_version": 1,
         "ship_id": "cargo_crane",
@@ -134,6 +169,7 @@ def validate() -> dict:
         "warnings": warnings,
         "checkpoint_reports": checkpoint_reports,
         "route_segment_reports": route_segment_reports,
+        "hatch_reports": hatch_reports,
     }
 
 
@@ -154,6 +190,12 @@ def write_report(report: dict) -> None:
     ]
     for checkpoint in report["checkpoint_reports"]:
         lines.append(f"- `{checkpoint['name']}` supported={checkpoint['supported']} origin={checkpoint['local_origin']}")
+    lines += ["", "## Entrance Hatches", ""]
+    for hatch in report["hatch_reports"]:
+        lines.append(
+            f"- `{hatch['name']}` threshold_supported={hatch['threshold_supported']} "
+            f"interior_supported={hatch['interior_supported']} missing={hatch['missing_surfaces']}"
+        )
     lines += ["", "## Warnings", ""]
     if report["warnings"]:
         for warning in report["warnings"]:

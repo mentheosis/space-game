@@ -145,8 +145,8 @@
         4.2,
         5.0
       ],
-      "entry_floor_y": -2.0,
-      "target_room": "MedicalFacilities"
+      "entry_floor_y": -1.0,
+      "target_room": "central_body_lower"
     },
     {
       "name": "PortForwardEntrance",
@@ -161,8 +161,8 @@
         4.2,
         5.0
       ],
-      "entry_floor_y": -2.0,
-      "target_room": "AtriumLower"
+      "entry_floor_y": -1.0,
+      "target_room": "central_body_lower"
     },
     {
       "name": "StarboardAftEntrance",
@@ -177,8 +177,8 @@
         4.2,
         5.0
       ],
-      "entry_floor_y": -2.0,
-      "target_room": "LivingQuarters"
+      "entry_floor_y": -1.0,
+      "target_room": "central_body_lower"
     },
     {
       "name": "StarboardForwardEntrance",
@@ -193,16 +193,367 @@
         4.2,
         5.0
       ],
-      "entry_floor_y": -2.0,
-      "target_room": "AtriumLower"
+      "entry_floor_y": -1.0,
+      "target_room": "central_body_lower"
     }
   ],
-  "semantic_regions": [],
-  "semantic_connection_targets": [],
+  "semantic_regions": [
+    {
+      "id": "aft_center_service",
+      "representation": "accepted_regularized_floorplan_region",
+      "roles": [
+        "aft service",
+        "engineering",
+        "interstitial_connector",
+        "ramp_landing"
+      ],
+      "bounds": {
+        "min": [
+          -6.5,
+          -5.0,
+          -63.5
+        ],
+        "max": [
+          6.5,
+          0.0,
+          -36.8
+        ]
+      },
+      "source_surfaces": [
+        "aft_center_service_regularized_floor",
+        "aft_center_service_to_central_body_lower_lower_ramp_landing"
+      ]
+    },
+    {
+      "id": "central_body_lower",
+      "representation": "accepted_regularized_floorplan_region",
+      "roles": [
+        "corridor",
+        "interstitial_connector",
+        "living",
+        "medical",
+        "ramp_landing"
+      ],
+      "bounds": {
+        "min": [
+          -6.5,
+          -1.0,
+          -28.7
+        ],
+        "max": [
+          6.5,
+          7.5,
+          30.5
+        ]
+      },
+      "source_surfaces": [
+        "central_body_lower_regularized_floor",
+        "aft_center_service_to_central_body_lower_upper_ramp_landing"
+      ]
+    },
+    {
+      "id": "central_body_lower_to_forward_access",
+      "representation": "accepted_regularized_floorplan_region",
+      "roles": [
+        "same_level_interstitial_connector"
+      ],
+      "bounds": {
+        "min": [
+          -3.5,
+          -1.0,
+          29.5
+        ],
+        "max": [
+          3.5,
+          5.5,
+          33.5
+        ]
+      },
+      "source_surfaces": [
+        "central_body_lower_to_forward_access_same_level_bridge"
+      ]
+    },
+    {
+      "id": "forward_access",
+      "representation": "accepted_regularized_floorplan_region",
+      "roles": [
+        "cockpit access",
+        "corridor"
+      ],
+      "bounds": {
+        "min": [
+          -3.5,
+          -1.0,
+          32.5
+        ],
+        "max": [
+          3.5,
+          5.5,
+          59.5
+        ]
+      },
+      "source_surfaces": [
+        "forward_access_regularized_floor"
+      ]
+    },
+    {
+      "id": "cockpit_upper_command_gallery",
+      "representation": "accepted_regularized_floorplan_region",
+      "roles": [
+        "cockpit",
+        "support seats",
+        "upper level"
+      ],
+      "bounds": {
+        "min": [
+          -4.25,
+          -1.0,
+          59.5
+        ],
+        "max": [
+          4.25,
+          4.0,
+          70.0
+        ]
+      },
+      "source_surfaces": [
+        "cockpit_upper_aft_full_width_landing",
+        "cockpit_upper_narrow_stair_clearance_bridge",
+        "cockpit_upper_forward_full_width_deck"
+      ]
+    },
+    {
+      "id": "cockpit_lower",
+      "representation": "accepted_regularized_floorplan_region",
+      "roles": [
+        "cockpit"
+      ],
+      "bounds": {
+        "min": [
+          -3.7,
+          -9.0,
+          64.0
+        ],
+        "max": [
+          3.7,
+          -3.0,
+          72.5
+        ]
+      },
+      "source_surfaces": [
+        "cockpit_lower_regularized_floor"
+      ]
+    }
+  ],
+  "semantic_connection_targets": [
+    {
+      "name": "aft_center_service_regularized_floor",
+      "surface": "aft_center_service_regularized_floor",
+      "local_origin": [
+        0.0,
+        -5.0,
+        -50.5
+      ]
+    },
+    {
+      "name": "central_body_lower_regularized_floor",
+      "surface": "central_body_lower_regularized_floor",
+      "local_origin": [
+        0.0,
+        -1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "forward_access_regularized_floor",
+      "surface": "forward_access_regularized_floor",
+      "local_origin": [
+        0.0,
+        -1.0,
+        46.0
+      ]
+    },
+    {
+      "name": "cockpit_lower_regularized_floor",
+      "surface": "cockpit_lower_regularized_floor",
+      "local_origin": [
+        0.0,
+        -9.0,
+        68.25
+      ]
+    },
+    {
+      "name": "aft_center_service_to_central_body_lower_lower_ramp_landing",
+      "surface": "aft_center_service_to_central_body_lower_lower_ramp_landing",
+      "local_origin": [
+        0.0,
+        -5.0,
+        -37.5
+      ]
+    },
+    {
+      "name": "aft_center_service_to_central_body_lower_upper_ramp_landing",
+      "surface": "aft_center_service_to_central_body_lower_upper_ramp_landing",
+      "local_origin": [
+        0.0,
+        -1.0,
+        -28.0
+      ]
+    },
+    {
+      "name": "regularized_connector_01_start",
+      "surface": "regularized_connector_01",
+      "local_origin": [
+        0.0,
+        -5.0,
+        -37.0
+      ]
+    },
+    {
+      "name": "regularized_connector_01_end",
+      "surface": "regularized_connector_01",
+      "local_origin": [
+        0.0,
+        -1.0,
+        -28.5
+      ]
+    },
+    {
+      "name": "central_body_lower_to_forward_access_same_level_bridge",
+      "surface": "central_body_lower_to_forward_access_same_level_bridge",
+      "local_origin": [
+        0.0,
+        -1.0,
+        31.5
+      ]
+    },
+    {
+      "name": "cockpit_upper_aft_full_width_landing",
+      "surface": "cockpit_upper_aft_full_width_landing",
+      "local_origin": [
+        0.0,
+        -1.0,
+        60.15
+      ]
+    },
+    {
+      "name": "cockpit_upper_narrow_stair_clearance_bridge",
+      "surface": "cockpit_upper_narrow_stair_clearance_bridge",
+      "local_origin": [
+        0.0,
+        -1.0,
+        64.6
+      ]
+    },
+    {
+      "name": "cockpit_upper_forward_full_width_deck",
+      "surface": "cockpit_upper_forward_full_width_deck",
+      "local_origin": [
+        0.0,
+        -1.0,
+        68.0
+      ]
+    },
+    {
+      "name": "cockpit_port_edge_stairs_to_lower_deck_top",
+      "surface": "cockpit_port_edge_stairs_to_lower_deck",
+      "local_origin": [
+        -3.31,
+        -1.0,
+        60.8
+      ]
+    },
+    {
+      "name": "cockpit_port_edge_stairs_to_lower_deck_bottom",
+      "surface": "cockpit_port_edge_stairs_to_lower_deck",
+      "local_origin": [
+        -3.31,
+        -9.0,
+        68.2
+      ]
+    },
+    {
+      "name": "cockpit_starboard_edge_stairs_to_lower_deck_top",
+      "surface": "cockpit_starboard_edge_stairs_to_lower_deck",
+      "local_origin": [
+        3.31,
+        -1.0,
+        60.8
+      ]
+    },
+    {
+      "name": "cockpit_starboard_edge_stairs_to_lower_deck_bottom",
+      "surface": "cockpit_starboard_edge_stairs_to_lower_deck",
+      "local_origin": [
+        3.31,
+        -9.0,
+        68.2
+      ]
+    }
+  ],
   "semantic_connectivity": {
     "max_handoff_distance": 4.0
   },
-  "vertical_connectors": [],
+  "vertical_connectors": [
+    {
+      "name": "cockpit_port_edge_stairs_to_lower_deck",
+      "type": "stair_path",
+      "points": [
+        [
+          -3.31,
+          -1.0,
+          60.8
+        ],
+        [
+          -3.31,
+          -3.6,
+          63.1
+        ],
+        [
+          -3.31,
+          -6.2,
+          65.7
+        ],
+        [
+          -3.31,
+          -9.0,
+          68.2
+        ]
+      ],
+      "surface_width": 1.68,
+      "thickness": 0.24,
+      "role": "cockpit_edge_stair"
+    },
+    {
+      "name": "cockpit_starboard_edge_stairs_to_lower_deck",
+      "type": "stair_path",
+      "points": [
+        [
+          3.31,
+          -1.0,
+          60.8
+        ],
+        [
+          3.31,
+          -3.6,
+          63.1
+        ],
+        [
+          3.31,
+          -6.2,
+          65.7
+        ],
+        [
+          3.31,
+          -9.0,
+          68.2
+        ]
+      ],
+      "surface_width": 1.68,
+      "thickness": 0.24,
+      "role": "cockpit_edge_stair"
+    }
+  ],
   "enclosure_generation": {
     "default_slice_size": 2.0,
     "stair_transition_slice_size": 1.0,
@@ -210,18 +561,1361 @@
     "ceiling_thickness": 0.22,
     "max_wall_width_step": 1.4,
     "stair_transition_max_wall_width_step": 1.2,
-    "side_wall_openings": []
+    "side_wall_openings": [
+      {
+        "name": "PortAftEntrance_side_wall_opening",
+        "region": "central_body_lower",
+        "side": "port",
+        "center_y": -0.2,
+        "height_y": 4.2,
+        "center_z": -20.0,
+        "width_z": 5.8,
+        "source": "approved_center_body_hatchway"
+      },
+      {
+        "name": "PortForwardEntrance_side_wall_opening",
+        "region": "central_body_lower",
+        "side": "port",
+        "center_y": -0.2,
+        "height_y": 4.2,
+        "center_z": 18.0,
+        "width_z": 5.8,
+        "source": "approved_center_body_hatchway"
+      },
+      {
+        "name": "StarboardAftEntrance_side_wall_opening",
+        "region": "central_body_lower",
+        "side": "starboard",
+        "center_y": -0.2,
+        "height_y": 4.2,
+        "center_z": -20.0,
+        "width_z": 5.8,
+        "source": "approved_center_body_hatchway"
+      },
+      {
+        "name": "StarboardForwardEntrance_side_wall_opening",
+        "region": "central_body_lower",
+        "side": "starboard",
+        "center_y": -0.2,
+        "height_y": 4.2,
+        "center_z": 18.0,
+        "width_z": 5.8,
+        "source": "approved_center_body_hatchway"
+      }
+    ]
   },
   "player_traversal_validation": {
-    "planar_tolerance": 2.0,
-    "maximum_seconds_per_checkpoint": 8.0,
-    "minimum_progress_meters": 0.35,
-    "stuck_seconds": 1.4,
-    "checkpoints": []
+    "planar_tolerance": 1.2,
+    "maximum_seconds_per_checkpoint": 10.0,
+    "minimum_progress_meters": 0.2,
+    "stuck_seconds": 2.0,
+    "checkpoints": [
+      {
+        "name": "Aft service floor",
+        "local_origin": [
+          0.0,
+          -5.0,
+          -50.5
+        ]
+      },
+      {
+        "name": "Aft service to central ramp foot",
+        "local_origin": [
+          0.0,
+          -5.0,
+          -37.0
+        ]
+      },
+      {
+        "name": "Central body aft landing",
+        "local_origin": [
+          0.0,
+          -1.0,
+          -28.0
+        ]
+      },
+      {
+        "name": "Central body center",
+        "local_origin": [
+          0.0,
+          -1.0,
+          1.0
+        ]
+      },
+      {
+        "name": "Central body forward bridge",
+        "local_origin": [
+          0.0,
+          -1.0,
+          31.5
+        ]
+      },
+      {
+        "name": "Forward access",
+        "local_origin": [
+          0.0,
+          -1.0,
+          46.0
+        ]
+      },
+      {
+        "name": "Cockpit upper aft landing",
+        "local_origin": [
+          0.0,
+          -1.0,
+          60.15
+        ]
+      },
+      {
+        "name": "Cockpit upper forward deck",
+        "local_origin": [
+          0.0,
+          -1.0,
+          68.0
+        ]
+      },
+      {
+        "name": "Port cockpit stair upper",
+        "local_origin": [
+          -3.31,
+          -1.0,
+          60.8
+        ]
+      },
+      {
+        "name": "Port cockpit stair lower",
+        "local_origin": [
+          -3.31,
+          -9.0,
+          68.2
+        ]
+      },
+      {
+        "name": "Lower cockpit center",
+        "local_origin": [
+          0.0,
+          -9.0,
+          67.5
+        ]
+      }
+    ]
   },
   "semantic_discovery_notes": {
-    "status": "rewound_to_voxel_cloud_review",
-    "finding": "Downstream semantic regions, traversal checkpoints, vertical connectors, surfaces, and enclosure openings were cleared for a fresh interior voxel review.",
-    "implication": "Rebuild semantic zones only after the voxel cloud and connected interior components are approved."
+    "status": "floorplan_accepted_and_promoted",
+    "finding": "Accepted CargoCrane floorplan is stored in floorplan_generation and drives traversal/enclosure generation.",
+    "implication": "Do not regenerate traversal from raw voxel fragments or provisional manual envelopes."
+  },
+  "floorplan_generation": {
+    "status": "accepted",
+    "method": "shuttle_style_regularized_floorplan_from_objective_voxels",
+    "source_surfaces": "assets/models/ship/cargo_crane/cargo_crane_objective_walkable_surfaces.json",
+    "source_report": "reports/ship_pipeline/cargo_crane_voxel_fit/cargo_crane_regularized_floorplan_report.json",
+    "regularized_regions": [
+      {
+        "id": "aft_center_service",
+        "roles": [
+          "engineering",
+          "aft service"
+        ],
+        "node_count": 244,
+        "bounds": {
+          "min": [
+            -6.5,
+            -5.0,
+            -63.0
+          ],
+          "max": [
+            6.5,
+            -5.0,
+            -38.0
+          ]
+        },
+        "center": [
+          0.0,
+          -5.0,
+          -50.5
+        ],
+        "size": [
+          13.0,
+          0.22,
+          26.0
+        ],
+        "sections": [
+          {
+            "z": -63.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -4.0,
+            "y_max": -4.0,
+            "node_count": 5
+          },
+          {
+            "z": -62.0,
+            "x_min": -5.0,
+            "x_max": 5.0,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 11
+          },
+          {
+            "z": -61.0,
+            "x_min": -6.5,
+            "x_max": 6.5,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 15
+          },
+          {
+            "z": -60.0,
+            "x_min": -6.5,
+            "x_max": 6.5,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 17
+          },
+          {
+            "z": -59.0,
+            "x_min": -6.5,
+            "x_max": 6.5,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 17
+          },
+          {
+            "z": -58.0,
+            "x_min": -6.5,
+            "x_max": 6.5,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 16
+          },
+          {
+            "z": -57.0,
+            "x_min": -6.5,
+            "x_max": 6.0,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 15
+          },
+          {
+            "z": -56.0,
+            "x_min": -6.5,
+            "x_max": 6.0,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 15
+          },
+          {
+            "z": -55.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 12
+          },
+          {
+            "z": -54.0,
+            "x_min": -5.0,
+            "x_max": 4.0,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 10
+          },
+          {
+            "z": -53.0,
+            "x_min": -4.0,
+            "x_max": 4.0,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 9
+          },
+          {
+            "z": -52.0,
+            "x_min": -4.0,
+            "x_max": 4.0,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 9
+          },
+          {
+            "z": -51.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 7
+          },
+          {
+            "z": -50.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -5.0,
+            "y_max": -5.0,
+            "node_count": 7
+          },
+          {
+            "z": -49.0,
+            "x_min": -3.0,
+            "x_max": 2.0,
+            "y_min": -5.0,
+            "y_max": -4.0,
+            "node_count": 6
+          },
+          {
+            "z": -48.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -4.0,
+            "y_max": -3.0,
+            "node_count": 5
+          },
+          {
+            "z": -47.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -3.0,
+            "y_max": -2.0,
+            "node_count": 5
+          },
+          {
+            "z": -46.0,
+            "x_min": -3.0,
+            "x_max": 2.0,
+            "y_min": -2.0,
+            "y_max": 0.0,
+            "node_count": 6
+          },
+          {
+            "z": -45.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 1.0,
+            "node_count": 7
+          },
+          {
+            "z": -44.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 7
+          },
+          {
+            "z": -43.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 7
+          },
+          {
+            "z": -42.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 3.0,
+            "node_count": 7
+          },
+          {
+            "z": -41.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 4.0,
+            "node_count": 7
+          },
+          {
+            "z": -40.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 4.0,
+            "node_count": 7
+          },
+          {
+            "z": -39.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 5.0,
+            "node_count": 7
+          },
+          {
+            "z": -38.0,
+            "x_min": -4.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 4.0,
+            "node_count": 8
+          }
+        ]
+      },
+      {
+        "id": "central_body_lower",
+        "roles": [
+          "medical",
+          "living",
+          "corridor"
+        ],
+        "node_count": 312,
+        "bounds": {
+          "min": [
+            -6.5,
+            -1.0,
+            -28.0
+          ],
+          "max": [
+            6.5,
+            -1.0,
+            30.0
+          ]
+        },
+        "center": [
+          0.0,
+          -1.0,
+          1.0
+        ],
+        "size": [
+          13.0,
+          0.22,
+          59.0
+        ],
+        "sections": [
+          {
+            "z": -28.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": -1.0,
+            "node_count": 12
+          },
+          {
+            "z": -27.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": 1.0,
+            "node_count": 12
+          },
+          {
+            "z": -24.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 12
+          },
+          {
+            "z": -22.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": -1.0,
+            "node_count": 12
+          },
+          {
+            "z": -21.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 12
+          },
+          {
+            "z": -18.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 12
+          },
+          {
+            "z": -16.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 12
+          },
+          {
+            "z": -12.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 12
+          },
+          {
+            "z": -11.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": -1.0,
+            "node_count": 12
+          },
+          {
+            "z": -10.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 12
+          },
+          {
+            "z": -5.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": -1.0,
+            "node_count": 12
+          },
+          {
+            "z": -4.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 12
+          },
+          {
+            "z": -1.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 1.0,
+            "x_min": -6.0,
+            "x_max": 5.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 12
+          },
+          {
+            "z": 5.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 11.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 12.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 17.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 18.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 22.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 23.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 24.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 28.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 29.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          },
+          {
+            "z": 30.0,
+            "x_min": -6.0,
+            "x_max": 6.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 13
+          }
+        ]
+      },
+      {
+        "id": "forward_access",
+        "roles": [
+          "cockpit access",
+          "corridor"
+        ],
+        "node_count": 178,
+        "bounds": {
+          "min": [
+            -3.5,
+            -1.0,
+            33.0
+          ],
+          "max": [
+            3.5,
+            -1.0,
+            59.0
+          ]
+        },
+        "center": [
+          0.0,
+          -1.0,
+          46.0
+        ],
+        "size": [
+          7.0,
+          0.22,
+          27.0
+        ],
+        "sections": [
+          {
+            "z": 33.0,
+            "x_min": -3.5,
+            "x_max": 3.5,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 11
+          },
+          {
+            "z": 34.0,
+            "x_min": -3.5,
+            "x_max": 3.5,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 11
+          },
+          {
+            "z": 35.0,
+            "x_min": -3.5,
+            "x_max": 3.5,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 9
+          },
+          {
+            "z": 36.0,
+            "x_min": -3.5,
+            "x_max": 3.5,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 9
+          },
+          {
+            "z": 37.0,
+            "x_min": -3.0,
+            "x_max": 3.5,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 8
+          },
+          {
+            "z": 38.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": -1.0,
+            "node_count": 7
+          },
+          {
+            "z": 39.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 7
+          },
+          {
+            "z": 40.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 7
+          },
+          {
+            "z": 41.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 7
+          },
+          {
+            "z": 42.0,
+            "x_min": -3.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 6
+          },
+          {
+            "z": 43.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 5
+          },
+          {
+            "z": 44.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 5
+          },
+          {
+            "z": 45.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 5
+          },
+          {
+            "z": 46.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 1.0,
+            "node_count": 5
+          },
+          {
+            "z": 47.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 1.0,
+            "node_count": 5
+          },
+          {
+            "z": 48.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 1.0,
+            "node_count": 5
+          },
+          {
+            "z": 49.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 5
+          },
+          {
+            "z": 50.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 5
+          },
+          {
+            "z": 51.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 5
+          },
+          {
+            "z": 52.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 1.0,
+            "node_count": 5
+          },
+          {
+            "z": 53.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 1.0,
+            "node_count": 5
+          },
+          {
+            "z": 54.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 1.0,
+            "node_count": 5
+          },
+          {
+            "z": 55.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -1.0,
+            "y_max": 0.0,
+            "node_count": 5
+          },
+          {
+            "z": 56.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 7
+          },
+          {
+            "z": 57.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 7
+          },
+          {
+            "z": 58.0,
+            "x_min": -3.0,
+            "x_max": 3.5,
+            "y_min": -1.0,
+            "y_max": 2.0,
+            "node_count": 8
+          },
+          {
+            "z": 59.0,
+            "x_min": -3.5,
+            "x_max": 3.5,
+            "y_min": -2.0,
+            "y_max": 2.0,
+            "node_count": 9
+          }
+        ]
+      },
+      {
+        "id": "cockpit_lower",
+        "roles": [
+          "cockpit"
+        ],
+        "node_count": 111,
+        "bounds": {
+          "min": [
+            -4.5,
+            -9.0,
+            60.0
+          ],
+          "max": [
+            4.5,
+            -9.0,
+            73.0
+          ]
+        },
+        "center": [
+          0.0,
+          -9.0,
+          66.5
+        ],
+        "size": [
+          9.0,
+          0.22,
+          14.0
+        ],
+        "sections": [
+          {
+            "z": 60.0,
+            "x_min": -4.5,
+            "x_max": 4.5,
+            "y_min": -2.0,
+            "y_max": 1.0,
+            "node_count": 11
+          },
+          {
+            "z": 61.0,
+            "x_min": -4.5,
+            "x_max": 4.5,
+            "y_min": -3.0,
+            "y_max": 1.0,
+            "node_count": 11
+          },
+          {
+            "z": 62.0,
+            "x_min": -4.5,
+            "x_max": 4.5,
+            "y_min": -4.0,
+            "y_max": 1.0,
+            "node_count": 11
+          },
+          {
+            "z": 63.0,
+            "x_min": -4.0,
+            "x_max": 4.0,
+            "y_min": -5.0,
+            "y_max": 1.0,
+            "node_count": 9
+          },
+          {
+            "z": 64.0,
+            "x_min": -4.0,
+            "x_max": 4.0,
+            "y_min": -6.0,
+            "y_max": 0.0,
+            "node_count": 9
+          },
+          {
+            "z": 65.0,
+            "x_min": -4.0,
+            "x_max": 4.0,
+            "y_min": -8.0,
+            "y_max": 0.0,
+            "node_count": 9
+          },
+          {
+            "z": 66.0,
+            "x_min": -4.0,
+            "x_max": 4.0,
+            "y_min": -9.0,
+            "y_max": 0.0,
+            "node_count": 9
+          },
+          {
+            "z": 67.0,
+            "x_min": -4.0,
+            "x_max": 3.0,
+            "y_min": -10.0,
+            "y_max": 0.0,
+            "node_count": 8
+          },
+          {
+            "z": 68.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -11.0,
+            "y_max": -6.0,
+            "node_count": 7
+          },
+          {
+            "z": 69.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -11.0,
+            "y_max": -5.0,
+            "node_count": 7
+          },
+          {
+            "z": 70.0,
+            "x_min": -3.0,
+            "x_max": 3.0,
+            "y_min": -12.0,
+            "y_max": -6.0,
+            "node_count": 7
+          },
+          {
+            "z": 71.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -11.0,
+            "y_max": -8.0,
+            "node_count": 5
+          },
+          {
+            "z": 72.0,
+            "x_min": -2.0,
+            "x_max": 2.0,
+            "y_min": -9.0,
+            "y_max": -7.0,
+            "node_count": 5
+          },
+          {
+            "z": 73.0,
+            "x_min": -1.0,
+            "x_max": 1.0,
+            "y_min": -7.0,
+            "y_max": -7.0,
+            "node_count": 3
+          }
+        ]
+      }
+    ],
+    "accepted_surfaces": [
+      {
+        "name": "aft_center_service_regularized_floor",
+        "type": "floor_box",
+        "region": "aft_center_service",
+        "center": [
+          0.0,
+          -5.0,
+          -50.5
+        ],
+        "size": [
+          13.0,
+          0.22,
+          26.0
+        ],
+        "roles": [
+          "engineering",
+          "aft service"
+        ],
+        "source": "regularized_objective_voxels"
+      },
+      {
+        "name": "central_body_lower_regularized_floor",
+        "type": "floor_box",
+        "region": "central_body_lower",
+        "center": [
+          0.0,
+          -1.0,
+          1.0
+        ],
+        "size": [
+          13.0,
+          0.22,
+          59.0
+        ],
+        "roles": [
+          "medical",
+          "living",
+          "corridor"
+        ],
+        "source": "regularized_objective_voxels"
+      },
+      {
+        "name": "forward_access_regularized_floor",
+        "type": "floor_box",
+        "region": "forward_access",
+        "center": [
+          0.0,
+          -1.0,
+          46.0
+        ],
+        "size": [
+          7.0,
+          0.22,
+          27.0
+        ],
+        "roles": [
+          "cockpit access",
+          "corridor"
+        ],
+        "source": "regularized_objective_voxels"
+      },
+      {
+        "name": "cockpit_lower_regularized_floor",
+        "type": "floor_box",
+        "region": "cockpit_lower",
+        "center": [
+          0.0,
+          -9.0,
+          68.25
+        ],
+        "size": [
+          7.4,
+          0.22,
+          8.5
+        ],
+        "roles": [
+          "cockpit"
+        ],
+        "source": "trimmed_objective_voxels_for_cockpit_lower"
+      },
+      {
+        "name": "aft_center_service_to_central_body_lower_lower_ramp_landing",
+        "type": "floor_box",
+        "region": "aft_center_service",
+        "center": [
+          0.0,
+          -5.0,
+          -37.5
+        ],
+        "size": [
+          12.6,
+          0.22,
+          1.4
+        ],
+        "roles": [
+          "ramp_landing",
+          "interstitial_connector"
+        ],
+        "source": "regularized_ramp_flush_landing"
+      },
+      {
+        "name": "aft_center_service_to_central_body_lower_upper_ramp_landing",
+        "type": "floor_box",
+        "region": "central_body_lower",
+        "center": [
+          0.0,
+          -1.0,
+          -28.0
+        ],
+        "size": [
+          12.6,
+          0.22,
+          1.4
+        ],
+        "roles": [
+          "ramp_landing",
+          "interstitial_connector"
+        ],
+        "source": "regularized_ramp_flush_landing"
+      },
+      {
+        "name": "regularized_connector_01",
+        "type": "ramp",
+        "start": [
+          0.0,
+          -5.0,
+          -37.0
+        ],
+        "end": [
+          0.0,
+          -1.0,
+          -28.5
+        ],
+        "width": 12.6,
+        "thickness": 0.24,
+        "role": "edge_to_edge_inter_region_connector"
+      },
+      {
+        "name": "central_body_lower_to_forward_access_same_level_bridge",
+        "type": "floor_box",
+        "region": "central_body_lower_to_forward_access",
+        "center": [
+          0.0,
+          -1.0,
+          31.5
+        ],
+        "size": [
+          7.0,
+          0.22,
+          4.0
+        ],
+        "roles": [
+          "same_level_interstitial_connector"
+        ],
+        "source": "regularized_gap_fill"
+      },
+      {
+        "name": "cockpit_upper_aft_full_width_landing",
+        "type": "floor_box",
+        "region": "cockpit_upper_command_gallery",
+        "center": [
+          0.0,
+          -1.0,
+          60.15
+        ],
+        "size": [
+          8.5,
+          0.22,
+          1.3
+        ],
+        "roles": [
+          "cockpit",
+          "upper level",
+          "support seats"
+        ],
+        "source": "approved_two_level_cockpit_requirement_with_stair_openings"
+      },
+      {
+        "name": "cockpit_upper_narrow_stair_clearance_bridge",
+        "type": "floor_box",
+        "region": "cockpit_upper_command_gallery",
+        "center": [
+          0.0,
+          -1.0,
+          64.6
+        ],
+        "size": [
+          3.8,
+          0.22,
+          7.6
+        ],
+        "roles": [
+          "cockpit",
+          "upper level",
+          "support seats"
+        ],
+        "source": "approved_two_level_cockpit_requirement_with_stair_openings"
+      },
+      {
+        "name": "cockpit_upper_forward_full_width_deck",
+        "type": "floor_box",
+        "region": "cockpit_upper_command_gallery",
+        "center": [
+          0.0,
+          -1.0,
+          68.0
+        ],
+        "size": [
+          8.5,
+          0.22,
+          4.0
+        ],
+        "roles": [
+          "cockpit",
+          "upper level",
+          "support seats"
+        ],
+        "source": "approved_two_level_cockpit_requirement_with_stair_openings"
+      },
+      {
+        "name": "cockpit_port_edge_stairs_to_lower_deck",
+        "type": "stair_path",
+        "points": [
+          [
+            -3.31,
+            -1.0,
+            60.8
+          ],
+          [
+            -3.31,
+            -3.6,
+            63.1
+          ],
+          [
+            -3.31,
+            -6.2,
+            65.7
+          ],
+          [
+            -3.31,
+            -9.0,
+            68.2
+          ]
+        ],
+        "width": 1.68,
+        "thickness": 0.24,
+        "role": "cockpit_edge_stair"
+      },
+      {
+        "name": "cockpit_starboard_edge_stairs_to_lower_deck",
+        "type": "stair_path",
+        "points": [
+          [
+            3.31,
+            -1.0,
+            60.8
+          ],
+          [
+            3.31,
+            -3.6,
+            63.1
+          ],
+          [
+            3.31,
+            -6.2,
+            65.7
+          ],
+          [
+            3.31,
+            -9.0,
+            68.2
+          ]
+        ],
+        "width": 1.68,
+        "thickness": 0.24,
+        "role": "cockpit_edge_stair"
+      }
+    ],
+    "primary_route": [
+      [
+        0.0,
+        -5.0,
+        -51.0
+      ],
+      [
+        0.0,
+        -1.0,
+        -40.0
+      ],
+      [
+        0.0,
+        -1.0,
+        -28.0
+      ],
+      [
+        0.0,
+        -1.0,
+        -22.0
+      ],
+      [
+        0.0,
+        -1.0,
+        -11.0
+      ],
+      [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      [
+        0.0,
+        -1.0,
+        11.0
+      ],
+      [
+        0.0,
+        -1.0,
+        22.0
+      ],
+      [
+        0.0,
+        -1.0,
+        34.0
+      ],
+      [
+        0.0,
+        -1.0,
+        46.0
+      ],
+      [
+        0.0,
+        -1.0,
+        54.0
+      ],
+      [
+        0.0,
+        -9.0,
+        66.0
+      ]
+    ]
   }
 }

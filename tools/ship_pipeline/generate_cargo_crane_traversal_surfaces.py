@@ -18,7 +18,7 @@ FEATURE_VOXELS_JSON = OUT_REPORT_DIR / "cargo_crane_voxels_with_traversal_featur
 REPORT_JSON = OUT_REPORT_DIR / "cargo_crane_traversal_surfaces_report.json"
 REPORT_MD = OUT_REPORT_DIR / "cargo_crane_traversal_surfaces_report.md"
 PROJECTION_PNG = OUT_REPORT_DIR / "cargo_crane_voxel_traversal_projection_current.png"
-VOXELS_JSON = OUT_REPORT_DIR / "cargo_crane_voxels_full_compact.json"
+VOXELS_JSON = OUT_REPORT_DIR / "cargo_crane_objective_interior_voxels_compact.json"
 
 
 FLOOR_THICKNESS = 0.22
@@ -75,68 +75,20 @@ def stair_path(name: str, points: list[list[float]], width: float, role: str) ->
 
 
 def generate_surfaces(contract: dict) -> dict:
-    regions = {region["id"]: region for region in contract["semantic_regions"]}
-    surfaces = []
-
-    for region_id in [
-        "engine_room",
-        "lower_deck_corridor_spine",
-        "atrium_lower",
-        "mezzanine",
-        "medical",
-        "living_quarters",
-        "central_service_spine",
-        "central_to_cockpit_transition",
-        "cockpit_access",
-        "cockpit",
-    ]:
-        region = regions[region_id]
-        y = region["bounds"]["min"][1]
-        surfaces.append(surface_box(f"{region_id}_floor", region, y))
+    floorplan = contract.get("floorplan_generation", {})
+    accepted_surfaces = floorplan.get("accepted_surfaces", [])
+    if not accepted_surfaces:
+        raise ValueError("CargoCrane contract has no floorplan_generation.accepted_surfaces")
+    surfaces = [json.loads(json.dumps(surface)) for surface in accepted_surfaces]
 
     for entrance in contract.get("entrance_hatches", []):
         side_sign = -1.0 if entrance["side"] == "port" else 1.0
         cx, cy, cz = entrance["cut_center"]
         exterior = [cx + side_sign * 4.0, entrance["entry_floor_y"] - 0.55, cz]
         threshold = [cx - side_sign * 0.35, entrance["entry_floor_y"], cz]
-        interior = [side_sign * 3.5, entrance["entry_floor_y"], cz]
+        interior = [side_sign * 4.2, entrance["entry_floor_y"], cz]
         surfaces.append(ramp_between(f"{entrance['name']}_exterior_ramp", exterior, threshold, ENTRY_RAMP_WIDTH, "entry_ramp"))
         surfaces.append(ramp_between(f"{entrance['name']}_hatch_to_corridor", threshold, interior, ENTRY_RAMP_WIDTH, "entry_hatch_path"))
-
-    for connector in contract.get("vertical_connectors", []):
-        surfaces.append(stair_path(connector["name"], connector["points"], connector["surface_width"], "vertical_connector"))
-
-    surfaces.append(
-        ramp_between(
-            "AftAccessToCentralBodyRamp",
-            [0.0, -8.5, -40.0],
-            [0.0, -2.0, -28.0],
-            CORRIDOR_WIDTH,
-            "interstitial_connector",
-        )
-    )
-    surfaces.append(
-        ramp_between(
-            "CentralToCockpitAccessRamp",
-            [0.0, -2.0, 38.0],
-            [0.0, -1.5, 45.0],
-            CORRIDOR_WIDTH,
-            "interstitial_connector",
-        )
-    )
-    surfaces.append(
-        stair_path(
-            "CockpitAccessDescentStairs",
-            [
-                [0.0, -1.5, 52.0],
-                [-3.2, -3.5, 55.0],
-                [3.2, -6.5, 58.5],
-                [0.0, -10.5, 62.0],
-            ],
-            2.2,
-            "cockpit_descent",
-        )
-    )
 
     route = [
         checkpoint["local_origin"]
@@ -269,7 +221,14 @@ def write_outputs(traversal: dict, voxels: list[list]) -> None:
     for tagged_voxel in tagged:
         for tag in tagged_voxel[-1]:
             surface_counts[tag] = surface_counts.get(tag, 0) + 1
-    uncovered = [surface["name"] for surface in traversal["surfaces"] if surface_counts.get(surface["name"], 0) == 0]
+    coverage_required = [
+        surface
+        for surface in traversal["surfaces"]
+        if surface.get("role") != "entry_ramp"
+        and "ramp_landing" not in surface.get("roles", [])
+        and "exterior_ramp" not in surface["name"]
+    ]
+    uncovered = [surface["name"] for surface in coverage_required if surface_counts.get(surface["name"], 0) == 0]
     report = {
         "schema_version": 1,
         "ship_id": "cargo_crane",

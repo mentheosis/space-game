@@ -24,6 +24,7 @@ PROJECTION_PNG = OUT_REPORT_DIR / "cargo_crane_regularized_floorplan_projection_
 VOXEL_SIZE = 1.0
 FLOOR_THICKNESS = 0.22
 RAMP_THICKNESS = 0.24
+AFT_TO_CENTRAL_RAMP_WIDTH = 12.6
 STAIR_THICKNESS = 0.24
 MAX_CENTERLINE_X = 12.0
 MIN_NODE_COUNT = 8
@@ -359,15 +360,46 @@ def surfaces_from_regions(regions: list[dict], route: dict) -> list[dict]:
         if abs(y_delta) <= 0.6 and z_gap <= 3.0:
             continue
 
-        start = [0.0, current["center"][1], current_max_z + min(1.0, max(0.0, z_gap * 0.25))]
-        end = [0.0, following["center"][1], following_min_z - min(1.0, max(0.0, z_gap * 0.25))]
+        current_edge_z = current_max_z + VOXEL_SIZE * 0.5
+        following_edge_z = following_min_z - VOXEL_SIZE * 0.5
+        lower_landing_center_z = current_edge_z
+        upper_landing_center_z = following_edge_z + VOXEL_SIZE * 0.5
+        start = [0.0, current["center"][1], lower_landing_center_z + VOXEL_SIZE * 0.5]
+        end = [0.0, following["center"][1], following_edge_z]
+        ramp_width = 3.6
+        landing_width = 4.8
+        if current["id"] == "aft_center_service" and following["id"] == "central_body_lower":
+            ramp_width = AFT_TO_CENTRAL_RAMP_WIDTH
+            landing_width = AFT_TO_CENTRAL_RAMP_WIDTH
+        surfaces.append(
+            {
+                "name": f"{current['id']}_to_{following['id']}_lower_ramp_landing",
+                "type": "floor_box",
+                "region": current["id"],
+                "center": [0.0, current["center"][1], round(lower_landing_center_z, 4)],
+                "size": [landing_width, FLOOR_THICKNESS, 1.4],
+                "roles": ["ramp_landing", "interstitial_connector"],
+                "source": "regularized_ramp_flush_landing",
+            }
+        )
+        surfaces.append(
+            {
+                "name": f"{current['id']}_to_{following['id']}_upper_ramp_landing",
+                "type": "floor_box",
+                "region": following["id"],
+                "center": [0.0, following["center"][1], round(upper_landing_center_z, 4)],
+                "size": [landing_width, FLOOR_THICKNESS, 1.4],
+                "roles": ["ramp_landing", "interstitial_connector"],
+                "source": "regularized_ramp_flush_landing",
+            }
+        )
         surfaces.append(
             {
                 "name": f"regularized_connector_{connector_index:02d}",
                 "type": "ramp",
                 "start": [round(value, 4) for value in start],
                 "end": [round(value, 4) for value in end],
-                "width": 2.4,
+                "width": ramp_width,
                 "thickness": RAMP_THICKNESS,
                 "role": "edge_to_edge_inter_region_connector",
             }
@@ -376,8 +408,8 @@ def surfaces_from_regions(regions: list[dict], route: dict) -> list[dict]:
 
     cockpit_lower = next((region for region in regions if region["id"] == "cockpit_lower"), None)
     if cockpit_lower is not None:
-        lower_center = [0.0, cockpit_lower["center"][1], 67.5]
-        lower_size = [7.4, FLOOR_THICKNESS, 10.0]
+        lower_center = [0.0, cockpit_lower["center"][1], 68.25]
+        lower_size = [7.4, FLOOR_THICKNESS, 8.5]
         for surface in surfaces:
             if surface.get("region") == "cockpit_lower":
                 surface["center"] = lower_center

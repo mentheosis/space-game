@@ -36,6 +36,7 @@ scaled exterior skin with the manually cut forward belly ramp doorway.
 - Voxel interior report and projections.
 - Compact voxel serialization for script and LLM review.
 - Semantic region projection.
+- Regularized floorplan report and projection.
 - Feature-tagged voxel serialization after traversal surfaces are generated.
 - Generated traversal surfaces.
 - Generated enclosure bands.
@@ -180,9 +181,62 @@ Acceptance:
   placeholder box;
 - transition space leaves room for stairs without blocking the ramp entry.
 
-### 5. Generate Traversal Surfaces From Voxel Space
+### 5. Regularize The Floorplan Before Playable Surfaces
 
-Generate surfaces from the accepted semantic regions, not from visual guesswork.
+Do not convert raw voxel components directly into floors. Raw interior voxels
+are evidence, not final playable geometry. They are often fragmented by mesh
+holes, sparse cross-sections, non-watertight hulls, side pods, engine nacelles,
+and sampling gaps. Turning those fragments directly into floor boxes produces
+disconnected patches, exterior clipping, and inaccessible stairs.
+
+The next required stage is a deterministic floorplan regularizer. It should:
+
+- build one bottom walkable node per `(x,z)` column, as `shuttle_p3` did;
+- reject or quarantine side/exterior components before floor generation;
+- merge sparse but aligned interior evidence into coherent longitudinal zones;
+- preserve the difference between machine evidence and design constraints;
+- generate floor regions from regularized zones, not from every raw component;
+- add same-level bridge floors where small gaps would otherwise make regions
+  feel discontinuous;
+- add ramps or stair paths only where level changes or graph gaps require them;
+- serialize both the regularized floorplan and the evidence that produced it.
+
+For larger ships, this stage also owns explicit deck-level constraints. For
+example, `cargo_crane` needed a two-level cockpit: an upper level at the central
+body floor height, a lower cockpit deck, and paired side stair paths with clear
+openings through the upper floor. That requirement should live in the layout
+contract or floorplan config before traversal surfaces are accepted.
+
+The floorplan config should record:
+
+- named regularized regions and their intended roles;
+- target level heights or sampled floor-height modes;
+- maximum widths and z spans derived from voxel evidence;
+- bridge-gap thresholds;
+- stair/ramp centerlines, widths, and landing/opening rules;
+- trim rules for areas that clip outside the exterior skin;
+- any human-approved design constraints, such as multi-level cockpits,
+  mezzanines, side entrances, or cargo atriums.
+
+Acceptance:
+
+- floor regions are coherent and readable as ship spaces, not raw voxel shards;
+- all same-level regions either touch or have a generated bridge floor;
+- level changes have explicit stairs or ramps with landing surfaces at both
+  ends;
+- upper floors do not cover stair/ramp openings;
+- no floor region visibly clips outside the exterior hull in review;
+- side-engine/exterior components are excluded unless explicitly approved as
+  interior;
+- the projection includes a color key for evidence nodes, regularized floors,
+  bridge floors, ramps/stairs, and graph routes;
+- if a human adjusts the result, the adjustment is captured as a config rule so
+  the next generation is repeatable.
+
+### 6. Generate Traversal Surfaces From Regularized Floorplan Space
+
+Generate surfaces from the accepted semantic regions and regularized floorplan,
+not from visual guesswork or raw voxel fragments.
 
 For `shuttle_p3`, the successful traversal surface set includes:
 
@@ -213,10 +267,11 @@ Acceptance:
 - stairs start near the ramp/cargo threshold but hug the side walls;
 - stairs rise steeply enough to remain inside the hull;
 - stairs and landing connect without gaps;
+- stair/ramp openings are not covered by upper floor slabs;
 - cockpit floor extends to the landing without unnecessary tapering;
 - railing protects the fall edge but does not block stair access.
 
-### 6. Generate Enclosure Bands From Voxel Bounds
+### 7. Generate Enclosure Bands From Voxel Bounds
 
 After traversal surfaces are accepted, generate walls and ceilings from voxel
 slice bounds around the route.
@@ -254,7 +309,7 @@ Acceptance:
 - nose, cargo, stair, and cockpit regions are closed enough to read as a real
   interior before art detail begins.
 
-### 6a. Validate Enclosure Quality Before Art
+### 7a. Validate Enclosure Quality Before Art
 
 Run an enclosure quality audit before treating generated walls and ceilings as
 accepted.
@@ -285,7 +340,7 @@ Acceptance:
 - failures must be solved in the generator, not by hand-editing the Godot
   loader.
 
-### 6b. Validate Real Player Traversal
+### 7b. Validate Real Player Traversal
 
 Static geometry checks are not enough. Run an actual Godot `PlayerController`
 route validation before accepting walkthrough evidence.
@@ -309,7 +364,7 @@ Acceptance:
 - visual walkthrough capture should run this validation first so a cinematic
   path cannot hide collision or traversal failures.
 
-### 7. Produce Evidence Before Art Detail
+### 8. Produce Evidence Before Art Detail
 
 Each iteration should produce review evidence before moving to materials,
 furnishings, or lighting.
@@ -343,10 +398,16 @@ Use targeted spatial questions:
 
 - "Given these voxel slice summaries, classify cargo, cockpit, transition,
   ramp threshold, and non-playable regions."
+- "Given the objective voxel components, which components are likely exterior
+  side pods or engine shells rather than interior?"
+- "Given these regularized floor regions, are any same-level floors
+  disconnected or missing bridge pieces?"
 - "Given the feature-tagged voxels, do the stairs use the available side-wall
   volume, or are they too centered?"
 - "Do the landing and cockpit floor connect, and do they use the available
   cockpit/neck width?"
+- "Do upper floors leave openings for stairs, ramps, hatches, and vertical
+  connectors?"
 - "Where should a railing prevent falling without blocking stair access?"
 - "Which wall/ceiling bands are too low, too wide, or outside the hull?"
 
@@ -355,6 +416,36 @@ Avoid vague visual prompts:
 - "Make it look better."
 - "Guess where the stairs should go."
 - "Fit the cockpit from this screenshot."
+
+## Failure Modes To Guard Against
+
+The `cargo_crane` floorplan iteration exposed several repeatability failures
+that the pipeline should detect earlier:
+
+- Manual hull envelopes were used before the objective interior had been
+  reviewed. They hid ambiguity and made the rear engine area look traversable
+  when much of it was exterior.
+- Objective voxel components were treated as floor surfaces too early. The
+  result was many disconnected floor patches instead of a coherent ship
+  floorplan.
+- A sparse voxel graph made the central body look fragmented even though the
+  regularized design intent was one continuous main interior body.
+- Cockpit floors clipped because upper/lower level requirements were added as
+  geometry edits rather than recorded first as floorplan constraints.
+- Stair openings were not validated, so upper floor slabs covered the stair
+  paths that were supposed to connect the levels.
+- Small projection views were hard to interpret without explicit color keys and
+  named surface classes.
+
+Add or keep validators for:
+
+- exterior clipping for every floor, bridge, ramp, stair, wall, and ceiling;
+- same-level floor contiguity and bridge coverage;
+- stair/ramp endpoint contact with floor surfaces;
+- stair/ramp clearance through upper floors;
+- lower/upper deck overlap without a declared vertical connector;
+- side-engine or exterior components accidentally promoted to interior;
+- review projection color keys and named surface categories.
 
 ## What To Generalize For The Next Ship
 
@@ -365,6 +456,7 @@ Generalize:
 - source exterior mesh path;
 - voxel config;
 - semantic region names and hints;
+- regularized floorplan region specs and level constraints;
 - route endpoints;
 - traversal surface generator;
 - feature-tag serializer;

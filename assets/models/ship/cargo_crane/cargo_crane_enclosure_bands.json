@@ -1,0 +1,638 @@
+{
+  "schema_version": 1,
+  "ship_id": "cargo_crane",
+  "coordinate_space": "ship local",
+  "source_contract": "assets/source/blender/ships/cargo_crane/cargo_crane_interior_layout_contract.json",
+  "bands": [
+    {
+      "name": "aft_center_service_port_wall",
+      "type": "side_wall",
+      "region": "aft_center_service",
+      "center": [
+        -6.61,
+        -2.5,
+        -50.15
+      ],
+      "size": [
+        0.22,
+        5.0,
+        26.7
+      ]
+    },
+    {
+      "name": "aft_center_service_starboard_wall",
+      "type": "side_wall",
+      "region": "aft_center_service",
+      "center": [
+        6.61,
+        -2.5,
+        -50.15
+      ],
+      "size": [
+        0.22,
+        5.0,
+        26.7
+      ]
+    },
+    {
+      "name": "aft_center_service_aft_end_wall",
+      "type": "end_wall",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        -2.5,
+        -63.61
+      ],
+      "size": [
+        13.0,
+        5.0,
+        0.22
+      ]
+    },
+    {
+      "name": "aft_center_service_forward_upper_end_wall",
+      "type": "end_wall",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        -0.7,
+        -37.39
+      ],
+      "size": [
+        12.6,
+        1.4,
+        0.22
+      ]
+    },
+    {
+      "name": "aft_center_service_ceiling",
+      "type": "ceiling",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        0.11,
+        -50.15
+      ],
+      "size": [
+        13.0,
+        0.22,
+        26.7
+      ]
+    },
+    {
+      "name": "central_body_lower_port_01_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        -6.61,
+        3.25,
+        -25.8
+      ],
+      "size": [
+        0.22,
+        8.5,
+        5.8
+      ]
+    },
+    {
+      "name": "central_body_lower_port_02_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        -6.61,
+        3.25,
+        -1.0
+      ],
+      "size": [
+        0.22,
+        8.5,
+        32.2
+      ]
+    },
+    {
+      "name": "central_body_lower_port_03_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        -6.61,
+        3.25,
+        25.7
+      ],
+      "size": [
+        0.22,
+        8.5,
+        9.6
+      ]
+    },
+    {
+      "name": "central_body_lower_port_hatch_01_upper_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        -6.61,
+        4.7,
+        -20.0
+      ],
+      "size": [
+        0.22,
+        5.6,
+        5.8
+      ]
+    },
+    {
+      "name": "central_body_lower_port_hatch_02_upper_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        -6.61,
+        4.7,
+        18.0
+      ],
+      "size": [
+        0.22,
+        5.6,
+        5.8
+      ]
+    },
+    {
+      "name": "central_body_lower_starboard_01_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        6.61,
+        3.25,
+        -25.8
+      ],
+      "size": [
+        0.22,
+        8.5,
+        5.8
+      ]
+    },
+    {
+      "name": "central_body_lower_starboard_02_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        6.61,
+        3.25,
+        -1.0
+      ],
+      "size": [
+        0.22,
+        8.5,
+        32.2
+      ]
+    },
+    {
+      "name": "central_body_lower_starboard_03_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        6.61,
+        3.25,
+        25.7
+      ],
+      "size": [
+        0.22,
+        8.5,
+        9.6
+      ]
+    },
+    {
+      "name": "central_body_lower_starboard_hatch_01_upper_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        6.61,
+        4.7,
+        -20.0
+      ],
+      "size": [
+        0.22,
+        5.6,
+        5.8
+      ]
+    },
+    {
+      "name": "central_body_lower_starboard_hatch_02_upper_wall",
+      "type": "side_wall",
+      "region": "central_body_lower",
+      "center": [
+        6.61,
+        4.7,
+        18.0
+      ],
+      "size": [
+        0.22,
+        5.6,
+        5.8
+      ]
+    },
+    {
+      "name": "central_body_lower_aft_upper_end_wall",
+      "type": "end_wall",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        4.35,
+        -28.61
+      ],
+      "size": [
+        12.6,
+        6.3,
+        0.22
+      ]
+    },
+    {
+      "name": "central_body_lower_forward_port_end_wall",
+      "type": "end_wall",
+      "region": "central_body_lower",
+      "center": [
+        -5.0,
+        3.25,
+        30.61
+      ],
+      "size": [
+        3.0,
+        8.5,
+        0.22
+      ]
+    },
+    {
+      "name": "central_body_lower_forward_starboard_end_wall",
+      "type": "end_wall",
+      "region": "central_body_lower",
+      "center": [
+        5.0,
+        3.25,
+        30.61
+      ],
+      "size": [
+        3.0,
+        8.5,
+        0.22
+      ]
+    },
+    {
+      "name": "central_body_lower_forward_upper_end_wall",
+      "type": "end_wall",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        6.5,
+        30.61
+      ],
+      "size": [
+        7.0,
+        2.0,
+        0.22
+      ]
+    },
+    {
+      "name": "central_body_lower_ceiling",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        0.9
+      ],
+      "size": [
+        13.0,
+        0.22,
+        59.2
+      ]
+    },
+    {
+      "name": "central_body_lower_to_forward_access_port_wall",
+      "type": "side_wall",
+      "region": "central_body_lower_to_forward_access",
+      "center": [
+        -3.61,
+        2.25,
+        31.5
+      ],
+      "size": [
+        0.22,
+        6.5,
+        4.0
+      ]
+    },
+    {
+      "name": "central_body_lower_to_forward_access_starboard_wall",
+      "type": "side_wall",
+      "region": "central_body_lower_to_forward_access",
+      "center": [
+        3.61,
+        2.25,
+        31.5
+      ],
+      "size": [
+        0.22,
+        6.5,
+        4.0
+      ]
+    },
+    {
+      "name": "central_body_lower_to_forward_access_ceiling",
+      "type": "ceiling",
+      "region": "central_body_lower_to_forward_access",
+      "center": [
+        0.0,
+        5.61,
+        31.5
+      ],
+      "size": [
+        7.0,
+        0.22,
+        4.0
+      ]
+    },
+    {
+      "name": "forward_access_port_wall",
+      "type": "side_wall",
+      "region": "forward_access",
+      "center": [
+        -3.61,
+        2.25,
+        46.0
+      ],
+      "size": [
+        0.22,
+        6.5,
+        27.0
+      ]
+    },
+    {
+      "name": "forward_access_starboard_wall",
+      "type": "side_wall",
+      "region": "forward_access",
+      "center": [
+        3.61,
+        2.25,
+        46.0
+      ],
+      "size": [
+        0.22,
+        6.5,
+        27.0
+      ]
+    },
+    {
+      "name": "forward_access_ceiling",
+      "type": "ceiling",
+      "region": "forward_access",
+      "center": [
+        0.0,
+        5.61,
+        46.0
+      ],
+      "size": [
+        7.0,
+        0.22,
+        27.0
+      ]
+    },
+    {
+      "name": "cockpit_upper_command_gallery_port_wall",
+      "type": "side_wall",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        -4.36,
+        1.5,
+        64.75
+      ],
+      "size": [
+        0.22,
+        5.0,
+        10.5
+      ]
+    },
+    {
+      "name": "cockpit_upper_command_gallery_starboard_wall",
+      "type": "side_wall",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        4.36,
+        1.5,
+        64.75
+      ],
+      "size": [
+        0.22,
+        5.0,
+        10.5
+      ]
+    },
+    {
+      "name": "cockpit_upper_command_gallery_forward_end_wall",
+      "type": "end_wall",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        0.0,
+        1.5,
+        70.11
+      ],
+      "size": [
+        8.5,
+        5.0,
+        0.22
+      ]
+    },
+    {
+      "name": "cockpit_upper_command_gallery_ceiling",
+      "type": "ceiling",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        0.0,
+        4.11,
+        64.75
+      ],
+      "size": [
+        8.5,
+        0.22,
+        10.5
+      ]
+    },
+    {
+      "name": "cockpit_lower_port_wall",
+      "type": "side_wall",
+      "region": "cockpit_lower",
+      "center": [
+        -3.81,
+        -6.0,
+        68.25
+      ],
+      "size": [
+        0.22,
+        6.0,
+        8.5
+      ]
+    },
+    {
+      "name": "cockpit_lower_starboard_wall",
+      "type": "side_wall",
+      "region": "cockpit_lower",
+      "center": [
+        3.81,
+        -6.0,
+        68.25
+      ],
+      "size": [
+        0.22,
+        6.0,
+        8.5
+      ]
+    },
+    {
+      "name": "cockpit_lower_aft_center_lower_end_wall",
+      "type": "end_wall",
+      "region": "cockpit_lower",
+      "center": [
+        0.0,
+        -6.3,
+        63.89
+      ],
+      "size": [
+        4.7,
+        5.4,
+        0.22
+      ]
+    },
+    {
+      "name": "cockpit_lower_aft_port_low_end_wall",
+      "type": "end_wall",
+      "region": "cockpit_lower",
+      "center": [
+        -3.125,
+        -8.0,
+        63.89
+      ],
+      "size": [
+        1.15,
+        2.0,
+        0.22
+      ]
+    },
+    {
+      "name": "cockpit_lower_aft_starboard_low_end_wall",
+      "type": "end_wall",
+      "region": "cockpit_lower",
+      "center": [
+        3.125,
+        -8.0,
+        63.89
+      ],
+      "size": [
+        1.15,
+        2.0,
+        0.22
+      ]
+    },
+    {
+      "name": "cockpit_lower_aft_center_end_wall",
+      "type": "end_wall",
+      "region": "cockpit_lower",
+      "center": [
+        0.0,
+        -3.3,
+        63.89
+      ],
+      "size": [
+        4.5,
+        0.6,
+        0.22
+      ]
+    },
+    {
+      "name": "cockpit_lower_forward_end_wall",
+      "type": "end_wall",
+      "region": "cockpit_lower",
+      "center": [
+        0.0,
+        -6.0,
+        72.61
+      ],
+      "size": [
+        7.4,
+        6.0,
+        0.22
+      ]
+    },
+    {
+      "name": "cockpit_lower_center_ceiling",
+      "type": "ceiling",
+      "region": "cockpit_lower",
+      "center": [
+        0.0,
+        -2.89,
+        68.25
+      ],
+      "size": [
+        4.5,
+        0.22,
+        8.5
+      ]
+    },
+    {
+      "name": "aft_to_central_ramp_port_guard_wall",
+      "type": "side_wall",
+      "region": "aft_to_central_ramp",
+      "center": [
+        -6.41,
+        -3.0,
+        -32.75
+      ],
+      "size": [
+        0.22,
+        7.2,
+        10.9
+      ]
+    },
+    {
+      "name": "aft_to_central_ramp_starboard_guard_wall",
+      "type": "side_wall",
+      "region": "aft_to_central_ramp",
+      "center": [
+        6.41,
+        -3.0,
+        -32.75
+      ],
+      "size": [
+        0.22,
+        7.2,
+        10.9
+      ]
+    },
+    {
+      "name": "cockpit_port_inner_stair_guard_wall",
+      "type": "side_wall",
+      "region": "cockpit_stair_guard",
+      "center": [
+        -2.35,
+        -3.45,
+        65.1
+      ],
+      "size": [
+        0.22,
+        10.9,
+        5.8
+      ]
+    },
+    {
+      "name": "cockpit_starboard_inner_stair_guard_wall",
+      "type": "side_wall",
+      "region": "cockpit_stair_guard",
+      "center": [
+        2.35,
+        -3.45,
+        65.1
+      ],
+      "size": [
+        0.22,
+        10.9,
+        5.8
+      ]
+    }
+  ]
+}

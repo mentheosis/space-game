@@ -2,8 +2,7 @@
   "schema_version": 1,
   "ship_id": "cargo_crane",
   "coordinate_space": "ship local",
-  "source_voxels": "reports/ship_pipeline/cargo_crane_voxel_fit/cargo_crane_objective_interior_voxels_compact.json",
-  "method": "shuttle_style_regularized_floorplan_from_objective_voxels",
+  "source_contract": "assets/source/blender/ships/cargo_crane/cargo_crane_interior_layout_contract.json",
   "surfaces": [
     {
       "name": "aft_center_service_regularized_floor",
@@ -281,18 +280,154 @@
       "width": 1.68,
       "thickness": 0.24,
       "role": "cockpit_edge_stair"
+    },
+    {
+      "name": "PortAftEntrance_exterior_ramp",
+      "type": "ramp",
+      "start": [
+        -11.8,
+        -1.55,
+        -20.0
+      ],
+      "end": [
+        -7.45,
+        -1.0,
+        -20.0
+      ],
+      "width": 3.2,
+      "thickness": 0.24,
+      "role": "entry_ramp"
+    },
+    {
+      "name": "PortAftEntrance_hatch_to_corridor",
+      "type": "ramp",
+      "start": [
+        -7.45,
+        -1.0,
+        -20.0
+      ],
+      "end": [
+        -4.2,
+        -1.0,
+        -20.0
+      ],
+      "width": 3.2,
+      "thickness": 0.24,
+      "role": "entry_hatch_path"
+    },
+    {
+      "name": "PortForwardEntrance_exterior_ramp",
+      "type": "ramp",
+      "start": [
+        -11.8,
+        -1.55,
+        18.0
+      ],
+      "end": [
+        -7.45,
+        -1.0,
+        18.0
+      ],
+      "width": 3.2,
+      "thickness": 0.24,
+      "role": "entry_ramp"
+    },
+    {
+      "name": "PortForwardEntrance_hatch_to_corridor",
+      "type": "ramp",
+      "start": [
+        -7.45,
+        -1.0,
+        18.0
+      ],
+      "end": [
+        -4.2,
+        -1.0,
+        18.0
+      ],
+      "width": 3.2,
+      "thickness": 0.24,
+      "role": "entry_hatch_path"
+    },
+    {
+      "name": "StarboardAftEntrance_exterior_ramp",
+      "type": "ramp",
+      "start": [
+        11.8,
+        -1.55,
+        -20.0
+      ],
+      "end": [
+        7.45,
+        -1.0,
+        -20.0
+      ],
+      "width": 3.2,
+      "thickness": 0.24,
+      "role": "entry_ramp"
+    },
+    {
+      "name": "StarboardAftEntrance_hatch_to_corridor",
+      "type": "ramp",
+      "start": [
+        7.45,
+        -1.0,
+        -20.0
+      ],
+      "end": [
+        4.2,
+        -1.0,
+        -20.0
+      ],
+      "width": 3.2,
+      "thickness": 0.24,
+      "role": "entry_hatch_path"
+    },
+    {
+      "name": "StarboardForwardEntrance_exterior_ramp",
+      "type": "ramp",
+      "start": [
+        11.8,
+        -1.55,
+        18.0
+      ],
+      "end": [
+        7.45,
+        -1.0,
+        18.0
+      ],
+      "width": 3.2,
+      "thickness": 0.24,
+      "role": "entry_ramp"
+    },
+    {
+      "name": "StarboardForwardEntrance_hatch_to_corridor",
+      "type": "ramp",
+      "start": [
+        7.45,
+        -1.0,
+        18.0
+      ],
+      "end": [
+        4.2,
+        -1.0,
+        18.0
+      ],
+      "width": 3.2,
+      "thickness": 0.24,
+      "role": "entry_hatch_path"
     }
   ],
   "primary_route": [
     [
       0.0,
       -5.0,
-      -51.0
+      -50.5
     ],
     [
       0.0,
-      -1.0,
-      -40.0
+      -5.0,
+      -37.0
     ],
     [
       0.0,
@@ -302,32 +437,12 @@
     [
       0.0,
       -1.0,
-      -22.0
-    ],
-    [
-      0.0,
-      -1.0,
-      -11.0
-    ],
-    [
-      0.0,
-      -1.0,
       1.0
     ],
     [
       0.0,
       -1.0,
-      11.0
-    ],
-    [
-      0.0,
-      -1.0,
-      22.0
-    ],
-    [
-      0.0,
-      -1.0,
-      34.0
+      31.5
     ],
     [
       0.0,
@@ -337,12 +452,27 @@
     [
       0.0,
       -1.0,
-      54.0
+      60.15
+    ],
+    [
+      0.0,
+      -1.0,
+      68.0
+    ],
+    [
+      -3.31,
+      -1.0,
+      60.8
+    ],
+    [
+      -3.31,
+      -9.0,
+      68.2
     ],
     [
       0.0,
       -9.0,
-      66.0
+      67.5
     ]
   ]
 }
