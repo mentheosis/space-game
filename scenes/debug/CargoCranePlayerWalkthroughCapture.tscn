@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/debug/CargoCraneScaleReviewLoader.cs" id="2_loader"]
+[ext_resource type="Script" path="res://scripts/debug/CargoCranePlayerWalkthroughCaptureRunner.cs" id="3_runner"]
+[ext_resource type="Material" path="res://assets/materials/environment/mat_starfield.tres" id="4_starfield"]
+
+[sub_resource type="Sky" id="Sky_space"]
+sky_material = ExtResource("4_starfield")
+
+[sub_resource type="Environment" id="Environment_space"]
+background_mode = 2
+sky = SubResource("Sky_space")
+ambient_light_source = 3
+ambient_light_color = Color(0.45, 0.52, 0.62, 1)
+ambient_light_energy = 0.18
+tonemap_mode = 2
+glow_enabled = true
+ssao_enabled = true
+ssao_radius = 0.85
+ssao_intensity = 0.42
+
+[node name="CargoCranePlayerWalkthroughCapture" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+
+[node name="CargoCraneScaleReviewLoader" type="Node3D" parent="."]
+script = ExtResource("2_loader")
+PlayerPath = NodePath("../__NoPlayer__")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 260, 0)
+light_energy = 3.2
+shadow_enabled = true
+
+[node name="FillLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, 0.25, -0.433013, 0, 0.866025, 0.5, 0.5, 0.433013, -0.75, 0, 260, 0)
+light_color = Color(0.65, 0.78, 1, 1)
+light_energy = 0.85
+shadow_enabled = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_space")
+
+[node name="CargoCranePlayerWalkthroughCaptureRunner" type="Node3D" parent="."]
+script = ExtResource("3_runner")

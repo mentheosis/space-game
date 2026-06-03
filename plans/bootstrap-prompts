@@ -1,1 +1,62 @@
 We are going to make a computer game from scratch. The most similar comparison that i know of is a game called the outer wilds. It will be a game where the players moves in 3d, can enter a spaceship, and fly into space. The player is in a small solar syatem and can fly between planets and land on them. I want you to research the outer wilds, and research 3d game engines, and then write a file called proposal.md that outlines the plan to develop this game, then we will refine that proposal to an implementation plan
+
+----------------------------
+
+Build a new fully traversible ship prototype named `cargo_crane` using the repeatable voxel-first ship pipeline already proven by `shuttle_p3`.
+
+Primary source asset:
+- OpenGameArt “3D Space Ship Pack” by anaxarch, CC0:
+  https://opengameart.org/content/3d-space-ship-pack
+- The desired source model is `CargoCrane` from that pack.
+- First check whether `CargoCrane.obj` already exists locally under:
+  `assets/models/ship/placeholders/oga_3d_space_ship_pack/`
+- If it is missing, download/extract `models.zip` from the OGA page into that placeholder directory, then locate the exact `CargoCrane` OBJ/MTL path with `find`.
+
+Pipeline references:
+- Follow `plans/0.3 roadmap to AAA/shuttle-p3-repeatable-voxel-ship-process.md`.
+- Use `assets/source/blender/ships/shuttle_p3/shuttle_p3_interior_layout_contract.json` as the example layout contract pattern.
+- Do not blindly copy p3 dimensions. Create a new contract for CargoCrane, probably:
+  `assets/source/blender/ships/cargo_crane/cargo_crane_interior_layout_contract.json`.
+
+Expected output structure:
+- `assets/models/ship/cargo_crane/cargo_crane_exterior.glb`
+- `assets/source/blender/ships/cargo_crane/...`
+- `assets/models/ship/cargo_crane/cargo_crane_enclosure_bands.json`
+- `reports/ship_pipeline/cargo_crane_voxel_fit/...`
+- Godot debug/review scene and validation scripts for CargoCrane.
+
+Required approach:
+1. Import or convert the CargoCrane OBJ into the project as an exterior-only candidate.
+2. Produce exterior reference screenshots and scale/proportion evidence.
+3. STOP and ask the human to approve or revise:
+   - overall scale;
+   - intended forward/up orientation;
+   - where the entry hatch/ramp should be;
+   - whether the ship should have one or two levels;
+   - cockpit seat count;
+   - intended cargo/living/corridor roles;
+   - whether hull cutting is acceptable and where.
+4. After human answers, create the CargoCrane layout contract.
+5. Voxelize the interior free space.
+6. Serialize voxel data and use it to infer semantic regions.
+7. Generate traversal surfaces: entry ramp/hatch path, cargo/main floor, stairs or ladder if needed, cockpit path, landing/rails.
+8. Generate enclosure walls/ceilings from voxel slice bounds and the contract.
+9. Add static QC equivalent to p3:
+   - seam continuity;
+   - route clearance;
+   - wall/envelope fit;
+   - stair/ramp authored corridor clearance.
+10. Add real-player traversal validation equivalent to p3:
+   - the actual `PlayerController` must traverse from exterior entry through interior to pilot/cockpit target.
+11. Only consider the phase complete when:
+   - static enclosure QC passes;
+   - real-player traversal validation passes;
+   - host `dotnet build` passes;
+   - Godot import passes;
+   - a walkthrough MP4/contact sheet is produced.
+
+Important constraints:
+- Do not reuse shuttle_p3 geometry except as a process reference.
+- Do not hardcode CargoCrane-specific values in tools when they belong in the CargoCrane layout contract.
+- If voxel data shows the CargoCrane model is too small or unsuitable for a traversible interior, stop and ask the human whether to scale it up, reinterpret it, or choose a different source ship.
+- Keep the result fully separate from shuttle_p3 so future ships can repeat the process.

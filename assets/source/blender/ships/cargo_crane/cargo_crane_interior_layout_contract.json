@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "ship_id": "cargo_crane",
+  "coordinate_space": "ship local",
+  "purpose": "Repeatable interior layout contract for CargoCrane traversal, enclosure generation, validation, and review evidence.",
+  "approval_record": {
+    "scale": {
+      "status": "approved",
+      "source_to_ship_scale": 1.4,
+      "dimensions_m": [
+        52.04394,
+        28.12211,
+        149.61853
+      ]
+    },
+    "orientation": {
+      "status": "approved",
+      "up_axis": "+Y",
+      "forward_axis": "+Z",
+      "forward_note": "Cockpit material is concentrated at source +Z."
+    },
+    "entrances": "Four side entrances, two on each side, spread apart on the long center hull section.",
+    "level_count": 2,
+    "cockpit_seats": {
+      "pilot_forward_facing": 2,
+      "support_side_facing": 2
+    },
+    "roles": [
+      "medical facilities",
+      "living quarters",
+      "open atrium with mezzanine",
+      "cockpit",
+      "engine room",
+      "corridors"
+    ],
+    "hull_cutting": {
+      "acceptable": true,
+      "locations": "At the four side entrances."
+    }
+  },
+  "source_assets": {
+    "exterior_glb": "assets/models/ship/cargo_crane/cargo_crane_exterior.glb",
+    "source_obj": "assets/models/ship/placeholders/oga_3d_space_ship_pack/CargoCrane.obj"
+  },
+  "player_capsule": {
+    "radius": 0.35,
+    "height": 1.8,
+    "origin_clearance": 0.9
+  },
+  "voxelization": {
+    "voxel_size": 1.0,
+    "local_refine_voxel_size": 0.5,
+    "clearance_margin": 0.18,
+    "shell_margin": 0.32,
+    "central_x_quantiles": [
+      0.12,
+      0.88
+    ],
+    "central_y_quantiles": [
+      0.04,
+      0.96
+    ],
+    "interior_envelope": [
+      {
+        "name": "minimal_aft_engine_inspection_pocket",
+        "z_min": -70.0,
+        "z_max": -66.0,
+        "x_min": -1.5,
+        "x_max": 1.5,
+        "y_min": -8.8,
+        "y_max": -5.8
+      },
+      {
+        "name": "short_aft_to_body_connector_candidate",
+        "z_min": -40.0,
+        "z_max": -30.0,
+        "x_min": -2.0,
+        "x_max": 2.0,
+        "y_min": -6.0,
+        "y_max": -2.5
+      },
+      {
+        "name": "main_central_body",
+        "z_min": -30.0,
+        "z_max": 45.0,
+        "x_min": -7.4,
+        "x_max": 7.4,
+        "y_min": -2.3,
+        "y_max": 9.6
+      },
+      {
+        "name": "forward_cockpit_body",
+        "z_min": 45.0,
+        "z_max": 74.0,
+        "x_min": -6.8,
+        "x_max": 6.8,
+        "y_min": -13.5,
+        "y_max": 9.8
+      }
+    ]
+  },
+  "levels": [
+    {
+      "name": "AftLowerDeck",
+      "floor_y": -8.5,
+      "ceiling_y": -1.0,
+      "primary_roles": [
+        "engine room",
+        "corridors",
+        "open atrium lower"
+      ]
+    },
+    {
+      "name": "AftUpperMezzanine",
+      "floor_y": 1.2,
+      "ceiling_y": 9.0,
+      "primary_roles": [
+        "open atrium with mezzanine",
+        "aft transition"
+      ]
+    },
+    {
+      "name": "ForwardDeck",
+      "floor_y": -2.0,
+      "ceiling_y": 7.5,
+      "primary_roles": [
+        "medical facilities",
+        "living quarters",
+        "cockpit access",
+        "cockpit"
+      ]
+    }
+  ],
+  "entrance_hatches": [
+    {
+      "name": "PortAftEntrance",
+      "side": "port",
+      "cut_center": [
+        -7.8,
+        -0.2,
+        -20.0
+      ],
+      "cut_size": [
+        0.55,
+        4.2,
+        5.0
+      ],
+      "entry_floor_y": -2.0,
+      "target_room": "MedicalFacilities"
+    },
+    {
+      "name": "PortForwardEntrance",
+      "side": "port",
+      "cut_center": [
+        -7.8,
+        -0.2,
+        18.0
+      ],
+      "cut_size": [
+        0.55,
+        4.2,
+        5.0
+      ],
+      "entry_floor_y": -2.0,
+      "target_room": "AtriumLower"
+    },
+    {
+      "name": "StarboardAftEntrance",
+      "side": "starboard",
+      "cut_center": [
+        7.8,
+        -0.2,
+        -20.0
+      ],
+      "cut_size": [
+        0.55,
+        4.2,
+        5.0
+      ],
+      "entry_floor_y": -2.0,
+      "target_room": "LivingQuarters"
+    },
+    {
+      "name": "StarboardForwardEntrance",
+      "side": "starboard",
+      "cut_center": [
+        7.8,
+        -0.2,
+        18.0
+      ],
+      "cut_size": [
+        0.55,
+        4.2,
+        5.0
+      ],
+      "entry_floor_y": -2.0,
+      "target_room": "AtriumLower"
+    }
+  ],
+  "semantic_regions": [],
+  "semantic_connection_targets": [],
+  "semantic_connectivity": {
+    "max_handoff_distance": 4.0
+  },
+  "vertical_connectors": [],
+  "enclosure_generation": {
+    "default_slice_size": 2.0,
+    "stair_transition_slice_size": 1.0,
+    "wall_thickness": 0.22,
+    "ceiling_thickness": 0.22,
+    "max_wall_width_step": 1.4,
+    "stair_transition_max_wall_width_step": 1.2,
+    "side_wall_openings": []
+  },
+  "player_traversal_validation": {
+    "planar_tolerance": 2.0,
+    "maximum_seconds_per_checkpoint": 8.0,
+    "minimum_progress_meters": 0.35,
+    "stuck_seconds": 1.4,
+    "checkpoints": []
+  },
+  "semantic_discovery_notes": {
+    "status": "rewound_to_voxel_cloud_review",
+    "finding": "Downstream semantic regions, traversal checkpoints, vertical connectors, surfaces, and enclosure openings were cleared for a fresh interior voxel review.",
+    "implication": "Rebuild semantic zones only after the voxel cloud and connected interior components are approved."
+  }
+}

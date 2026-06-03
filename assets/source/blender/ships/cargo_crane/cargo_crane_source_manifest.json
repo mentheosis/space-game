@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "ship_id": "cargo_crane",
+  "source": {
+    "asset": "OpenGameArt 3D Space Ship Pack",
+    "author": "anaxarch",
+    "license": "CC0",
+    "url": "https://opengameart.org/content/3d-space-ship-pack",
+    "obj": "assets/models/ship/placeholders/oga_3d_space_ship_pack/CargoCrane.obj",
+    "mtl": "assets/models/ship/placeholders/oga_3d_space_ship_pack/CargoCrane.mtl"
+  },
+  "candidate": {
+    "glb": "assets/models/ship/cargo_crane/cargo_crane_exterior.glb",
+    "provisional_scale": 1.4,
+    "transform": "center source bounds on ship local origin; preserve source axes; source +Z is cockpit/forward candidate",
+    "status": "exterior-only review candidate; scale/orientation not locked until human approval"
+  },
+  "materials": [
+    "Accent",
+    "Cockpit",
+    "Hull"
+  ]
+}

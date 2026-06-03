@@ -1,0 +1,308 @@
+{
+  "schema_version": 1,
+  "ship_id": "cargo_crane",
+  "coordinate_space": "ship local",
+  "source_voxels": "reports/ship_pipeline/cargo_crane_voxel_fit/cargo_crane_objective_interior_voxels_compact.json",
+  "method": "shuttle_style_regularized_floorplan_from_objective_voxels",
+  "surfaces": [
+    {
+      "name": "aft_center_service_regularized_floor",
+      "type": "floor_box",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        -5.0,
+        -50.5
+      ],
+      "size": [
+        13.0,
+        0.22,
+        26.0
+      ],
+      "roles": [
+        "engineering",
+        "aft service"
+      ],
+      "source": "regularized_objective_voxels"
+    },
+    {
+      "name": "central_body_lower_regularized_floor",
+      "type": "floor_box",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "size": [
+        13.0,
+        0.22,
+        59.0
+      ],
+      "roles": [
+        "medical",
+        "living",
+        "corridor"
+      ],
+      "source": "regularized_objective_voxels"
+    },
+    {
+      "name": "forward_access_regularized_floor",
+      "type": "floor_box",
+      "region": "forward_access",
+      "center": [
+        0.0,
+        -1.0,
+        46.0
+      ],
+      "size": [
+        7.0,
+        0.22,
+        27.0
+      ],
+      "roles": [
+        "cockpit access",
+        "corridor"
+      ],
+      "source": "regularized_objective_voxels"
+    },
+    {
+      "name": "cockpit_lower_regularized_floor",
+      "type": "floor_box",
+      "region": "cockpit_lower",
+      "center": [
+        0.0,
+        -9.0,
+        67.5
+      ],
+      "size": [
+        7.4,
+        0.22,
+        10.0
+      ],
+      "roles": [
+        "cockpit"
+      ],
+      "source": "trimmed_objective_voxels_for_cockpit_lower"
+    },
+    {
+      "name": "regularized_connector_01",
+      "type": "ramp",
+      "start": [
+        0.0,
+        -5.0,
+        -37.0
+      ],
+      "end": [
+        0.0,
+        -1.0,
+        -29.0
+      ],
+      "width": 2.4,
+      "thickness": 0.24,
+      "role": "edge_to_edge_inter_region_connector"
+    },
+    {
+      "name": "central_body_lower_to_forward_access_same_level_bridge",
+      "type": "floor_box",
+      "region": "central_body_lower_to_forward_access",
+      "center": [
+        0.0,
+        -1.0,
+        31.5
+      ],
+      "size": [
+        7.0,
+        0.22,
+        4.0
+      ],
+      "roles": [
+        "same_level_interstitial_connector"
+      ],
+      "source": "regularized_gap_fill"
+    },
+    {
+      "name": "cockpit_upper_aft_full_width_landing",
+      "type": "floor_box",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        0.0,
+        -1.0,
+        60.15
+      ],
+      "size": [
+        8.5,
+        0.22,
+        1.3
+      ],
+      "roles": [
+        "cockpit",
+        "upper level",
+        "support seats"
+      ],
+      "source": "approved_two_level_cockpit_requirement_with_stair_openings"
+    },
+    {
+      "name": "cockpit_upper_narrow_stair_clearance_bridge",
+      "type": "floor_box",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        0.0,
+        -1.0,
+        64.6
+      ],
+      "size": [
+        3.8,
+        0.22,
+        7.6
+      ],
+      "roles": [
+        "cockpit",
+        "upper level",
+        "support seats"
+      ],
+      "source": "approved_two_level_cockpit_requirement_with_stair_openings"
+    },
+    {
+      "name": "cockpit_upper_forward_full_width_deck",
+      "type": "floor_box",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        0.0,
+        -1.0,
+        68.0
+      ],
+      "size": [
+        8.5,
+        0.22,
+        4.0
+      ],
+      "roles": [
+        "cockpit",
+        "upper level",
+        "support seats"
+      ],
+      "source": "approved_two_level_cockpit_requirement_with_stair_openings"
+    },
+    {
+      "name": "cockpit_port_edge_stairs_to_lower_deck",
+      "type": "stair_path",
+      "points": [
+        [
+          -3.31,
+          -1.0,
+          60.8
+        ],
+        [
+          -3.31,
+          -3.6,
+          63.1
+        ],
+        [
+          -3.31,
+          -6.2,
+          65.7
+        ],
+        [
+          -3.31,
+          -9.0,
+          68.2
+        ]
+      ],
+      "width": 1.68,
+      "thickness": 0.24,
+      "role": "cockpit_edge_stair"
+    },
+    {
+      "name": "cockpit_starboard_edge_stairs_to_lower_deck",
+      "type": "stair_path",
+      "points": [
+        [
+          3.31,
+          -1.0,
+          60.8
+        ],
+        [
+          3.31,
+          -3.6,
+          63.1
+        ],
+        [
+          3.31,
+          -6.2,
+          65.7
+        ],
+        [
+          3.31,
+          -9.0,
+          68.2
+        ]
+      ],
+      "width": 1.68,
+      "thickness": 0.24,
+      "role": "cockpit_edge_stair"
+    }
+  ],
+  "primary_route": [
+    [
+      0.0,
+      -5.0,
+      -51.0
+    ],
+    [
+      0.0,
+      -1.0,
+      -40.0
+    ],
+    [
+      0.0,
+      -1.0,
+      -28.0
+    ],
+    [
+      0.0,
+      -1.0,
+      -22.0
+    ],
+    [
+      0.0,
+      -1.0,
+      -11.0
+    ],
+    [
+      0.0,
+      -1.0,
+      1.0
+    ],
+    [
+      0.0,
+      -1.0,
+      11.0
+    ],
+    [
+      0.0,
+      -1.0,
+      22.0
+    ],
+    [
+      0.0,
+      -1.0,
+      34.0
+    ],
+    [
+      0.0,
+      -1.0,
+      46.0
+    ],
+    [
+      0.0,
+      -1.0,
+      54.0
+    ],
+    [
+      0.0,
+      -9.0,
+      66.0
+    ]
+  ]
+}

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/debug/CargoCraneScaleReviewLoader.cs" id="2_loader"]
+[ext_resource type="Script" path="res://scripts/debug/CargoCranePlayerTraversalValidationRunner.cs" id="3_runner"]
+
+[node name="CargoCranePlayerTraversalValidation" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+
+[node name="CargoCraneScaleReviewLoader" type="Node3D" parent="."]
+script = ExtResource("2_loader")
+PlayerPath = NodePath("../__NoPlayer__")
+
+[node name="CargoCranePlayerTraversalValidationRunner" type="Node3D" parent="."]
+script = ExtResource("3_runner")
