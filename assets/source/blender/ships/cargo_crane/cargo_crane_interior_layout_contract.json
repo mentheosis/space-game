@@ -569,7 +569,7 @@
         "center_y": -0.2,
         "height_y": 4.2,
         "center_z": -20.0,
-        "width_z": 5.8,
+        "width_z": 3.2,
         "source": "approved_center_body_hatchway"
       },
       {
@@ -579,7 +579,7 @@
         "center_y": -0.2,
         "height_y": 4.2,
         "center_z": 18.0,
-        "width_z": 5.8,
+        "width_z": 3.2,
         "source": "approved_center_body_hatchway"
       },
       {
@@ -589,7 +589,7 @@
         "center_y": -0.2,
         "height_y": 4.2,
         "center_z": -20.0,
-        "width_z": 5.8,
+        "width_z": 3.2,
         "source": "approved_center_body_hatchway"
       },
       {
@@ -599,7 +599,7 @@
         "center_y": -0.2,
         "height_y": 4.2,
         "center_z": 18.0,
-        "width_z": 5.8,
+        "width_z": 3.2,
         "source": "approved_center_body_hatchway"
       }
     ]
@@ -672,6 +672,22 @@
           0.0,
           -1.0,
           68.0
+        ]
+      },
+      {
+        "name": "Cockpit upper return to aft stair landing",
+        "local_origin": [
+          0.0,
+          -1.0,
+          60.15
+        ]
+      },
+      {
+        "name": "Port cockpit stair aft entry",
+        "local_origin": [
+          -3.31,
+          -1.0,
+          60.35
         ]
       },
       {

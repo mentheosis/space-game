@@ -1,0 +1,446 @@
+{
+  "schema_version": 1,
+  "ship_id": "cargo_crane",
+  "coordinate_space": "ship local",
+  "source_plan": "reports/ship_pipeline/cargo_crane_room_partition_plan/cargo_crane_room_partition_plan.json",
+  "wall_thickness": 0.18,
+  "wall_height": 5.9,
+  "collision_default": false,
+  "bands": [
+    {
+      "name": "living_to_starboard_corridor_wall_01",
+      "type": "room_partition_wall",
+      "source_partition": "living_to_starboard_corridor_wall",
+      "center": [
+        2.8,
+        1.95,
+        -14.95
+      ],
+      "size": [
+        0.18,
+        5.9,
+        2.1
+      ]
+    },
+    {
+      "name": "living_to_starboard_corridor_wall_02",
+      "type": "room_partition_wall",
+      "source_partition": "living_to_starboard_corridor_wall",
+      "center": [
+        2.8,
+        1.95,
+        -10.0
+      ],
+      "size": [
+        0.18,
+        5.9,
+        4.2
+      ]
+    },
+    {
+      "name": "living_to_starboard_corridor_wall_03",
+      "type": "room_partition_wall",
+      "source_partition": "living_to_starboard_corridor_wall",
+      "center": [
+        2.8,
+        1.95,
+        -4.0
+      ],
+      "size": [
+        0.18,
+        5.9,
+        4.2
+      ]
+    },
+    {
+      "name": "living_to_starboard_corridor_wall_04",
+      "type": "room_partition_wall",
+      "source_partition": "living_to_starboard_corridor_wall",
+      "center": [
+        2.8,
+        1.95,
+        0.95
+      ],
+      "size": [
+        0.18,
+        5.9,
+        2.1
+      ]
+    },
+    {
+      "name": "atrium_to_room_block_frame_01",
+      "type": "room_partition_wall",
+      "source_partition": "atrium_to_room_block_frame",
+      "center": [
+        -4.35,
+        1.95,
+        -16.0
+      ],
+      "size": [
+        4.3,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "atrium_to_room_block_frame_02",
+      "type": "room_partition_wall",
+      "source_partition": "atrium_to_room_block_frame",
+      "center": [
+        1.75,
+        1.95,
+        -16.0
+      ],
+      "size": [
+        3.1,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "living_room_split_a_01",
+      "type": "room_partition_wall",
+      "source_partition": "living_room_split_a",
+      "center": [
+        -1.85,
+        1.95,
+        -10.0
+      ],
+      "size": [
+        9.3,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "living_room_split_b_01",
+      "type": "room_partition_wall",
+      "source_partition": "living_room_split_b",
+      "center": [
+        -1.85,
+        1.95,
+        -4.0
+      ],
+      "size": [
+        9.3,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "living_to_medical_transition_02",
+      "type": "room_partition_wall",
+      "source_partition": "living_to_medical_transition",
+      "center": [
+        -0.25,
+        1.95,
+        2.0
+      ],
+      "size": [
+        7.1,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "medical_aft_wall_01",
+      "type": "room_partition_wall",
+      "source_partition": "medical_aft_wall",
+      "center": [
+        -2.45,
+        1.95,
+        4.0
+      ],
+      "size": [
+        2.3,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "medical_aft_wall_02",
+      "type": "room_partition_wall",
+      "source_partition": "medical_aft_wall",
+      "center": [
+        2.15,
+        1.95,
+        4.0
+      ],
+      "size": [
+        1.7,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "medical_port_wall_01",
+      "type": "room_partition_wall",
+      "source_partition": "medical_port_wall",
+      "center": [
+        -3.6,
+        1.95,
+        7.4
+      ],
+      "size": [
+        0.18,
+        5.9,
+        6.8
+      ]
+    },
+    {
+      "name": "medical_port_wall_02",
+      "type": "room_partition_wall",
+      "source_partition": "medical_port_wall",
+      "center": [
+        -3.6,
+        1.95,
+        17.6
+      ],
+      "size": [
+        0.18,
+        5.9,
+        8.8
+      ]
+    },
+    {
+      "name": "medical_starboard_wall_01",
+      "type": "room_partition_wall",
+      "source_partition": "medical_starboard_wall",
+      "center": [
+        3.0,
+        1.95,
+        7.4
+      ],
+      "size": [
+        0.18,
+        5.9,
+        6.8
+      ]
+    },
+    {
+      "name": "medical_starboard_wall_02",
+      "type": "room_partition_wall",
+      "source_partition": "medical_starboard_wall",
+      "center": [
+        3.0,
+        1.95,
+        17.6
+      ],
+      "size": [
+        0.18,
+        5.9,
+        8.8
+      ]
+    },
+    {
+      "name": "medical_forward_wall_01",
+      "type": "room_partition_wall",
+      "source_partition": "medical_forward_wall",
+      "center": [
+        -2.45,
+        1.95,
+        22.0
+      ],
+      "size": [
+        2.3,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "medical_forward_wall_02",
+      "type": "room_partition_wall",
+      "source_partition": "medical_forward_wall",
+      "center": [
+        2.15,
+        1.95,
+        22.0
+      ],
+      "size": [
+        1.7,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "medical_to_forward_rooms_frame_01",
+      "type": "room_partition_wall",
+      "source_partition": "medical_to_forward_rooms_frame",
+      "center": [
+        -6.25,
+        1.95,
+        24.0
+      ],
+      "size": [
+        0.5,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "medical_to_forward_rooms_frame_02",
+      "type": "room_partition_wall",
+      "source_partition": "medical_to_forward_rooms_frame",
+      "center": [
+        -3.65,
+        1.95,
+        24.0
+      ],
+      "size": [
+        0.7,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "medical_to_forward_rooms_frame_03",
+      "type": "room_partition_wall",
+      "source_partition": "medical_to_forward_rooms_frame",
+      "center": [
+        3.65,
+        1.95,
+        24.0
+      ],
+      "size": [
+        0.7,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "medical_to_forward_rooms_frame_04",
+      "type": "room_partition_wall",
+      "source_partition": "medical_to_forward_rooms_frame",
+      "center": [
+        6.25,
+        1.95,
+        24.0
+      ],
+      "size": [
+        0.5,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "port_forward_med_wall_01",
+      "type": "room_partition_wall",
+      "source_partition": "port_forward_med_wall",
+      "center": [
+        -3.6,
+        1.95,
+        25.0
+      ],
+      "size": [
+        0.18,
+        5.9,
+        2.0
+      ]
+    },
+    {
+      "name": "port_forward_med_wall_02",
+      "type": "room_partition_wall",
+      "source_partition": "port_forward_med_wall",
+      "center": [
+        -3.6,
+        1.95,
+        29.25
+      ],
+      "size": [
+        0.18,
+        5.9,
+        2.5
+      ]
+    },
+    {
+      "name": "starboard_forward_med_wall_01",
+      "type": "room_partition_wall",
+      "source_partition": "starboard_forward_med_wall",
+      "center": [
+        3.0,
+        1.95,
+        25.0
+      ],
+      "size": [
+        0.18,
+        5.9,
+        2.0
+      ]
+    },
+    {
+      "name": "starboard_forward_med_wall_02",
+      "type": "room_partition_wall",
+      "source_partition": "starboard_forward_med_wall",
+      "center": [
+        3.0,
+        1.95,
+        29.25
+      ],
+      "size": [
+        0.18,
+        5.9,
+        2.5
+      ]
+    },
+    {
+      "name": "atrium_to_forward_access_frame_01",
+      "type": "room_partition_wall",
+      "source_partition": "atrium_to_forward_access_frame",
+      "center": [
+        -5.0,
+        1.95,
+        30.5
+      ],
+      "size": [
+        3.0,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "atrium_to_forward_access_frame_02",
+      "type": "room_partition_wall",
+      "source_partition": "atrium_to_forward_access_frame",
+      "center": [
+        5.0,
+        1.95,
+        30.5
+      ],
+      "size": [
+        3.0,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "forward_access_to_cockpit_frame_01",
+      "type": "room_partition_wall",
+      "source_partition": "forward_access_to_cockpit_frame",
+      "center": [
+        -2.75,
+        1.95,
+        59.5
+      ],
+      "size": [
+        1.5,
+        5.9,
+        0.18
+      ]
+    },
+    {
+      "name": "forward_access_to_cockpit_frame_02",
+      "type": "room_partition_wall",
+      "source_partition": "forward_access_to_cockpit_frame",
+      "center": [
+        2.75,
+        1.95,
+        59.5
+      ],
+      "size": [
+        1.5,
+        5.9,
+        0.18
+      ]
+    }
+  ]
+}

@@ -32,6 +32,8 @@ ROUTE_CHECKPOINTS = [
     ("Forward access", [0.0, -1.0, 46.0]),
     ("Cockpit upper aft landing", [0.0, -1.0, 60.15]),
     ("Cockpit upper forward deck", [0.0, -1.0, 68.0]),
+    ("Cockpit upper return to aft stair landing", [0.0, -1.0, 60.15]),
+    ("Port cockpit stair aft entry", [-3.31, -1.0, 60.35]),
     ("Port cockpit stair upper", [-3.31, -1.0, 60.8]),
     ("Port cockpit stair lower", [-3.31, -9.0, 68.2]),
     ("Lower cockpit center", [0.0, -9.0, 67.5]),
@@ -144,7 +146,7 @@ def build_side_wall_openings(contract: dict) -> list[dict]:
                 "center_y": round(float(entrance["cut_center"][1]), 4),
                 "height_y": round(float(entrance["cut_size"][1]), 4),
                 "center_z": round(float(entrance["cut_center"][2]), 4),
-                "width_z": round(max(5.8, float(entrance["cut_size"][2]) + 0.8), 4),
+                "width_z": 3.2,
                 "source": "approved_center_body_hatchway",
             }
         )

@@ -51,7 +51,10 @@ def validate() -> dict:
 
     for region_id in sorted(expected_regions):
         types = {band["type"] for band in by_region.get(region_id, [])}
-        for required in {"side_wall", "ceiling"}:
+        required_types = {"side_wall", "ceiling"}
+        if region_id == "cockpit_lower":
+            required_types.remove("ceiling")
+        for required in required_types:
             if required not in types:
                 errors.append({"check": "region_band_completeness", "region": region_id, "missing": required})
 

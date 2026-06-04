@@ -19,5 +19,6 @@ fi
 
 echo "Opening CargoCrane scale review demo."
 echo "Candidate dimensions: 52.04m wide x 28.12m tall x 149.62m long."
-echo "Controls: walk normally; press G to toggle ghost skin, R to toggle scale references, B to toggle semantic boxes, T to toggle traversal surfaces."
+echo "Clean review view: opaque ship skin, opaque walkable collision surfaces, and opaque enclosure bands."
+echo "Controls: walk normally; press G to toggle ship skin, T to toggle walkable collision surfaces, E to toggle enclosure bands."
 "${GODOT_BIN}" --path . res://scenes/debug/CargoCraneScaleReview.tscn

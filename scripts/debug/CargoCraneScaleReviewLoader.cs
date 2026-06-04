@@ -12,6 +12,7 @@ public partial class CargoCraneScaleReviewLoader : Node3D
     [Export] public string TraversalSurfacesPath { get; set; } = "res://assets/models/ship/cargo_crane/cargo_crane_traversal_surfaces.json";
     [Export] public string ObjectiveWalkableSurfacesPath { get; set; } = "res://assets/models/ship/cargo_crane/cargo_crane_objective_walkable_surfaces.json";
     [Export] public string EnclosureBandsPath { get; set; } = "res://assets/models/ship/cargo_crane/cargo_crane_enclosure_bands.json";
+    [Export] public string RoomPartitionBandsPath { get; set; } = "res://assets/models/ship/cargo_crane/cargo_crane_room_partition_bands.json";
     [Export] public Vector3 ShipPosition { get; set; } = new(0.0f, 214.06f, 0.0f);
     [Export] public Vector3 PlayerSpawnPosition { get; set; } = new(0.0f, 210.07f, -55.0f);
     [Export] public Key GhostToggleKey { get; set; } = Key.G;
@@ -19,19 +20,30 @@ public partial class CargoCraneScaleReviewLoader : Node3D
     [Export] public Key SemanticToggleKey { get; set; } = Key.B;
     [Export] public Key TraversalToggleKey { get; set; } = Key.T;
     [Export] public Key EnclosureToggleKey { get; set; } = Key.E;
+    [Export] public Key RoomPartitionToggleKey { get; set; } = Key.P;
+    [Export] public Key CollisionSurfaceToggleKey { get; set; } = Key.V;
     [Export] public bool EnclosureCollisionEnabled { get; set; } = true;
+    [Export] public bool RoomPartitionCollisionEnabled { get; set; } = false;
+    [Export] public bool ShowScaleReferences { get; set; } = false;
+    [Export] public bool ShowSemanticContractBoxes { get; set; } = false;
+    [Export] public bool ShowTraversalSurfaceVisuals { get; set; } = true;
+    [Export] public bool ShowEnclosureBandVisuals { get; set; } = true;
+    [Export] public bool ShowRoomPartitionWallVisuals { get; set; } = false;
+    [Export] public bool ShowReviewPad { get; set; } = false;
+    [Export] public bool AddInteriorReviewLighting { get; set; } = true;
 
     private Node3D? _shipRoot;
     private Node3D? _referenceRoot;
     private Node3D? _semanticRoot;
     private Node3D? _traversalVisualRoot;
     private Node3D? _enclosureVisualRoot;
+    private Node3D? _roomPartitionVisualRoot;
     private StandardMaterial3D? _ghostMaterial;
     private bool _ghostEnabled = true;
 
     public override void _Ready()
     {
-        _ghostMaterial = CreateMaterial(new Color(0.45f, 0.85f, 1.0f, 0.34f), transparent: true);
+        _ghostMaterial = CreateExteriorSkinMaterial(new Color(0.46f, 0.62f, 0.76f, 1.0f));
 
         _shipRoot = new Node3D
         {
@@ -41,17 +53,34 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         AddChild(_shipRoot);
 
         LoadGhostSkin(_shipRoot);
-        AddScaleReferences(_shipRoot);
-        AddSemanticContractBoxes(_shipRoot);
+        if (ShowScaleReferences)
+        {
+            AddScaleReferences(_shipRoot);
+        }
+        if (ShowSemanticContractBoxes)
+        {
+            AddSemanticContractBoxes(_shipRoot);
+        }
         AddTraversalSurfaces(_shipRoot);
         AddEnclosureBands(_shipRoot);
-        AddReviewPad();
+        if (ShowRoomPartitionWallVisuals)
+        {
+            AddRoomPartitionBands(_shipRoot);
+        }
+        if (AddInteriorReviewLighting)
+        {
+            AddInteriorReviewLights(_shipRoot);
+        }
+        if (ShowReviewPad)
+        {
+            AddReviewPad();
+        }
         MovePlayerToSpawn();
 
-        GD.Print("CargoCrane scale review loaded.");
-        GD.Print("Controls: walk normally; G toggles ghost skin; R toggles scale references; B toggles semantic contract boxes; T toggles traversal surface visuals; E toggles enclosure bands.");
+        GD.Print("CargoCrane interior review loaded.");
+        GD.Print("Controls: walk normally; G toggles ship skin; R toggles scale references if loaded; B toggles semantic boxes if loaded; T toggles traversal/collision floor visuals; E toggles enclosure bands; V toggles all collision surface visuals.");
         GD.Print("Candidate: 52.04m wide x 28.12m tall x 149.62m long, source +Z forward/cockpit end.");
-        GD.Print("Semantic color key: red=medical, green=living quarters, orange=atrium, purple=engine, yellow=mezzanine, cyan=interstitial connectors, blue=lower/cockpit corridor, white=cockpit, bright orange=entrances.");
+        GD.Print("Review color key: blue shell=opaque ship skin, gold=opaque walkable collision floors, orange=opaque ramps/stairs, blue wall bands=opaque enclosure collision.");
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -90,6 +119,19 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         {
             _enclosureVisualRoot.Visible = !_enclosureVisualRoot.Visible;
             GD.Print($"CargoCrane enclosure bands: {(_enclosureVisualRoot.Visible ? "visible" : "hidden")}");
+            GetViewport().SetInputAsHandled();
+        }
+        else if (keyEvent.Keycode == RoomPartitionToggleKey && _roomPartitionVisualRoot is not null)
+        {
+            _roomPartitionVisualRoot.Visible = !_roomPartitionVisualRoot.Visible;
+            GD.Print($"CargoCrane room partition walls: {(_roomPartitionVisualRoot.Visible ? "visible" : "hidden")}");
+            GetViewport().SetInputAsHandled();
+        }
+        else if (keyEvent.Keycode == CollisionSurfaceToggleKey)
+        {
+            var visible = !AnyCollisionSurfaceVisualsVisible();
+            SetCollisionSurfaceVisualsVisible(visible);
+            GD.Print($"CargoCrane collision surface visuals: {(visible ? "visible" : "hidden")}");
             GetViewport().SetInputAsHandled();
         }
     }
@@ -286,6 +328,7 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         shipRoot.AddChild(collisionRoot);
 
         _traversalVisualRoot = new Node3D { Name = "TraversalSurfaceVisuals" };
+        _traversalVisualRoot.Visible = ShowTraversalSurfaceVisuals;
         shipRoot.AddChild(_traversalVisualRoot);
 
         var surfacesPath = TraversalSurfacesPath;
@@ -315,9 +358,9 @@ public partial class CargoCraneScaleReviewLoader : Node3D
             return;
         }
 
-        var floorMaterial = CreateMaterial(new Color(0.88f, 0.75f, 0.28f, 0.82f), transparent: true);
-        var rampMaterial = CreateMaterial(new Color(1.0f, 0.42f, 0.16f, 0.86f), transparent: true);
-        var stairMaterial = CreateMaterial(new Color(0.25f, 1.0f, 0.84f, 0.86f), transparent: true);
+        var floorMaterial = CreateMaterial(new Color(0.90f, 0.70f, 0.18f, 1.0f), transparent: false);
+        var rampMaterial = CreateMaterial(new Color(1.0f, 0.46f, 0.12f, 1.0f), transparent: false);
+        var stairMaterial = CreateMaterial(new Color(0.08f, 0.76f, 0.68f, 1.0f), transparent: false);
 
         foreach (var item in surfacesValue.AsGodotArray())
         {
@@ -381,6 +424,7 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         }
 
         _enclosureVisualRoot = new Node3D { Name = "EnclosureBandVisuals" };
+        _enclosureVisualRoot.Visible = ShowEnclosureBandVisuals;
         shipRoot.AddChild(_enclosureVisualRoot);
 
         if (!Godot.FileAccess.FileExists(EnclosureBandsPath))
@@ -403,8 +447,8 @@ public partial class CargoCraneScaleReviewLoader : Node3D
             return;
         }
 
-        var sideWallMaterial = CreateMaterial(new Color(0.54f, 0.72f, 0.95f, 0.48f), transparent: true);
-        var ceilingMaterial = CreateMaterial(new Color(0.82f, 0.82f, 0.92f, 0.34f), transparent: true);
+        var sideWallMaterial = CreateMaterial(new Color(0.22f, 0.48f, 0.84f, 1.0f), transparent: false);
+        var ceilingMaterial = CreateMaterial(new Color(0.46f, 0.58f, 0.82f, 1.0f), transparent: false);
 
         foreach (var item in bandsValue.AsGodotArray())
         {
@@ -416,6 +460,77 @@ public partial class CargoCraneScaleReviewLoader : Node3D
             var band = item.AsGodotDictionary<string, Variant>();
             var name = ReadString(band, "name", "EnclosureBand");
             var type = ReadString(band, "type", "side_wall");
+            var center = ReadVector3(band, "center");
+            var size = ReadVector3(band, "size");
+            var rotationDegrees = ReadOptionalVector3(band, "rotation_degrees");
+            if (size.X <= 0.0f || size.Y <= 0.0f || size.Z <= 0.0f)
+            {
+                continue;
+            }
+
+            if (collisionRoot is not null)
+            {
+                collisionRoot.AddChild(new CollisionShape3D
+                {
+                    Name = $"{name}Collision",
+                    Position = center,
+                    RotationDegrees = rotationDegrees,
+                    Shape = new BoxShape3D { Size = size }
+                });
+            }
+
+            AddBox(_enclosureVisualRoot, $"Enclosure_{name}", center, size, type == "ceiling" ? ceilingMaterial : sideWallMaterial, withCollision: false, rotationDegrees);
+        }
+    }
+
+    private void AddRoomPartitionBands(Node3D shipRoot)
+    {
+        StaticBody3D? collisionRoot = null;
+        if (RoomPartitionCollisionEnabled)
+        {
+            collisionRoot = new StaticBody3D
+            {
+                Name = "RoomPartitionCollision",
+                CollisionLayer = SolidCollisionLayer,
+                CollisionMask = SolidCollisionLayer
+            };
+            shipRoot.AddChild(collisionRoot);
+        }
+
+        _roomPartitionVisualRoot = new Node3D { Name = "RoomPartitionWallVisuals" };
+        _roomPartitionVisualRoot.Visible = ShowRoomPartitionWallVisuals;
+        shipRoot.AddChild(_roomPartitionVisualRoot);
+
+        if (!Godot.FileAccess.FileExists(RoomPartitionBandsPath))
+        {
+            GD.PushWarning($"CargoCrane room partition bands not found: {RoomPartitionBandsPath}");
+            return;
+        }
+
+        var parsed = Json.ParseString(Godot.FileAccess.GetFileAsString(RoomPartitionBandsPath));
+        if (parsed.VariantType != Variant.Type.Dictionary)
+        {
+            GD.PushWarning($"CargoCrane room partition bands data is not an object: {RoomPartitionBandsPath}");
+            return;
+        }
+
+        var root = parsed.AsGodotDictionary<string, Variant>();
+        if (!root.TryGetValue("bands", out var bandsValue) || bandsValue.VariantType != Variant.Type.Array)
+        {
+            GD.PushWarning($"CargoCrane room partition bands data has no bands array: {RoomPartitionBandsPath}");
+            return;
+        }
+
+        var partitionMaterial = CreateMaterial(new Color(0.96f, 0.96f, 0.90f, 0.86f), transparent: true);
+        foreach (var item in bandsValue.AsGodotArray())
+        {
+            if (item.VariantType != Variant.Type.Dictionary)
+            {
+                continue;
+            }
+
+            var band = item.AsGodotDictionary<string, Variant>();
+            var name = ReadString(band, "name", "RoomPartitionBand");
             var center = ReadVector3(band, "center");
             var size = ReadVector3(band, "size");
             if (size.X <= 0.0f || size.Y <= 0.0f || size.Z <= 0.0f)
@@ -433,7 +548,7 @@ public partial class CargoCraneScaleReviewLoader : Node3D
                 });
             }
 
-            AddBox(_enclosureVisualRoot, $"Enclosure_{name}", center, size, type == "ceiling" ? ceilingMaterial : sideWallMaterial, withCollision: false);
+            AddBox(_roomPartitionVisualRoot, $"RoomPartition_{name}", center, size, partitionMaterial, withCollision: false);
         }
     }
 
@@ -461,6 +576,7 @@ public partial class CargoCraneScaleReviewLoader : Node3D
             Mesh = new BoxMesh { Size = size },
             MaterialOverride = material
         };
+        ConfigureAlwaysVisible(mesh);
         visualRoot.AddChild(mesh);
     }
 
@@ -502,6 +618,7 @@ public partial class CargoCraneScaleReviewLoader : Node3D
             Mesh = new BoxMesh { Size = size },
             MaterialOverride = material
         };
+        ConfigureAlwaysVisible(mesh);
         visualRoot.AddChild(mesh);
     }
 
@@ -519,6 +636,29 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         {
             body.Velocity = Vector3.Zero;
         }
+    }
+
+    private static void AddInteriorReviewLights(Node3D shipRoot)
+    {
+        AddReviewLight(shipRoot, "EngineRoomReviewLight", new Vector3(0.0f, 5.0f, -48.0f), 7.0f, 24.0f, new Color(1.0f, 0.78f, 0.56f));
+        AddReviewLight(shipRoot, "AtriumReviewLight", new Vector3(0.0f, 5.8f, -20.0f), 8.0f, 30.0f, new Color(1.0f, 0.86f, 0.64f));
+        AddReviewLight(shipRoot, "MainBodyReviewLightAft", new Vector3(0.0f, 5.4f, -2.0f), 6.5f, 30.0f, new Color(0.86f, 0.94f, 1.0f));
+        AddReviewLight(shipRoot, "MainBodyReviewLightForward", new Vector3(0.0f, 5.4f, 21.0f), 6.5f, 30.0f, new Color(0.86f, 0.94f, 1.0f));
+        AddReviewLight(shipRoot, "CockpitReviewLight", new Vector3(0.0f, 3.0f, 55.0f), 7.0f, 28.0f, new Color(0.82f, 0.90f, 1.0f));
+        AddReviewLight(shipRoot, "LowerCockpitReviewLight", new Vector3(0.0f, -3.2f, 65.0f), 5.0f, 18.0f, new Color(0.82f, 0.90f, 1.0f));
+    }
+
+    private static void AddReviewLight(Node3D parent, string name, Vector3 position, float energy, float range, Color color)
+    {
+        parent.AddChild(new OmniLight3D
+        {
+            Name = name,
+            Position = position,
+            LightColor = color,
+            LightEnergy = energy,
+            OmniRange = range,
+            ShadowEnabled = false
+        });
     }
 
     private static string ReadString(GDict source, string key, string fallback)
@@ -542,6 +682,13 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         return new Vector3((float)array[0], (float)array[1], (float)array[2]);
     }
 
+    private static Vector3 ReadOptionalVector3(GDict source, string key)
+    {
+        return source.TryGetValue(key, out var value) && value.VariantType == Variant.Type.Array
+            ? Vector3FromArray(value.AsGodotArray())
+            : Vector3.Zero;
+    }
+
     private static float ReadFloat(GDict source, string key, float fallback)
     {
         return source.TryGetValue(key, out var value) ? (float)value.AsDouble() : fallback;
@@ -563,6 +710,7 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         {
             mesh.MaterialOverride = _ghostMaterial;
             mesh.CastShadow = GeometryInstance3D.ShadowCastingSetting.Off;
+            ConfigureAlwaysVisible(mesh);
         }
 
         foreach (var child in node.GetChildren())
@@ -584,6 +732,29 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         }
     }
 
+    private bool AnyCollisionSurfaceVisualsVisible()
+    {
+        return (_traversalVisualRoot?.Visible ?? false)
+            || (_enclosureVisualRoot?.Visible ?? false)
+            || (_roomPartitionVisualRoot?.Visible ?? false);
+    }
+
+    private void SetCollisionSurfaceVisualsVisible(bool visible)
+    {
+        if (_traversalVisualRoot is not null)
+        {
+            _traversalVisualRoot.Visible = visible;
+        }
+        if (_enclosureVisualRoot is not null)
+        {
+            _enclosureVisualRoot.Visible = visible;
+        }
+        if (_roomPartitionVisualRoot is not null)
+        {
+            _roomPartitionVisualRoot.Visible = visible;
+        }
+    }
+
     private static void AddCapsule(Node parent, string name, Vector3 position, Material material)
     {
         var mesh = new MeshInstance3D
@@ -593,18 +764,21 @@ public partial class CargoCraneScaleReviewLoader : Node3D
             Mesh = new CapsuleMesh { Radius = 0.35f, Height = 1.8f },
             MaterialOverride = material
         };
+        ConfigureAlwaysVisible(mesh);
         parent.AddChild(mesh);
     }
 
-    private static void AddBox(Node parent, string name, Vector3 position, Vector3 size, Material material, bool withCollision)
+    private static void AddBox(Node parent, string name, Vector3 position, Vector3 size, Material material, bool withCollision, Vector3? rotationDegrees = null)
     {
         var mesh = new MeshInstance3D
         {
             Name = name,
             Position = position,
+            RotationDegrees = rotationDegrees ?? Vector3.Zero,
             Mesh = new BoxMesh { Size = size },
             MaterialOverride = material
         };
+        ConfigureAlwaysVisible(mesh);
 
         if (!withCollision)
         {
@@ -616,6 +790,7 @@ public partial class CargoCraneScaleReviewLoader : Node3D
         {
             Name = $"{name}Body",
             Position = position,
+            RotationDegrees = rotationDegrees ?? Vector3.Zero,
             CollisionLayer = 1,
             CollisionMask = 1
         };
@@ -633,7 +808,30 @@ public partial class CargoCraneScaleReviewLoader : Node3D
             Transparency = transparent ? BaseMaterial3D.TransparencyEnum.Alpha : BaseMaterial3D.TransparencyEnum.Disabled,
             Roughness = 0.62f,
             Metallic = 0.0f,
-            ShadingMode = BaseMaterial3D.ShadingModeEnum.PerPixel
+            ShadingMode = BaseMaterial3D.ShadingModeEnum.PerPixel,
+            CullMode = BaseMaterial3D.CullModeEnum.Disabled
         };
+    }
+
+    private static StandardMaterial3D CreateExteriorSkinMaterial(Color color)
+    {
+        return new StandardMaterial3D
+        {
+            AlbedoColor = color,
+            Transparency = BaseMaterial3D.TransparencyEnum.Disabled,
+            Roughness = 0.74f,
+            Metallic = 0.0f,
+            ShadingMode = BaseMaterial3D.ShadingModeEnum.PerPixel,
+            CullMode = BaseMaterial3D.CullModeEnum.Back
+        };
+    }
+
+    private static void ConfigureAlwaysVisible(GeometryInstance3D geometry)
+    {
+        geometry.VisibilityRangeBegin = 0.0f;
+        geometry.VisibilityRangeEnd = 0.0f;
+        geometry.VisibilityRangeFadeMode = GeometryInstance3D.VisibilityRangeFadeModeEnum.Disabled;
+        geometry.ExtraCullMargin = 1000.0f;
+        geometry.IgnoreOcclusionCulling = true;
     }
 }

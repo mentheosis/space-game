@@ -8,6 +8,7 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
     [Export] public NodePath PlayerPath { get; set; } = "../Player";
     [Export] public Vector3 ShipOrigin { get; set; } = new(0.0f, 214.06f, 0.0f);
     [Export] public string LayoutContractPath { get; set; } = "res://assets/source/blender/ships/cargo_crane/cargo_crane_interior_layout_contract.json";
+    [Export] public string TraversalSurfacesPath { get; set; } = "res://assets/models/ship/cargo_crane/cargo_crane_traversal_surfaces.json";
     [Export] public string ReportPath { get; set; } = "res://reports/ship_pipeline/cargo_crane_player_traversal_validation_report.json";
     [Export] public float PlanarTolerance { get; set; } = 0.48f;
     [Export] public float MaximumSecondsPerCheckpoint { get; set; } = 5.0f;
@@ -16,6 +17,15 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
     [Export] public float VerticalEnvelopePadding { get; set; } = 3.2f;
     [Export] public float SupportHeightTolerance { get; set; } = 1.25f;
     [Export] public float DirectStepSpeed { get; set; } = 6.0f;
+    [Export] public float EdgeProbeStep { get; set; } = 0.65f;
+    [Export] public float EdgeProbeInsideInset { get; set; } = 0.24f;
+    [Export] public float EdgeProbeOutwardDistance { get; set; } = 0.78f;
+    [Export] public float ShoveProbeSeconds { get; set; } = 1.35f;
+    [Export] public float ShoveProbeFallTolerance { get; set; } = 1.25f;
+    [Export] public float ShoveProbeEscapeDistance { get; set; } = 1.15f;
+
+    private const uint SolidCollisionLayer = 1u;
+    private const uint WalkableSupportCollisionLayer = 1u << 7;
 
     private RoutePoint[] _route =
     {
@@ -39,6 +49,31 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
     private float _minRouteY = -12.0f;
     private float _maxRouteY = 12.0f;
     private Array<Dictionary> _events = new();
+    private bool _negativeEdgeProbeComplete;
+    private readonly System.Collections.Generic.List<HatchOpening> _approvedOpenings = new();
+    private int _shoveProbeIndex;
+    private float _shoveProbeSeconds;
+    private bool _shoveProbeActive;
+
+    private readonly ShoveProbe[] _shoveProbes =
+    {
+        new("Port upper stair outer side", new Vector3(-3.72f, -1.0f, 61.2f), Vector3.Left, false),
+        new("Port upper stair outer aft diagonal jump", new Vector3(-4.02f, -1.0f, 60.95f), new Vector3(-1.0f, 0.0f, -0.55f), true),
+        new("Port upper stair outer forward diagonal jump", new Vector3(-4.02f, -1.0f, 61.65f), new Vector3(-1.0f, 0.0f, 0.55f), true),
+        new("Port mid stair outer side", new Vector3(-3.72f, -3.6f, 63.5f), Vector3.Left, false),
+        new("Port mid stair outer diagonal jump", new Vector3(-4.02f, -3.6f, 63.6f), new Vector3(-1.0f, 0.0f, 0.35f), true),
+        new("Port lower stair outer side", new Vector3(-3.72f, -6.2f, 65.9f), Vector3.Left, false),
+        new("Starboard upper stair outer side", new Vector3(3.72f, -1.0f, 61.2f), Vector3.Right, false),
+        new("Starboard upper stair outer aft diagonal jump", new Vector3(4.02f, -1.0f, 60.95f), new Vector3(1.0f, 0.0f, -0.55f), true),
+        new("Starboard upper stair outer forward diagonal jump", new Vector3(4.02f, -1.0f, 61.65f), new Vector3(1.0f, 0.0f, 0.55f), true),
+        new("Starboard mid stair outer side", new Vector3(3.72f, -3.6f, 63.5f), Vector3.Right, false),
+        new("Starboard mid stair outer diagonal jump", new Vector3(4.02f, -3.6f, 63.6f), new Vector3(1.0f, 0.0f, 0.35f), true),
+        new("Starboard lower stair outer side", new Vector3(3.72f, -6.2f, 65.9f), Vector3.Right, false),
+        new("Port upper cockpit aft edge", new Vector3(-4.0f, -1.0f, 60.15f), new Vector3(0.0f, 0.0f, -1.0f), false),
+        new("Starboard upper cockpit aft edge", new Vector3(4.0f, -1.0f, 60.15f), new Vector3(0.0f, 0.0f, -1.0f), false),
+        new("Port upper cockpit forward-deck aft edge", new Vector3(-3.7f, -1.0f, 66.35f), new Vector3(0.0f, 0.0f, -1.0f), false),
+        new("Starboard upper cockpit forward-deck aft edge", new Vector3(3.7f, -1.0f, 66.35f), new Vector3(0.0f, 0.0f, -1.0f), false),
+    };
 
     public override void _Ready()
     {
@@ -68,6 +103,7 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
         }
 
         var root = parsed.AsGodotDictionary<string, Variant>();
+        LoadApprovedOpenings(root);
         if (!root.TryGetValue("player_traversal_validation", out var validationValue)
             || validationValue.VariantType != Variant.Type.Dictionary)
         {
@@ -112,6 +148,40 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
         _route = route;
     }
 
+    private void LoadApprovedOpenings(GDict root)
+    {
+        _approvedOpenings.Clear();
+        if (!root.TryGetValue("enclosure_generation", out var generationValue)
+            || generationValue.VariantType != Variant.Type.Dictionary)
+        {
+            return;
+        }
+
+        var generation = generationValue.AsGodotDictionary<string, Variant>();
+        if (!generation.TryGetValue("side_wall_openings", out var openingsValue)
+            || openingsValue.VariantType != Variant.Type.Array)
+        {
+            return;
+        }
+
+        foreach (var item in openingsValue.AsGodotArray())
+        {
+            if (item.VariantType != Variant.Type.Dictionary)
+            {
+                continue;
+            }
+
+            var opening = item.AsGodotDictionary<string, Variant>();
+            _approvedOpenings.Add(
+                new HatchOpening(
+                    ReadString(opening, "side", ""),
+                    ReadFloat(opening, "center_y", 0.0f),
+                    ReadFloat(opening, "height_y", 0.0f),
+                    ReadFloat(opening, "center_z", 0.0f),
+                    ReadFloat(opening, "width_z", 0.0f)));
+        }
+    }
+
     public override void _ExitTree()
     {
         ReleaseMovementInput();
@@ -120,6 +190,21 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
     public override void _PhysicsProcess(double delta)
     {
         var deltaSeconds = (float)delta;
+        if (!_negativeEdgeProbeComplete)
+        {
+            _negativeEdgeProbeComplete = true;
+            if (!RunNegativeEdgeProbe())
+            {
+                return;
+            }
+        }
+
+        if (_shoveProbeIndex < _shoveProbes.Length)
+        {
+            RunShoveProbe(deltaSeconds);
+            return;
+        }
+
         if (_routeIndex >= _route.Length)
             return;
 
@@ -194,6 +279,11 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
         var local = LocalPlayerOrigin();
         var target = _route[_routeIndex].LocalOrigin;
         var forward = new Vector3(target.X - local.X, 0.0f, target.Z - local.Z);
+        FaceLocalDirection(forward);
+    }
+
+    private void FaceLocalDirection(Vector3 forward)
+    {
         if (forward.LengthSquared() < 0.0001f)
             return;
 
@@ -203,6 +293,72 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
         var transform = _player.GlobalTransform;
         transform.Basis = basis;
         _player.GlobalTransform = transform;
+    }
+
+    private void RunShoveProbe(float deltaSeconds)
+    {
+        var probe = _shoveProbes[_shoveProbeIndex];
+        if (!_shoveProbeActive)
+        {
+            ReleaseMovementInput();
+            MovePlayerToLocal(probe.LocalOrigin);
+            FaceLocalDirection(probe.Direction);
+            _shoveProbeSeconds = 0.0f;
+            _shoveProbeActive = true;
+        }
+
+        Input.ActionPress("move_forward");
+        if (probe.JumpPulse && _shoveProbeSeconds < 0.15f)
+        {
+            Input.ActionPress("jump");
+        }
+        else
+        {
+            Input.ActionRelease("jump");
+        }
+        _shoveProbeSeconds += deltaSeconds;
+
+        var local = LocalPlayerOrigin();
+        var planarOffset = new Vector2(local.X - probe.LocalOrigin.X, local.Z - probe.LocalOrigin.Z);
+        var direction = new Vector2(probe.Direction.X, probe.Direction.Z);
+        if (direction.LengthSquared() > 0.0001f)
+        {
+            direction = direction.Normalized();
+        }
+
+        var outwardTravel = planarOffset.Dot(direction);
+        if (local.Y < probe.LocalOrigin.Y - ShoveProbeFallTolerance)
+        {
+            Fail($"Shove probe fell out at {probe.Name}.", local, outwardTravel);
+            return;
+        }
+
+        if (local.Z >= 58.5f && local.Z <= 73.5f && Mathf.Abs(local.X) > 4.85f)
+        {
+            Fail($"Shove probe left cockpit enclosure at {probe.Name}.", local, outwardTravel);
+            return;
+        }
+
+        if (_shoveProbeSeconds < ShoveProbeSeconds)
+        {
+            return;
+        }
+
+        ReleaseMovementInput();
+        Record("shove_probe", $"Passed {probe.Name}.", local, outwardTravel);
+        _shoveProbeIndex++;
+        _shoveProbeSeconds = 0.0f;
+        _shoveProbeActive = false;
+        if (_shoveProbeIndex >= _shoveProbes.Length)
+        {
+            MovePlayerToLocal(_route[0].LocalOrigin);
+            _routeIndex = 1;
+            _routeSegmentStart = _route[0].LocalOrigin;
+            _checkpointSeconds = 0.0f;
+            _stuckSeconds = 0.0f;
+            _bestDistanceToCheckpoint = DistanceToCurrentCheckpoint();
+            Record("route_reset", "Reset player to route start after shove probes.", LocalPlayerOrigin(), _bestDistanceToCheckpoint);
+        }
     }
 
     private void UpdateMovementInput()
@@ -255,6 +411,190 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
         }
     }
 
+    private bool RunNegativeEdgeProbe()
+    {
+        if (!Godot.FileAccess.FileExists(TraversalSurfacesPath))
+        {
+            Fail($"Missing traversal surfaces for negative edge probe: {TraversalSurfacesPath}", LocalPlayerOrigin(), 0.0f);
+            return false;
+        }
+
+        var parsed = Json.ParseString(Godot.FileAccess.GetFileAsString(TraversalSurfacesPath));
+        if (parsed.VariantType != Variant.Type.Dictionary)
+        {
+            Fail($"Invalid traversal surfaces for negative edge probe: {TraversalSurfacesPath}", LocalPlayerOrigin(), 0.0f);
+            return false;
+        }
+
+        var root = parsed.AsGodotDictionary<string, Variant>();
+        if (!root.TryGetValue("surfaces", out var surfacesValue) || surfacesValue.VariantType != Variant.Type.Array)
+        {
+            Fail($"Traversal surfaces file has no surfaces array: {TraversalSurfacesPath}", LocalPlayerOrigin(), 0.0f);
+            return false;
+        }
+
+        var edges = BuildRuntimeEdgeProbes(surfacesValue.AsGodotArray());
+        var sampleCount = 0;
+        foreach (var edge in edges)
+        {
+            var delta = edge.End - edge.Start;
+            var length = delta.Length();
+            var count = Mathf.Max(2, Mathf.CeilToInt(length / EdgeProbeStep) + 1);
+            for (var index = 0; index < count; index++)
+            {
+                var t = count <= 1 ? 0.0f : (float)index / (count - 1);
+                var point = edge.Start.Lerp(edge.End, t);
+                sampleCount++;
+
+                if (IsApprovedOpening(edge, point))
+                {
+                    continue;
+                }
+                if (IsInternalCockpitStairwellOpening(edge, point))
+                {
+                    continue;
+                }
+
+                var inside = point - edge.Normal * EdgeProbeInsideInset;
+                var outside = point + edge.Normal * EdgeProbeOutwardDistance;
+                if (HasRuntimeSolidBarrier(inside, outside) || HasRuntimeSupport(outside))
+                {
+                    continue;
+                }
+
+                Fail($"Negative edge probe found fall-out gap at {edge.SurfaceName}:{edge.EdgeName}.", point, 0.0f);
+                return false;
+            }
+        }
+
+        Record("negative_edge_probe", $"Runtime edge escape probe passed {sampleCount} samples.", LocalPlayerOrigin(), 0.0f);
+        return true;
+    }
+
+    private System.Collections.Generic.List<RuntimeEdgeProbe> BuildRuntimeEdgeProbes(GArray surfaces)
+    {
+        var edges = new System.Collections.Generic.List<RuntimeEdgeProbe>();
+        foreach (var item in surfaces)
+        {
+            if (item.VariantType != Variant.Type.Dictionary)
+            {
+                continue;
+            }
+
+            var surface = item.AsGodotDictionary<string, Variant>();
+            var name = ReadString(surface, "name", "surface");
+            var type = ReadString(surface, "type", "");
+            var role = ReadString(surface, "role", "");
+            if (type == "floor_box" || type == "objective_floor_patch")
+            {
+                var center = ReadVector3(surface, "center");
+                var size = ReadVector3(surface, "size");
+                var x0 = center.X - size.X * 0.5f;
+                var x1 = center.X + size.X * 0.5f;
+                var z0 = center.Z - size.Z * 0.5f;
+                var z1 = center.Z + size.Z * 0.5f;
+                var y = center.Y;
+                edges.Add(new RuntimeEdgeProbe(name, "port", new Vector3(x0, y, z0), new Vector3(x0, y, z1), Vector3.Left));
+                edges.Add(new RuntimeEdgeProbe(name, "starboard", new Vector3(x1, y, z0), new Vector3(x1, y, z1), Vector3.Right));
+                edges.Add(new RuntimeEdgeProbe(name, "aft", new Vector3(x0, y, z0), new Vector3(x1, y, z0), new Vector3(0.0f, 0.0f, -1.0f)));
+                edges.Add(new RuntimeEdgeProbe(name, "forward", new Vector3(x0, y, z1), new Vector3(x1, y, z1), new Vector3(0.0f, 0.0f, 1.0f)));
+            }
+            else if (type == "ramp" && role is not "entry_ramp" and not "entry_hatch_path")
+            {
+                AddSegmentEdgeProbes(edges, name, ReadVector3(surface, "start"), ReadVector3(surface, "end"), ReadFloat(surface, "width", 1.0f));
+            }
+            else if (type == "stair_path" && surface.TryGetValue("points", out var pointsValue) && pointsValue.VariantType == Variant.Type.Array)
+            {
+                var points = pointsValue.AsGodotArray();
+                for (var index = 0; index < points.Count - 1; index++)
+                {
+                    if (points[index].VariantType == Variant.Type.Array && points[index + 1].VariantType == Variant.Type.Array)
+                    {
+                        AddSegmentEdgeProbes(edges, $"{name}_{index:00}", Vector3FromArray(points[index].AsGodotArray()), Vector3FromArray(points[index + 1].AsGodotArray()), ReadFloat(surface, "width", 1.0f));
+                    }
+                }
+            }
+        }
+        return edges;
+    }
+
+    private static void AddSegmentEdgeProbes(System.Collections.Generic.List<RuntimeEdgeProbe> edges, string name, Vector3 start, Vector3 end, float width)
+    {
+        var horizontal = new Vector3(end.X - start.X, 0.0f, end.Z - start.Z);
+        if (horizontal.LengthSquared() <= 0.0001f)
+        {
+            return;
+        }
+
+        var forward = horizontal.Normalized();
+        var right = Vector3.Up.Cross(forward).Normalized();
+        edges.Add(new RuntimeEdgeProbe(name, "left_guard", start - right * width * 0.5f, end - right * width * 0.5f, -right));
+        edges.Add(new RuntimeEdgeProbe(name, "right_guard", start + right * width * 0.5f, end + right * width * 0.5f, right));
+    }
+
+    private bool IsApprovedOpening(RuntimeEdgeProbe edge, Vector3 point)
+    {
+        if (edge.EdgeName is not "port" and not "starboard")
+        {
+            return false;
+        }
+
+        foreach (var opening in _approvedOpenings)
+        {
+            if (opening.Side != edge.EdgeName)
+            {
+                continue;
+            }
+            if (Mathf.Abs(point.Z - opening.CenterZ) <= opening.WidthZ * 0.5f + 0.2f
+                && Mathf.Abs(point.Y - opening.CenterY) <= opening.HeightY * 0.5f + 0.7f)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static bool IsInternalCockpitStairwellOpening(RuntimeEdgeProbe edge, Vector3 point)
+    {
+        if (!edge.SurfaceName.StartsWith("cockpit_"))
+        {
+            return false;
+        }
+        return point.X >= -4.25f
+            && point.X <= 4.25f
+            && point.Z >= 59.3f
+            && point.Z <= 68.6f
+            && point.Y >= -9.4f
+            && point.Y <= 0.6f;
+    }
+
+    private bool HasRuntimeSupport(Vector3 local)
+    {
+        var world = ShipOrigin + local;
+        var query = PhysicsRayQueryParameters3D.Create(world + Vector3.Up * 1.6f, world + Vector3.Down * 2.2f, WalkableSupportCollisionLayer);
+        query.CollideWithAreas = false;
+        query.CollideWithBodies = true;
+        return GetWorld3D().DirectSpaceState.IntersectRay(query).Count > 0;
+    }
+
+    private bool HasRuntimeSolidBarrier(Vector3 insideLocal, Vector3 outsideLocal)
+    {
+        foreach (var height in new[] { 0.35f, 0.95f, 1.55f })
+        {
+            var query = PhysicsRayQueryParameters3D.Create(
+                ShipOrigin + insideLocal + Vector3.Up * height,
+                ShipOrigin + outsideLocal + Vector3.Up * height,
+                SolidCollisionLayer);
+            query.CollideWithAreas = false;
+            query.CollideWithBodies = true;
+            if (GetWorld3D().DirectSpaceState.IntersectRay(query).Count > 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void StepPlayerTowardCurrentCheckpoint(float deltaSeconds)
     {
         if (_routeIndex >= _route.Length)
@@ -303,6 +643,9 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
         Input.ActionRelease("move_back");
         Input.ActionRelease("move_left");
         Input.ActionRelease("move_right");
+        Input.ActionRelease("jump");
+        Input.ActionRelease("jetpack");
+        Input.ActionRelease("brake");
     }
 
     private float DistanceToCurrentCheckpoint()
@@ -421,12 +764,30 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
         return source.TryGetValue(key, out var value) ? (float)value.AsDouble() : fallback;
     }
 
+    private static string ReadString(GDict source, string key, string fallback)
+    {
+        return source.TryGetValue(key, out var value) ? value.AsString() : fallback;
+    }
+
+    private static Vector3 ReadVector3(GDict source, string key)
+    {
+        if (!source.TryGetValue(key, out var value) || value.VariantType != Variant.Type.Array)
+            return Vector3.Zero;
+
+        return Vector3FromArray(value.AsGodotArray());
+    }
+
     private static Vector3 ReadVector3Array(GDict source, string key)
     {
         if (!source.TryGetValue(key, out var value) || value.VariantType != Variant.Type.Array)
             return Vector3.Zero;
 
         var array = value.AsGodotArray();
+        return Vector3FromArray(array);
+    }
+
+    private static Vector3 Vector3FromArray(GArray array)
+    {
         if (array.Count < 3)
             return Vector3.Zero;
 
@@ -434,4 +795,7 @@ public partial class CargoCranePlayerTraversalValidationRunner : Node3D
     }
 
     private readonly record struct RoutePoint(string Name, Vector3 LocalOrigin);
+    private readonly record struct ShoveProbe(string Name, Vector3 LocalOrigin, Vector3 Direction, bool JumpPulse);
+    private readonly record struct RuntimeEdgeProbe(string SurfaceName, string EdgeName, Vector3 Start, Vector3 End, Vector3 Normal);
+    private readonly record struct HatchOpening(string Side, float CenterY, float HeightY, float CenterZ, float WidthZ);
 }

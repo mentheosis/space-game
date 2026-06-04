@@ -3,6 +3,420 @@
   "ship_id": "cargo_crane",
   "coordinate_space": "ship local",
   "source_contract": "assets/source/blender/ships/cargo_crane/cargo_crane_interior_layout_contract.json",
+  "ceiling_generation": {
+    "method": "voxel_slice_envelope",
+    "source_voxels": "reports/ship_pipeline/cargo_crane_voxel_fit/cargo_crane_voxels_full_compact.json",
+    "preview": "reports/ship_pipeline/cargo_crane_voxel_fit/cargo_crane_voxel_ceiling_fit_current.png",
+    "slices": [
+      {
+        "zone": "aft_center_service",
+        "index": 1,
+        "z_min": -63.5,
+        "z_max": -59.6857,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": -2.75,
+        "voxel_count": 0,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "aft_center_service",
+        "index": 2,
+        "z_min": -59.6857,
+        "z_max": -55.8714,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": -2.75,
+        "voxel_count": 0,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "aft_center_service",
+        "index": 3,
+        "z_min": -55.8714,
+        "z_max": -52.0571,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": -2.75,
+        "voxel_count": 0,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "aft_center_service",
+        "index": 4,
+        "z_min": -52.0571,
+        "z_max": -48.2429,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": -2.75,
+        "voxel_count": 0,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "aft_center_service",
+        "index": 5,
+        "z_min": -48.2429,
+        "z_max": -44.4286,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": -2.75,
+        "voxel_count": 0,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "aft_center_service",
+        "index": 6,
+        "z_min": -44.4286,
+        "z_max": -40.6143,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": -2.75,
+        "voxel_count": 0,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "aft_center_service",
+        "index": 7,
+        "z_min": -40.6143,
+        "z_max": -36.8,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": -2.75,
+        "voxel_count": 8,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 1,
+        "z_min": -28.7,
+        "z_max": -24.7533,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 424,
+        "sampled_ceiling_y": 8.1619
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 2,
+        "z_min": -24.7533,
+        "z_max": -20.8067,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 366,
+        "sampled_ceiling_y": 7.5641
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 3,
+        "z_min": -20.8067,
+        "z_max": -16.86,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 454,
+        "sampled_ceiling_y": 8.0871
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 4,
+        "z_min": -16.86,
+        "z_max": -12.9133,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 421,
+        "sampled_ceiling_y": 8.5124
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 5,
+        "z_min": -12.9133,
+        "z_max": -8.9667,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 520,
+        "sampled_ceiling_y": 8.4088
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 6,
+        "z_min": -8.9667,
+        "z_max": -5.02,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 469,
+        "sampled_ceiling_y": 8.2144
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 7,
+        "z_min": -5.02,
+        "z_max": -1.0733,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 403,
+        "sampled_ceiling_y": 8.6987
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 8,
+        "z_min": -1.0733,
+        "z_max": 2.8733,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 520,
+        "sampled_ceiling_y": 8.249
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 9,
+        "z_min": 2.8733,
+        "z_max": 6.82,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 505,
+        "sampled_ceiling_y": 8.4053
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 10,
+        "z_min": 6.82,
+        "z_max": 10.7667,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 414,
+        "sampled_ceiling_y": 8.8614
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 11,
+        "z_min": 10.7667,
+        "z_max": 14.7133,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 413,
+        "sampled_ceiling_y": 8.2073
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 12,
+        "z_min": 14.7133,
+        "z_max": 18.66,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 468,
+        "sampled_ceiling_y": 8.05
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 13,
+        "z_min": 18.66,
+        "z_max": 22.6067,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.5,
+        "voxel_count": 310,
+        "sampled_ceiling_y": 7.8008
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 14,
+        "z_min": 22.6067,
+        "z_max": 26.5533,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.1867,
+        "voxel_count": 256,
+        "sampled_ceiling_y": 7.1867
+      },
+      {
+        "zone": "central_body_lower",
+        "index": 15,
+        "z_min": 26.5533,
+        "z_max": 30.5,
+        "x_min": -6.5,
+        "x_max": 6.5,
+        "ceiling_lower_y": 7.067,
+        "voxel_count": 423,
+        "sampled_ceiling_y": 7.067
+      },
+      {
+        "zone": "central_body_lower_to_forward_access",
+        "index": 1,
+        "z_min": 29.5,
+        "z_max": 33.5,
+        "x_min": -3.5,
+        "x_max": 3.5,
+        "ceiling_lower_y": 5.5,
+        "voxel_count": 297,
+        "sampled_ceiling_y": 7.7445
+      },
+      {
+        "zone": "forward_access",
+        "index": 1,
+        "z_min": 32.5,
+        "z_max": 36.3571,
+        "x_min": -3.5,
+        "x_max": 3.5,
+        "ceiling_lower_y": 5.5,
+        "voxel_count": 252,
+        "sampled_ceiling_y": 8.0514
+      },
+      {
+        "zone": "forward_access",
+        "index": 2,
+        "z_min": 36.3571,
+        "z_max": 40.2143,
+        "x_min": -3.5,
+        "x_max": 3.5,
+        "ceiling_lower_y": 5.5,
+        "voxel_count": 350,
+        "sampled_ceiling_y": 8.1747
+      },
+      {
+        "zone": "forward_access",
+        "index": 3,
+        "z_min": 40.2143,
+        "z_max": 44.0714,
+        "x_min": -3.5,
+        "x_max": 3.5,
+        "ceiling_lower_y": 5.5,
+        "voxel_count": 310,
+        "sampled_ceiling_y": 8.3899
+      },
+      {
+        "zone": "forward_access",
+        "index": 4,
+        "z_min": 44.0714,
+        "z_max": 47.9286,
+        "x_min": -3.5,
+        "x_max": 3.5,
+        "ceiling_lower_y": 5.5,
+        "voxel_count": 247,
+        "sampled_ceiling_y": 8.05
+      },
+      {
+        "zone": "forward_access",
+        "index": 5,
+        "z_min": 47.9286,
+        "z_max": 51.7857,
+        "x_min": -3.5,
+        "x_max": 3.5,
+        "ceiling_lower_y": 5.5,
+        "voxel_count": 188,
+        "sampled_ceiling_y": 8.6182
+      },
+      {
+        "zone": "forward_access",
+        "index": 6,
+        "z_min": 51.7857,
+        "z_max": 55.6429,
+        "x_min": -3.5,
+        "x_max": 3.5,
+        "ceiling_lower_y": 5.5,
+        "voxel_count": 174,
+        "sampled_ceiling_y": 5.9208
+      },
+      {
+        "zone": "forward_access",
+        "index": 7,
+        "z_min": 55.6429,
+        "z_max": 59.5,
+        "x_min": -3.5,
+        "x_max": 3.5,
+        "ceiling_lower_y": 5.5,
+        "voxel_count": 227,
+        "sampled_ceiling_y": 5.7399
+      },
+      {
+        "zone": "cockpit_upper_command_gallery",
+        "index": 1,
+        "z_min": 59.5,
+        "z_max": 63.0,
+        "x_min": -4.25,
+        "x_max": 4.25,
+        "ceiling_lower_y": 4.0,
+        "voxel_count": 180,
+        "sampled_ceiling_y": 5.4376
+      },
+      {
+        "zone": "cockpit_upper_command_gallery",
+        "index": 2,
+        "z_min": 63.0,
+        "z_max": 66.5,
+        "x_min": -4.25,
+        "x_max": 4.25,
+        "ceiling_lower_y": 3.9839,
+        "voxel_count": 170,
+        "sampled_ceiling_y": 3.9839
+      },
+      {
+        "zone": "cockpit_upper_command_gallery",
+        "index": 3,
+        "z_min": 66.5,
+        "z_max": 70.0,
+        "x_min": -4.25,
+        "x_max": 4.25,
+        "ceiling_lower_y": 3.7539,
+        "voxel_count": 93,
+        "sampled_ceiling_y": 3.7539
+      },
+      {
+        "zone": "aft_to_central_ramp",
+        "index": 1,
+        "z_min": -37.4,
+        "z_max": -35.1,
+        "x_min": -6.4,
+        "x_max": 6.4,
+        "ceiling_lower_y": 1.25,
+        "voxel_count": 0,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "aft_to_central_ramp",
+        "index": 2,
+        "z_min": -35.1,
+        "z_max": -32.8,
+        "x_min": -6.4,
+        "x_max": 6.4,
+        "ceiling_lower_y": 1.25,
+        "voxel_count": 0,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "aft_to_central_ramp",
+        "index": 3,
+        "z_min": -32.8,
+        "z_max": -30.5,
+        "x_min": -6.4,
+        "x_max": 6.4,
+        "ceiling_lower_y": 1.25,
+        "voxel_count": 0,
+        "sampled_ceiling_y": null
+      },
+      {
+        "zone": "aft_to_central_ramp",
+        "index": 4,
+        "z_min": -30.5,
+        "z_max": -28.2,
+        "x_min": -6.4,
+        "x_max": 6.4,
+        "ceiling_lower_y": 1.8,
+        "voxel_count": 212,
+        "sampled_ceiling_y": 8.3581
+      }
+    ]
+  },
   "bands": [
     {
       "name": "aft_center_service_port_wall",
@@ -16,7 +430,7 @@
       "size": [
         0.22,
         5.0,
-        26.7
+        27.5
       ]
     },
     {
@@ -31,7 +445,7 @@
       "size": [
         0.22,
         5.0,
-        26.7
+        27.5
       ]
     },
     {
@@ -44,7 +458,37 @@
         -63.61
       ],
       "size": [
-        13.0,
+        13.4,
+        5.0,
+        0.22
+      ]
+    },
+    {
+      "name": "aft_center_service_forward_port_end_wall",
+      "type": "end_wall",
+      "region": "aft_center_service",
+      "center": [
+        -6.175,
+        -2.5,
+        -37.39
+      ],
+      "size": [
+        1.05,
+        5.0,
+        0.22
+      ]
+    },
+    {
+      "name": "aft_center_service_forward_starboard_end_wall",
+      "type": "end_wall",
+      "region": "aft_center_service",
+      "center": [
+        6.175,
+        -2.5,
+        -37.39
+      ],
+      "size": [
+        1.05,
         5.0,
         0.22
       ]
@@ -59,24 +503,9 @@
         -37.39
       ],
       "size": [
-        12.6,
+        12.1,
         1.4,
         0.22
-      ]
-    },
-    {
-      "name": "aft_center_service_ceiling",
-      "type": "ceiling",
-      "region": "aft_center_service",
-      "center": [
-        0.0,
-        0.11,
-        -50.15
-      ],
-      "size": [
-        13.0,
-        0.22,
-        26.7
       ]
     },
     {
@@ -86,12 +515,12 @@
       "center": [
         -6.61,
         3.25,
-        -25.8
+        -25.35
       ],
       "size": [
         0.22,
         8.5,
-        5.8
+        7.5
       ]
     },
     {
@@ -106,7 +535,7 @@
       "size": [
         0.22,
         8.5,
-        32.2
+        34.8
       ]
     },
     {
@@ -116,12 +545,12 @@
       "center": [
         -6.61,
         3.25,
-        25.7
+        25.25
       ],
       "size": [
         0.22,
         8.5,
-        9.6
+        11.3
       ]
     },
     {
@@ -136,7 +565,7 @@
       "size": [
         0.22,
         5.6,
-        5.8
+        3.2
       ]
     },
     {
@@ -151,7 +580,7 @@
       "size": [
         0.22,
         5.6,
-        5.8
+        3.2
       ]
     },
     {
@@ -161,12 +590,12 @@
       "center": [
         6.61,
         3.25,
-        -25.8
+        -25.35
       ],
       "size": [
         0.22,
         8.5,
-        5.8
+        7.5
       ]
     },
     {
@@ -181,7 +610,7 @@
       "size": [
         0.22,
         8.5,
-        32.2
+        34.8
       ]
     },
     {
@@ -191,12 +620,12 @@
       "center": [
         6.61,
         3.25,
-        25.7
+        25.25
       ],
       "size": [
         0.22,
         8.5,
-        9.6
+        11.3
       ]
     },
     {
@@ -211,7 +640,7 @@
       "size": [
         0.22,
         5.6,
-        5.8
+        3.2
       ]
     },
     {
@@ -226,7 +655,37 @@
       "size": [
         0.22,
         5.6,
-        5.8
+        3.2
+      ]
+    },
+    {
+      "name": "central_body_lower_aft_port_end_wall",
+      "type": "end_wall",
+      "region": "central_body_lower",
+      "center": [
+        -6.175,
+        3.25,
+        -28.61
+      ],
+      "size": [
+        1.05,
+        8.5,
+        0.22
+      ]
+    },
+    {
+      "name": "central_body_lower_aft_starboard_end_wall",
+      "type": "end_wall",
+      "region": "central_body_lower",
+      "center": [
+        6.175,
+        3.25,
+        -28.61
+      ],
+      "size": [
+        1.05,
+        8.5,
+        0.22
       ]
     },
     {
@@ -239,7 +698,7 @@
         -28.61
       ],
       "size": [
-        12.6,
+        12.1,
         6.3,
         0.22
       ]
@@ -254,7 +713,7 @@
         30.61
       ],
       "size": [
-        3.0,
+        3.4,
         8.5,
         0.22
       ]
@@ -269,7 +728,7 @@
         30.61
       ],
       "size": [
-        3.0,
+        3.4,
         8.5,
         0.22
       ]
@@ -284,24 +743,9 @@
         30.61
       ],
       "size": [
-        7.0,
+        7.4,
         2.0,
         0.22
-      ]
-    },
-    {
-      "name": "central_body_lower_ceiling",
-      "type": "ceiling",
-      "region": "central_body_lower",
-      "center": [
-        0.0,
-        7.61,
-        0.9
-      ],
-      "size": [
-        13.0,
-        0.22,
-        59.2
       ]
     },
     {
@@ -316,7 +760,7 @@
       "size": [
         0.22,
         6.5,
-        4.0
+        4.8
       ]
     },
     {
@@ -331,22 +775,7 @@
       "size": [
         0.22,
         6.5,
-        4.0
-      ]
-    },
-    {
-      "name": "central_body_lower_to_forward_access_ceiling",
-      "type": "ceiling",
-      "region": "central_body_lower_to_forward_access",
-      "center": [
-        0.0,
-        5.61,
-        31.5
-      ],
-      "size": [
-        7.0,
-        0.22,
-        4.0
+        4.8
       ]
     },
     {
@@ -361,7 +790,7 @@
       "size": [
         0.22,
         6.5,
-        27.0
+        27.8
       ]
     },
     {
@@ -376,22 +805,7 @@
       "size": [
         0.22,
         6.5,
-        27.0
-      ]
-    },
-    {
-      "name": "forward_access_ceiling",
-      "type": "ceiling",
-      "region": "forward_access",
-      "center": [
-        0.0,
-        5.61,
-        46.0
-      ],
-      "size": [
-        7.0,
-        0.22,
-        27.0
+        27.8
       ]
     },
     {
@@ -406,7 +820,7 @@
       "size": [
         0.22,
         5.0,
-        10.5
+        11.3
       ]
     },
     {
@@ -421,7 +835,7 @@
       "size": [
         0.22,
         5.0,
-        10.5
+        11.3
       ]
     },
     {
@@ -434,24 +848,9 @@
         70.11
       ],
       "size": [
-        8.5,
+        8.9,
         5.0,
         0.22
-      ]
-    },
-    {
-      "name": "cockpit_upper_command_gallery_ceiling",
-      "type": "ceiling",
-      "region": "cockpit_upper_command_gallery",
-      "center": [
-        0.0,
-        4.11,
-        64.75
-      ],
-      "size": [
-        8.5,
-        0.22,
-        10.5
       ]
     },
     {
@@ -466,7 +865,7 @@
       "size": [
         0.22,
         6.0,
-        8.5
+        9.3
       ]
     },
     {
@@ -481,67 +880,27 @@
       "size": [
         0.22,
         6.0,
-        8.5
+        9.3
       ]
     },
     {
-      "name": "cockpit_lower_aft_center_lower_end_wall",
+      "name": "cockpit_lower_sloped_aft_bulkhead",
       "type": "end_wall",
       "region": "cockpit_lower",
       "center": [
         0.0,
-        -6.3,
-        63.89
+        -5.0,
+        62.3505
       ],
       "size": [
-        4.7,
-        5.4,
-        0.22
-      ]
-    },
-    {
-      "name": "cockpit_lower_aft_port_low_end_wall",
-      "type": "end_wall",
-      "region": "cockpit_lower",
-      "center": [
-        -3.125,
-        -8.0,
-        63.89
+        8.2,
+        0.22,
+        8.58
       ],
-      "size": [
-        1.15,
-        2.0,
-        0.22
-      ]
-    },
-    {
-      "name": "cockpit_lower_aft_starboard_low_end_wall",
-      "type": "end_wall",
-      "region": "cockpit_lower",
-      "center": [
-        3.125,
-        -8.0,
-        63.89
-      ],
-      "size": [
-        1.15,
-        2.0,
-        0.22
-      ]
-    },
-    {
-      "name": "cockpit_lower_aft_center_end_wall",
-      "type": "end_wall",
-      "region": "cockpit_lower",
-      "center": [
+      "rotation_degrees": [
+        68.8124,
         0.0,
-        -3.3,
-        63.89
-      ],
-      "size": [
-        4.5,
-        0.6,
-        0.22
+        0.0
       ]
     },
     {
@@ -554,24 +913,564 @@
         72.61
       ],
       "size": [
-        7.4,
+        7.8,
         6.0,
         0.22
       ]
     },
     {
-      "name": "cockpit_lower_center_ceiling",
+      "name": "aft_center_service_voxel_ceiling_01",
       "type": "ceiling",
-      "region": "cockpit_lower",
+      "region": "aft_center_service",
       "center": [
         0.0,
-        -2.89,
+        -2.64,
+        -61.5929
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.8143
+      ]
+    },
+    {
+      "name": "aft_center_service_voxel_ceiling_02",
+      "type": "ceiling",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        -2.64,
+        -57.7786
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.8143
+      ]
+    },
+    {
+      "name": "aft_center_service_voxel_ceiling_03",
+      "type": "ceiling",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        -2.64,
+        -53.9643
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.8143
+      ]
+    },
+    {
+      "name": "aft_center_service_voxel_ceiling_04",
+      "type": "ceiling",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        -2.64,
+        -50.15
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.8143
+      ]
+    },
+    {
+      "name": "aft_center_service_voxel_ceiling_05",
+      "type": "ceiling",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        -2.64,
+        -46.3357
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.8143
+      ]
+    },
+    {
+      "name": "aft_center_service_voxel_ceiling_06",
+      "type": "ceiling",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        -2.64,
+        -42.5214
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.8143
+      ]
+    },
+    {
+      "name": "aft_center_service_voxel_ceiling_07",
+      "type": "ceiling",
+      "region": "aft_center_service",
+      "center": [
+        0.0,
+        -2.64,
+        -38.7071
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.8143
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_01",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        -26.7267
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_02",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        -22.78
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_03",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        -18.8333
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_04",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        -14.8867
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_05",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        -10.94
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_06",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        -6.9933
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_07",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        -3.0467
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_08",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        0.9
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_09",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        4.8467
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_10",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        8.7933
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_11",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        12.74
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_12",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        16.6867
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_13",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.61,
+        20.6333
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_14",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.2967,
+        24.58
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_voxel_ceiling_15",
+      "type": "ceiling",
+      "region": "central_body_lower",
+      "center": [
+        0.0,
+        7.177,
+        28.5267
+      ],
+      "size": [
+        13.0,
+        0.22,
+        3.9467
+      ]
+    },
+    {
+      "name": "central_body_lower_to_forward_access_voxel_ceiling_01",
+      "type": "ceiling",
+      "region": "central_body_lower_to_forward_access",
+      "center": [
+        0.0,
+        5.61,
+        31.5
+      ],
+      "size": [
+        7.0,
+        0.22,
+        4.0
+      ]
+    },
+    {
+      "name": "forward_access_voxel_ceiling_01",
+      "type": "ceiling",
+      "region": "forward_access",
+      "center": [
+        0.0,
+        5.61,
+        34.4286
+      ],
+      "size": [
+        7.0,
+        0.22,
+        3.8571
+      ]
+    },
+    {
+      "name": "forward_access_voxel_ceiling_02",
+      "type": "ceiling",
+      "region": "forward_access",
+      "center": [
+        0.0,
+        5.61,
+        38.2857
+      ],
+      "size": [
+        7.0,
+        0.22,
+        3.8571
+      ]
+    },
+    {
+      "name": "forward_access_voxel_ceiling_03",
+      "type": "ceiling",
+      "region": "forward_access",
+      "center": [
+        0.0,
+        5.61,
+        42.1429
+      ],
+      "size": [
+        7.0,
+        0.22,
+        3.8571
+      ]
+    },
+    {
+      "name": "forward_access_voxel_ceiling_04",
+      "type": "ceiling",
+      "region": "forward_access",
+      "center": [
+        0.0,
+        5.61,
+        46.0
+      ],
+      "size": [
+        7.0,
+        0.22,
+        3.8571
+      ]
+    },
+    {
+      "name": "forward_access_voxel_ceiling_05",
+      "type": "ceiling",
+      "region": "forward_access",
+      "center": [
+        0.0,
+        5.61,
+        49.8571
+      ],
+      "size": [
+        7.0,
+        0.22,
+        3.8571
+      ]
+    },
+    {
+      "name": "forward_access_voxel_ceiling_06",
+      "type": "ceiling",
+      "region": "forward_access",
+      "center": [
+        0.0,
+        5.61,
+        53.7143
+      ],
+      "size": [
+        7.0,
+        0.22,
+        3.8571
+      ]
+    },
+    {
+      "name": "forward_access_voxel_ceiling_07",
+      "type": "ceiling",
+      "region": "forward_access",
+      "center": [
+        0.0,
+        5.61,
+        57.5714
+      ],
+      "size": [
+        7.0,
+        0.22,
+        3.8571
+      ]
+    },
+    {
+      "name": "cockpit_upper_command_gallery_voxel_ceiling_01",
+      "type": "ceiling",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        0.0,
+        4.11,
+        61.25
+      ],
+      "size": [
+        8.5,
+        0.22,
+        3.5
+      ]
+    },
+    {
+      "name": "cockpit_upper_command_gallery_voxel_ceiling_02",
+      "type": "ceiling",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        0.0,
+        4.0939,
+        64.75
+      ],
+      "size": [
+        8.5,
+        0.22,
+        3.5
+      ]
+    },
+    {
+      "name": "cockpit_upper_command_gallery_voxel_ceiling_03",
+      "type": "ceiling",
+      "region": "cockpit_upper_command_gallery",
+      "center": [
+        0.0,
+        3.8639,
         68.25
       ],
       "size": [
-        4.5,
+        8.5,
         0.22,
-        8.5
+        3.5
+      ]
+    },
+    {
+      "name": "aft_to_central_ramp_voxel_ceiling_01",
+      "type": "ceiling",
+      "region": "aft_to_central_ramp",
+      "center": [
+        0.0,
+        1.36,
+        -36.25
+      ],
+      "size": [
+        12.8,
+        0.22,
+        2.3
+      ]
+    },
+    {
+      "name": "aft_to_central_ramp_voxel_ceiling_02",
+      "type": "ceiling",
+      "region": "aft_to_central_ramp",
+      "center": [
+        0.0,
+        1.36,
+        -33.95
+      ],
+      "size": [
+        12.8,
+        0.22,
+        2.3
+      ]
+    },
+    {
+      "name": "aft_to_central_ramp_voxel_ceiling_03",
+      "type": "ceiling",
+      "region": "aft_to_central_ramp",
+      "center": [
+        0.0,
+        1.36,
+        -31.65
+      ],
+      "size": [
+        12.8,
+        0.22,
+        2.3
+      ]
+    },
+    {
+      "name": "aft_to_central_ramp_voxel_ceiling_04",
+      "type": "ceiling",
+      "region": "aft_to_central_ramp",
+      "center": [
+        0.0,
+        1.91,
+        -29.35
+      ],
+      "size": [
+        12.8,
+        0.22,
+        2.3
       ]
     },
     {
@@ -590,6 +1489,21 @@
       ]
     },
     {
+      "name": "aft_to_central_ramp_port_upper_closure_wall",
+      "type": "side_wall",
+      "region": "aft_to_central_ramp",
+      "center": [
+        -6.41,
+        1.25,
+        -31.0
+      ],
+      "size": [
+        0.22,
+        2.5,
+        3.5
+      ]
+    },
+    {
       "name": "aft_to_central_ramp_starboard_guard_wall",
       "type": "side_wall",
       "region": "aft_to_central_ramp",
@@ -605,33 +1519,73 @@
       ]
     },
     {
-      "name": "cockpit_port_inner_stair_guard_wall",
+      "name": "aft_to_central_ramp_starboard_upper_closure_wall",
       "type": "side_wall",
-      "region": "cockpit_stair_guard",
+      "region": "aft_to_central_ramp",
       "center": [
-        -2.35,
-        -3.45,
-        65.1
+        6.41,
+        1.25,
+        -31.0
       ],
       "size": [
         0.22,
-        10.9,
-        5.8
+        2.5,
+        3.5
       ]
     },
     {
-      "name": "cockpit_starboard_inner_stair_guard_wall",
+      "name": "cockpit_port_stairwell_sloped_outer_enclosure_wall",
       "type": "side_wall",
-      "region": "cockpit_stair_guard",
+      "region": "cockpit_stairwell_enclosure",
       "center": [
-        2.35,
-        -3.45,
-        65.1
+        -4.36,
+        -4.95,
+        64.5
       ],
       "size": [
-        0.22,
-        10.9,
-        5.8
+        0.35,
+        2.8,
+        11.1
+      ],
+      "rotation_degrees": [
+        47.25,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "cockpit_starboard_stairwell_sloped_outer_enclosure_wall",
+      "type": "side_wall",
+      "region": "cockpit_stairwell_enclosure",
+      "center": [
+        4.36,
+        -4.95,
+        64.5
+      ],
+      "size": [
+        0.35,
+        2.8,
+        11.1
+      ],
+      "rotation_degrees": [
+        47.25,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "forward_access_to_cockpit_upper_high_end_cap",
+      "type": "end_wall",
+      "region": "forward_access_to_cockpit_upper",
+      "center": [
+        0.0,
+        4.85,
+        59.75
+      ],
+      "size": [
+        7.0,
+        1.4,
+        0.22
       ]
     }
   ]
