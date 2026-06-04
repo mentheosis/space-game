@@ -1,0 +1,1842 @@
+{
+  "floor_tile_summaries": [
+    {
+      "deck": "lower_deck_candidate",
+      "source_cells": 524,
+      "tile_count": 17
+    },
+    {
+      "deck": "mid_deck_candidate",
+      "source_cells": 3448,
+      "tile_count": 24
+    },
+    {
+      "deck": "upper_deck_candidate",
+      "source_cells": 2555,
+      "tile_count": 21
+    }
+  ],
+  "method": "deck_floor_and_vertical_connector_collision_v1",
+  "objects": [
+    {
+      "center": [
+        -13.25,
+        -4.31,
+        -34.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_001",
+      "role": "player_walkable_floor",
+      "size": [
+        1.5,
+        0.12,
+        9.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        0.0,
+        -4.31,
+        -36.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_002",
+      "role": "player_walkable_floor",
+      "size": [
+        23.0,
+        0.12,
+        3.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        13.25,
+        -4.31,
+        -34.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_003",
+      "role": "player_walkable_floor",
+      "size": [
+        1.5,
+        0.12,
+        9.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -11.75,
+        -4.31,
+        -34.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_004",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        6.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        11.75,
+        -4.31,
+        -34.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_005",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        6.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -12.25,
+        -4.31,
+        -33.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_006",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        6.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        12.25,
+        -4.31,
+        -33.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_007",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        6.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -10.5,
+        -4.31,
+        -34.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_008",
+      "role": "player_walkable_floor",
+      "size": [
+        2.0,
+        0.12,
+        0.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        0.0,
+        -4.31,
+        -34.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_009",
+      "role": "player_walkable_floor",
+      "size": [
+        7.0,
+        0.12,
+        0.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        10.5,
+        -4.31,
+        -34.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_010",
+      "role": "player_walkable_floor",
+      "size": [
+        2.0,
+        0.12,
+        0.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -11.0,
+        -4.31,
+        -34.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_011",
+      "role": "player_walkable_floor",
+      "size": [
+        1.0,
+        0.12,
+        1.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        0.0,
+        -4.31,
+        -34.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_012",
+      "role": "player_walkable_floor",
+      "size": [
+        3.0,
+        0.12,
+        0.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        11.0,
+        -4.31,
+        -34.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_013",
+      "role": "player_walkable_floor",
+      "size": [
+        1.0,
+        0.12,
+        1.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -11.25,
+        -4.31,
+        -33.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_014",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        1.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        11.25,
+        -4.31,
+        -33.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_015",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        1.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -13.5,
+        -4.31,
+        -29.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_016",
+      "role": "player_walkable_floor",
+      "size": [
+        1.0,
+        0.12,
+        0.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        13.5,
+        -4.31,
+        -29.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_lower_deck_candidate_floor_tile_017",
+      "role": "player_walkable_floor",
+      "size": [
+        1.0,
+        0.12,
+        0.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        0.0,
+        -0.81,
+        -1.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_001",
+      "role": "player_walkable_floor",
+      "size": [
+        6.0,
+        0.12,
+        67.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -3.25,
+        -0.81,
+        -1.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_002",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        64.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        3.25,
+        -0.81,
+        -1.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_003",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        64.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -3.75,
+        -0.81,
+        -0.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_004",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        60.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        3.75,
+        -0.81,
+        -0.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_005",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        60.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -4.25,
+        -0.81,
+        -0.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_006",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        56.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        4.25,
+        -0.81,
+        -0.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_007",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        56.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -4.75,
+        -0.81,
+        0.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_008",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        54.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        4.75,
+        -0.81,
+        0.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_009",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        54.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -5.25,
+        -0.81,
+        0.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_010",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        52.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        5.25,
+        -0.81,
+        0.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_011",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        52.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -5.75,
+        -0.81,
+        0.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_012",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        48.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        5.75,
+        -0.81,
+        0.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_013",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        48.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        0.0,
+        -0.81,
+        40.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_014",
+      "role": "player_walkable_floor",
+      "size": [
+        5.0,
+        0.12,
+        17.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -2.75,
+        -0.81,
+        43.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_015",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        10.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        2.75,
+        -0.81,
+        43.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_016",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        10.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -3.25,
+        -0.81,
+        44.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_017",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        9.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        3.25,
+        -0.81,
+        44.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_018",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        9.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -3.75,
+        -0.81,
+        45.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_019",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        8.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        3.75,
+        -0.81,
+        45.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_020",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        8.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -4.25,
+        -0.81,
+        45.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_021",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        7.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        4.25,
+        -0.81,
+        45.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_022",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        7.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -4.75,
+        -0.81,
+        45.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_023",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        5.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        4.75,
+        -0.81,
+        45.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_mid_deck_candidate_floor_tile_024",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        5.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -0.25,
+        2.69,
+        2.5
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_001",
+      "role": "player_walkable_floor",
+      "size": [
+        2.5,
+        0.12,
+        82.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -1.75,
+        2.69,
+        2.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_002",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        81.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        1.5,
+        2.69,
+        2.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_003",
+      "role": "player_walkable_floor",
+      "size": [
+        1.0,
+        0.12,
+        81.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -2.25,
+        2.69,
+        3.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_004",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        80.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        2.25,
+        2.69,
+        3.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_005",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        80.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -2.75,
+        2.69,
+        -3.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_006",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        63.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        2.75,
+        2.69,
+        -3.75
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_007",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        63.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -3.25,
+        2.69,
+        -5.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_008",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        54.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        3.25,
+        2.69,
+        -5.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_009",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        54.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -3.75,
+        2.69,
+        0.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_010",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        40.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        3.75,
+        2.69,
+        0.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_011",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        40.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -4.25,
+        2.69,
+        0.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_012",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        36.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        4.25,
+        2.69,
+        0.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_013",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        36.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -4.75,
+        2.69,
+        0.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_014",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        32.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        4.75,
+        2.69,
+        0.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_015",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        32.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -2.75,
+        2.69,
+        42.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_016",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        2.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        2.75,
+        2.69,
+        42.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_017",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        2.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -3.25,
+        2.69,
+        43.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_018",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        1.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        3.25,
+        2.69,
+        43.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_019",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        1.0
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        -3.75,
+        2.69,
+        43.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_020",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        0.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        3.75,
+        2.69,
+        43.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerFloor",
+      "name": "COL_MX01_upper_deck_candidate_floor_tile_021",
+      "role": "player_walkable_floor",
+      "size": [
+        0.5,
+        0.12,
+        0.5
+      ],
+      "source": "occupancy_clipped_deck_component"
+    },
+    {
+      "center": [
+        0.0,
+        -4.3,
+        -38.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerConnector",
+      "name": "COL_MX01_entry_ramp_threshold_pad",
+      "role": "player_connector_landing",
+      "size": [
+        3.0,
+        0.1,
+        3.0
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        0.0,
+        -4.3,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerConnector",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_lower_landing",
+      "role": "player_connector_landing",
+      "size": [
+        3.0,
+        0.1,
+        3.0
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        0.0,
+        -0.8,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerConnector",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_upper_landing",
+      "role": "player_connector_landing",
+      "size": [
+        3.0,
+        0.1,
+        3.0
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -5.1775,
+        -4.135,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_01",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -4.6325,
+        -3.96,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_02",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -4.0875,
+        -3.785,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_03",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -3.5425,
+        -3.61,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_04",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -2.9975,
+        -3.435,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_05",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -2.4525,
+        -3.26,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_06",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -1.9075,
+        -3.085,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_07",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -1.3625,
+        -2.91,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_08",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -0.8175,
+        -2.735,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_09",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -0.2725,
+        -2.56,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_10",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        0.2725,
+        -2.385,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_11",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        0.8175,
+        -2.21,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_12",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        1.3625,
+        -2.035,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_13",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        1.9075,
+        -1.86,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_14",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        2.4525,
+        -1.685,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_15",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        2.9975,
+        -1.51,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_16",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        3.5425,
+        -1.335,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_17",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        4.0875,
+        -1.16,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_18",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        4.6325,
+        -0.985,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_19",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        5.1775,
+        -0.81,
+        -32.0
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_20",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.545,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        0.0,
+        -0.8,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerConnector",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_lower_landing",
+      "role": "player_connector_landing",
+      "size": [
+        3.0,
+        0.1,
+        3.0
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        0.0,
+        2.7,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerConnector",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_upper_landing",
+      "role": "player_connector_landing",
+      "size": [
+        3.0,
+        0.1,
+        3.0
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -4.2275,
+        -0.635,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_01",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -3.7825,
+        -0.46,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_02",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -3.3375,
+        -0.285,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_03",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -2.8925,
+        -0.11,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_04",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -2.4475,
+        0.065,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_05",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -2.0025,
+        0.24,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_06",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -1.5575,
+        0.415,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_07",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -1.1125,
+        0.59,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_08",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -0.6675,
+        0.765,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_09",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        -0.2225,
+        0.94,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_10",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        0.2225,
+        1.115,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_11",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        0.6675,
+        1.29,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_12",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        1.1125,
+        1.465,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_13",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        1.5575,
+        1.64,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_14",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        2.0025,
+        1.815,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_15",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        2.4475,
+        1.99,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_16",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        2.8925,
+        2.165,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_17",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        3.3375,
+        2.34,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_18",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        3.7825,
+        2.515,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_19",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    },
+    {
+      "center": [
+        4.2275,
+        2.69,
+        4.25
+      ],
+      "kind": "box",
+      "material": "MX01_PlayerStair",
+      "name": "COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_20",
+      "role": "player_connector_stair_tread",
+      "size": [
+        0.445,
+        0.12,
+        2.6
+      ],
+      "source": "traversal_graph_connector"
+    }
+  ],
+  "ship_id": "MX01"
+}

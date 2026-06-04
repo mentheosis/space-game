@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420">
+<rect width="100%" height="100%" fill="#111827"/>
+<text x="16" y="24" font-family="Arial, sans-serif" font-size="14" fill="#f9fafb">MX01 traversal graph top projection</text>
+<rect x="24.00" y="24.00" width="98.48" height="372.00" fill="#22c55e" fill-opacity="0.20" stroke="#22c55e" stroke-width="2"/>
+<text x="28.00" y="40.00" font-family="Arial, sans-serif" font-size="12" fill="#22c55e">lower_deck_candidate</text>
+<rect x="62.30" y="132.22" width="913.70" height="155.56" fill="#38bdf8" fill-opacity="0.20" stroke="#38bdf8" stroke-width="2"/>
+<text x="66.30" y="148.22" font-family="Arial, sans-serif" font-size="12" fill="#38bdf8">mid_deck_candidate</text>
+<rect x="24.00" y="145.75" width="891.82" height="128.51" fill="#facc15" fill-opacity="0.20" stroke="#facc15" stroke-width="2"/>
+<text x="28.00" y="161.75" font-family="Arial, sans-serif" font-size="12" fill="#facc15">upper_deck_candidate</text>
+<circle cx="24.00" cy="210.00" r="5" fill="#f9fafb"/>
+<circle cx="92.39" cy="210.00" r="5" fill="#f9fafb"/>
+<circle cx="489.06" cy="210.00" r="5" fill="#f9fafb"/>
+</svg>

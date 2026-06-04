@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="ArrayMesh" path="res://ships/MX01/source/mx01_normalized_skin.obj" id="1_skin"]
+[ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_boundary_surface_simplified.obj" id="2_boundary"]
+[ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_interior_collision.obj" id="3_interior"]
+[ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_dynamic_collision.obj" id="4_dynamic"]
+
+[node name="MX01CollisionReview" type="Node3D"]
+
+[node name="VisualSkin_Normalized" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_skin")
+
+[node name="BoundarySurface_Simplified" type="MeshInstance3D" parent="."]
+visible = false
+mesh = ExtResource("2_boundary")
+
+[node name="InteriorCollision_FirstPass" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_interior")
+
+[node name="DynamicCollision_FirstPass" type="MeshInstance3D" parent="."]
+visible = false
+mesh = ExtResource("4_dynamic")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 55, 125)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.408248, 0.57735, 0, 0.816497, 0.57735, -0.707107, -0.408248, 0.57735, 0, 20, 0)

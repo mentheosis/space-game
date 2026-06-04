@@ -1,0 +1,152 @@
+{
+  "config": {
+    "effective_values": {
+      "boundary_outputs": {
+        "faces_json": "ships/MX01/generated/collision/mx01_boundary_faces_raw.json",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_boundary_reconstruction_manifest.json",
+        "raw_obj": "ships/MX01/generated/collision/mx01_boundary_surface_raw.obj",
+        "report_json": "ships/MX01/reports/mx01_boundary_reconstruction_report.json",
+        "report_md": "ships/MX01/reports/mx01_boundary_reconstruction_report.md"
+      },
+      "coordinate_transform": {
+        "axis_map": {
+          "x": "x",
+          "y": "y",
+          "z": "z"
+        },
+        "center_selected_bounds": true,
+        "description": "Preserve source axes and center selected skin bounds at origin.",
+        "scale": 1.0
+      },
+      "deterministic_sort_keys": [
+        "object_name",
+        "material_name",
+        "source_face_index",
+        "vertex_xyz"
+      ],
+      "dynamic_collision_outputs": {
+        "collision_json": "ships/MX01/generated/collision/mx01_dynamic_collision.json",
+        "collision_obj": "ships/MX01/generated/collision/mx01_dynamic_collision.obj",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_dynamic_collision_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_dynamic_collision_report.json",
+        "report_md": "ships/MX01/reports/mx01_dynamic_collision_report.md"
+      },
+      "interior_collision_outputs": {
+        "collision_json": "ships/MX01/generated/collision/mx01_interior_collision.json",
+        "collision_obj": "ships/MX01/generated/collision/mx01_interior_collision.obj",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_interior_collision_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_interior_collision_report.json",
+        "report_md": "ships/MX01/reports/mx01_interior_collision_report.md"
+      },
+      "interior_volume_outputs": {
+        "deck_projection_svg": "ships/MX01/reports/images/mx01_interior_deck_candidates.svg",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_interior_volume_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_interior_volume_report.json",
+        "report_md": "ships/MX01/reports/mx01_interior_volume_report.md",
+        "volume_json": "ships/MX01/generated/collision/mx01_interior_volume_candidates.json"
+      },
+      "max_convex_hull_vertices": 64,
+      "max_dynamic_hull_error": 0.75,
+      "max_normal_error_degrees": 12.0,
+      "max_surface_error": 0.15,
+      "min_component_volume": 0.05,
+      "normalization_outputs": {
+        "audit_json": "ships/MX01/reports/mx01_source_audit.json",
+        "audit_md": "ships/MX01/reports/mx01_source_audit.md",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_normalization_manifest.json",
+        "normalized_obj": "ships/MX01/source/mx01_normalized_skin.obj"
+      },
+      "occupancy_outputs": {
+        "front_projection_svg": "ships/MX01/reports/images/mx01_occupancy_front_projection.svg",
+        "intervals_json": "ships/MX01/generated/collision/mx01_occupancy_intervals.json",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_occupancy_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_occupancy_report.json",
+        "report_md": "ships/MX01/reports/mx01_occupancy_report.md",
+        "side_projection_svg": "ships/MX01/reports/images/mx01_occupancy_side_projection.svg",
+        "top_projection_svg": "ships/MX01/reports/images/mx01_occupancy_top_projection.svg"
+      },
+      "player_capsule_height": 1.8,
+      "player_capsule_radius": 0.35,
+      "player_clearance_margin": 0.1,
+      "refined_voxel_size": 0.25,
+      "scene_outputs": {
+        "manifest_json": "ships/MX01/reports/manifests/mx01_scene_manifest.json",
+        "playable_scene": "ships/MX01/generated/scenes/mx01_playable_inspection.tscn",
+        "report_json": "ships/MX01/reports/mx01_scene_report.json",
+        "report_md": "ships/MX01/reports/mx01_scene_report.md",
+        "review_scene": "ships/MX01/generated/scenes/mx01_collision_review.tscn"
+      },
+      "selected_object_policy": "highest_triangle_count",
+      "ship_id": "MX01",
+      "simplification_outputs": {
+        "faces_json": "ships/MX01/generated/collision/mx01_boundary_faces_simplified.json",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_simplification_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_simplification_report.json",
+        "report_md": "ships/MX01/reports/mx01_simplification_report.md",
+        "simplified_obj": "ships/MX01/generated/collision/mx01_boundary_surface_simplified.obj"
+      },
+      "source_mtl": "ships/MX01/input/CargoCrane.mtl",
+      "source_obj": "ships/MX01/input/CargoCrane.obj",
+      "surface_offset_modes": {
+        "inset_for_interior_clearance": -0.2,
+        "outset_for_debug_review": 0.05,
+        "visual_skin": 0.0
+      },
+      "traversal_outputs": {
+        "graph_json": "ships/MX01/generated/collision/mx01_traversal_graph.json",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_traversal_graph_manifest.json",
+        "projection_svg": "ships/MX01/reports/images/mx01_traversal_graph_projection.svg",
+        "report_json": "ships/MX01/reports/mx01_traversal_graph_report.json",
+        "report_md": "ships/MX01/reports/mx01_traversal_graph_report.md"
+      },
+      "validation_outputs": {
+        "manifest_json": "ships/MX01/reports/manifests/mx01_static_validation_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_static_validation_report.json",
+        "report_md": "ships/MX01/reports/mx01_static_validation_report.md"
+      },
+      "vertex_quantization_epsilon": 1e-05,
+      "voxel_size": 0.5,
+      "weld_epsilon": 0.0001
+    },
+    "path": "ships/MX01/config/mx01_collision_generation.json",
+    "sha256": "3344d4fc3175ab1cca7bcdbac44a4084c8ad3b2d362055afcb2ed7ed7f509292"
+  },
+  "method": "godot_collision_review_scene_v1",
+  "notes": "The review scene references generated OBJ assets. The playable scene instances the real Player scene and generated StaticBody3D box collision from MX01 interior collision JSON.",
+  "outputs": {
+    "playable_scene": "ships/MX01/generated/scenes/mx01_playable_inspection.tscn",
+    "report_json": "ships/MX01/reports/mx01_scene_report.json",
+    "report_md": "ships/MX01/reports/mx01_scene_report.md",
+    "review_scene": "ships/MX01/generated/scenes/mx01_collision_review.tscn"
+  },
+  "referenced_artifacts": [
+    {
+      "path": "ships/MX01/source/mx01_normalized_skin.obj",
+      "sha256": "9558dd1c2fee857c58ba6792c2961c7b9b8e171c350c1d42528bf2c0a132cfca"
+    },
+    {
+      "path": "ships/MX01/generated/collision/mx01_boundary_surface_simplified.obj",
+      "sha256": "e4239e3e1b241deccf3c6a0dba4879f85ac6f5d20521dc07998fb86661cac64b"
+    },
+    {
+      "path": "ships/MX01/generated/collision/mx01_interior_collision.obj",
+      "sha256": "01ef15f36e4278d138aef7630b45c1018db8c25f3740844d6656324320be6a5f"
+    },
+    {
+      "path": "ships/MX01/generated/collision/mx01_dynamic_collision.obj",
+      "sha256": "c36054c1d05bdb3ce952d737321b5a9a5b1f1540754a74094c8ec8296bf7875b"
+    },
+    {
+      "path": "ships/MX01/generated/collision/mx01_interior_collision.json",
+      "sha256": "267aa2f5dd964f93b70d4b9eb829fb87fb317636a240ded3120b245c0e574824"
+    }
+  ],
+  "ship_id": "MX01",
+  "status": "PASS",
+  "tools": {
+    "generate_mx01_review_scene.py": {
+      "path": "ships/MX01/tools/generate_mx01_review_scene.py",
+      "sha256": "57af1f10f713acc4e157f24329757fd2e5872f60dc6f8cf332e43ade525ab744"
+    }
+  }
+}

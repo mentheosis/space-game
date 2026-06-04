@@ -1,0 +1,1093 @@
+{
+  "accepted_decks": [
+    {
+      "estimated_area_m2": 435.25,
+      "id": "lower_deck_candidate",
+      "largest_component_area_m2": 131.0,
+      "largest_component_bounds": {
+        "max": [
+          13.75,
+          -4.25,
+          -29.25
+        ],
+        "min": [
+          -13.75,
+          -4.25,
+          -38.25
+        ],
+        "size": [
+          27.5,
+          0.0,
+          9.0
+        ]
+      },
+      "largest_component_cells": 524,
+      "status": "ACCEPTED_FIRST_PASS",
+      "walkable_cells": 1741,
+      "y": -4.25,
+      "y_index": 13
+    },
+    {
+      "estimated_area_m2": 925.5,
+      "id": "mid_deck_candidate",
+      "largest_component_area_m2": 862.0,
+      "largest_component_bounds": {
+        "max": [
+          5.75,
+          -0.75,
+          48.75
+        ],
+        "min": [
+          -5.75,
+          -0.75,
+          -34.75
+        ],
+        "size": [
+          11.5,
+          0.0,
+          83.5
+        ]
+      },
+      "largest_component_cells": 3448,
+      "status": "ACCEPTED_FIRST_PASS",
+      "walkable_cells": 3702,
+      "y": -0.75,
+      "y_index": 20
+    },
+    {
+      "estimated_area_m2": 638.75,
+      "id": "upper_deck_candidate",
+      "largest_component_area_m2": 638.75,
+      "largest_component_bounds": {
+        "max": [
+          4.75,
+          2.75,
+          43.25
+        ],
+        "min": [
+          -4.75,
+          2.75,
+          -38.25
+        ],
+        "size": [
+          9.5,
+          0.0,
+          81.5
+        ]
+      },
+      "largest_component_cells": 2555,
+      "status": "ACCEPTED_FIRST_PASS",
+      "walkable_cells": 2555,
+      "y": 2.75,
+      "y_index": 27
+    }
+  ],
+  "clearance_cells": 4,
+  "config": {
+    "effective_values": {
+      "boundary_outputs": {
+        "faces_json": "ships/MX01/generated/collision/mx01_boundary_faces_raw.json",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_boundary_reconstruction_manifest.json",
+        "raw_obj": "ships/MX01/generated/collision/mx01_boundary_surface_raw.obj",
+        "report_json": "ships/MX01/reports/mx01_boundary_reconstruction_report.json",
+        "report_md": "ships/MX01/reports/mx01_boundary_reconstruction_report.md"
+      },
+      "coordinate_transform": {
+        "axis_map": {
+          "x": "x",
+          "y": "y",
+          "z": "z"
+        },
+        "center_selected_bounds": true,
+        "description": "Preserve source axes and center selected skin bounds at origin.",
+        "scale": 1.0
+      },
+      "deterministic_sort_keys": [
+        "object_name",
+        "material_name",
+        "source_face_index",
+        "vertex_xyz"
+      ],
+      "dynamic_collision_outputs": {
+        "collision_json": "ships/MX01/generated/collision/mx01_dynamic_collision.json",
+        "collision_obj": "ships/MX01/generated/collision/mx01_dynamic_collision.obj",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_dynamic_collision_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_dynamic_collision_report.json",
+        "report_md": "ships/MX01/reports/mx01_dynamic_collision_report.md"
+      },
+      "interior_collision_outputs": {
+        "collision_json": "ships/MX01/generated/collision/mx01_interior_collision.json",
+        "collision_obj": "ships/MX01/generated/collision/mx01_interior_collision.obj",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_interior_collision_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_interior_collision_report.json",
+        "report_md": "ships/MX01/reports/mx01_interior_collision_report.md"
+      },
+      "interior_volume_outputs": {
+        "deck_projection_svg": "ships/MX01/reports/images/mx01_interior_deck_candidates.svg",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_interior_volume_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_interior_volume_report.json",
+        "report_md": "ships/MX01/reports/mx01_interior_volume_report.md",
+        "volume_json": "ships/MX01/generated/collision/mx01_interior_volume_candidates.json"
+      },
+      "max_convex_hull_vertices": 64,
+      "max_dynamic_hull_error": 0.75,
+      "max_normal_error_degrees": 12.0,
+      "max_surface_error": 0.15,
+      "min_component_volume": 0.05,
+      "normalization_outputs": {
+        "audit_json": "ships/MX01/reports/mx01_source_audit.json",
+        "audit_md": "ships/MX01/reports/mx01_source_audit.md",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_normalization_manifest.json",
+        "normalized_obj": "ships/MX01/source/mx01_normalized_skin.obj"
+      },
+      "occupancy_outputs": {
+        "front_projection_svg": "ships/MX01/reports/images/mx01_occupancy_front_projection.svg",
+        "intervals_json": "ships/MX01/generated/collision/mx01_occupancy_intervals.json",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_occupancy_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_occupancy_report.json",
+        "report_md": "ships/MX01/reports/mx01_occupancy_report.md",
+        "side_projection_svg": "ships/MX01/reports/images/mx01_occupancy_side_projection.svg",
+        "top_projection_svg": "ships/MX01/reports/images/mx01_occupancy_top_projection.svg"
+      },
+      "player_capsule_height": 1.8,
+      "player_capsule_radius": 0.35,
+      "player_clearance_margin": 0.1,
+      "refined_voxel_size": 0.25,
+      "scene_outputs": {
+        "manifest_json": "ships/MX01/reports/manifests/mx01_scene_manifest.json",
+        "playable_scene": "ships/MX01/generated/scenes/mx01_playable_inspection.tscn",
+        "report_json": "ships/MX01/reports/mx01_scene_report.json",
+        "report_md": "ships/MX01/reports/mx01_scene_report.md",
+        "review_scene": "ships/MX01/generated/scenes/mx01_collision_review.tscn"
+      },
+      "selected_object_policy": "highest_triangle_count",
+      "ship_id": "MX01",
+      "simplification_outputs": {
+        "faces_json": "ships/MX01/generated/collision/mx01_boundary_faces_simplified.json",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_simplification_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_simplification_report.json",
+        "report_md": "ships/MX01/reports/mx01_simplification_report.md",
+        "simplified_obj": "ships/MX01/generated/collision/mx01_boundary_surface_simplified.obj"
+      },
+      "source_mtl": "ships/MX01/input/CargoCrane.mtl",
+      "source_obj": "ships/MX01/input/CargoCrane.obj",
+      "surface_offset_modes": {
+        "inset_for_interior_clearance": -0.2,
+        "outset_for_debug_review": 0.05,
+        "visual_skin": 0.0
+      },
+      "traversal_outputs": {
+        "graph_json": "ships/MX01/generated/collision/mx01_traversal_graph.json",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_traversal_graph_manifest.json",
+        "projection_svg": "ships/MX01/reports/images/mx01_traversal_graph_projection.svg",
+        "report_json": "ships/MX01/reports/mx01_traversal_graph_report.json",
+        "report_md": "ships/MX01/reports/mx01_traversal_graph_report.md"
+      },
+      "validation_outputs": {
+        "manifest_json": "ships/MX01/reports/manifests/mx01_static_validation_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_static_validation_report.json",
+        "report_md": "ships/MX01/reports/mx01_static_validation_report.md"
+      },
+      "vertex_quantization_epsilon": 1e-05,
+      "voxel_size": 0.5,
+      "weld_epsilon": 0.0001
+    },
+    "path": "ships/MX01/config/mx01_collision_generation.json",
+    "sha256": "3344d4fc3175ab1cca7bcdbac44a4084c8ad3b2d362055afcb2ed7ed7f509292"
+  },
+  "counts": {
+    "accepted_decks": 3,
+    "candidate_components": 100,
+    "inside_voxels": 83510,
+    "total_walkable_cells_across_y_levels": 53889,
+    "walkable_y_levels": 36
+  },
+  "method": "occupancy_clearance_deck_band_extraction_v1",
+  "min_component_cells": 16,
+  "notes": "First-pass deck candidates require traversal graph fitting before they are accepted as gameplay collision.",
+  "outputs": {
+    "deck_projection_svg": "ships/MX01/reports/images/mx01_interior_deck_candidates.svg",
+    "volume_json": "ships/MX01/generated/collision/mx01_interior_volume_candidates.json"
+  },
+  "player_capsule_height": 1.8,
+  "player_clearance_margin": 0.1,
+  "ship_id": "MX01",
+  "source": {
+    "occupancy_intervals": "ships/MX01/generated/collision/mx01_occupancy_intervals.json",
+    "occupancy_intervals_sha256": "b1f4a356093a6b875861c3400a16ec2457f21d1fab684cbd1b97ad6fba632e69"
+  },
+  "status": "PASS",
+  "tools": {
+    "extract_mx01_interior_volume.py": {
+      "path": "ships/MX01/tools/extract_mx01_interior_volume.py",
+      "sha256": "b53738244d3f5b36472dcb5e8946d9b40e7b20dbd211b03686f5a5e4e473dd18"
+    }
+  },
+  "voxel_size": 0.5,
+  "y_level_summaries": [
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          1.75,
+          -9.75,
+          50.75
+        ],
+        "min": [
+          -1.75,
+          -9.75,
+          49.75
+        ],
+        "size": [
+          3.5,
+          0.0,
+          1.0
+        ]
+      },
+      "largest_component_cells": 20,
+      "walkable_cells": 20,
+      "y": -9.75,
+      "y_index": 2
+    },
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          2.25,
+          -9.25,
+          51.25
+        ],
+        "min": [
+          -2.25,
+          -9.25,
+          48.75
+        ],
+        "size": [
+          4.5,
+          0.0,
+          2.5
+        ]
+      },
+      "largest_component_cells": 48,
+      "walkable_cells": 48,
+      "y": -9.25,
+      "y_index": 3
+    },
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          2.75,
+          -8.75,
+          51.25
+        ],
+        "min": [
+          -2.75,
+          -8.75,
+          47.75
+        ],
+        "size": [
+          5.5,
+          0.0,
+          3.5
+        ]
+      },
+      "largest_component_cells": 78,
+      "walkable_cells": 78,
+      "y": -8.75,
+      "y_index": 4
+    },
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          2.75,
+          -8.25,
+          51.75
+        ],
+        "min": [
+          -2.75,
+          -8.25,
+          47.25
+        ],
+        "size": [
+          5.5,
+          0.0,
+          4.5
+        ]
+      },
+      "largest_component_cells": 106,
+      "walkable_cells": 106,
+      "y": -8.25,
+      "y_index": 5
+    },
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          3.25,
+          -7.75,
+          51.75
+        ],
+        "min": [
+          -3.25,
+          -7.75,
+          46.75
+        ],
+        "size": [
+          6.5,
+          0.0,
+          5.0
+        ]
+      },
+      "largest_component_cells": 124,
+      "walkable_cells": 124,
+      "y": -7.75,
+      "y_index": 6
+    },
+    {
+      "component_count": 3,
+      "largest_component_bounds": {
+        "max": [
+          3.75,
+          -7.25,
+          52.25
+        ],
+        "min": [
+          -3.75,
+          -7.25,
+          46.75
+        ],
+        "size": [
+          7.5,
+          0.0,
+          5.5
+        ]
+      },
+      "largest_component_cells": 159,
+      "walkable_cells": 191,
+      "y": -7.25,
+      "y_index": 7
+    },
+    {
+      "component_count": 7,
+      "largest_component_bounds": {
+        "max": [
+          3.75,
+          -6.75,
+          52.25
+        ],
+        "min": [
+          -3.75,
+          -6.75,
+          46.25
+        ],
+        "size": [
+          7.5,
+          0.0,
+          6.0
+        ]
+      },
+      "largest_component_cells": 182,
+      "walkable_cells": 364,
+      "y": -6.75,
+      "y_index": 8
+    },
+    {
+      "component_count": 7,
+      "largest_component_bounds": {
+        "max": [
+          4.25,
+          -6.25,
+          52.25
+        ],
+        "min": [
+          -4.25,
+          -6.25,
+          45.75
+        ],
+        "size": [
+          8.5,
+          0.0,
+          6.5
+        ]
+      },
+      "largest_component_cells": 216,
+      "walkable_cells": 543,
+      "y": -6.25,
+      "y_index": 9
+    },
+    {
+      "component_count": 7,
+      "largest_component_bounds": {
+        "max": [
+          4.25,
+          -5.75,
+          52.75
+        ],
+        "min": [
+          -4.25,
+          -5.75,
+          45.25
+        ],
+        "size": [
+          8.5,
+          0.0,
+          7.5
+        ]
+      },
+      "largest_component_cells": 254,
+      "walkable_cells": 617,
+      "y": -5.75,
+      "y_index": 10
+    },
+    {
+      "component_count": 7,
+      "largest_component_bounds": {
+        "max": [
+          4.75,
+          -5.25,
+          52.75
+        ],
+        "min": [
+          -4.75,
+          -5.25,
+          44.75
+        ],
+        "size": [
+          9.5,
+          0.0,
+          8.0
+        ]
+      },
+      "largest_component_cells": 284,
+      "walkable_cells": 860,
+      "y": -5.25,
+      "y_index": 11
+    },
+    {
+      "component_count": 5,
+      "largest_component_bounds": {
+        "max": [
+          16.25,
+          -4.75,
+          -31.75
+        ],
+        "min": [
+          -16.25,
+          -4.75,
+          -38.75
+        ],
+        "size": [
+          32.5,
+          0.0,
+          7.0
+        ]
+      },
+      "largest_component_cells": 522,
+      "walkable_cells": 1356,
+      "y": -4.75,
+      "y_index": 12
+    },
+    {
+      "component_count": 14,
+      "largest_component_bounds": {
+        "max": [
+          13.75,
+          -4.25,
+          -29.25
+        ],
+        "min": [
+          -13.75,
+          -4.25,
+          -38.25
+        ],
+        "size": [
+          27.5,
+          0.0,
+          9.0
+        ]
+      },
+      "largest_component_cells": 524,
+      "walkable_cells": 1741,
+      "y": -4.25,
+      "y_index": 13
+    },
+    {
+      "component_count": 13,
+      "largest_component_bounds": {
+        "max": [
+          17.75,
+          -3.75,
+          -42.75
+        ],
+        "min": [
+          -17.75,
+          -3.75,
+          -46.25
+        ],
+        "size": [
+          35.5,
+          0.0,
+          3.5
+        ]
+      },
+      "largest_component_cells": 496,
+      "walkable_cells": 1808,
+      "y": -3.75,
+      "y_index": 14
+    },
+    {
+      "component_count": 10,
+      "largest_component_bounds": {
+        "max": [
+          17.25,
+          -3.25,
+          -42.75
+        ],
+        "min": [
+          -17.25,
+          -3.25,
+          -46.25
+        ],
+        "size": [
+          34.5,
+          0.0,
+          3.5
+        ]
+      },
+      "largest_component_cells": 458,
+      "walkable_cells": 1406,
+      "y": -3.25,
+      "y_index": 15
+    },
+    {
+      "component_count": 16,
+      "largest_component_bounds": {
+        "max": [
+          4.75,
+          -2.75,
+          52.25
+        ],
+        "min": [
+          -4.75,
+          -2.75,
+          42.25
+        ],
+        "size": [
+          9.5,
+          0.0,
+          10.0
+        ]
+      },
+      "largest_component_cells": 347,
+      "walkable_cells": 1145,
+      "y": -2.75,
+      "y_index": 16
+    },
+    {
+      "component_count": 11,
+      "largest_component_bounds": {
+        "max": [
+          4.75,
+          -2.25,
+          52.25
+        ],
+        "min": [
+          -4.75,
+          -2.25,
+          40.75
+        ],
+        "size": [
+          9.5,
+          0.0,
+          11.5
+        ]
+      },
+      "largest_component_cells": 368,
+      "walkable_cells": 945,
+      "y": -2.25,
+      "y_index": 17
+    },
+    {
+      "component_count": 8,
+      "largest_component_bounds": {
+        "max": [
+          5.75,
+          -1.75,
+          51.75
+        ],
+        "min": [
+          -5.75,
+          -1.75,
+          -30.25
+        ],
+        "size": [
+          11.5,
+          0.0,
+          82.0
+        ]
+      },
+      "largest_component_cells": 3178,
+      "walkable_cells": 3742,
+      "y": -1.75,
+      "y_index": 18
+    },
+    {
+      "component_count": 10,
+      "largest_component_bounds": {
+        "max": [
+          5.75,
+          -1.25,
+          49.25
+        ],
+        "min": [
+          -5.75,
+          -1.25,
+          -30.75
+        ],
+        "size": [
+          11.5,
+          0.0,
+          80.0
+        ]
+      },
+      "largest_component_cells": 3295,
+      "walkable_cells": 3741,
+      "y": -1.25,
+      "y_index": 19
+    },
+    {
+      "component_count": 7,
+      "largest_component_bounds": {
+        "max": [
+          5.75,
+          -0.75,
+          48.75
+        ],
+        "min": [
+          -5.75,
+          -0.75,
+          -34.75
+        ],
+        "size": [
+          11.5,
+          0.0,
+          83.5
+        ]
+      },
+      "largest_component_cells": 3448,
+      "walkable_cells": 3702,
+      "y": -0.75,
+      "y_index": 20
+    },
+    {
+      "component_count": 6,
+      "largest_component_bounds": {
+        "max": [
+          5.75,
+          -0.25,
+          48.75
+        ],
+        "min": [
+          -5.75,
+          -0.25,
+          -34.75
+        ],
+        "size": [
+          11.5,
+          0.0,
+          83.5
+        ]
+      },
+      "largest_component_cells": 3248,
+      "walkable_cells": 3402,
+      "y": -0.25,
+      "y_index": 21
+    },
+    {
+      "component_count": 5,
+      "largest_component_bounds": {
+        "max": [
+          5.25,
+          0.25,
+          48.75
+        ],
+        "min": [
+          -5.25,
+          0.25,
+          -23.75
+        ],
+        "size": [
+          10.5,
+          0.0,
+          72.5
+        ]
+      },
+      "largest_component_cells": 2870,
+      "walkable_cells": 3286,
+      "y": 0.25,
+      "y_index": 22
+    },
+    {
+      "component_count": 3,
+      "largest_component_bounds": {
+        "max": [
+          5.25,
+          0.75,
+          48.75
+        ],
+        "min": [
+          -5.25,
+          0.75,
+          -23.75
+        ],
+        "size": [
+          10.5,
+          0.0,
+          72.5
+        ]
+      },
+      "largest_component_cells": 2832,
+      "walkable_cells": 3226,
+      "y": 0.75,
+      "y_index": 23
+    },
+    {
+      "component_count": 2,
+      "largest_component_bounds": {
+        "max": [
+          5.25,
+          1.25,
+          47.75
+        ],
+        "min": [
+          -5.25,
+          1.25,
+          -23.75
+        ],
+        "size": [
+          10.5,
+          0.0,
+          71.5
+        ]
+      },
+      "largest_component_cells": 2739,
+      "walkable_cells": 3129,
+      "y": 1.25,
+      "y_index": 24
+    },
+    {
+      "component_count": 2,
+      "largest_component_bounds": {
+        "max": [
+          4.75,
+          1.75,
+          46.25
+        ],
+        "min": [
+          -4.75,
+          1.75,
+          -23.75
+        ],
+        "size": [
+          9.5,
+          0.0,
+          70.0
+        ]
+      },
+      "largest_component_cells": 2467,
+      "walkable_cells": 2846,
+      "y": 1.75,
+      "y_index": 25
+    },
+    {
+      "component_count": 2,
+      "largest_component_bounds": {
+        "max": [
+          4.75,
+          2.25,
+          44.75
+        ],
+        "min": [
+          -4.75,
+          2.25,
+          -23.75
+        ],
+        "size": [
+          9.5,
+          0.0,
+          68.5
+        ]
+      },
+      "largest_component_cells": 2341,
+      "walkable_cells": 2703,
+      "y": 2.25,
+      "y_index": 26
+    },
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          4.75,
+          2.75,
+          43.25
+        ],
+        "min": [
+          -4.75,
+          2.75,
+          -38.25
+        ],
+        "size": [
+          9.5,
+          0.0,
+          81.5
+        ]
+      },
+      "largest_component_cells": 2555,
+      "walkable_cells": 2555,
+      "y": 2.75,
+      "y_index": 27
+    },
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          4.25,
+          3.25,
+          38.75
+        ],
+        "min": [
+          -4.25,
+          3.25,
+          -37.25
+        ],
+        "size": [
+          8.5,
+          0.0,
+          76.0
+        ]
+      },
+      "largest_component_cells": 2194,
+      "walkable_cells": 2194,
+      "y": 3.25,
+      "y_index": 28
+    },
+    {
+      "component_count": 3,
+      "largest_component_bounds": {
+        "max": [
+          3.75,
+          3.75,
+          18.25
+        ],
+        "min": [
+          -3.75,
+          3.75,
+          -17.75
+        ],
+        "size": [
+          7.5,
+          0.0,
+          36.0
+        ]
+      },
+      "largest_component_cells": 1092,
+      "walkable_cells": 1818,
+      "y": 3.75,
+      "y_index": 29
+    },
+    {
+      "component_count": 3,
+      "largest_component_bounds": {
+        "max": [
+          3.75,
+          4.25,
+          16.75
+        ],
+        "min": [
+          -3.75,
+          4.25,
+          -17.25
+        ],
+        "size": [
+          7.5,
+          0.0,
+          34.0
+        ]
+      },
+      "largest_component_cells": 993,
+      "walkable_cells": 1654,
+      "y": 4.25,
+      "y_index": 30
+    },
+    {
+      "component_count": 3,
+      "largest_component_bounds": {
+        "max": [
+          3.75,
+          4.75,
+          8.25
+        ],
+        "min": [
+          -3.75,
+          4.75,
+          -14.75
+        ],
+        "size": [
+          7.5,
+          0.0,
+          23.0
+        ]
+      },
+      "largest_component_cells": 681,
+      "walkable_cells": 1279,
+      "y": 4.75,
+      "y_index": 31
+    },
+    {
+      "component_count": 3,
+      "largest_component_bounds": {
+        "max": [
+          3.75,
+          5.25,
+          5.25
+        ],
+        "min": [
+          -3.75,
+          5.25,
+          -12.25
+        ],
+        "size": [
+          7.5,
+          0.0,
+          17.5
+        ]
+      },
+      "largest_component_cells": 484,
+      "walkable_cells": 1023,
+      "y": 5.25,
+      "y_index": 32
+    },
+    {
+      "component_count": 3,
+      "largest_component_bounds": {
+        "max": [
+          3.25,
+          5.75,
+          -20.75
+        ],
+        "min": [
+          -3.25,
+          5.75,
+          -34.25
+        ],
+        "size": [
+          6.5,
+          0.0,
+          13.5
+        ]
+      },
+      "largest_component_cells": 372,
+      "walkable_cells": 786,
+      "y": 5.75,
+      "y_index": 33
+    },
+    {
+      "component_count": 3,
+      "largest_component_bounds": {
+        "max": [
+          3.25,
+          6.25,
+          -20.75
+        ],
+        "min": [
+          -3.25,
+          6.25,
+          -33.75
+        ],
+        "size": [
+          6.5,
+          0.0,
+          13.0
+        ]
+      },
+      "largest_component_cells": 358,
+      "walkable_cells": 515,
+      "y": 6.25,
+      "y_index": 34
+    },
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          3.25,
+          6.75,
+          -20.75
+        ],
+        "min": [
+          -3.25,
+          6.75,
+          -33.25
+        ],
+        "size": [
+          6.5,
+          0.0,
+          12.5
+        ]
+      },
+      "largest_component_cells": 336,
+      "walkable_cells": 336,
+      "y": 6.75,
+      "y_index": 35
+    },
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          3.25,
+          7.25,
+          -21.75
+        ],
+        "min": [
+          -3.25,
+          7.25,
+          -32.75
+        ],
+        "size": [
+          6.5,
+          0.0,
+          11.0
+        ]
+      },
+      "largest_component_cells": 306,
+      "walkable_cells": 306,
+      "y": 7.25,
+      "y_index": 36
+    },
+    {
+      "component_count": 1,
+      "largest_component_bounds": {
+        "max": [
+          3.75,
+          7.75,
+          -21.75
+        ],
+        "min": [
+          -3.75,
+          7.75,
+          -32.25
+        ],
+        "size": [
+          7.5,
+          0.0,
+          10.5
+        ]
+      },
+      "largest_component_cells": 294,
+      "walkable_cells": 294,
+      "y": 7.75,
+      "y_index": 37
+    }
+  ]
+}

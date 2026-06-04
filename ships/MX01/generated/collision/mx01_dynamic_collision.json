@@ -1,0 +1,133 @@
+{
+  "method": "spatial_partition_compound_convex_boxes_v1",
+  "objects": [
+    {
+      "center": [
+        0.0,
+        1.024418,
+        -41.682209
+      ],
+      "kind": "convex_box",
+      "material": "MX01_DynamicCollision",
+      "name": "COL_MX01_dynamic_aft_body",
+      "role": "ship_world_dynamic_body",
+      "size": [
+        37.474242,
+        18.233627,
+        23.805961
+      ],
+      "source": "aft longitudinal hull",
+      "source_vertex_count": 10963
+    },
+    {
+      "center": [
+        0.0,
+        4.043506,
+        -4.266224
+      ],
+      "kind": "convex_box",
+      "material": "MX01_DynamicCollision",
+      "name": "COL_MX01_dynamic_central_body",
+      "role": "ship_world_dynamic_body",
+      "size": [
+        12.548716,
+        12.300208,
+        51.477339
+      ],
+      "source": "central longitudinal hull",
+      "source_vertex_count": 1494
+    },
+    {
+      "center": [
+        4e-06,
+        -0.659095,
+        37.414348
+      ],
+      "kind": "convex_box",
+      "material": "MX01_DynamicCollision",
+      "name": "COL_MX01_dynamic_forward_nose",
+      "role": "ship_world_dynamic_body",
+      "size": [
+        12.548719,
+        19.069029,
+        32.34168
+      ],
+      "source": "forward nose hull",
+      "source_vertex_count": 2606
+    },
+    {
+      "center": [
+        14.255347,
+        -2.997399,
+        -28.601325
+      ],
+      "kind": "convex_box",
+      "material": "MX01_DynamicCollision",
+      "name": "COL_MX01_dynamic_port_lateral",
+      "role": "ship_world_dynamic_lateral",
+      "size": [
+        3.472449,
+        5.22017,
+        2.913842
+      ],
+      "source": "port lateral structures",
+      "source_vertex_count": 789
+    },
+    {
+      "center": [
+        -14.255347,
+        -2.997399,
+        -28.601323
+      ],
+      "kind": "convex_box",
+      "material": "MX01_DynamicCollision",
+      "name": "COL_MX01_dynamic_starboard_lateral",
+      "role": "ship_world_dynamic_lateral",
+      "size": [
+        3.47245,
+        5.220171,
+        2.913842
+      ],
+      "source": "starboard lateral structures",
+      "source_vertex_count": 790
+    },
+    {
+      "center": [
+        1e-06,
+        -4.737853,
+        -28.601323
+      ],
+      "kind": "convex_box",
+      "material": "MX01_DynamicCollision",
+      "name": "COL_MX01_dynamic_belly_support",
+      "role": "ship_world_dynamic_landing",
+      "size": [
+        31.825199,
+        1.739262,
+        2.913842
+      ],
+      "source": "belly landing/contact volume",
+      "source_vertex_count": 550
+    },
+    {
+      "center": [
+        1e-06,
+        6.739216,
+        -4.263012
+      ],
+      "kind": "convex_box",
+      "material": "MX01_DynamicCollision",
+      "name": "COL_MX01_dynamic_upper_superstructure",
+      "role": "ship_world_dynamic_body",
+      "size": [
+        9.623068,
+        6.908787,
+        51.470915
+      ],
+      "source": "upper central volume",
+      "source_vertex_count": 1088
+    }
+  ],
+  "ship_id": "MX01",
+  "skipped_regions": []
+}

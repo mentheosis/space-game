@@ -1,0 +1,184 @@
+{
+  "edges": [
+    {
+      "connector_center": [
+        0.0,
+        -4.25,
+        -38.25
+      ],
+      "from": "entry_ramp_candidate",
+      "id": "entry_ramp_candidate_to_lower_deck_candidate",
+      "kind": "entry_handoff_candidate",
+      "min_connector_width": 0.9,
+      "overlap": null,
+      "status": "PASS",
+      "to": "lower_deck_candidate",
+      "vertical_delta": 0.0
+    },
+    {
+      "connector_center": [
+        0.0,
+        -2.5,
+        -32.0
+      ],
+      "from": "lower_deck_candidate",
+      "id": "lower_deck_candidate_to_mid_deck_candidate",
+      "kind": "lift_or_stairwell_candidate",
+      "min_connector_width": 0.9,
+      "overlap": {
+        "area": 63.25,
+        "center": [
+          0.0,
+          -32.0
+        ],
+        "depth": 5.5,
+        "width": 11.5,
+        "x_max": 5.75,
+        "x_min": -5.75,
+        "z_max": -29.25,
+        "z_min": -34.75
+      },
+      "status": "PASS",
+      "to": "mid_deck_candidate",
+      "vertical_delta": 3.5
+    },
+    {
+      "connector_center": [
+        0.0,
+        1.0,
+        4.25
+      ],
+      "from": "mid_deck_candidate",
+      "id": "mid_deck_candidate_to_upper_deck_candidate",
+      "kind": "lift_or_stairwell_candidate",
+      "min_connector_width": 0.9,
+      "overlap": {
+        "area": 741.0,
+        "center": [
+          0.0,
+          4.25
+        ],
+        "depth": 78.0,
+        "width": 9.5,
+        "x_max": 4.75,
+        "x_min": -4.75,
+        "z_max": 43.25,
+        "z_min": -34.75
+      },
+      "status": "PASS",
+      "to": "upper_deck_candidate",
+      "vertical_delta": 3.5
+    }
+  ],
+  "entry_node": "entry_ramp_candidate",
+  "method": "deck_overlap_traversal_graph_v1",
+  "nodes": [
+    {
+      "center": [
+        0.0,
+        -4.25,
+        -38.25
+      ],
+      "id": "entry_ramp_candidate",
+      "kind": "entry",
+      "status": "ACCEPTED_FIRST_PASS",
+      "target_deck": "lower_deck_candidate"
+    },
+    {
+      "bounds": {
+        "max": [
+          13.75,
+          -4.25,
+          -29.25
+        ],
+        "min": [
+          -13.75,
+          -4.25,
+          -38.25
+        ],
+        "size": [
+          27.5,
+          0.0,
+          9.0
+        ]
+      },
+      "center": [
+        0.0,
+        -4.25,
+        -33.75
+      ],
+      "estimated_area_m2": 131.0,
+      "id": "lower_deck_candidate",
+      "kind": "deck",
+      "status": "ACCEPTED_FIRST_PASS"
+    },
+    {
+      "bounds": {
+        "max": [
+          5.75,
+          -0.75,
+          48.75
+        ],
+        "min": [
+          -5.75,
+          -0.75,
+          -34.75
+        ],
+        "size": [
+          11.5,
+          0.0,
+          83.5
+        ]
+      },
+      "center": [
+        0.0,
+        -0.75,
+        7.0
+      ],
+      "estimated_area_m2": 862.0,
+      "id": "mid_deck_candidate",
+      "kind": "deck",
+      "status": "ACCEPTED_FIRST_PASS"
+    },
+    {
+      "bounds": {
+        "max": [
+          4.75,
+          2.75,
+          43.25
+        ],
+        "min": [
+          -4.75,
+          2.75,
+          -38.25
+        ],
+        "size": [
+          9.5,
+          0.0,
+          81.5
+        ]
+      },
+      "center": [
+        0.0,
+        2.75,
+        2.5
+      ],
+      "estimated_area_m2": 638.75,
+      "id": "upper_deck_candidate",
+      "kind": "deck",
+      "status": "ACCEPTED_FIRST_PASS"
+    }
+  ],
+  "reachable_decks": [
+    "lower_deck_candidate",
+    "mid_deck_candidate",
+    "upper_deck_candidate"
+  ],
+  "reachable_nodes": [
+    "entry_ramp_candidate",
+    "lower_deck_candidate",
+    "mid_deck_candidate",
+    "upper_deck_candidate"
+  ],
+  "ship_id": "MX01"
+}

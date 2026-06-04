@@ -1,16 +1,17 @@
-# 0.4 CargoCrane Skin-To-Collision Experiment
+# 0.4 MX01 Skin-To-Collision Experiment
 
 ## Purpose
 
-Create an isolated, from-scratch experiment that turns the source ship skin at
-`assets/models/ship/placeholders/oga_3d_space_ship_pack/CargoCrane.obj` into a
-production-oriented collision package.
+Create an isolated, from-scratch experiment that turns the MX01 reference ship
+skin at `ships/MX01/input/CargoCrane.obj` into a production-oriented collision
+package for a new ship named **MX01**.
 
 This experiment must not reuse prior CargoCrane generated assets, prior
 CargoCrane tools, existing CargoCrane contracts, or old interior planning
-outputs. Existing repo work may be read only for general project conventions,
-but the implementation, outputs, validation reports, and Godot integration path
-for this experiment must live under a new 0.4 namespace.
+outputs. Existing repo work may be read only for general project conventions.
+All implementation files, outputs, validation reports, Godot scenes, generated
+assets, manifests, and review artifacts for this run must live under
+`ships/MX01`.
 
 ## Goal
 
@@ -37,23 +38,70 @@ The output is a repeatable process, not a one-off manual model.
 - Do not rely on Godot runtime calls to create collision from a visual mesh.
 - Do not make one collision shape serve every purpose.
 
-## Fresh Experiment Namespace
+## MX01 Workspace
 
-Use a new namespace for all generated work:
+Use `ships/MX01` as the only workspace for this ship. Keep all ship-specific
+work colocated there until there is a proven reason to extract reusable
+components.
 
-- `tools/ship_production_04/`
-- `assets/source/ship_production_04/cargo_crane/`
-- `assets/models/ship_production_04/cargo_crane/`
-- `reports/ship_production_04/cargo_crane/`
-- `scenes/ship_production_04/cargo_crane/`
+Required directory layout:
 
-No generated 0.4 file should overwrite or depend on prior CargoCrane outputs.
+- `ships/MX01/input/`
+- `ships/MX01/implementation-plan.md`
+- `ships/MX01/config/`
+- `ships/MX01/tools/`
+- `ships/MX01/source/`
+- `ships/MX01/generated/`
+- `ships/MX01/generated/models/`
+- `ships/MX01/generated/scenes/`
+- `ships/MX01/generated/collision/`
+- `ships/MX01/reports/`
+- `ships/MX01/reports/images/`
+- `ships/MX01/reports/manifests/`
+
+No generated MX01 file should overwrite or depend on prior CargoCrane outputs.
+If a later component is useful for other ships, extract it only after the MX01
+experiment proves the interface and behavior.
+
+## Deterministic Config Contract
+
+Create `ships/MX01/config/mx01_collision_generation.json` before generating
+collision outputs. Every tool must read its tunable parameters from this file or
+from a stage-specific config referenced by this file. No geometry-affecting
+threshold should be hard-coded without also being reported.
+
+The contract must include at least:
+
+- `voxel_size`;
+- `refined_voxel_size`;
+- `max_surface_error`;
+- `max_normal_error_degrees`;
+- `min_component_volume`;
+- `weld_epsilon`;
+- `vertex_quantization_epsilon`;
+- `surface_offset_modes`;
+- `max_convex_hull_vertices`;
+- `max_dynamic_hull_error`;
+- `player_capsule_radius`;
+- `player_capsule_height`;
+- `player_clearance_margin`;
+- `deterministic_sort_keys`;
+- tool version or script hashes.
+
+Each generated manifest must copy the effective config values and source hashes
+used for that run. Re-running the same input and same config should produce
+byte-stable mesh, report, and manifest outputs, except for explicitly marked
+wall-clock timestamps if those are ever added.
 
 ## Source Of Truth
 
 The only initial geometry source is:
 
-`assets/models/ship/placeholders/oga_3d_space_ship_pack/CargoCrane.obj`
+`ships/MX01/input/CargoCrane.obj`
+
+The matching source material file is:
+
+`ships/MX01/input/CargoCrane.mtl`
 
 The first script must parse and normalize the OBJ directly. It should select the
 highest-detail object section as the default skin source, record the selected
@@ -107,6 +155,24 @@ Target deck strategy:
 Decks must be validated against player capsule height and radius. A deck is not
 accepted unless it has usable head clearance and connects to the traversal graph.
 
+Interior wall and ceiling blockers should be generated from the exterior skin
+through the signed distance / occupancy field. The plan should preserve two
+surface reconstruction options:
+
+- **Marching cubes:** the simpler first implementation. It extracts a watertight
+  triangle surface from the signed distance field at a chosen offset from the
+  visual skin. Use this when the priority is getting deterministic evidence and
+  collision into Godot quickly.
+- **Dual contouring:** the higher-quality follow-up. It preserves harder panel
+  edges and sharper ship silhouettes better than marching cubes when the SDF
+  includes reliable gradients or Hermite edge data. Use this if marching cubes
+  rounds off important hull boundaries or creates too much stair-stepping.
+
+The interior collision generator may use reconstructed shell patches as
+blockers, but it should not blindly use the full exterior mesh as interior
+collision. Traversal surfaces still need authored/procedural floors, ramps,
+stairs, rails, and connectors that are validated against the player capsule.
+
 ### 2. Dynamic Exterior Physics Collision
 
 Exterior physics collision is ship-world collision. It should be optimized for
@@ -126,11 +192,17 @@ the normalized mesh into spatial or semantic regions, fitting convex hulls per
 region, and simplifying until the shape is stable. Fit quality should be
 measured against the skin, but stability is more important than perfect detail.
 
+A direct triangle copy of the source skin, or a marching-cubes/dual-contouring
+reconstruction of the full skin, is acceptable only as static review/debug
+collision. It is not the dynamic ship-world physics solution. The dynamic
+solution must remain compound convex/simple so it can move, collide, and rest
+stably in Godot.
+
 ## Deterministic Geometry Process
 
 ### Stage 1: Normalize Skin
 
-Create `normalize_cargo_crane_skin.py`.
+Create `ships/MX01/tools/normalize_mx01_skin.py`.
 
 Responsibilities:
 
@@ -150,7 +222,7 @@ Acceptance:
 
 ### Stage 2: Build Signed Distance / Occupancy Field
 
-Create `build_cargo_crane_sdf.py`.
+Create `ships/MX01/tools/build_mx01_sdf.py`.
 
 Responsibilities:
 
@@ -174,9 +246,102 @@ Acceptance:
 - report includes slice images from side, top, and front;
 - every later generated surface can trace back to this field version.
 
-### Stage 3: Extract Usable Interior Volume
+### Stage 3: Reconstruct Skin-Derived Boundary Surfaces
 
-Create `extract_cargo_crane_interior_volume.py`.
+Create `ships/MX01/tools/reconstruct_mx01_boundary_surfaces.py`.
+
+Responsibilities:
+
+- extract skin-derived boundary surfaces from the SDF / occupancy field;
+- support marching cubes as the first deterministic implementation;
+- reserve dual contouring as the edge-preserving implementation path;
+- allow explicit offset modes: `visual_skin`, `inset_for_interior_clearance`,
+  and `outset_for_debug_review`;
+- quantize vertices with a fixed epsilon;
+- weld and sort vertices/faces deterministically;
+- tag output surfaces by role: `static_review_shell`, `interior_blocker_shell`,
+  or `debug_only`;
+- write a fit report comparing reconstructed surfaces to the normalized skin.
+
+Marching cubes requirements:
+
+- fixed cube traversal order;
+- fixed edge interpolation rule;
+- fixed lookup table version checked into `ships/MX01/tools/`;
+- deterministic handling for exact-zero SDF values;
+- post-weld and component filtering with recorded thresholds.
+
+Dual contouring requirements:
+
+- use only after marching cubes evidence exists;
+- derive Hermite samples from SDF gradients or triangle nearest-point normals;
+- preserve sharp features where normal angle exceeds a configured threshold;
+- clamp generated vertices to their source cells to avoid unstable spikes;
+- report whether edge preservation improves fit enough to justify the added
+  complexity.
+
+Acceptance:
+
+- repeated runs produce identical reconstructed mesh hashes;
+- fit report includes max, mean, and percentile distance to source skin;
+- report lists protrusion and inset distances separately;
+- review images show side/top/front overlays against the source skin;
+- interior blocker shell surfaces stay outside the accepted traversal volume.
+
+### Stage 4: Simplify And Stabilize Reconstructed Surfaces
+
+Create `ships/MX01/tools/simplify_mx01_surfaces.py`.
+
+Responsibilities:
+
+- simplify reconstructed boundary surfaces with deterministic decimation or
+  grid/voxel clustering;
+- use locked config values from
+  `ships/MX01/config/mx01_collision_generation.json`;
+- enforce `max_surface_error`, `max_normal_error_degrees`,
+  `min_component_volume`, and `weld_epsilon`;
+- remove tiny disconnected components below `min_component_volume`;
+- preserve tagged sharp features when dual contouring or normal thresholds mark
+  them as important;
+- sort components, vertices, faces, and materials by deterministic keys before
+  writing output;
+- write a simplification report comparing pre- and post-simplification meshes.
+
+Accepted simplification methods:
+
+- **Deterministic voxel clustering:** first-choice method for early runs because
+  it is simple, stable, and naturally tied to the SDF grid.
+- **Deterministic quadric/error decimation:** allowed after the clustering
+  baseline exists, but only if tie-breaking, priority queues, and output
+  ordering are locked and reproducible.
+- **Convex hull simplification:** used separately for dynamic exterior physics
+  hulls, with `max_convex_hull_vertices` and `max_dynamic_hull_error`.
+
+Required simplification report fields:
+
+- input mesh hash;
+- output mesh hash;
+- effective config hash;
+- input vertex and triangle counts;
+- output vertex and triangle counts;
+- removed component count and volume;
+- max and mean surface error;
+- max and mean normal error;
+- sharp-feature preservation count;
+- byte-stability check result from an immediate second run.
+
+Acceptance:
+
+- repeated runs produce identical output hashes;
+- simplification does not exceed `max_surface_error`;
+- simplification does not exceed `max_normal_error_degrees` in protected
+  regions;
+- no accepted traversal blocker or dynamic hull loses its semantic role tag;
+- the generated manifest records every simplification parameter.
+
+### Stage 5: Extract Usable Interior Volume
+
+Create `ships/MX01/tools/extract_mx01_interior_volume.py`.
 
 Responsibilities:
 
@@ -193,9 +358,9 @@ Acceptance:
 - the report lists accepted and rejected volume regions;
 - projection evidence shows player-scale clearance, not just raw empty space.
 
-### Stage 4: Fit Multi-Level Traversal Layout
+### Stage 6: Fit Multi-Level Traversal Layout
 
-Create `fit_cargo_crane_multilevel_traversal.py`.
+Create `ships/MX01/tools/fit_mx01_multilevel_traversal.py`.
 
 Responsibilities:
 
@@ -221,9 +386,9 @@ Acceptance:
 - no accepted room is isolated;
 - no floor, stair, ramp, or ladder intersects the exterior skin after clearance.
 
-### Stage 5: Generate Interior Collision Meshes
+### Stage 7: Generate Interior Collision Meshes
 
-Create `generate_cargo_crane_interior_collision.py`.
+Create `ships/MX01/tools/generate_mx01_interior_collision.py`.
 
 Responsibilities:
 
@@ -241,9 +406,9 @@ Acceptance:
 - generated meshes pass static intersection checks against the exterior skin;
 - generated meshes pass player capsule sweep checks.
 
-### Stage 6: Generate Dynamic Exterior Compound Collision
+### Stage 8: Generate Dynamic Exterior Compound Collision
 
-Create `generate_cargo_crane_dynamic_collision.py`.
+Create `ships/MX01/tools/generate_mx01_dynamic_collision.py`.
 
 Responsibilities:
 
@@ -273,11 +438,11 @@ Acceptance:
 - a test scene can move the ship against static world geometry without using
   visual mesh collision.
 
-### Stage 7: Godot Integration Scene
+### Stage 9: Godot Integration Scene
 
 Create a standalone scene under:
 
-`scenes/ship_production_04/cargo_crane/`
+`ships/MX01/generated/scenes/`
 
 The scene should contain:
 
@@ -300,12 +465,12 @@ Acceptance:
 
 ### Static Validation
 
-Create `validate_cargo_crane_collision_static.py`.
+Create `ships/MX01/tools/validate_mx01_collision_static.py`.
 
 Checks:
 
 - source and generated artifact hashes match the manifest;
-- generated files exist only in the 0.4 namespace;
+- generated files exist only under `ships/MX01`;
 - interior collision is inside the exterior shell after clearance;
 - dynamic collision is composed only of convex/simple shapes;
 - no dynamic physics shape blocks a required interior route;
@@ -322,7 +487,7 @@ Recommended order:
 1. Run local static validation.
 2. Run host `dotnet build` if C# or Godot scene code changed.
 3. Run host `import godot project` after adding scenes or imported assets.
-4. Add a future host review profile for the 0.4 CargoCrane experiment once the
+4. Add a future host review profile for the 0.4 MX01 experiment once the
    scene and evidence capture are stable.
 
 ### Evidence Artifacts
@@ -331,6 +496,8 @@ Each full run should produce:
 
 - normalized source audit report;
 - SDF/voxel report;
+- reconstructed boundary surface report;
+- deterministic simplification report;
 - interior volume report;
 - traversal graph report;
 - interior collision fit report;
@@ -344,6 +511,12 @@ Each full run should produce:
 Track these metrics per run:
 
 - maximum interior collision protrusion outside skin;
+- reconstructed shell max/mean distance to visual skin;
+- reconstructed shell protrusion and inset distance percentiles;
+- simplification input/output triangle counts;
+- simplification max surface error;
+- simplification max normal error;
+- removed component count and total removed volume;
 - mean and maximum distance from interior blockers to skin;
 - floor area by deck;
 - reachable floor area percentage;
@@ -363,25 +536,32 @@ The experiment is considered successful when:
 - a fresh 0.4 pipeline can rebuild all collision artifacts from the OBJ and
   config only;
 - generated outputs are deterministic across repeated runs;
+- generated manifests record the locked simplification contract;
+- immediate second-run byte-stability checks pass for simplified outputs;
 - the player can traverse all accepted interior decks in the review scene;
 - at least three vertical levels or level bands are used where the hull permits;
 - exterior dynamic collision is compound convex/simple, not concave trimesh;
 - interior traversal collision and exterior dynamic collision are separate;
 - validation reports show no untracked reuse of old CargoCrane outputs;
+- all MX01-specific tools, scenes, assets, reports, and manifests are colocated
+  under `ships/MX01`;
 - Godot imports the generated assets through the host toolchain.
 
 ## Implementation Order
 
-1. Create the 0.4 namespace directories and config skeleton.
+1. Create the `ships/MX01` workspace directories and config skeleton.
 2. Implement OBJ normalization and source audit.
 3. Implement SDF/occupancy field generation with projection evidence.
-4. Implement interior volume extraction and deck-band discovery.
-5. Implement traversal graph fitting and route validation.
-6. Implement generated interior collision meshes.
-7. Implement dynamic exterior compound collision fitting.
-8. Implement static validation.
-9. Add a standalone Godot review scene.
-10. Add host import/build/review validation.
+4. Implement marching-cubes boundary reconstruction and fit evidence.
+5. Add dual-contouring support only if marching cubes loses important edges.
+6. Implement deterministic simplification and byte-stability checks.
+7. Implement interior volume extraction and deck-band discovery.
+8. Implement traversal graph fitting and route validation.
+9. Implement generated interior collision meshes.
+10. Implement dynamic exterior compound collision fitting.
+11. Implement static validation.
+12. Add a standalone Godot review scene.
+13. Add host import/build/review validation.
 
 ## Key Design Rule
 

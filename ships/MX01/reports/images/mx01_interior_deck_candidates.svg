@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="864" height="352" viewBox="0 0 864 352">
+<rect width="100%" height="100%" fill="#111827"/>
+<text x="8" y="22" font-family="Arial, sans-serif" font-size="13" fill="#f9fafb">MX01 accepted deck candidates, top projection</text>
+<rect x="124" y="84" width="76" height="224" fill="#22c55e" fill-opacity="0.28" stroke="#22c55e" stroke-width="2"/>
+<text x="128" y="100" font-family="Arial, sans-serif" font-size="12" fill="#22c55e">lower_deck_candidate y=-4.25</text>
+<rect x="152" y="148" width="672" height="96" fill="#38bdf8" fill-opacity="0.28" stroke="#38bdf8" stroke-width="2"/>
+<text x="156" y="164" font-family="Arial, sans-serif" font-size="12" fill="#38bdf8">mid_deck_candidate y=-0.75</text>
+<rect x="124" y="156" width="656" height="80" fill="#facc15" fill-opacity="0.28" stroke="#facc15" stroke-width="2"/>
+<text x="128" y="172" font-family="Arial, sans-serif" font-size="12" fill="#facc15">upper_deck_candidate y=2.75</text>
+</svg>

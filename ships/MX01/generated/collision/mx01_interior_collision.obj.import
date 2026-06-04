@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b58chpry4uv3p"
+path="res://.godot/imported/mx01_interior_collision.obj-0f999b5ff681b3eca9846f3d084eb22e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mx01_interior_collision.obj-0f999b5ff681b3eca9846f3d084eb22e.mesh"]
+
+source_file="res://ships/MX01/generated/collision/mx01_interior_collision.obj"
+dest_files=["res://.godot/imported/mx01_interior_collision.obj-0f999b5ff681b3eca9846f3d084eb22e.mesh", "res://.godot/imported/mx01_interior_collision.obj-0f999b5ff681b3eca9846f3d084eb22e.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,0 +1,108 @@
+{
+  "ship_id": "MX01",
+  "source_obj": "ships/MX01/input/CargoCrane.obj",
+  "source_mtl": "ships/MX01/input/CargoCrane.mtl",
+  "selected_object_policy": "highest_triangle_count",
+  "coordinate_transform": {
+    "description": "Preserve source axes and center selected skin bounds at origin.",
+    "scale": 1.0,
+    "axis_map": {
+      "x": "x",
+      "y": "y",
+      "z": "z"
+    },
+    "center_selected_bounds": true
+  },
+  "voxel_size": 0.5,
+  "refined_voxel_size": 0.25,
+  "max_surface_error": 0.15,
+  "max_normal_error_degrees": 12.0,
+  "min_component_volume": 0.05,
+  "weld_epsilon": 0.0001,
+  "vertex_quantization_epsilon": 0.00001,
+  "surface_offset_modes": {
+    "visual_skin": 0.0,
+    "inset_for_interior_clearance": -0.2,
+    "outset_for_debug_review": 0.05
+  },
+  "max_convex_hull_vertices": 64,
+  "max_dynamic_hull_error": 0.75,
+  "player_capsule_radius": 0.35,
+  "player_capsule_height": 1.8,
+  "player_clearance_margin": 0.1,
+  "deterministic_sort_keys": [
+    "object_name",
+    "material_name",
+    "source_face_index",
+    "vertex_xyz"
+  ],
+  "normalization_outputs": {
+    "normalized_obj": "ships/MX01/source/mx01_normalized_skin.obj",
+    "audit_json": "ships/MX01/reports/mx01_source_audit.json",
+    "audit_md": "ships/MX01/reports/mx01_source_audit.md",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_normalization_manifest.json"
+  },
+  "occupancy_outputs": {
+    "intervals_json": "ships/MX01/generated/collision/mx01_occupancy_intervals.json",
+    "report_json": "ships/MX01/reports/mx01_occupancy_report.json",
+    "report_md": "ships/MX01/reports/mx01_occupancy_report.md",
+    "side_projection_svg": "ships/MX01/reports/images/mx01_occupancy_side_projection.svg",
+    "top_projection_svg": "ships/MX01/reports/images/mx01_occupancy_top_projection.svg",
+    "front_projection_svg": "ships/MX01/reports/images/mx01_occupancy_front_projection.svg",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_occupancy_manifest.json"
+  },
+  "interior_volume_outputs": {
+    "volume_json": "ships/MX01/generated/collision/mx01_interior_volume_candidates.json",
+    "report_json": "ships/MX01/reports/mx01_interior_volume_report.json",
+    "report_md": "ships/MX01/reports/mx01_interior_volume_report.md",
+    "deck_projection_svg": "ships/MX01/reports/images/mx01_interior_deck_candidates.svg",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_interior_volume_manifest.json"
+  },
+  "traversal_outputs": {
+    "graph_json": "ships/MX01/generated/collision/mx01_traversal_graph.json",
+    "report_json": "ships/MX01/reports/mx01_traversal_graph_report.json",
+    "report_md": "ships/MX01/reports/mx01_traversal_graph_report.md",
+    "projection_svg": "ships/MX01/reports/images/mx01_traversal_graph_projection.svg",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_traversal_graph_manifest.json"
+  },
+  "boundary_outputs": {
+    "faces_json": "ships/MX01/generated/collision/mx01_boundary_faces_raw.json",
+    "raw_obj": "ships/MX01/generated/collision/mx01_boundary_surface_raw.obj",
+    "report_json": "ships/MX01/reports/mx01_boundary_reconstruction_report.json",
+    "report_md": "ships/MX01/reports/mx01_boundary_reconstruction_report.md",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_boundary_reconstruction_manifest.json"
+  },
+  "simplification_outputs": {
+    "faces_json": "ships/MX01/generated/collision/mx01_boundary_faces_simplified.json",
+    "simplified_obj": "ships/MX01/generated/collision/mx01_boundary_surface_simplified.obj",
+    "report_json": "ships/MX01/reports/mx01_simplification_report.json",
+    "report_md": "ships/MX01/reports/mx01_simplification_report.md",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_simplification_manifest.json"
+  },
+  "interior_collision_outputs": {
+    "collision_json": "ships/MX01/generated/collision/mx01_interior_collision.json",
+    "collision_obj": "ships/MX01/generated/collision/mx01_interior_collision.obj",
+    "report_json": "ships/MX01/reports/mx01_interior_collision_report.json",
+    "report_md": "ships/MX01/reports/mx01_interior_collision_report.md",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_interior_collision_manifest.json"
+  },
+  "dynamic_collision_outputs": {
+    "collision_json": "ships/MX01/generated/collision/mx01_dynamic_collision.json",
+    "collision_obj": "ships/MX01/generated/collision/mx01_dynamic_collision.obj",
+    "report_json": "ships/MX01/reports/mx01_dynamic_collision_report.json",
+    "report_md": "ships/MX01/reports/mx01_dynamic_collision_report.md",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_dynamic_collision_manifest.json"
+  },
+  "scene_outputs": {
+    "review_scene": "ships/MX01/generated/scenes/mx01_collision_review.tscn",
+    "playable_scene": "ships/MX01/generated/scenes/mx01_playable_inspection.tscn",
+    "report_json": "ships/MX01/reports/mx01_scene_report.json",
+    "report_md": "ships/MX01/reports/mx01_scene_report.md",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_scene_manifest.json"
+  },
+  "validation_outputs": {
+    "report_json": "ships/MX01/reports/mx01_static_validation_report.json",
+    "report_md": "ships/MX01/reports/mx01_static_validation_report.md",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_static_validation_manifest.json"
+  }
+}
