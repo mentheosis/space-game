@@ -130,7 +130,7 @@
     },
     {
       "path": "ships/MX01/generated/collision/mx01_interior_collision.obj",
-      "sha256": "01ef15f36e4278d138aef7630b45c1018db8c25f3740844d6656324320be6a5f"
+      "sha256": "307c6ffa9a5bd8861101275c04d8954305f85cd9904b053c9a33da2690958fa2"
     },
     {
       "path": "ships/MX01/generated/collision/mx01_dynamic_collision.obj",
@@ -138,7 +138,7 @@
     },
     {
       "path": "ships/MX01/generated/collision/mx01_interior_collision.json",
-      "sha256": "267aa2f5dd964f93b70d4b9eb829fb87fb317636a240ded3120b245c0e574824"
+      "sha256": "74874d89386192ae51e93b4f54b73157d9497e804eb297038589bd2e821bebb4"
     }
   ],
   "ship_id": "MX01",

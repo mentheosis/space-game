@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3]
+[gd_scene load_steps=156 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
@@ -26,325 +26,448 @@ ambient_light_energy = 0.8
 tonemap_mode = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_1"]
-size = Vector3(1.5, 0.12, 9.0)
+size = Vector3(1.5, 0.12, 5.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_2"]
-size = Vector3(23.0, 0.12, 3.5)
+size = Vector3(3.5, 0.12, 4.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_3"]
-size = Vector3(1.5, 0.12, 9.0)
+size = Vector3(0.5, 0.12, 4.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_4"]
-size = Vector3(0.5, 0.12, 6.0)
+size = Vector3(0.5, 0.12, 4.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_5"]
-size = Vector3(0.5, 0.12, 6.0)
+size = Vector3(0.5, 0.12, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_6"]
-size = Vector3(0.5, 0.12, 6.5)
+size = Vector3(0.5, 0.12, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_7"]
-size = Vector3(0.5, 0.12, 6.5)
+size = Vector3(4.0, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_8"]
-size = Vector3(2.0, 0.12, 0.5)
+size = Vector3(7.0, 0.12, 1.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_9"]
-size = Vector3(7.0, 0.12, 0.5)
+size = Vector3(0.5, 0.12, 6.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_10"]
-size = Vector3(2.0, 0.12, 0.5)
+size = Vector3(5.0, 0.12, 6.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_11"]
-size = Vector3(1.0, 0.12, 1.0)
+size = Vector3(0.5, 0.12, 6.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_12"]
-size = Vector3(3.0, 0.12, 0.5)
+size = Vector3(0.5, 0.12, 6.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_13"]
-size = Vector3(1.0, 0.12, 1.0)
+size = Vector3(0.5, 0.12, 2.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_14"]
-size = Vector3(0.5, 0.12, 1.0)
+size = Vector3(0.5, 0.12, 2.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_15"]
-size = Vector3(0.5, 0.12, 1.0)
+size = Vector3(1.5, 0.12, 2.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_16"]
-size = Vector3(1.0, 0.12, 0.5)
+size = Vector3(4.5, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_17"]
-size = Vector3(1.0, 0.12, 0.5)
+size = Vector3(1.5, 0.12, 9.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_18"]
-size = Vector3(6.0, 0.12, 67.0)
+size = Vector3(23.0, 0.12, 3.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_19"]
-size = Vector3(0.5, 0.12, 64.5)
+size = Vector3(1.5, 0.12, 9.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_20"]
-size = Vector3(0.5, 0.12, 64.5)
+size = Vector3(0.5, 0.12, 6.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_21"]
-size = Vector3(0.5, 0.12, 60.0)
+size = Vector3(0.5, 0.12, 6.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_22"]
-size = Vector3(0.5, 0.12, 60.0)
+size = Vector3(0.5, 0.12, 6.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_23"]
-size = Vector3(0.5, 0.12, 56.5)
+size = Vector3(0.5, 0.12, 6.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_24"]
-size = Vector3(0.5, 0.12, 56.5)
+size = Vector3(2.0, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_25"]
-size = Vector3(0.5, 0.12, 54.0)
+size = Vector3(7.0, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_26"]
-size = Vector3(0.5, 0.12, 54.0)
+size = Vector3(2.0, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_27"]
-size = Vector3(0.5, 0.12, 52.0)
+size = Vector3(1.0, 0.12, 1.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_28"]
-size = Vector3(0.5, 0.12, 52.0)
+size = Vector3(3.0, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_29"]
-size = Vector3(0.5, 0.12, 48.5)
+size = Vector3(1.0, 0.12, 1.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_30"]
-size = Vector3(0.5, 0.12, 48.5)
+size = Vector3(0.5, 0.12, 1.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_31"]
-size = Vector3(5.0, 0.12, 17.0)
+size = Vector3(0.5, 0.12, 1.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_32"]
-size = Vector3(0.5, 0.12, 10.5)
+size = Vector3(1.0, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_33"]
-size = Vector3(0.5, 0.12, 10.5)
+size = Vector3(1.0, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_34"]
-size = Vector3(0.5, 0.12, 9.0)
+size = Vector3(6.0, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_35"]
-size = Vector3(0.5, 0.12, 9.0)
+size = Vector3(2.0, 0.12, 66.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_36"]
-size = Vector3(0.5, 0.12, 8.0)
+size = Vector3(2.0, 0.12, 66.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_37"]
-size = Vector3(0.5, 0.12, 8.0)
+size = Vector3(0.5, 0.12, 64.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_38"]
-size = Vector3(0.5, 0.12, 7.0)
+size = Vector3(0.5, 0.12, 64.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_39"]
-size = Vector3(0.5, 0.12, 7.0)
+size = Vector3(2.0, 0.12, 80.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_40"]
-size = Vector3(0.5, 0.12, 5.0)
+size = Vector3(0.5, 0.12, 60.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_41"]
-size = Vector3(0.5, 0.12, 5.0)
+size = Vector3(0.5, 0.12, 60.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_42"]
-size = Vector3(2.5, 0.12, 82.0)
+size = Vector3(0.5, 0.12, 56.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_43"]
-size = Vector3(0.5, 0.12, 81.5)
+size = Vector3(0.5, 0.12, 56.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_44"]
-size = Vector3(1.0, 0.12, 81.5)
+size = Vector3(0.5, 0.12, 54.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_45"]
-size = Vector3(0.5, 0.12, 80.5)
+size = Vector3(0.5, 0.12, 54.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_46"]
-size = Vector3(0.5, 0.12, 80.5)
+size = Vector3(0.5, 0.12, 52.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_47"]
-size = Vector3(0.5, 0.12, 63.5)
+size = Vector3(0.5, 0.12, 52.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_48"]
-size = Vector3(0.5, 0.12, 63.5)
+size = Vector3(0.5, 0.12, 48.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_49"]
-size = Vector3(0.5, 0.12, 54.5)
+size = Vector3(0.5, 0.12, 48.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_50"]
-size = Vector3(0.5, 0.12, 54.5)
+size = Vector3(1.5, 0.12, 17.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_51"]
-size = Vector3(0.5, 0.12, 40.0)
+size = Vector3(1.5, 0.12, 17.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_52"]
-size = Vector3(0.5, 0.12, 40.0)
+size = Vector3(0.5, 0.12, 10.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_53"]
-size = Vector3(0.5, 0.12, 36.5)
+size = Vector3(0.5, 0.12, 4.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_54"]
-size = Vector3(0.5, 0.12, 36.5)
+size = Vector3(0.5, 0.12, 9.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_55"]
-size = Vector3(0.5, 0.12, 32.5)
+size = Vector3(0.5, 0.12, 2.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_56"]
-size = Vector3(0.5, 0.12, 32.5)
+size = Vector3(0.5, 0.12, 8.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_57"]
-size = Vector3(0.5, 0.12, 2.5)
+size = Vector3(0.5, 0.12, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_58"]
-size = Vector3(0.5, 0.12, 2.5)
+size = Vector3(0.5, 0.12, 7.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_59"]
-size = Vector3(0.5, 0.12, 1.0)
+size = Vector3(0.5, 0.12, 7.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_60"]
-size = Vector3(0.5, 0.12, 1.0)
+size = Vector3(0.5, 0.12, 5.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_61"]
-size = Vector3(0.5, 0.12, 0.5)
+size = Vector3(0.5, 0.12, 5.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_62"]
-size = Vector3(0.5, 0.12, 0.5)
+size = Vector3(1.5, 0.12, 1.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_63"]
-size = Vector3(3.0, 0.1, 3.0)
+size = Vector3(2.5, 0.12, 4.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_64"]
-size = Vector3(3.0, 0.1, 3.0)
+size = Vector3(0.5, 0.12, 3.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_65"]
-size = Vector3(3.0, 0.1, 3.0)
+size = Vector3(1.0, 0.12, 81.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_66"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 2.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_67"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 80.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_68"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 1.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_69"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 37.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_70"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(2.0, 0.12, 78.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_71"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 34.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_72"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 34.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_73"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(2.0, 0.12, 33.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_74"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 22.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_75"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 22.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_76"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 20.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_77"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 20.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_78"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 32.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_79"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 32.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_80"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(1.5, 0.12, 41.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_81"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(2.0, 0.12, 13.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_82"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(2.0, 0.12, 13.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_83"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(1.5, 0.12, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_84"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(1.5, 0.12, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_85"]
-size = Vector3(0.545, 0.12, 2.6)
+size = Vector3(1.0, 0.12, 2.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_86"]
-size = Vector3(3.0, 0.1, 3.0)
+size = Vector3(1.0, 0.12, 2.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_87"]
-size = Vector3(3.0, 0.1, 3.0)
+size = Vector3(0.5, 0.12, 6.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_88"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 6.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_89"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 2.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_90"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 2.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_91"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 1.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_92"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 1.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_93"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_94"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(0.5, 0.12, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_95"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(4.2, 0.12, 1.6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_96"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(3.0, 0.1, 3.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_97"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.8, 0.1, 0.9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_98"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.8, 0.1, 0.9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_99"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.35, 0.14, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_100"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.35, 0.14, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_101"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.35, 0.14, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_102"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.35, 0.14, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_103"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.35, 0.14, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_104"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.8, 0.1, 0.9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_105"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.8, 0.1, 0.9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_106"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.35, 0.14, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx01_107"]
-size = Vector3(0.445, 0.12, 2.6)
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_108"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_109"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_110"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_111"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_112"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_113"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_114"]
+size = Vector3(2.0, 0.1, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_115"]
+size = Vector3(2.0, 0.1, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_116"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_117"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_118"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_119"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_120"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_121"]
+size = Vector3(1.8, 0.1, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_122"]
+size = Vector3(1.8, 0.1, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_123"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_124"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_125"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_126"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_127"]
+size = Vector3(1.35, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_128"]
+size = Vector3(2.0, 0.1, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_129"]
+size = Vector3(2.0, 0.1, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_130"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_131"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_132"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_133"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_134"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_135"]
+size = Vector3(2.0, 0.1, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_136"]
+size = Vector3(2.0, 0.1, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_137"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_138"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_139"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_140"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_141"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_142"]
+size = Vector3(2.0, 0.1, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_143"]
+size = Vector3(2.0, 0.1, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_144"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_145"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_146"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_147"]
+size = Vector3(1.55, 0.14, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_148"]
+size = Vector3(1.55, 0.14, 0.5)
 
 [node name="MX01PlayableInspection" type="Node3D"]
 
@@ -365,433 +488,597 @@ mesh = ExtResource("6_dynamic_mesh")
 
 [node name="InteriorCollisionBody" type="StaticBody3D" parent="ShipRoot"]
 
+[node name="COL_MX01_forward_cockpit_lower_deck_01_floor_tile_001" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(1.75, -7.81, 49.0)
+shape = SubResource("BoxShape3D_mx01_1")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_01_floor_tile_002" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-0.75, -7.81, 49.25)
+shape = SubResource("BoxShape3D_mx01_2")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_01_floor_tile_003" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(2.75, -7.81, 49.25)
+shape = SubResource("BoxShape3D_mx01_3")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_01_floor_tile_004" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.75, -7.81, 49.5)
+shape = SubResource("BoxShape3D_mx01_4")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_01_floor_tile_005" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.25, -7.81, 50.75)
+shape = SubResource("BoxShape3D_mx01_5")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_01_floor_tile_006" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.25, -7.81, 50.75)
+shape = SubResource("BoxShape3D_mx01_6")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_01_floor_tile_007" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -7.81, 51.75)
+shape = SubResource("BoxShape3D_mx01_7")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_floor_tile_001" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -5.81, 45.5)
+shape = SubResource("BoxShape3D_mx01_8")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_floor_tile_002" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.25, -5.81, 49.25)
+shape = SubResource("BoxShape3D_mx01_9")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_floor_tile_003" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(1.0, -5.81, 49.25)
+shape = SubResource("BoxShape3D_mx01_10")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_floor_tile_004" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.75, -5.81, 49.5)
+shape = SubResource("BoxShape3D_mx01_11")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_floor_tile_005" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.75, -5.81, 49.5)
+shape = SubResource("BoxShape3D_mx01_12")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_floor_tile_006" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-4.25, -5.81, 50.5)
+shape = SubResource("BoxShape3D_mx01_13")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_floor_tile_007" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(4.25, -5.81, 50.5)
+shape = SubResource("BoxShape3D_mx01_14")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_floor_tile_008" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.25, -5.81, 51.75)
+shape = SubResource("BoxShape3D_mx01_15")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_floor_tile_009" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.75, -5.81, 52.75)
+shape = SubResource("BoxShape3D_mx01_16")
+
 [node name="COL_MX01_lower_deck_candidate_floor_tile_001" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(-13.25, -4.31, -34.0)
-shape = SubResource("BoxShape3D_mx01_1")
+shape = SubResource("BoxShape3D_mx01_17")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_002" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(0.0, -4.31, -36.75)
-shape = SubResource("BoxShape3D_mx01_2")
+shape = SubResource("BoxShape3D_mx01_18")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_003" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(13.25, -4.31, -34.0)
-shape = SubResource("BoxShape3D_mx01_3")
+shape = SubResource("BoxShape3D_mx01_19")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_004" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(-11.75, -4.31, -34.5)
-shape = SubResource("BoxShape3D_mx01_4")
+shape = SubResource("BoxShape3D_mx01_20")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_005" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(11.75, -4.31, -34.5)
-shape = SubResource("BoxShape3D_mx01_5")
+shape = SubResource("BoxShape3D_mx01_21")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_006" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(-12.25, -4.31, -33.75)
-shape = SubResource("BoxShape3D_mx01_6")
+shape = SubResource("BoxShape3D_mx01_22")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_007" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(12.25, -4.31, -33.75)
-shape = SubResource("BoxShape3D_mx01_7")
+shape = SubResource("BoxShape3D_mx01_23")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_008" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(-10.5, -4.31, -34.75)
-shape = SubResource("BoxShape3D_mx01_8")
+shape = SubResource("BoxShape3D_mx01_24")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_009" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(0.0, -4.31, -34.75)
-shape = SubResource("BoxShape3D_mx01_9")
+shape = SubResource("BoxShape3D_mx01_25")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_010" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(10.5, -4.31, -34.75)
-shape = SubResource("BoxShape3D_mx01_10")
+shape = SubResource("BoxShape3D_mx01_26")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_011" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(-11.0, -4.31, -34.0)
-shape = SubResource("BoxShape3D_mx01_11")
+shape = SubResource("BoxShape3D_mx01_27")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_012" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(0.0, -4.31, -34.25)
-shape = SubResource("BoxShape3D_mx01_12")
+shape = SubResource("BoxShape3D_mx01_28")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_013" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(11.0, -4.31, -34.0)
-shape = SubResource("BoxShape3D_mx01_13")
+shape = SubResource("BoxShape3D_mx01_29")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_014" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(-11.25, -4.31, -33.0)
-shape = SubResource("BoxShape3D_mx01_14")
+shape = SubResource("BoxShape3D_mx01_30")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_015" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(11.25, -4.31, -33.0)
-shape = SubResource("BoxShape3D_mx01_15")
+shape = SubResource("BoxShape3D_mx01_31")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_016" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(-13.5, -4.31, -29.25)
-shape = SubResource("BoxShape3D_mx01_16")
+shape = SubResource("BoxShape3D_mx01_32")
 
 [node name="COL_MX01_lower_deck_candidate_floor_tile_017" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(13.5, -4.31, -29.25)
-shape = SubResource("BoxShape3D_mx01_17")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_001" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.0, -0.81, -1.5)
-shape = SubResource("BoxShape3D_mx01_18")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_002" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.25, -0.81, -1.75)
-shape = SubResource("BoxShape3D_mx01_19")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_003" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.25, -0.81, -1.75)
-shape = SubResource("BoxShape3D_mx01_20")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_004" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.75, -0.81, -0.5)
-shape = SubResource("BoxShape3D_mx01_21")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_005" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.75, -0.81, -0.5)
-shape = SubResource("BoxShape3D_mx01_22")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_006" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-4.25, -0.81, -0.25)
-shape = SubResource("BoxShape3D_mx01_23")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_007" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(4.25, -0.81, -0.25)
-shape = SubResource("BoxShape3D_mx01_24")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_008" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-4.75, -0.81, 0.0)
-shape = SubResource("BoxShape3D_mx01_25")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_009" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(4.75, -0.81, 0.0)
-shape = SubResource("BoxShape3D_mx01_26")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_010" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-5.25, -0.81, 0.0)
-shape = SubResource("BoxShape3D_mx01_27")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_011" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(5.25, -0.81, 0.0)
-shape = SubResource("BoxShape3D_mx01_28")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_012" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-5.75, -0.81, 0.25)
-shape = SubResource("BoxShape3D_mx01_29")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_013" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(5.75, -0.81, 0.25)
-shape = SubResource("BoxShape3D_mx01_30")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_014" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.0, -0.81, 40.5)
-shape = SubResource("BoxShape3D_mx01_31")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_015" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-2.75, -0.81, 43.75)
-shape = SubResource("BoxShape3D_mx01_32")
-
-[node name="COL_MX01_mid_deck_candidate_floor_tile_016" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(2.75, -0.81, 43.75)
 shape = SubResource("BoxShape3D_mx01_33")
 
-[node name="COL_MX01_mid_deck_candidate_floor_tile_017" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.25, -0.81, 44.5)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_001" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -0.81, -34.75)
 shape = SubResource("BoxShape3D_mx01_34")
 
-[node name="COL_MX01_mid_deck_candidate_floor_tile_018" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.25, -0.81, 44.5)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_002" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.0, -0.81, -1.25)
 shape = SubResource("BoxShape3D_mx01_35")
 
-[node name="COL_MX01_mid_deck_candidate_floor_tile_019" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.75, -0.81, 45.0)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_003" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(2.0, -0.81, -1.25)
 shape = SubResource("BoxShape3D_mx01_36")
 
-[node name="COL_MX01_mid_deck_candidate_floor_tile_020" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.75, -0.81, 45.0)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_004" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.25, -0.81, -1.75)
 shape = SubResource("BoxShape3D_mx01_37")
 
-[node name="COL_MX01_mid_deck_candidate_floor_tile_021" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-4.25, -0.81, 45.5)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_005" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.25, -0.81, -1.75)
 shape = SubResource("BoxShape3D_mx01_38")
 
-[node name="COL_MX01_mid_deck_candidate_floor_tile_022" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(4.25, -0.81, 45.5)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_006" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -0.81, 9.0)
 shape = SubResource("BoxShape3D_mx01_39")
 
-[node name="COL_MX01_mid_deck_candidate_floor_tile_023" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-4.75, -0.81, 45.0)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_007" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.75, -0.81, -0.5)
 shape = SubResource("BoxShape3D_mx01_40")
 
-[node name="COL_MX01_mid_deck_candidate_floor_tile_024" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(4.75, -0.81, 45.0)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_008" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.75, -0.81, -0.5)
 shape = SubResource("BoxShape3D_mx01_41")
 
-[node name="COL_MX01_upper_deck_candidate_floor_tile_001" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-0.25, 2.69, 2.5)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_009" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-4.25, -0.81, -0.25)
 shape = SubResource("BoxShape3D_mx01_42")
 
-[node name="COL_MX01_upper_deck_candidate_floor_tile_002" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-1.75, 2.69, 2.75)
+[node name="COL_MX01_mid_deck_candidate_floor_tile_010" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(4.25, -0.81, -0.25)
 shape = SubResource("BoxShape3D_mx01_43")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_011" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-4.75, -0.81, 0.0)
+shape = SubResource("BoxShape3D_mx01_44")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_012" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(4.75, -0.81, 0.0)
+shape = SubResource("BoxShape3D_mx01_45")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_013" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-5.25, -0.81, 0.0)
+shape = SubResource("BoxShape3D_mx01_46")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_014" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(5.25, -0.81, 0.0)
+shape = SubResource("BoxShape3D_mx01_47")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_015" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-5.75, -0.81, 0.25)
+shape = SubResource("BoxShape3D_mx01_48")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_016" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(5.75, -0.81, 0.25)
+shape = SubResource("BoxShape3D_mx01_49")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_017" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-1.75, -0.81, 40.5)
+shape = SubResource("BoxShape3D_mx01_50")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_018" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(1.75, -0.81, 40.5)
+shape = SubResource("BoxShape3D_mx01_51")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_019" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.75, -0.81, 43.75)
+shape = SubResource("BoxShape3D_mx01_52")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_020" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(2.75, -0.81, 40.5)
+shape = SubResource("BoxShape3D_mx01_53")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_021" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.25, -0.81, 44.5)
+shape = SubResource("BoxShape3D_mx01_54")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_022" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.25, -0.81, 41.25)
+shape = SubResource("BoxShape3D_mx01_55")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_023" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.75, -0.81, 45.0)
+shape = SubResource("BoxShape3D_mx01_56")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_024" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.75, -0.81, 41.75)
+shape = SubResource("BoxShape3D_mx01_57")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_025" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-4.25, -0.81, 45.5)
+shape = SubResource("BoxShape3D_mx01_58")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_026" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(4.25, -0.81, 45.5)
+shape = SubResource("BoxShape3D_mx01_59")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_027" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-4.75, -0.81, 45.0)
+shape = SubResource("BoxShape3D_mx01_60")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_028" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(4.75, -0.81, 45.0)
+shape = SubResource("BoxShape3D_mx01_61")
+
+[node name="COL_MX01_mid_deck_candidate_floor_tile_029" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.25, -0.81, 48.5)
+shape = SubResource("BoxShape3D_mx01_62")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_001" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-0.25, 2.69, -36.5)
+shape = SubResource("BoxShape3D_mx01_63")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_002" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-1.75, 2.69, -36.25)
+shape = SubResource("BoxShape3D_mx01_64")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_003" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(1.5, 2.69, 2.75)
-shape = SubResource("BoxShape3D_mx01_44")
+shape = SubResource("BoxShape3D_mx01_65")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_004" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-2.25, 2.69, 3.25)
-shape = SubResource("BoxShape3D_mx01_45")
+position = Vector3(-2.25, 2.69, -35.75)
+shape = SubResource("BoxShape3D_mx01_66")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_005" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(2.25, 2.69, 3.25)
-shape = SubResource("BoxShape3D_mx01_46")
+shape = SubResource("BoxShape3D_mx01_67")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_006" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-2.75, 2.69, -3.75)
-shape = SubResource("BoxShape3D_mx01_47")
+position = Vector3(-2.75, 2.69, -35.0)
+shape = SubResource("BoxShape3D_mx01_68")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_007" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(2.75, 2.69, -3.75)
-shape = SubResource("BoxShape3D_mx01_48")
+position = Vector3(2.75, 2.69, -16.75)
+shape = SubResource("BoxShape3D_mx01_69")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_008" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.25, 2.69, -5.25)
-shape = SubResource("BoxShape3D_mx01_49")
+position = Vector3(0.0, 2.69, 4.5)
+shape = SubResource("BoxShape3D_mx01_70")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_009" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.25, 2.69, -5.25)
-shape = SubResource("BoxShape3D_mx01_50")
+position = Vector3(-3.25, 2.69, -15.25)
+shape = SubResource("BoxShape3D_mx01_71")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_010" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.75, 2.69, 0.0)
-shape = SubResource("BoxShape3D_mx01_51")
+position = Vector3(3.25, 2.69, -15.25)
+shape = SubResource("BoxShape3D_mx01_72")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_011" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.75, 2.69, 0.0)
-shape = SubResource("BoxShape3D_mx01_52")
+position = Vector3(-2.0, 2.69, -14.5)
+shape = SubResource("BoxShape3D_mx01_73")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_012" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-4.25, 2.69, 0.25)
-shape = SubResource("BoxShape3D_mx01_53")
+position = Vector3(-3.75, 2.69, -9.0)
+shape = SubResource("BoxShape3D_mx01_74")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_013" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(4.25, 2.69, 0.25)
-shape = SubResource("BoxShape3D_mx01_54")
+position = Vector3(3.75, 2.69, -9.0)
+shape = SubResource("BoxShape3D_mx01_75")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_014" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-4.75, 2.69, 0.25)
-shape = SubResource("BoxShape3D_mx01_55")
+position = Vector3(-4.25, 2.69, -8.0)
+shape = SubResource("BoxShape3D_mx01_76")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_015" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(4.75, 2.69, 0.25)
-shape = SubResource("BoxShape3D_mx01_56")
+position = Vector3(4.25, 2.69, -8.0)
+shape = SubResource("BoxShape3D_mx01_77")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_016" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-2.75, 2.69, 42.25)
-shape = SubResource("BoxShape3D_mx01_57")
+position = Vector3(-4.75, 2.69, 0.25)
+shape = SubResource("BoxShape3D_mx01_78")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_017" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(2.75, 2.69, 42.25)
-shape = SubResource("BoxShape3D_mx01_58")
+position = Vector3(4.75, 2.69, 0.25)
+shape = SubResource("BoxShape3D_mx01_79")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_018" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.25, 2.69, 43.0)
-shape = SubResource("BoxShape3D_mx01_59")
+position = Vector3(-1.75, 2.69, 22.75)
+shape = SubResource("BoxShape3D_mx01_80")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_019" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.25, 2.69, 43.0)
-shape = SubResource("BoxShape3D_mx01_60")
+position = Vector3(-3.5, 2.69, 11.75)
+shape = SubResource("BoxShape3D_mx01_81")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_020" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.75, 2.69, 43.25)
-shape = SubResource("BoxShape3D_mx01_61")
+position = Vector3(3.5, 2.69, 11.75)
+shape = SubResource("BoxShape3D_mx01_82")
 
 [node name="COL_MX01_upper_deck_candidate_floor_tile_021" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.25, 2.69, 19.25)
+shape = SubResource("BoxShape3D_mx01_83")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_022" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.25, 2.69, 19.25)
+shape = SubResource("BoxShape3D_mx01_84")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_023" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.0, 2.69, 21.0)
+shape = SubResource("BoxShape3D_mx01_85")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_024" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.0, 2.69, 21.0)
+shape = SubResource("BoxShape3D_mx01_86")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_025" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.75, 2.69, 25.0)
+shape = SubResource("BoxShape3D_mx01_87")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_026" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(2.75, 2.69, 25.0)
+shape = SubResource("BoxShape3D_mx01_88")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_027" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.75, 2.69, 42.25)
+shape = SubResource("BoxShape3D_mx01_89")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_028" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(2.75, 2.69, 42.25)
+shape = SubResource("BoxShape3D_mx01_90")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_029" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.25, 2.69, 43.0)
+shape = SubResource("BoxShape3D_mx01_91")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_030" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.25, 2.69, 43.0)
+shape = SubResource("BoxShape3D_mx01_92")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_031" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.75, 2.69, 43.25)
+shape = SubResource("BoxShape3D_mx01_93")
+
+[node name="COL_MX01_upper_deck_candidate_floor_tile_032" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(3.75, 2.69, 43.25)
-shape = SubResource("BoxShape3D_mx01_62")
+shape = SubResource("BoxShape3D_mx01_94")
+
+[node name="COL_MX01_mid_deck_candidate_cockpit_forward_floor_extension" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -0.81, 49.45)
+shape = SubResource("BoxShape3D_mx01_95")
 
 [node name="COL_MX01_entry_ramp_threshold_pad" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
 position = Vector3(0.0, -4.3, -38.25)
-shape = SubResource("BoxShape3D_mx01_63")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_lower_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.0, -4.3, -32.0)
-shape = SubResource("BoxShape3D_mx01_64")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_upper_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.0, -0.8, -32.0)
-shape = SubResource("BoxShape3D_mx01_65")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_01" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-5.1775, -4.135, -32.0)
-shape = SubResource("BoxShape3D_mx01_66")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_02" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-4.6325, -3.96, -32.0)
-shape = SubResource("BoxShape3D_mx01_67")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_03" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-4.0875, -3.785, -32.0)
-shape = SubResource("BoxShape3D_mx01_68")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_04" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.5425, -3.61, -32.0)
-shape = SubResource("BoxShape3D_mx01_69")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_05" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-2.9975, -3.435, -32.0)
-shape = SubResource("BoxShape3D_mx01_70")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_06" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-2.4525, -3.26, -32.0)
-shape = SubResource("BoxShape3D_mx01_71")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_07" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-1.9075, -3.085, -32.0)
-shape = SubResource("BoxShape3D_mx01_72")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_08" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-1.3625, -2.91, -32.0)
-shape = SubResource("BoxShape3D_mx01_73")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_09" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-0.8175, -2.735, -32.0)
-shape = SubResource("BoxShape3D_mx01_74")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_10" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-0.2725, -2.56, -32.0)
-shape = SubResource("BoxShape3D_mx01_75")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_11" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.2725, -2.385, -32.0)
-shape = SubResource("BoxShape3D_mx01_76")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_12" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.8175, -2.21, -32.0)
-shape = SubResource("BoxShape3D_mx01_77")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_13" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(1.3625, -2.035, -32.0)
-shape = SubResource("BoxShape3D_mx01_78")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_14" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(1.9075, -1.86, -32.0)
-shape = SubResource("BoxShape3D_mx01_79")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_15" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(2.4525, -1.685, -32.0)
-shape = SubResource("BoxShape3D_mx01_80")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_16" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(2.9975, -1.51, -32.0)
-shape = SubResource("BoxShape3D_mx01_81")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_17" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.5425, -1.335, -32.0)
-shape = SubResource("BoxShape3D_mx01_82")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_18" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(4.0875, -1.16, -32.0)
-shape = SubResource("BoxShape3D_mx01_83")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_19" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(4.6325, -0.985, -32.0)
-shape = SubResource("BoxShape3D_mx01_84")
-
-[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_20" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(5.1775, -0.81, -32.0)
-shape = SubResource("BoxShape3D_mx01_85")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_lower_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.0, -0.8, 4.25)
-shape = SubResource("BoxShape3D_mx01_86")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_upper_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.0, 2.7, 4.25)
-shape = SubResource("BoxShape3D_mx01_87")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_01" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-4.2275, -0.635, 4.25)
-shape = SubResource("BoxShape3D_mx01_88")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_02" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.7825, -0.46, 4.25)
-shape = SubResource("BoxShape3D_mx01_89")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_03" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-3.3375, -0.285, 4.25)
-shape = SubResource("BoxShape3D_mx01_90")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_04" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-2.8925, -0.11, 4.25)
-shape = SubResource("BoxShape3D_mx01_91")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_05" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-2.4475, 0.065, 4.25)
-shape = SubResource("BoxShape3D_mx01_92")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_06" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-2.0025, 0.24, 4.25)
-shape = SubResource("BoxShape3D_mx01_93")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_07" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-1.5575, 0.415, 4.25)
-shape = SubResource("BoxShape3D_mx01_94")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_08" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-1.1125, 0.59, 4.25)
-shape = SubResource("BoxShape3D_mx01_95")
-
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_09" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-0.6675, 0.765, 4.25)
 shape = SubResource("BoxShape3D_mx01_96")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_10" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(-0.2225, 0.94, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_lower_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.325, -7.8, 49.7)
 shape = SubResource("BoxShape3D_mx01_97")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_11" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.2225, 1.115, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_upper_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.325, -5.8, 46.7)
 shape = SubResource("BoxShape3D_mx01_98")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_12" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(0.6675, 1.29, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_stair_tread_01" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.325, -7.42, 49.04)
 shape = SubResource("BoxShape3D_mx01_99")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_13" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(1.1125, 1.465, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_stair_tread_02" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.325, -7.02, 48.62)
 shape = SubResource("BoxShape3D_mx01_100")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_14" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(1.5575, 1.64, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_stair_tread_03" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.325, -6.62, 48.2)
 shape = SubResource("BoxShape3D_mx01_101")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_15" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(2.0025, 1.815, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_stair_tread_04" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.325, -6.22, 47.78)
 shape = SubResource("BoxShape3D_mx01_102")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_16" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(2.4475, 1.99, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_stair_tread_05" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-2.325, -5.82, 47.36)
 shape = SubResource("BoxShape3D_mx01_103")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_17" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(2.8925, 2.165, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_lower_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -5.8, 47.45)
 shape = SubResource("BoxShape3D_mx01_104")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_18" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.3375, 2.34, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_upper_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -0.8, 43.19)
 shape = SubResource("BoxShape3D_mx01_105")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_19" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(3.7825, 2.515, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_01" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -5.195, 46.79)
 shape = SubResource("BoxShape3D_mx01_106")
 
-[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_stair_tread_20" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
-position = Vector3(4.2275, 2.69, 4.25)
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_02" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -4.57, 46.37)
 shape = SubResource("BoxShape3D_mx01_107")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_03" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -3.945, 45.95)
+shape = SubResource("BoxShape3D_mx01_108")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_04" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -3.32, 45.53)
+shape = SubResource("BoxShape3D_mx01_109")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_05" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -2.695, 45.11)
+shape = SubResource("BoxShape3D_mx01_110")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_06" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -2.07, 44.69)
+shape = SubResource("BoxShape3D_mx01_111")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_07" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -1.445, 44.27)
+shape = SubResource("BoxShape3D_mx01_112")
+
+[node name="COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_08" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.325, -0.82, 43.85)
+shape = SubResource("BoxShape3D_mx01_113")
+
+[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_lower_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -4.3, -34.6)
+shape = SubResource("BoxShape3D_mx01_114")
+
+[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_upper_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -0.8, -31.75)
+shape = SubResource("BoxShape3D_mx01_115")
+
+[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_01" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -3.62, -34.015)
+shape = SubResource("BoxShape3D_mx01_116")
+
+[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_02" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -2.92, -33.595)
+shape = SubResource("BoxShape3D_mx01_117")
+
+[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_03" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -2.22, -33.175)
+shape = SubResource("BoxShape3D_mx01_118")
+
+[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_04" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -1.52, -32.755)
+shape = SubResource("BoxShape3D_mx01_119")
+
+[node name="COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_05" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(0.0, -0.82, -32.335)
+shape = SubResource("BoxShape3D_mx01_120")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_lower_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.325, -0.8, 45.55)
+shape = SubResource("BoxShape3D_mx01_121")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_upper_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.325, 2.7, 42.55)
+shape = SubResource("BoxShape3D_mx01_122")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_stair_tread_01" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.325, -0.12, 44.89)
+shape = SubResource("BoxShape3D_mx01_123")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_stair_tread_02" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.325, 0.58, 44.47)
+shape = SubResource("BoxShape3D_mx01_124")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_stair_tread_03" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.325, 1.28, 44.05)
+shape = SubResource("BoxShape3D_mx01_125")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_stair_tread_04" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.325, 1.98, 43.63)
+shape = SubResource("BoxShape3D_mx01_126")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_stair_tread_05" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.325, 2.68, 43.21)
+shape = SubResource("BoxShape3D_mx01_127")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_negative_x_side_lower_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.675, -0.8, 4.625)
+shape = SubResource("BoxShape3D_mx01_128")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_negative_x_side_upper_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.675, 2.7, 1.775)
+shape = SubResource("BoxShape3D_mx01_129")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_negative_x_side_stair_tread_01" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.675, -0.12, 4.04)
+shape = SubResource("BoxShape3D_mx01_130")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_negative_x_side_stair_tread_02" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.675, 0.58, 3.62)
+shape = SubResource("BoxShape3D_mx01_131")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_negative_x_side_stair_tread_03" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.675, 1.28, 3.2)
+shape = SubResource("BoxShape3D_mx01_132")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_negative_x_side_stair_tread_04" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.675, 1.98, 2.78)
+shape = SubResource("BoxShape3D_mx01_133")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_negative_x_side_stair_tread_05" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-3.675, 2.68, 2.36)
+shape = SubResource("BoxShape3D_mx01_134")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_positive_x_side_lower_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.675, -0.8, 1.775)
+shape = SubResource("BoxShape3D_mx01_135")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_positive_x_side_upper_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.675, 2.7, 4.625)
+shape = SubResource("BoxShape3D_mx01_136")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_positive_x_side_stair_tread_01" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.675, -0.12, 2.36)
+shape = SubResource("BoxShape3D_mx01_137")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_positive_x_side_stair_tread_02" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.675, 0.58, 2.78)
+shape = SubResource("BoxShape3D_mx01_138")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_positive_x_side_stair_tread_03" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.675, 1.28, 3.2)
+shape = SubResource("BoxShape3D_mx01_139")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_positive_x_side_stair_tread_04" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.675, 1.98, 3.62)
+shape = SubResource("BoxShape3D_mx01_140")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_positive_x_side_stair_tread_05" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(3.675, 2.68, 4.04)
+shape = SubResource("BoxShape3D_mx01_141")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_lower_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-1.85, -0.8, -31.75)
+shape = SubResource("BoxShape3D_mx01_142")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_upper_landing" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-1.85, 2.7, -34.6)
+shape = SubResource("BoxShape3D_mx01_143")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_01" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-1.85, -0.12, -32.335)
+shape = SubResource("BoxShape3D_mx01_144")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_02" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-1.85, 0.58, -32.755)
+shape = SubResource("BoxShape3D_mx01_145")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_03" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-1.85, 1.28, -33.175)
+shape = SubResource("BoxShape3D_mx01_146")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_04" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-1.85, 1.98, -33.595)
+shape = SubResource("BoxShape3D_mx01_147")
+
+[node name="COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_05" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]
+position = Vector3(-1.85, 2.68, -34.015)
+shape = SubResource("BoxShape3D_mx01_148")
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector3(8.0, 201.55, -36.5)

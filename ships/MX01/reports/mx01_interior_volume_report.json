@@ -1,7 +1,61 @@
 {
   "accepted_decks": [
     {
-      "estimated_area_m2": 435.25,
+      "estimated_area_m2": 31.0,
+      "id": "forward_cockpit_lower_deck_01",
+      "largest_component_area_m2": 31.0,
+      "largest_component_bounds": {
+        "max": [
+          3.25,
+          -7.75,
+          51.75
+        ],
+        "min": [
+          -3.25,
+          -7.75,
+          46.75
+        ],
+        "size": [
+          6.5,
+          0.0,
+          5.0
+        ]
+      },
+      "largest_component_cells": 124,
+      "status": "ACCEPTED_FORWARD_COCKPIT_SUBDECK",
+      "walkable_cells": 124,
+      "y": -7.75,
+      "y_index": 6
+    },
+    {
+      "estimated_area_m2": 63.5,
+      "id": "forward_cockpit_lower_deck_02",
+      "largest_component_area_m2": 63.5,
+      "largest_component_bounds": {
+        "max": [
+          4.25,
+          -5.75,
+          52.75
+        ],
+        "min": [
+          -4.25,
+          -5.75,
+          45.25
+        ],
+        "size": [
+          8.5,
+          0.0,
+          7.5
+        ]
+      },
+      "largest_component_cells": 254,
+      "status": "ACCEPTED_FORWARD_COCKPIT_SUBDECK",
+      "walkable_cells": 254,
+      "y": -5.75,
+      "y_index": 10
+    },
+    {
+      "estimated_area_m2": 131.0,
       "id": "lower_deck_candidate",
       "largest_component_area_m2": 131.0,
       "largest_component_bounds": {
@@ -23,12 +77,12 @@
       },
       "largest_component_cells": 524,
       "status": "ACCEPTED_FIRST_PASS",
-      "walkable_cells": 1741,
+      "walkable_cells": 524,
       "y": -4.25,
       "y_index": 13
     },
     {
-      "estimated_area_m2": 925.5,
+      "estimated_area_m2": 862.0,
       "id": "mid_deck_candidate",
       "largest_component_area_m2": 862.0,
       "largest_component_bounds": {
@@ -50,7 +104,7 @@
       },
       "largest_component_cells": 3448,
       "status": "ACCEPTED_FIRST_PASS",
-      "walkable_cells": 3702,
+      "walkable_cells": 3448,
       "y": -0.75,
       "y_index": 20
     },
@@ -196,7 +250,7 @@
     "sha256": "3344d4fc3175ab1cca7bcdbac44a4084c8ad3b2d362055afcb2ed7ed7f509292"
   },
   "counts": {
-    "accepted_decks": 3,
+    "accepted_decks": 5,
     "candidate_components": 100,
     "inside_voxels": 83510,
     "total_walkable_cells_across_y_levels": 53889,
@@ -220,7 +274,7 @@
   "tools": {
     "extract_mx01_interior_volume.py": {
       "path": "ships/MX01/tools/extract_mx01_interior_volume.py",
-      "sha256": "b53738244d3f5b36472dcb5e8946d9b40e7b20dbd211b03686f5a5e4e473dd18"
+      "sha256": "4bb732ec0ebbd6dd451c819d9ae9bb94706bf94d820786744c445ee0818d61ca"
     }
   },
   "voxel_size": 0.5,

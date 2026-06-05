@@ -92,10 +92,20 @@ def build_graph(config: dict, volume: dict) -> tuple[dict, dict]:
         )
 
     edges = []
-    for index in range(len(decks) - 1):
-        a = decks[index]
-        b = decks[index + 1]
-        connector_overlap = overlap(rect_from_bounds(a["largest_component_bounds"]), rect_from_bounds(b["largest_component_bounds"]))
+    connected_decks: set[str] = set()
+    for index, a in enumerate(decks[:-1]):
+        higher = decks[index + 1 :]
+        connectable = []
+        for b in higher:
+            connector_overlap = overlap(rect_from_bounds(a["largest_component_bounds"]), rect_from_bounds(b["largest_component_bounds"]))
+            if connector_overlap is None:
+                continue
+            connectable.append((float(b["y"]) - float(a["y"]), b, connector_overlap))
+        if not connectable:
+            b = higher[0]
+            connector_overlap = None
+        else:
+            _delta, b, connector_overlap = min(connectable, key=lambda item: (item[0], -item[2]["area"], item[1]["id"]))
         if connector_overlap is None:
             status = "FAIL_NO_XZ_OVERLAP"
             connector_center = None
@@ -108,6 +118,7 @@ def build_graph(config: dict, volume: dict) -> tuple[dict, dict]:
                 connector_overlap["center"][1],
             ]
             connector_type = "lift_or_stairwell_candidate"
+            connected_decks.update({a["id"], b["id"]})
         edges.append(
             {
                 "id": f"{a['id']}_to_{b['id']}",
@@ -122,22 +133,53 @@ def build_graph(config: dict, volume: dict) -> tuple[dict, dict]:
             }
         )
 
+    extra_edges = []
+    if "lower_deck_candidate" in {deck["id"] for deck in decks}:
+        lower = next(deck for deck in decks if deck["id"] == "lower_deck_candidate")
+        for b in decks:
+            if float(b["y"]) <= float(lower["y"]) or b["id"] in connected_decks:
+                continue
+            connector_overlap = overlap(rect_from_bounds(lower["largest_component_bounds"]), rect_from_bounds(b["largest_component_bounds"]))
+            if connector_overlap is None:
+                continue
+            status = "PASS" if connector_overlap["width"] >= min_connector_width and connector_overlap["depth"] >= min_connector_width else "WARN_NARROW_OVERLAP"
+            extra_edges.append(
+                {
+                    "id": f"{lower['id']}_to_{b['id']}",
+                    "kind": "lift_or_stairwell_candidate",
+                    "from": lower["id"],
+                    "to": b["id"],
+                    "vertical_delta": round(b["y"] - lower["y"], 6),
+                    "connector_center": [
+                        connector_overlap["center"][0],
+                        round((lower["y"] + b["y"]) * 0.5, 6),
+                        connector_overlap["center"][1],
+                    ],
+                    "overlap": connector_overlap,
+                    "min_connector_width": round(min_connector_width, 6),
+                    "status": status,
+                }
+            )
+    edges.extend(extra_edges)
+    edges.sort(key=lambda edge: (edge["from"], edge["to"], edge["id"]))
+
+    entry_target = next((deck for deck in decks if deck["id"] == "lower_deck_candidate"), decks[0] if decks else None)
     entry_node = {
         "id": "entry_ramp_candidate",
         "kind": "entry",
-        "center": [0.0, decks[0]["y"] if decks else 0.0, decks[0]["largest_component_bounds"]["min"][2] if decks else 0.0],
-        "target_deck": decks[0]["id"] if decks else None,
+        "center": [0.0, entry_target["y"] if entry_target else 0.0, entry_target["largest_component_bounds"]["min"][2] if entry_target else 0.0],
+        "target_deck": entry_target["id"] if entry_target else None,
         "status": "ACCEPTED_FIRST_PASS" if decks else "FAIL_NO_DECK",
     }
     nodes.insert(0, entry_node)
-    if decks:
+    if entry_target:
         edges.insert(
             0,
             {
-                "id": "entry_ramp_candidate_to_lower_deck_candidate",
+                "id": f"entry_ramp_candidate_to_{entry_target['id']}",
                 "kind": "entry_handoff_candidate",
                 "from": entry_node["id"],
-                "to": decks[0]["id"],
+                "to": entry_target["id"],
                 "vertical_delta": 0.0,
                 "connector_center": entry_node["center"],
                 "overlap": None,

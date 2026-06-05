@@ -112,11 +112,11 @@
     "sha256": "3344d4fc3175ab1cca7bcdbac44a4084c8ad3b2d362055afcb2ed7ed7f509292"
   },
   "counts": {
-    "decks": 3,
-    "edges": 3,
+    "decks": 5,
+    "edges": 5,
     "failing_edges": 0,
-    "nodes": 4,
-    "reachable_decks": 3,
+    "nodes": 6,
+    "reachable_decks": 5,
     "warning_edges": 0
   },
   "failures": [],
@@ -130,13 +130,13 @@
   "ship_id": "MX01",
   "source": {
     "interior_volume": "ships/MX01/generated/collision/mx01_interior_volume_candidates.json",
-    "interior_volume_sha256": "efb120587c4e32b6cb132ea4f51d97709cf2a33beab64ff5ef9d20a4ad6f261f"
+    "interior_volume_sha256": "0513908554334eccb5dbd7b1854a18543882b4deb4ec99219d507925d1881179"
   },
   "status": "PASS",
   "tools": {
     "fit_mx01_multilevel_traversal.py": {
       "path": "ships/MX01/tools/fit_mx01_multilevel_traversal.py",
-      "sha256": "4dc21d5dd5629ada70d57a624dec9bac408646af462c5b2e91984bbc86fa5e4b"
+      "sha256": "2d7909a0aae0647eadaef7e74801948e19eaa3840c0432256258f975f948a0a2"
     }
   },
   "warnings": []

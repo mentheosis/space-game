@@ -112,19 +112,22 @@
     "sha256": "3344d4fc3175ab1cca7bcdbac44a4084c8ad3b2d362055afcb2ed7ed7f509292"
   },
   "counts": {
-    "collision_objects": 107,
-    "connector_landing_objects": 5,
-    "floor_source_cells": 6527,
+    "collision_objects": 148,
+    "connector_landing_objects": 15,
+    "floor_cutout_cells": 164,
+    "floor_extensions": 1,
+    "floor_source_cells": 6741,
     "guard_objects": 0,
-    "stair_tread_objects": 40,
-    "walkable_floor_objects": 62
+    "stair_tread_objects": 38,
+    "stairwells": 7,
+    "walkable_floor_objects": 95
   },
   "method": "deck_floor_and_vertical_connector_collision_v1",
-  "notes": "First-pass interior collision contains floors, connector landings, and low-rise stair treads. It does not yet include final wall blockers, doorways, railings, or capsule sweep validation.",
+  "notes": "Interior collision contains occupancy-clipped floors, a cockpit forward floor extension, steeper lengthwise stair treads, compact edge-biased cockpit stairs, supplemental main-body stair pairs, landings, and upper-deck stairwell cutouts. It does not yet include final wall blockers, doorways, railings, or capsule sweep validation.",
   "obj_counts": {
-    "faces": 642,
-    "objects": 107,
-    "vertices": 856
+    "faces": 888,
+    "objects": 148,
+    "vertices": 1184
   },
   "outputs": {
     "collision_json": "ships/MX01/generated/collision/mx01_interior_collision.json",
@@ -135,13 +138,13 @@
     "occupancy_intervals": "ships/MX01/generated/collision/mx01_occupancy_intervals.json",
     "occupancy_intervals_sha256": "b1f4a356093a6b875861c3400a16ec2457f21d1fab684cbd1b97ad6fba632e69",
     "traversal_graph": "ships/MX01/generated/collision/mx01_traversal_graph.json",
-    "traversal_graph_sha256": "9b14a91247c8209cc9fae41ef49734117717b8a2d0ebc5026be228179788c432"
+    "traversal_graph_sha256": "d474f57e2ae0f57ba080cf99b39b174eba7bfd94d9004ab84bda5e69d7410aa5"
   },
   "status": "PASS",
   "tools": {
     "generate_mx01_interior_collision.py": {
       "path": "ships/MX01/tools/generate_mx01_interior_collision.py",
-      "sha256": "ea62e57c8200b31660584b0efe1628d642a9178aec1d8f0a30d2241b19223c9a"
+      "sha256": "bdcb8410f5f91fbca4ac9c3ae8cb890bcbd4031ed49a20665e5bed08754d7559"
     },
     "mesh_writer.py": {
       "path": "ships/MX01/tools/mesh_writer.py",

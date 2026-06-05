@@ -113,7 +113,7 @@
   },
   "outputs": {
     "graph_json": "ships/MX01/generated/collision/mx01_traversal_graph.json",
-    "graph_json_sha256": "9b14a91247c8209cc9fae41ef49734117717b8a2d0ebc5026be228179788c432",
+    "graph_json_sha256": "d474f57e2ae0f57ba080cf99b39b174eba7bfd94d9004ab84bda5e69d7410aa5",
     "projection_svg": "ships/MX01/reports/images/mx01_traversal_graph_projection.svg",
     "report_json": "ships/MX01/reports/mx01_traversal_graph_report.json",
     "report_md": "ships/MX01/reports/mx01_traversal_graph_report.md"
@@ -121,13 +121,13 @@
   "ship_id": "MX01",
   "source": {
     "interior_volume": "ships/MX01/generated/collision/mx01_interior_volume_candidates.json",
-    "interior_volume_sha256": "efb120587c4e32b6cb132ea4f51d97709cf2a33beab64ff5ef9d20a4ad6f261f"
+    "interior_volume_sha256": "0513908554334eccb5dbd7b1854a18543882b4deb4ec99219d507925d1881179"
   },
   "stage": "traversal_graph_fitting",
   "tools": {
     "fit_mx01_multilevel_traversal.py": {
       "path": "ships/MX01/tools/fit_mx01_multilevel_traversal.py",
-      "sha256": "4dc21d5dd5629ada70d57a624dec9bac408646af462c5b2e91984bbc86fa5e4b"
+      "sha256": "2d7909a0aae0647eadaef7e74801948e19eaa3840c0432256258f975f948a0a2"
     }
   }
 }

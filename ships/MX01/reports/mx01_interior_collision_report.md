@@ -2,13 +2,16 @@
 
 - Method: `deck_floor_and_vertical_connector_collision_v1`
 - Status: `PASS`
-- Collision objects: `107`
-- Walkable floor tiles: `62`
-- Floor source cells: `6527`
-- Connector landings: `5`
-- Stair treads: `40`
+- Collision objects: `148`
+- Walkable floor tiles: `95`
+- Floor source cells: `6741`
+- Floor cutout cells: `164`
+- Floor extensions: `1`
+- Connector landings: `15`
+- Stair treads: `38`
+- Stairwells: `7`
 - Guards: `0`
 
 ## Notes
 
-First-pass interior collision contains floors, connector landings, and low-rise stair treads. It does not yet include final wall blockers, doorways, railings, or capsule sweep validation.
+Interior collision contains occupancy-clipped floors, a cockpit forward floor extension, steeper lengthwise stair treads, compact edge-biased cockpit stairs, supplemental main-body stair pairs, landings, and upper-deck stairwell cutouts. It does not yet include final wall blockers, doorways, railings, or capsule sweep validation.

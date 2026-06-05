@@ -386,6 +386,27 @@ Acceptance:
 - no accepted room is isolated;
 - no floor, stair, ramp, or ladder intersects the exterior skin after clearance.
 
+Human review requirements:
+
+- Every vertical connector must have a stable generated ID, a from-deck, a
+  to-deck, an X/Z footprint, a direction, and a placement role in the generated
+  JSON report.
+- Generate a top-down X/Z stair ID diagram before review. The diagram must show
+  deck bounds, connector footprints, stair IDs, direction lines, and the exact
+  X/Z coordinate convention used by the playable scene.
+- Do not rely on unverified `port` / `starboard` labels. Use neutral `+X` and
+  `-X` side labels unless the ship coordinate convention has been verified
+  against the in-game view. If human review establishes a side convention, write
+  it directly on the diagram.
+- Human feedback about stairs should reference diagram labels such as `S3` and
+  generated IDs, not only phrases like "main deck", "rear", "left", or "upper
+  stair", because those phrases are ambiguous across deck transitions.
+- When replacing a stair, remove or disable the superseded stair in the same
+  deterministic generation pass. Do not leave a center stair in place when the
+  requested result is a side-pair replacement.
+- Supplemental stairs added during review must still be generated from the
+  pipeline, not hand-authored in the Godot scene.
+
 ### Stage 7: Generate Interior Collision Meshes
 
 Create `ships/MX01/tools/generate_mx01_interior_collision.py`.
@@ -405,6 +426,30 @@ Acceptance:
 - player collision surfaces are separate from dynamic exterior physics;
 - generated meshes pass static intersection checks against the exterior skin;
 - generated meshes pass player capsule sweep checks.
+
+Human review lessons from MX01 floor and stair iteration:
+
+- Occupancy-clipped floor tiles should be preferred over broad rectangular
+  slabs. Broad slabs can protrude outside the ship silhouette even when their
+  source deck bounds look valid.
+- Stair cutaways should normally be applied to the deck being entered above,
+  not to the lower/source deck. Cutting the source deck can create unnecessary
+  holes under stairs on the lowest level.
+- Use the same stair footprint data for treads, landings, and cutaways. If
+  these are derived separately, the visible stairwell opening can drift away
+  from the passable collision path.
+- The player controller handled the steeper MX01 stair profile better than the
+  initial shallow high-tread-count profile. Record stair run/rise in the report
+  and validate with playable inspection, not only with generic slope rules.
+- Compact stair placement should prefer room edges only when that edge is still
+  inside the accepted interior volume. "Move to the side" means near the usable
+  floor edge, not necessarily all the way to the connector overlap bound.
+- A stair aligned "above" another stair should use the lower stair's footprint
+  as a reference, then offset only as much as needed to remain adjacent and
+  inside the narrow floor section.
+- After every human-reviewed stair change, regenerate the playable scene, the
+  stair ID diagram, the interior collision report, and static validation before
+  requesting another review.
 
 ### Stage 8: Generate Dynamic Exterior Compound Collision
 

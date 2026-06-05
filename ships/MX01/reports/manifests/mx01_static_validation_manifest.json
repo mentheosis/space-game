@@ -113,7 +113,7 @@
   },
   "outputs": {
     "report_json": "ships/MX01/reports/mx01_static_validation_report.json",
-    "report_json_sha256": "963f3b1186da8813ad1ad0bf0c9e5ef484f93f3d23c063645820f00fd81ad06a",
+    "report_json_sha256": "822438b8ab28a489827c25258a6b64851c804a9a464369f07d7cd2756969e89e",
     "report_md": "ships/MX01/reports/mx01_static_validation_report.md"
   },
   "ship_id": "MX01",

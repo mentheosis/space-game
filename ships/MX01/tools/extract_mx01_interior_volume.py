@@ -82,6 +82,20 @@ def component_bounds(component: set[tuple[int, int]], x_centers: list[float], y:
     }
 
 
+def deck_from_component(deck_id: str, y_index: int, y: float, component: set[tuple[int, int]], x_centers: list[float], z_centers: list[float], voxel_size: float, status: str = "ACCEPTED_FIRST_PASS") -> dict:
+    return {
+        "id": deck_id,
+        "y_index": y_index,
+        "y": y,
+        "walkable_cells": len(component),
+        "estimated_area_m2": round(len(component) * voxel_size * voxel_size, 4),
+        "largest_component_cells": len(component),
+        "largest_component_area_m2": round(len(component) * voxel_size * voxel_size, 4),
+        "largest_component_bounds": component_bounds(component, x_centers, y, z_centers),
+        "status": status,
+    }
+
+
 def extract(config: dict, occupancy: dict) -> tuple[dict, dict]:
     x_centers = occupancy["axis_centers"]["x"]
     y_centers = occupancy["axis_centers"]["y"]
@@ -106,10 +120,12 @@ def extract(config: dict, occupancy: dict) -> tuple[dict, dict]:
 
     y_summaries = []
     candidate_components = []
+    components_by_y: dict[int, list[set[tuple[int, int]]]] = {}
     for yi in sorted(walkable_by_y):
         components = [component for component in connected_components(walkable_by_y[yi]) if len(component) >= min_component_cells]
         if not components:
             continue
+        components_by_y[yi] = components
         largest = components[0]
         total_cells = sum(len(component) for component in components)
         y_summaries.append(
@@ -141,19 +157,10 @@ def extract(config: dict, occupancy: dict) -> tuple[dict, dict]:
         if not rows:
             continue
         best = max(rows, key=lambda row: (row["largest_component_cells"], row["walkable_cells"], -row["y_index"]))
-        accepted.append(
-            {
-                "id": deck_id,
-                "y_index": best["y_index"],
-                "y": best["y"],
-                "walkable_cells": best["walkable_cells"],
-                "estimated_area_m2": round(best["walkable_cells"] * voxel_size * voxel_size, 4),
-                "largest_component_cells": best["largest_component_cells"],
-                "largest_component_area_m2": round(best["largest_component_cells"] * voxel_size * voxel_size, 4),
-                "largest_component_bounds": best["largest_component_bounds"],
-                "status": "ACCEPTED_FIRST_PASS",
-            }
-        )
+        accepted.append(deck_from_component(deck_id, best["y_index"], best["y"], components_by_y[best["y_index"]][0], x_centers, z_centers, voxel_size))
+
+    accepted.extend(choose_forward_lower_decks(accepted, components_by_y, x_centers, y_centers, z_centers, voxel_size))
+    accepted.sort(key=lambda deck: (deck["y"], deck["id"]))
 
     total_walkable_cells = sum(row["walkable_cells"] for row in y_summaries)
     report = {
@@ -201,13 +208,65 @@ def choose_deck_bands(y_summaries: list[dict], y_centers: list[float]) -> list[t
     ]
 
 
+def choose_forward_lower_decks(
+    accepted: list[dict],
+    components_by_y: dict[int, list[set[tuple[int, int]]]],
+    x_centers: list[float],
+    y_centers: list[float],
+    z_centers: list[float],
+    voxel_size: float,
+) -> list[dict]:
+    if not accepted:
+        return []
+    current_lowest_y = min(float(deck["y"]) for deck in accepted)
+    z_min = min(z_centers)
+    z_max = max(z_centers)
+    forward_threshold = z_min + (z_max - z_min) * 0.72
+    min_vertical_spacing = 1.6
+    candidates = []
+    for yi, components in components_by_y.items():
+        y = float(y_centers[yi])
+        if y >= current_lowest_y - 1.4:
+            continue
+        for component in components:
+            bounds = component_bounds(component, x_centers, y, z_centers)
+            if float(bounds["max"][2]) < forward_threshold:
+                continue
+            candidates.append((len(component), yi, y, component, bounds))
+
+    selected: list[tuple[int, int, float, set[tuple[int, int]], dict]] = []
+    for candidate in sorted(candidates, key=lambda item: (-item[0], -item[2], item[1])):
+        _size, _yi, y, _component, _bounds = candidate
+        if any(abs(y - other[2]) < min_vertical_spacing for other in selected):
+            continue
+        selected.append(candidate)
+        if len(selected) == 2:
+            break
+    selected.sort(key=lambda item: item[2])
+    decks = []
+    for index, (_size, yi, y, component, _bounds) in enumerate(selected, start=1):
+        decks.append(
+            deck_from_component(
+                f"forward_cockpit_lower_deck_{index:02d}",
+                yi,
+                y,
+                component,
+                x_centers,
+                z_centers,
+                voxel_size,
+                "ACCEPTED_FORWARD_COCKPIT_SUBDECK",
+            )
+        )
+    return decks
+
+
 def draw_deck_projection(path: Path, occupancy: dict, volume: dict) -> None:
     x_count = len(occupancy["axis_centers"]["x"])
     z_count = len(occupancy["axis_centers"]["z"])
     scale = max(3, min(8, int(900 / max(x_count, z_count, 1))))
     width = z_count * scale
     height = x_count * scale + 40
-    colors = ["#22c55e", "#38bdf8", "#facc15"]
+    colors = ["#22c55e", "#38bdf8", "#facc15", "#fb7185", "#a78bfa"]
     lines = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
         '<rect width="100%" height="100%" fill="#111827"/>',

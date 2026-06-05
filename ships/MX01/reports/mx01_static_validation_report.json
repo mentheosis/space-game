@@ -65,20 +65,20 @@
       "status": "PASS"
     },
     {
-      "actual": "267aa2f5dd964f93b70d4b9eb829fb87fb317636a240ded3120b245c0e574824",
-      "expected": "267aa2f5dd964f93b70d4b9eb829fb87fb317636a240ded3120b245c0e574824",
+      "actual": "74874d89386192ae51e93b4f54b73157d9497e804eb297038589bd2e821bebb4",
+      "expected": "74874d89386192ae51e93b4f54b73157d9497e804eb297038589bd2e821bebb4",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_collision_manifest.json:ships/MX01/generated/collision/mx01_interior_collision.json",
       "status": "PASS"
     },
     {
-      "actual": "01ef15f36e4278d138aef7630b45c1018db8c25f3740844d6656324320be6a5f",
-      "expected": "01ef15f36e4278d138aef7630b45c1018db8c25f3740844d6656324320be6a5f",
+      "actual": "307c6ffa9a5bd8861101275c04d8954305f85cd9904b053c9a33da2690958fa2",
+      "expected": "307c6ffa9a5bd8861101275c04d8954305f85cd9904b053c9a33da2690958fa2",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_collision_manifest.json:ships/MX01/generated/collision/mx01_interior_collision.obj",
       "status": "PASS"
     },
     {
-      "actual": "efb120587c4e32b6cb132ea4f51d97709cf2a33beab64ff5ef9d20a4ad6f261f",
-      "expected": "efb120587c4e32b6cb132ea4f51d97709cf2a33beab64ff5ef9d20a4ad6f261f",
+      "actual": "0513908554334eccb5dbd7b1854a18543882b4deb4ec99219d507925d1881179",
+      "expected": "0513908554334eccb5dbd7b1854a18543882b4deb4ec99219d507925d1881179",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_volume_manifest.json:ships/MX01/generated/collision/mx01_interior_volume_candidates.json",
       "status": "PASS"
     },
@@ -95,8 +95,8 @@
       "status": "PASS"
     },
     {
-      "actual": "2927ab2ac1cc0b6799b70df9a973009d7c1a25f6eec92e57f00d788f752545a1",
-      "expected": "2927ab2ac1cc0b6799b70df9a973009d7c1a25f6eec92e57f00d788f752545a1",
+      "actual": "fad52a1cf2a803ee0426912d99561c97b88dac5a57b0f9dbf30e17dc4d2f919b",
+      "expected": "fad52a1cf2a803ee0426912d99561c97b88dac5a57b0f9dbf30e17dc4d2f919b",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_scene_manifest.json:ships/MX01/generated/scenes/mx01_playable_inspection.tscn",
       "status": "PASS"
     },
@@ -119,15 +119,15 @@
       "status": "PASS"
     },
     {
-      "actual": "9b14a91247c8209cc9fae41ef49734117717b8a2d0ebc5026be228179788c432",
-      "expected": "9b14a91247c8209cc9fae41ef49734117717b8a2d0ebc5026be228179788c432",
+      "actual": "d474f57e2ae0f57ba080cf99b39b174eba7bfd94d9004ab84bda5e69d7410aa5",
+      "expected": "d474f57e2ae0f57ba080cf99b39b174eba7bfd94d9004ab84bda5e69d7410aa5",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_traversal_graph_manifest.json:ships/MX01/generated/collision/mx01_traversal_graph.json",
       "status": "PASS"
     },
     {
-      "deck_nodes": 3,
+      "deck_nodes": 5,
       "id": "traversal:all_decks_reachable",
-      "reachable_decks": 3,
+      "reachable_decks": 5,
       "status": "PASS"
     },
     {

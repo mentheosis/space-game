@@ -116,7 +116,7 @@
     "report_json": "ships/MX01/reports/mx01_interior_volume_report.json",
     "report_md": "ships/MX01/reports/mx01_interior_volume_report.md",
     "volume_json": "ships/MX01/generated/collision/mx01_interior_volume_candidates.json",
-    "volume_json_sha256": "efb120587c4e32b6cb132ea4f51d97709cf2a33beab64ff5ef9d20a4ad6f261f"
+    "volume_json_sha256": "0513908554334eccb5dbd7b1854a18543882b4deb4ec99219d507925d1881179"
   },
   "ship_id": "MX01",
   "source": {
@@ -127,7 +127,7 @@
   "tools": {
     "extract_mx01_interior_volume.py": {
       "path": "ships/MX01/tools/extract_mx01_interior_volume.py",
-      "sha256": "b53738244d3f5b36472dcb5e8946d9b40e7b20dbd211b03686f5a5e4e473dd18"
+      "sha256": "4bb732ec0ebbd6dd451c819d9ae9bb94706bf94d820786744c445ee0818d61ca"
     }
   }
 }

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1898" height="848" viewBox="0 0 1898 848">
+<rect width="100%" height="100%" fill="#0f172a"/>
+<text x="44" y="28" font-family="Arial, sans-serif" font-size="18" fill="#f8fafc">MX01 stair IDs, top-down X/Z footprint</text>
+<text x="44" y="50" font-family="Arial, sans-serif" font-size="12" fill="#cbd5e1">Forward is +Z upward. X is mirrored to match the demo view: right side = -X / observed starboard, left side = +X.</text>
+<line x1="1156.22" y1="44" x2="1156.22" y2="804" stroke="#1e293b" stroke-width="1"/>
+<text x="1158.22" y="820" font-family="Arial, sans-serif" font-size="10" fill="#64748b">x-20</text>
+<line x1="1000.67" y1="44" x2="1000.67" y2="804" stroke="#1e293b" stroke-width="1"/>
+<text x="1002.67" y="820" font-family="Arial, sans-serif" font-size="10" fill="#64748b">x-15</text>
+<line x1="845.11" y1="44" x2="845.11" y2="804" stroke="#1e293b" stroke-width="1"/>
+<text x="847.11" y="820" font-family="Arial, sans-serif" font-size="10" fill="#64748b">x-10</text>
+<line x1="689.56" y1="44" x2="689.56" y2="804" stroke="#1e293b" stroke-width="1"/>
+<text x="691.56" y="820" font-family="Arial, sans-serif" font-size="10" fill="#64748b">x-5</text>
+<line x1="534.00" y1="44" x2="534.00" y2="804" stroke="#1e293b" stroke-width="1"/>
+<text x="536.00" y="820" font-family="Arial, sans-serif" font-size="10" fill="#64748b">x0</text>
+<line x1="378.44" y1="44" x2="378.44" y2="804" stroke="#1e293b" stroke-width="1"/>
+<text x="380.44" y="820" font-family="Arial, sans-serif" font-size="10" fill="#64748b">x5</text>
+<line x1="222.89" y1="44" x2="222.89" y2="804" stroke="#1e293b" stroke-width="1"/>
+<text x="224.89" y="820" font-family="Arial, sans-serif" font-size="10" fill="#64748b">x10</text>
+<line x1="67.33" y1="44" x2="67.33" y2="804" stroke="#1e293b" stroke-width="1"/>
+<text x="69.33" y="820" font-family="Arial, sans-serif" font-size="10" fill="#64748b">x15</text>
+<line x1="44" y1="882.00" x2="1024" y2="882.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="886.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z-50</text>
+<line x1="44" y1="802.00" x2="1024" y2="802.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="806.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z-40</text>
+<line x1="44" y1="722.00" x2="1024" y2="722.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="726.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z-30</text>
+<line x1="44" y1="642.00" x2="1024" y2="642.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="646.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z-20</text>
+<line x1="44" y1="562.00" x2="1024" y2="562.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="566.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z-10</text>
+<line x1="44" y1="482.00" x2="1024" y2="482.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="486.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z0</text>
+<line x1="44" y1="402.00" x2="1024" y2="402.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="406.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z10</text>
+<line x1="44" y1="322.00" x2="1024" y2="322.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="326.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z20</text>
+<line x1="44" y1="242.00" x2="1024" y2="242.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="246.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z30</text>
+<line x1="44" y1="162.00" x2="1024" y2="162.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="166.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z40</text>
+<line x1="44" y1="82.00" x2="1024" y2="82.00" stroke="#1e293b" stroke-width="1"/>
+<text x="6" y="86.00" font-family="Arial, sans-serif" font-size="10" fill="#64748b">z50</text>
+<line x1="534.00" y1="44" x2="534.00" y2="804" stroke="#94a3b8" stroke-width="1.4"/>
+<text x="62" y="62" font-family="Arial, sans-serif" font-size="13" fill="#f8fafc">+X side</text>
+<text x="864" y="62" font-family="Arial, sans-serif" font-size="13" fill="#f8fafc">-X / observed starboard</text>
+<text x="904" y="86" font-family="Arial, sans-serif" font-size="13" fill="#f8fafc">FORWARD +Z</text>
+<path d="M 990 96 L 1002 76 L 1014 96" fill="none" stroke="#f8fafc" stroke-width="2"/>
+<rect x="432.89" y="68.00" width="202.22" height="40.00" fill="#f97316" fill-opacity="0.10" stroke="#f97316" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="437.89" y="83.00" font-family="Arial, sans-serif" font-size="11" fill="#f97316">forward_cockpit_lower_deck_01 y=-7.75</text>
+<rect x="401.78" y="60.00" width="264.44" height="60.00" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="406.78" y="75.00" font-family="Arial, sans-serif" font-size="11" fill="#fb7185">forward_cockpit_lower_deck_02 y=-5.75</text>
+<rect x="106.22" y="716.00" width="855.56" height="72.00" fill="#22c55e" fill-opacity="0.10" stroke="#22c55e" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="111.22" y="731.00" font-family="Arial, sans-serif" font-size="11" fill="#22c55e">lower_deck_candidate y=-4.25</text>
+<rect x="355.11" y="92.00" width="357.78" height="668.00" fill="#38bdf8" fill-opacity="0.10" stroke="#38bdf8" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="360.11" y="107.00" font-family="Arial, sans-serif" font-size="11" fill="#38bdf8">mid_deck_candidate y=-0.75</text>
+<rect x="386.22" y="136.00" width="295.56" height="652.00" fill="#a78bfa" fill-opacity="0.10" stroke="#a78bfa" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="391.22" y="151.00" font-family="Arial, sans-serif" font-size="11" fill="#a78bfa">upper_deck_candidate y=2.75</text>
+<text x="1060" y="52" font-family="Arial, sans-serif" font-size="16" fill="#f8fafc">Stair labels</text>
+<rect x="580.67" y="78.80" width="51.33" height="35.20" fill="#ef4444" fill-opacity="0.32" stroke="#ef4444" stroke-width="2"/>
+<line x1="606.33" y1="88.00" x2="606.33" y2="104.80" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+<text x="584.67" y="94.80" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">S1</text>
+<rect x="1060" y="63" width="14" height="14" fill="#ef4444" fill-opacity="0.7"/>
+<text x="1082" y="76" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">S1: forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02</text>
+<text x="1082" y="94" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">cockpit_side_switchback | forward_cockpit_lower_deck_01 -> forward_cockpit_lower_deck_02 | x=-2.325, z=49.25->47.15</text>
+<rect x="404.89" y="96.80" width="51.33" height="45.28" fill="#f97316" fill-opacity="0.32" stroke="#f97316" stroke-width="2"/>
+<line x1="430.56" y1="106.00" x2="430.56" y2="132.88" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+<text x="408.89" y="112.80" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">S2</text>
+<rect x="1060" y="103" width="14" height="14" fill="#f97316" fill-opacity="0.7"/>
+<text x="1082" y="116" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">S2: forward_cockpit_lower_deck_02_to_mid_deck_candidate</text>
+<text x="1082" y="134" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">cockpit_side_switchback | forward_cockpit_lower_deck_02 -> mid_deck_candidate | x=3.325, z=47.0->43.64</text>
+<rect x="505.22" y="731.40" width="57.56" height="26.00" fill="#f59e0b" fill-opacity="0.32" stroke="#f59e0b" stroke-width="2"/>
+<line x1="534.00" y1="755.80" x2="534.00" y2="739.00" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+<text x="509.22" y="747.40" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">S3</text>
+<rect x="1060" y="143" width="14" height="14" fill="#f59e0b" fill-opacity="0.7"/>
+<text x="1082" y="156" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">S3: lower_deck_candidate_to_mid_deck_candidate</text>
+<text x="1082" y="174" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">aft_compact_steep_overlap | lower_deck_candidate -> mid_deck_candidate | x=0.0, z=-34.225->-32.125</text>
+<rect x="611.78" y="136.40" width="51.33" height="3.20" fill="#84cc16" fill-opacity="0.32" stroke="#84cc16" stroke-width="2"/>
+<line x1="637.44" y1="121.20" x2="637.44" y2="138.00" stroke="#84cc16" stroke-width="4" stroke-linecap="round"/>
+<text x="615.78" y="152.40" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">S4</text>
+<rect x="1060" y="183" width="14" height="14" fill="#84cc16" fill-opacity="0.7"/>
+<text x="1082" y="196" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">S4: mid_deck_candidate_to_upper_deck_candidate_cockpit_forward</text>
+<text x="1082" y="214" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">cockpit_to_upper_forward_side | mid_deck_candidate -> upper_deck_candidate | x=-3.325, z=45.1->43.0</text>
+<rect x="619.56" y="440.40" width="57.56" height="26.00" fill="#14b8a6" fill-opacity="0.32" stroke="#14b8a6" stroke-width="2"/>
+<line x1="648.33" y1="448.00" x2="648.33" y2="464.80" stroke="#14b8a6" stroke-width="4" stroke-linecap="round"/>
+<text x="623.56" y="456.40" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">S5</text>
+<rect x="1060" y="223" width="14" height="14" fill="#14b8a6" fill-opacity="0.7"/>
+<text x="1082" y="236" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">S5: mid_deck_candidate_to_upper_deck_candidate_negative_x_side</text>
+<text x="1082" y="254" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">main_deck_negative_x_side_replacement | mid_deck_candidate -> upper_deck_candidate | x=-3.675, z=4.25->2.15</text>
+<rect x="390.89" y="440.40" width="57.56" height="26.00" fill="#3b82f6" fill-opacity="0.32" stroke="#3b82f6" stroke-width="2"/>
+<line x1="419.67" y1="464.80" x2="419.67" y2="448.00" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+<text x="394.89" y="456.40" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">S6</text>
+<rect x="1060" y="263" width="14" height="14" fill="#3b82f6" fill-opacity="0.7"/>
+<text x="1082" y="276" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">S6: mid_deck_candidate_to_upper_deck_candidate_positive_x_side</text>
+<text x="1082" y="294" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">main_deck_positive_x_side_replacement | mid_deck_candidate -> upper_deck_candidate | x=3.675, z=2.15->4.25</text>
+<rect x="562.78" y="731.40" width="57.56" height="26.00" fill="#a855f7" fill-opacity="0.32" stroke="#a855f7" stroke-width="2"/>
+<line x1="591.56" y1="739.00" x2="591.56" y2="755.80" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+<text x="566.78" y="747.40" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">S7</text>
+<rect x="1060" y="303" width="14" height="14" fill="#a855f7" fill-opacity="0.7"/>
+<text x="1082" y="316" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">S7: mid_deck_candidate_to_upper_deck_candidate_rear_above_s3</text>
+<text x="1082" y="334" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">rear_above_s3_to_upper | mid_deck_candidate -> upper_deck_candidate | x=-1.85, z=-32.125->-34.225</text>
+</svg>
