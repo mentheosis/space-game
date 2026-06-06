@@ -8,6 +8,12 @@ bin/
 obj/
 build/
 exports/
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.rgb
 reports/ship_alignment_captures/*.png
 reports/ship_walkthrough/
 reports/**/*.import
