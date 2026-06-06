@@ -11,16 +11,16 @@
 - Removed fragments: `7`
 - Removed keepout faces: `10`
 - Connector keepouts: `53`
-- Collision primitives: `7395`
-- Wall collision primitives: `2927`
+- Collision primitives: `7286`
+- Wall collision primitives: `2818`
 - Ceiling collision primitives: `4468`
 - Hull wall detour primitives: `50`
 - Hull wall detour return primitives: `22`
 - Stair cutaway horizontal closure primitives: `9`
-- Global leak closure primitives: `5105`
+- Global leak closure primitives: `4996`
 - Stair side guard primitives: `0`
-- Collider OBJ primitive boxes: `7395`
-- Collider OBJ faces: `44370`
+- Collider OBJ primitive boxes: `7286`
+- Collider OBJ faces: `43716`
 - Floor-edge polygon floor cells: `6937`
 - Floor-edge polygon wall cells: `6937`
 - Floor-edge polygon exterior edges: `910`
@@ -29,12 +29,14 @@
 - Route-reserved perimeter edges: `0`
 - Floor-edge polygon wall primitives: `354`
 - Uncovered exterior edges: `0`
-- Global leak candidate faces: `18461`
+- Global leak candidate faces: `17914`
 - Global leak disconnected outside faces: `3140`
 - Global leak unanchored vertical faces: `9449`
-- Global leak generated primitives: `5105`
-- Global leak route-clearance adjusted primitives: `34`
-- Global leak route-clearance adjustment steps: `55`
+- Global leak skipped supported passage faces: `522`
+- Global leak skipped supported headroom faces: `25`
+- Global leak generated primitives: `4996`
+- Global leak route-clearance adjusted primitives: `28`
+- Global leak route-clearance adjustment steps: `49`
 - Global leak unresolved faces: `0`
 - Stair route groups checked: `8`
 - Stair route blocked groups: `0`

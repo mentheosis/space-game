@@ -1646,6 +1646,8 @@ def global_leak_closure_primitives(collision_primitives: list[dict], collision: 
     covered_faces = 0
     disconnected_outside_faces = 0
     unanchored_vertical_faces = 0
+    skipped_supported_passage_faces = 0
+    skipped_supported_headroom_faces = 0
     leak_source_cells: set[tuple[int, int, int]] = set()
     for xi, yi, zi in sorted(water_cells):
         for axis, plane, a, b, neighbor in (
@@ -1661,11 +1663,27 @@ def global_leak_closure_primitives(collision_primitives: list[dict], collision: 
             if neighbor not in exterior_cells:
                 disconnected_outside_faces += 1
                 continue
+            if axis == "y":
+                support_top = support_top_by_cell.get((xi, zi))
+                face_y = float(y_edges[plane])
+                if support_top is not None and support_top + 0.05 <= face_y <= support_top + player_height + 0.25:
+                    skipped_supported_headroom_faces += 1
+                    continue
             if axis in {"x", "z"}:
                 support_top = support_top_by_cell.get((xi, zi))
                 cell_y = float(y_centers[yi])
                 if support_top is None or cell_y > support_top + player_height + 0.1:
                     unanchored_vertical_faces += 1
+                neighbor_xi, _neighbor_yi, neighbor_zi = neighbor
+                neighbor_support_top = support_top_by_cell.get((neighbor_xi, neighbor_zi))
+                if (
+                    support_top is not None
+                    and neighbor_support_top is not None
+                    and abs(support_top - neighbor_support_top) <= 0.25
+                    and cell_y <= min(support_top, neighbor_support_top) + player_height + 0.1
+                ):
+                    skipped_supported_passage_faces += 1
+                    continue
             bounds = face_bounds(axis, plane, a, b, x_edges, y_edges, z_edges, face_thickness)
             if any(primitive_overlaps_aabb(primitive, bounds) for primitive in cover_primitives):
                 covered_faces += 1
@@ -1767,6 +1785,8 @@ def global_leak_closure_primitives(collision_primitives: list[dict], collision: 
         "candidate_faces": len(candidates),
         "disconnected_outside_faces": disconnected_outside_faces,
         "unanchored_vertical_faces": unanchored_vertical_faces,
+        "skipped_supported_passage_faces": skipped_supported_passage_faces,
+        "skipped_supported_headroom_faces": skipped_supported_headroom_faces,
         "covered_faces": covered_faces,
         "generated_primitives": len(primitives),
         "rejected_primitives": rejected,
@@ -2198,6 +2218,8 @@ def write_markdown(path: Path, report: dict) -> None:
         f"- Global leak candidate faces: `{report['global_leak_closure']['candidate_faces']}`",
         f"- Global leak disconnected outside faces: `{report['global_leak_closure']['disconnected_outside_faces']}`",
         f"- Global leak unanchored vertical faces: `{report['global_leak_closure']['unanchored_vertical_faces']}`",
+        f"- Global leak skipped supported passage faces: `{report['global_leak_closure'].get('skipped_supported_passage_faces', 0)}`",
+        f"- Global leak skipped supported headroom faces: `{report['global_leak_closure'].get('skipped_supported_headroom_faces', 0)}`",
         f"- Global leak generated primitives: `{report['global_leak_closure']['generated_primitives']}`",
         f"- Global leak route-clearance adjusted primitives: `{report['global_leak_closure'].get('route_clearance_adjusted_primitives', 0)}`",
         f"- Global leak route-clearance adjustment steps: `{report['global_leak_closure'].get('route_clearance_adjustment_steps', 0)}`",

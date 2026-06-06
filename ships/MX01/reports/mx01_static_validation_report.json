@@ -85,14 +85,14 @@
       "status": "PASS"
     },
     {
-      "actual": "ef59b4ffa50d2c43233bdbbc0d7bb5d170c07d95e0ac620329ec9acd52b24a21",
-      "expected": "ef59b4ffa50d2c43233bdbbc0d7bb5d170c07d95e0ac620329ec9acd52b24a21",
+      "actual": "4a172dabf56fb60c3a5f493637e4ce247264a8c0116cfa598d1b8246ac28877f",
+      "expected": "4a172dabf56fb60c3a5f493637e4ce247264a8c0116cfa598d1b8246ac28877f",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json:ships/MX01/generated/collision/mx01_interior_enclosure_collider.obj",
       "status": "PASS"
     },
     {
-      "actual": "32c676d434d3d279e618417302c71e88ba3f99bda33e73c85aeb1f5c98454901",
-      "expected": "32c676d434d3d279e618417302c71e88ba3f99bda33e73c85aeb1f5c98454901",
+      "actual": "d9ab1a181fb6955e34578ba1a5d0f72c37aad52403051a1e0c7b576950d76460",
+      "expected": "d9ab1a181fb6955e34578ba1a5d0f72c37aad52403051a1e0c7b576950d76460",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json:ships/MX01/generated/collision/mx01_interior_enclosure.json",
       "status": "PASS"
     },
@@ -121,8 +121,8 @@
       "status": "PASS"
     },
     {
-      "actual": "1daec04bdb9eb7dda2daab254a631221aac4874c96721304275064f94ed984ab",
-      "expected": "1daec04bdb9eb7dda2daab254a631221aac4874c96721304275064f94ed984ab",
+      "actual": "b8582464ca36227c0033f3ada1e9d86f54e9d1634116c456aa389f2f3a59911e",
+      "expected": "b8582464ca36227c0033f3ada1e9d86f54e9d1634116c456aa389f2f3a59911e",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_scene_manifest.json:ships/MX01/generated/scenes/mx01_playable_inspection.tscn",
       "status": "PASS"
     },
@@ -170,9 +170,9 @@
       "counts": {
         "ceiling_collision_primitives": 4468,
         "ceiling_objects": 4,
-        "collision_primitives": 7395,
+        "collision_primitives": 7286,
         "connector_keepouts": 53,
-        "global_leak_closure_primitives": 5105,
+        "global_leak_closure_primitives": 4996,
         "hull_wall_detour_primitives": 50,
         "hull_wall_detour_return_primitives": 22,
         "objects": 20,
@@ -183,7 +183,7 @@
         "stair_side_guard_primitives": 0,
         "triangles": 7300,
         "vertices": 5300,
-        "wall_collision_primitives": 2927,
+        "wall_collision_primitives": 2818,
         "wall_objects": 16
       },
       "id": "interior_enclosure:has_walls_and_ceilings",
@@ -217,13 +217,13 @@
     },
     {
       "ceiling_collision_primitives": 4468,
-      "collision_primitives": 7395,
+      "collision_primitives": 7286,
       "id": "interior_enclosure:playable_uses_controller_safe_primitives",
       "primitive_kinds": [
         "box"
       ],
       "status": "PASS",
-      "wall_collision_primitives": 2927
+      "wall_collision_primitives": 2818
     },
     {
       "connector_side_guards": false,
@@ -234,12 +234,12 @@
     },
     {
       "collider_obj_counts": {
-        "faces": 44370,
+        "faces": 43716,
         "objects": 1,
-        "primitive_boxes": 7395,
-        "vertices": 59160
+        "primitive_boxes": 7286,
+        "vertices": 58288
       },
-      "collision_primitives": 7395,
+      "collision_primitives": 7286,
       "id": "interior_enclosure:visible_collider_matches_physics_primitives",
       "status": "PASS"
     },

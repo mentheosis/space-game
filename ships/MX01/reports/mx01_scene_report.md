@@ -15,7 +15,7 @@
 - `ships/MX01/generated/collision/mx01_interior_enclosure.obj` sha256=`9f29e7ca69104b3a7567fcb001ef3d37d9aac25299d6e27f66e2c680dd8c2b79`
 - `ships/MX01/generated/collision/mx01_dynamic_collision.obj` sha256=`c36054c1d05bdb3ce952d737321b5a9a5b1f1540754a74094c8ec8296bf7875b`
 - `ships/MX01/generated/collision/mx01_interior_collision.json` sha256=`74874d89386192ae51e93b4f54b73157d9497e804eb297038589bd2e821bebb4`
-- `ships/MX01/generated/collision/mx01_interior_enclosure.json` sha256=`32c676d434d3d279e618417302c71e88ba3f99bda33e73c85aeb1f5c98454901`
+- `ships/MX01/generated/collision/mx01_interior_enclosure.json` sha256=`d9ab1a181fb6955e34578ba1a5d0f72c37aad52403051a1e0c7b576950d76460`
 
 ## Notes
 

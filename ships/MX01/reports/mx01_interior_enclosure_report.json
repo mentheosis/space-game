@@ -74,10 +74,10 @@
     "wall_primitives_from_polygon_ring": 0
   },
   "collider_obj_counts": {
-    "faces": 44370,
+    "faces": 43716,
     "objects": 1,
-    "primitive_boxes": 7395,
-    "vertices": 59160
+    "primitive_boxes": 7286,
+    "vertices": 58288
   },
   "config": {
     "effective_values": {
@@ -202,9 +202,9 @@
   "counts": {
     "ceiling_collision_primitives": 4468,
     "ceiling_objects": 4,
-    "collision_primitives": 7395,
+    "collision_primitives": 7286,
     "connector_keepouts": 53,
-    "global_leak_closure_primitives": 5105,
+    "global_leak_closure_primitives": 4996,
     "hull_wall_detour_primitives": 50,
     "hull_wall_detour_return_primitives": 22,
     "objects": 20,
@@ -215,7 +215,7 @@
     "stair_side_guard_primitives": 0,
     "triangles": 7300,
     "vertices": 5300,
-    "wall_collision_primitives": 2927,
+    "wall_collision_primitives": 2818,
     "wall_objects": 16
   },
   "fit": {
@@ -227,16 +227,18 @@
     "theoretical_voxel_surface_error_m": 0.25
   },
   "global_leak_closure": {
-    "candidate_faces": 18461,
+    "candidate_faces": 17914,
     "covered_faces": 1,
     "disconnected_outside_faces": 3140,
     "exterior_cells": 648080,
-    "generated_primitives": 5105,
-    "leak_source_cells": 11004,
+    "generated_primitives": 4996,
+    "leak_source_cells": 10842,
     "method": "water_flood_fill_connected_leak_detection",
     "rejected_primitives": 0,
-    "route_clearance_adjusted_primitives": 34,
-    "route_clearance_adjustment_steps": 55,
+    "route_clearance_adjusted_primitives": 28,
+    "route_clearance_adjustment_steps": 49,
+    "skipped_supported_headroom_faces": 25,
+    "skipped_supported_passage_faces": 522,
     "solid_cells": 23671,
     "unanchored_vertical_faces": 9449,
     "unresolved_faces": 0,
@@ -290,7 +292,7 @@
   "tools": {
     "generate_mx01_interior_enclosure.py": {
       "path": "ships/MX01/tools/generate_mx01_interior_enclosure.py",
-      "sha256": "94c80db91fb39da1f3d395ce4a3ce665e8e4bd2c0610727c5048854669ca5c42"
+      "sha256": "139486c97b45926d8d7d2bbd5e544b6bfe8ba405cf6c442b81b410a3440316bb"
     }
   }
 }
