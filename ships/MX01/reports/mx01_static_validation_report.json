@@ -73,32 +73,32 @@
       "status": "PASS"
     },
     {
-      "actual": "74874d89386192ae51e93b4f54b73157d9497e804eb297038589bd2e821bebb4",
-      "expected": "74874d89386192ae51e93b4f54b73157d9497e804eb297038589bd2e821bebb4",
+      "actual": "7c1765a969d2e0b62b659a1af030e6b7299f1d2eae24e2e422e535dafad332f1",
+      "expected": "7c1765a969d2e0b62b659a1af030e6b7299f1d2eae24e2e422e535dafad332f1",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_collision_manifest.json:ships/MX01/generated/collision/mx01_interior_collision.json",
       "status": "PASS"
     },
     {
-      "actual": "307c6ffa9a5bd8861101275c04d8954305f85cd9904b053c9a33da2690958fa2",
-      "expected": "307c6ffa9a5bd8861101275c04d8954305f85cd9904b053c9a33da2690958fa2",
+      "actual": "3154417eb95b6267514e5692c25f395525d14328b5d745ba825c9746a7b4e876",
+      "expected": "3154417eb95b6267514e5692c25f395525d14328b5d745ba825c9746a7b4e876",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_collision_manifest.json:ships/MX01/generated/collision/mx01_interior_collision.obj",
       "status": "PASS"
     },
     {
-      "actual": "4a172dabf56fb60c3a5f493637e4ce247264a8c0116cfa598d1b8246ac28877f",
-      "expected": "4a172dabf56fb60c3a5f493637e4ce247264a8c0116cfa598d1b8246ac28877f",
+      "actual": "7d338b467ced38f280e34d5923c0a3e3a7042ca2457f0d36e893d9dfa1956703",
+      "expected": "7d338b467ced38f280e34d5923c0a3e3a7042ca2457f0d36e893d9dfa1956703",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json:ships/MX01/generated/collision/mx01_interior_enclosure_collider.obj",
       "status": "PASS"
     },
     {
-      "actual": "d9ab1a181fb6955e34578ba1a5d0f72c37aad52403051a1e0c7b576950d76460",
-      "expected": "d9ab1a181fb6955e34578ba1a5d0f72c37aad52403051a1e0c7b576950d76460",
+      "actual": "888032e0aa42a6b371f59a1905df82db3a1fa8d1d1519f16b388400672928843",
+      "expected": "888032e0aa42a6b371f59a1905df82db3a1fa8d1d1519f16b388400672928843",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json:ships/MX01/generated/collision/mx01_interior_enclosure.json",
       "status": "PASS"
     },
     {
-      "actual": "9f29e7ca69104b3a7567fcb001ef3d37d9aac25299d6e27f66e2c680dd8c2b79",
-      "expected": "9f29e7ca69104b3a7567fcb001ef3d37d9aac25299d6e27f66e2c680dd8c2b79",
+      "actual": "2efc57e27a92bb4e7400abc33f6b9150a33b7d6d0a376a58f2503cfdd15f9fcc",
+      "expected": "2efc57e27a92bb4e7400abc33f6b9150a33b7d6d0a376a58f2503cfdd15f9fcc",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json:ships/MX01/generated/collision/mx01_interior_enclosure.obj",
       "status": "PASS"
     },
@@ -121,8 +121,8 @@
       "status": "PASS"
     },
     {
-      "actual": "b8582464ca36227c0033f3ada1e9d86f54e9d1634116c456aa389f2f3a59911e",
-      "expected": "b8582464ca36227c0033f3ada1e9d86f54e9d1634116c456aa389f2f3a59911e",
+      "actual": "b13030bd3a42476d9134b2bd1c19965491d691bd790e966b4c9017b3bec219ad",
+      "expected": "b13030bd3a42476d9134b2bd1c19965491d691bd790e966b4c9017b3bec219ad",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_scene_manifest.json:ships/MX01/generated/scenes/mx01_playable_inspection.tscn",
       "status": "PASS"
     },
@@ -168,22 +168,24 @@
     },
     {
       "counts": {
-        "ceiling_collision_primitives": 4468,
+        "ceiling_collision_primitives": 4467,
         "ceiling_objects": 4,
-        "collision_primitives": 7286,
+        "collision_primitives": 7288,
         "connector_keepouts": 53,
         "global_leak_closure_primitives": 4996,
-        "hull_wall_detour_primitives": 50,
+        "hatch_apertures": 3,
+        "hatch_split_primitives": 11,
+        "hull_wall_detour_primitives": 51,
         "hull_wall_detour_return_primitives": 22,
         "objects": 20,
         "raw_candidate_objects": 37,
         "removed_fragments": 7,
-        "removed_keepout_faces": 10,
-        "stair_cutaway_horizontal_closure_primitives": 9,
+        "removed_keepout_faces": 8,
+        "stair_cutaway_horizontal_closure_primitives": 8,
         "stair_side_guard_primitives": 0,
-        "triangles": 7300,
-        "vertices": 5300,
-        "wall_collision_primitives": 2818,
+        "triangles": 7296,
+        "vertices": 5287,
+        "wall_collision_primitives": 2821,
         "wall_objects": 16
       },
       "id": "interior_enclosure:has_walls_and_ceilings",
@@ -216,14 +218,14 @@
       "status": "PASS"
     },
     {
-      "ceiling_collision_primitives": 4468,
-      "collision_primitives": 7286,
+      "ceiling_collision_primitives": 4467,
+      "collision_primitives": 7288,
       "id": "interior_enclosure:playable_uses_controller_safe_primitives",
       "primitive_kinds": [
         "box"
       ],
       "status": "PASS",
-      "wall_collision_primitives": 2818
+      "wall_collision_primitives": 2821
     },
     {
       "connector_side_guards": false,
@@ -234,12 +236,12 @@
     },
     {
       "collider_obj_counts": {
-        "faces": 43716,
+        "faces": 43728,
         "objects": 1,
-        "primitive_boxes": 7286,
-        "vertices": 58288
+        "primitive_boxes": 7288,
+        "vertices": 58304
       },
-      "collision_primitives": 7286,
+      "collision_primitives": 7288,
       "id": "interior_enclosure:visible_collider_matches_physics_primitives",
       "status": "PASS"
     },
@@ -319,17 +321,25 @@
     },
     {
       "coverage": {
-        "covered_edges": 910,
+        "approved_hatch_edges": 25,
+        "approved_hatch_edges_by_id": {
+          "forward_low_cockpit_rear_ramp_hatch": 11,
+          "port_mid_s5_ramp_hatch": 7,
+          "starboard_mid_s6_ramp_hatch": 7
+        },
+        "covered_edges": 885,
         "deck_metrics": [
           {
-            "covered_edges": 50,
+            "approved_hatch_edges": 11,
+            "covered_edges": 39,
             "deck": "forward_cockpit_lower_deck_01",
             "floor_cells": 127,
             "interior_balcony_edges": 0,
-            "ship_edge_boundary_edges": 50,
-            "wall_primitives": 22
+            "ship_edge_boundary_edges": 39,
+            "wall_primitives": 21
           },
           {
+            "approved_hatch_edges": 0,
             "covered_edges": 70,
             "deck": "forward_cockpit_lower_deck_02",
             "floor_cells": 252,
@@ -338,6 +348,7 @@
             "wall_primitives": 49
           },
           {
+            "approved_hatch_edges": 0,
             "covered_edges": 202,
             "deck": "lower_deck_candidate",
             "floor_cells": 554,
@@ -346,14 +357,16 @@
             "wall_primitives": 95
           },
           {
-            "covered_edges": 374,
+            "approved_hatch_edges": 14,
+            "covered_edges": 360,
             "deck": "mid_deck_candidate",
             "floor_cells": 3459,
             "interior_balcony_edges": 36,
-            "ship_edge_boundary_edges": 374,
-            "wall_primitives": 137
+            "ship_edge_boundary_edges": 360,
+            "wall_primitives": 141
           },
           {
+            "approved_hatch_edges": 0,
             "covered_edges": 214,
             "deck": "upper_deck_candidate",
             "floor_cells": 2545,
@@ -363,12 +376,33 @@
           }
         ],
         "interior_balcony_edges": 210,
-        "total_edges": 910,
+        "total_edges": 885,
         "uncovered_edges": 0,
         "uncovered_samples": []
       },
       "id": "interior_enclosure:exact_stage7a_floor_edges_covered",
       "status": "PASS"
+    },
+    {
+      "contract_hatches": 3,
+      "hatch_metrics": {
+        "forward_low_cockpit_rear_ramp_hatch": {
+          "primitives_cut": 7,
+          "split_pieces": 5
+        },
+        "port_mid_s5_ramp_hatch": {
+          "primitives_cut": 1,
+          "split_pieces": 3
+        },
+        "starboard_mid_s6_ramp_hatch": {
+          "primitives_cut": 1,
+          "split_pieces": 3
+        }
+      },
+      "id": "interior_enclosure:contract_hatch_apertures_cut_enclosure",
+      "report_hatches": 3,
+      "status": "PASS",
+      "zero_cut_hatches": []
     },
     {
       "id": "interior_enclosure:capsule_friendly_smoothness",
@@ -403,7 +437,7 @@
         "COL_MX01_upper_deck_candidate_closed_perimeter_wall_008 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_03",
         "COL_MX01_upper_deck_candidate_closed_perimeter_wall_009 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_03",
         "COL_MX01_upper_deck_candidate_closed_perimeter_wall_037 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_03",
-        "COL_MX01_upper_deck_candidate_wall_detour_return_a_039 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_negative_x_side_upper_landing",
+        "COL_MX01_upper_deck_candidate_wall_detour_return_b_039 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_negative_x_side_upper_landing",
         "COL_MX01_upper_deck_candidate_wall_detour_return_b_044 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_03",
         "COL_MX01_upper_deck_candidate_wall_detour_return_b_045 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_positive_x_side_upper_landing"
       ],
@@ -417,7 +451,7 @@
       "primary_stair_collision_count": 0,
       "stair_tread_count": 38,
       "status": "PASS",
-      "support_shape_count": 53
+      "support_shape_count": 56
     },
     {
       "id": "occupancy:odd_parity_rays",
@@ -517,6 +551,7 @@
         "review_scene": "ships/MX01/generated/scenes/mx01_collision_review.tscn"
       },
       "selected_object_policy": "highest_triangle_count",
+      "ship_contract": "ships/MX01/contracts/mx01_ship_contract.json",
       "ship_id": "MX01",
       "simplification_outputs": {
         "faces_json": "ships/MX01/generated/collision/mx01_boundary_faces_simplified.json",
@@ -549,10 +584,10 @@
       "weld_epsilon": 0.0001
     },
     "path": "ships/MX01/config/mx01_collision_generation.json",
-    "sha256": "2eb99639b8aec89c6ee1a38b41d49e2c720a0ab27e9687a222e222315826b1a5"
+    "sha256": "179f1b519fc19341df18a2c0f47f2a92ec7a159c43712f0c289cec6dee6773d7"
   },
   "counts": {
-    "checks": 47,
+    "checks": 48,
     "failures": 0,
     "warnings": 2
   },
@@ -562,7 +597,7 @@
   "tools": {
     "validate_mx01_collision_static.py": {
       "path": "ships/MX01/tools/validate_mx01_collision_static.py",
-      "sha256": "6f4b17ad888f7cc52c3a517723f28afaacd220a1550e4b71d8e99748942c44c7"
+      "sha256": "51fbae5e72151e067a143916ebfc4f8fced5ec9f8c644d990023a3013e01e396"
     }
   }
 }

@@ -457,6 +457,10 @@ Responsibilities:
 - output semantic enclosure regions such as `player_enclosure_wall`,
   `player_enclosure_ceiling`, `player_enclosure_hatch_cut`, and
   `player_enclosure_opening`;
+- consume `ships/MX01/contracts/mx01_ship_contract.json` for MX01-specific
+  authored intent such as hatch aperture centers, aperture sizes, ramp
+  direction, ramp width, ramp length, and ramp drop. The reusable generator
+  must treat this file as data, not as hardcoded ship logic;
 - export enclosure-only GLB or OBJ assets, JSON contracts, fit metrics, and a
   manifest.
 
@@ -578,6 +582,26 @@ Algorithm path:
   - record generated, rejected, and unresolved leak counts in the report. Stage
     7B is not complete until unresolved exterior leaks are zero in this pass
     and play review confirms the result.
+- **Authored hatch aperture rule:** hatchways are intentional exterior
+  openings, so they are part of Stage 7B enclosure generation rather than a
+  later destructive cut pass. A post-hoc 7C subtraction would invalidate the
+  leak proof unless the validator reran with hatch semantics anyway.
+  - Read hatch apertures from the ship contract. Each hatch declares a stable
+    id, an aperture AABB in ship-local coordinates, and optional ramp metadata.
+  - Apply aperture cuts after ordinary wall/ceiling/leak closure primitive
+    generation by splitting only overlapping enclosure wall/ceiling primitives
+    into deterministic remaining pieces. Do not mutate Stage 7A floor/stair
+    traversal primitives.
+  - Record per-hatch cut metrics: primitives cut, split pieces emitted, and
+    any hatch that cut zero primitives. A zero-cut hatch is either misplaced or
+    points at a section with no enclosure wall and must fail review.
+  - Treat hatch apertures as approved exterior openings in later leak reports:
+    water escaping through a declared hatch is not an accidental enclosure
+    leak, but all other exterior escape paths remain failures.
+  - Generate ramp support surfaces from the same contract as nonblocking
+    walkable support-layer collision, matching stair support behavior. Ramps
+    should not be broad blocking collision walls; they should be traversable
+    surfaces aligned with the hatch threshold.
 - **Ceiling height rule:** ceilings are generated from available vertical
   interior span, not from fixed player clearance. For each traversable ceiling
   region:

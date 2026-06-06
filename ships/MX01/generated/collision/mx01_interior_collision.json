@@ -32,14 +32,14 @@
       {
         "x_max": -2.75,
         "x_min": -4.6,
-        "z_max": 5.2,
-        "z_min": 1.95
+        "z_max": -0.375,
+        "z_min": -3.625
       },
       {
         "x_max": 4.6,
         "x_min": 2.75,
-        "z_max": 5.2,
-        "z_min": 1.95
+        "z_max": 10.775,
+        "z_min": 7.525
       },
       {
         "x_max": -0.925,
@@ -82,9 +82,9 @@
       "tile_count": 29
     },
     {
-      "cutout_cells": 76,
+      "cutout_cells": 80,
       "deck": "upper_deck_candidate",
-      "source_cells": 2479,
+      "source_cells": 2475,
       "tile_count": 32
     }
   ],
@@ -1250,7 +1250,7 @@
       "center": [
         2.75,
         2.69,
-        -16.75
+        -14.0
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1259,7 +1259,7 @@
       "size": [
         0.5,
         0.12,
-        37.5
+        43.0
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1284,7 +1284,7 @@
       "center": [
         -3.25,
         2.69,
-        -15.25
+        -18.0
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1293,7 +1293,7 @@
       "size": [
         0.5,
         0.12,
-        34.5
+        29.0
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1301,7 +1301,7 @@
       "center": [
         3.25,
         2.69,
-        -15.25
+        -12.5
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1310,7 +1310,7 @@
       "size": [
         0.5,
         0.12,
-        34.5
+        40.0
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1318,7 +1318,7 @@
       "center": [
         -2.0,
         2.69,
-        -14.5
+        -17.25
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1327,7 +1327,7 @@
       "size": [
         2.0,
         0.12,
-        33.0
+        27.5
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1335,7 +1335,7 @@
       "center": [
         -3.75,
         2.69,
-        -9.0
+        -11.75
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1344,7 +1344,7 @@
       "size": [
         0.5,
         0.12,
-        22.0
+        16.5
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1352,7 +1352,7 @@
       "center": [
         3.75,
         2.69,
-        -9.0
+        -6.25
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1361,7 +1361,7 @@
       "size": [
         0.5,
         0.12,
-        22.0
+        27.5
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1369,7 +1369,7 @@
       "center": [
         -4.25,
         2.69,
-        -8.0
+        -10.75
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1378,7 +1378,7 @@
       "size": [
         0.5,
         0.12,
-        20.0
+        14.5
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1386,7 +1386,7 @@
       "center": [
         4.25,
         2.69,
-        -8.0
+        -5.25
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1395,7 +1395,7 @@
       "size": [
         0.5,
         0.12,
-        20.0
+        25.5
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1437,7 +1437,7 @@
       "center": [
         -1.75,
         2.69,
-        22.75
+        20.0
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1446,7 +1446,7 @@
       "size": [
         1.5,
         0.12,
-        41.5
+        47.0
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1454,7 +1454,7 @@
       "center": [
         -3.5,
         2.69,
-        11.75
+        9.0
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1463,7 +1463,7 @@
       "size": [
         2.0,
         0.12,
-        13.5
+        19.0
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -1471,7 +1471,7 @@
       "center": [
         3.5,
         2.69,
-        11.75
+        14.75
       ],
       "kind": "box",
       "material": "MX01_PlayerFloor",
@@ -1480,7 +1480,7 @@
       "size": [
         2.0,
         0.12,
-        13.5
+        7.5
       ],
       "source": "occupancy_clipped_deck_component"
     },
@@ -2253,7 +2253,7 @@
       "center": [
         -3.675,
         -0.8,
-        4.625
+        -0.95
       ],
       "kind": "box",
       "material": "MX01_PlayerConnector",
@@ -2270,7 +2270,7 @@
       "center": [
         -3.675,
         2.7,
-        1.775
+        -3.8
       ],
       "kind": "box",
       "material": "MX01_PlayerConnector",
@@ -2287,7 +2287,7 @@
       "center": [
         -3.675,
         -0.12,
-        4.04
+        -1.535
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2304,7 +2304,7 @@
       "center": [
         -3.675,
         0.58,
-        3.62
+        -1.955
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2321,7 +2321,7 @@
       "center": [
         -3.675,
         1.28,
-        3.2
+        -2.375
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2338,7 +2338,7 @@
       "center": [
         -3.675,
         1.98,
-        2.78
+        -2.795
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2355,7 +2355,7 @@
       "center": [
         -3.675,
         2.68,
-        2.36
+        -3.215
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2372,7 +2372,7 @@
       "center": [
         3.675,
         -0.8,
-        1.775
+        7.35
       ],
       "kind": "box",
       "material": "MX01_PlayerConnector",
@@ -2389,7 +2389,7 @@
       "center": [
         3.675,
         2.7,
-        4.625
+        10.2
       ],
       "kind": "box",
       "material": "MX01_PlayerConnector",
@@ -2406,7 +2406,7 @@
       "center": [
         3.675,
         -0.12,
-        2.36
+        7.935
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2423,7 +2423,7 @@
       "center": [
         3.675,
         0.58,
-        2.78
+        8.355
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2440,7 +2440,7 @@
       "center": [
         3.675,
         1.28,
-        3.2
+        8.775
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2457,7 +2457,7 @@
       "center": [
         3.675,
         1.98,
-        3.62
+        9.195
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2474,7 +2474,7 @@
       "center": [
         3.675,
         2.68,
-        4.04
+        9.615
       ],
       "kind": "box",
       "material": "MX01_PlayerStair",
@@ -2705,8 +2705,8 @@
       "cutout": {
         "x_max": -2.75,
         "x_min": -4.6,
-        "z_max": 5.2,
-        "z_min": 1.95
+        "z_max": -0.375,
+        "z_min": -3.625
       },
       "direction": -1,
       "edge_id": "mid_deck_candidate_to_upper_deck_candidate_negative_x_side",
@@ -2721,15 +2721,15 @@
       "x": -3.675,
       "y_from": -0.75,
       "y_to": 2.75,
-      "z_end": 2.15,
-      "z_start": 4.25
+      "z_end": -3.425,
+      "z_start": -1.325
     },
     {
       "cutout": {
         "x_max": 4.6,
         "x_min": 2.75,
-        "z_max": 5.2,
-        "z_min": 1.95
+        "z_max": 10.775,
+        "z_min": 7.525
       },
       "direction": 1,
       "edge_id": "mid_deck_candidate_to_upper_deck_candidate_positive_x_side",
@@ -2744,8 +2744,8 @@
       "x": 3.675,
       "y_from": -0.75,
       "y_to": 2.75,
-      "z_end": 4.25,
-      "z_start": 2.15
+      "z_end": 9.825,
+      "z_start": 7.725
     },
     {
       "cutout": {

@@ -1,0 +1,57 @@
+{
+  "ship_id": "MX01",
+  "schema_version": 1,
+  "hatches": [
+    {
+      "id": "forward_low_cockpit_rear_ramp_hatch",
+      "label": "Rear hatch from lowermost forward cockpit deck",
+      "aperture": {
+        "center": [0.0, -6.9, 46.2],
+        "size": [4.8, 2.2, 1.8]
+      },
+      "ramp": {
+        "axis": "z",
+        "direction": -1,
+        "width": 4.8,
+        "length": 3.5,
+        "drop": 1.15,
+        "thickness": 0.12,
+        "threshold_overlap": 0.70
+      }
+    },
+    {
+      "id": "port_mid_s5_ramp_hatch",
+      "label": "Port main deck hatch beside S5 lower landing",
+      "aperture": {
+        "center": [-6.0, 0.2, 3.2],
+        "size": [1.4, 2.2, 3.3]
+      },
+      "ramp": {
+        "axis": "x",
+        "direction": -1,
+        "width": 3.3,
+        "length": 3.5,
+        "drop": 1.1,
+        "thickness": 0.12,
+        "threshold_overlap": 0.70
+      }
+    },
+    {
+      "id": "starboard_mid_s6_ramp_hatch",
+      "label": "Starboard main deck hatch beside S6 lower landing",
+      "aperture": {
+        "center": [6.0, 0.2, 3.2],
+        "size": [1.4, 2.2, 3.3]
+      },
+      "ramp": {
+        "axis": "x",
+        "direction": 1,
+        "width": 3.3,
+        "length": 3.5,
+        "drop": 1.1,
+        "thickness": 0.12,
+        "threshold_overlap": 0.70
+      }
+    }
+  ]
+}

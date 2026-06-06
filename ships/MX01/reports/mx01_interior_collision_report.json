@@ -38,6 +38,14 @@
         "report_json": "ships/MX01/reports/mx01_interior_collision_report.json",
         "report_md": "ships/MX01/reports/mx01_interior_collision_report.md"
       },
+      "interior_enclosure_outputs": {
+        "collider_obj": "ships/MX01/generated/collision/mx01_interior_enclosure_collider.obj",
+        "enclosure_json": "ships/MX01/generated/collision/mx01_interior_enclosure.json",
+        "enclosure_obj": "ships/MX01/generated/collision/mx01_interior_enclosure.obj",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_interior_enclosure_report.json",
+        "report_md": "ships/MX01/reports/mx01_interior_enclosure_report.md"
+      },
       "interior_volume_outputs": {
         "deck_projection_svg": "ships/MX01/reports/images/mx01_interior_deck_candidates.svg",
         "manifest_json": "ships/MX01/reports/manifests/mx01_interior_volume_manifest.json",
@@ -77,6 +85,7 @@
         "review_scene": "ships/MX01/generated/scenes/mx01_collision_review.tscn"
       },
       "selected_object_policy": "highest_triangle_count",
+      "ship_contract": "ships/MX01/contracts/mx01_ship_contract.json",
       "ship_id": "MX01",
       "simplification_outputs": {
         "faces_json": "ships/MX01/generated/collision/mx01_boundary_faces_simplified.json",
@@ -109,14 +118,14 @@
       "weld_epsilon": 0.0001
     },
     "path": "ships/MX01/config/mx01_collision_generation.json",
-    "sha256": "3344d4fc3175ab1cca7bcdbac44a4084c8ad3b2d362055afcb2ed7ed7f509292"
+    "sha256": "179f1b519fc19341df18a2c0f47f2a92ec7a159c43712f0c289cec6dee6773d7"
   },
   "counts": {
     "collision_objects": 148,
     "connector_landing_objects": 15,
-    "floor_cutout_cells": 164,
+    "floor_cutout_cells": 168,
     "floor_extensions": 1,
-    "floor_source_cells": 6741,
+    "floor_source_cells": 6737,
     "guard_objects": 0,
     "stair_tread_objects": 38,
     "stairwells": 7,
@@ -144,7 +153,7 @@
   "tools": {
     "generate_mx01_interior_collision.py": {
       "path": "ships/MX01/tools/generate_mx01_interior_collision.py",
-      "sha256": "bdcb8410f5f91fbca4ac9c3ae8cb890bcbd4031ed49a20665e5bed08754d7559"
+      "sha256": "06498a168449f07b5a5bba802783cb584fbd28e5dd63ca081d64c37706d0223c"
     },
     "mesh_writer.py": {
       "path": "ships/MX01/tools/mesh_writer.py",

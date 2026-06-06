@@ -44,6 +44,17 @@ def resolve_config_path(config: dict, section: str, key: str) -> Path:
     return ROOT / config[section][key]
 
 
+def resolve_root_path(path: str) -> Path:
+    return ROOT / path
+
+
+def load_ship_contract(config: dict) -> dict:
+    contract_path = config.get("ship_contract")
+    if not contract_path:
+        return {"ship_id": config["ship_id"], "schema_version": 1, "hatches": []}
+    return load_json(resolve_root_path(contract_path))
+
+
 def axis_edges(centers: list[float], voxel_size: float) -> list[float]:
     start = float(centers[0]) - voxel_size * 0.5
     return [round(start + index * voxel_size, 6) for index in range(len(centers) + 1)]
@@ -1303,6 +1314,94 @@ def primitive_clear_of_connectors(primitive: dict, clearances: list[dict]) -> bo
     return True
 
 
+def bounds_from_center_size(center: list[float], size: list[float]) -> dict:
+    cx, cy, cz = [float(value) for value in center]
+    sx, sy, sz = [float(value) for value in size]
+    return {
+        "x_min": cx - sx * 0.5,
+        "x_max": cx + sx * 0.5,
+        "y_min": cy - sy * 0.5,
+        "y_max": cy + sy * 0.5,
+        "z_min": cz - sz * 0.5,
+        "z_max": cz + sz * 0.5,
+    }
+
+
+def primitive_from_bounds(template: dict, bounds: dict, name: str) -> dict:
+    primitive = dict(template)
+    primitive["name"] = name
+    primitive["center"] = [
+        round((bounds["x_min"] + bounds["x_max"]) * 0.5, 6),
+        round((bounds["y_min"] + bounds["y_max"]) * 0.5, 6),
+        round((bounds["z_min"] + bounds["z_max"]) * 0.5, 6),
+    ]
+    primitive["size"] = [
+        round(bounds["x_max"] - bounds["x_min"], 6),
+        round(bounds["y_max"] - bounds["y_min"], 6),
+        round(bounds["z_max"] - bounds["z_min"], 6),
+    ]
+    return primitive
+
+
+def split_primitive_around_aperture(primitive: dict, aperture: dict) -> tuple[list[dict], bool]:
+    if primitive.get("role") not in {"player_enclosure_wall_collider", "player_enclosure_ceiling_collider"}:
+        return [primitive], False
+    if abs(float(primitive.get("rotation_y", 0.0))) > 0.0001:
+        return [primitive], False
+    primitive_bounds = bounds_from_center_size(primitive["center"], primitive["size"])
+    aperture_bounds = bounds_from_center_size(aperture["center"], aperture["size"])
+    overlap = aabb_overlap_amount(primitive_bounds, aperture_bounds)
+    if overlap is None or overlap[0] <= 0.03 or overlap[1] <= 0.03 or overlap[2] <= 0.03:
+        return [primitive], False
+
+    ix0 = max(primitive_bounds["x_min"], aperture_bounds["x_min"])
+    ix1 = min(primitive_bounds["x_max"], aperture_bounds["x_max"])
+    iy0 = max(primitive_bounds["y_min"], aperture_bounds["y_min"])
+    iy1 = min(primitive_bounds["y_max"], aperture_bounds["y_max"])
+    iz0 = max(primitive_bounds["z_min"], aperture_bounds["z_min"])
+    iz1 = min(primitive_bounds["z_max"], aperture_bounds["z_max"])
+    pieces = [
+        {"x_min": primitive_bounds["x_min"], "x_max": ix0, "y_min": primitive_bounds["y_min"], "y_max": primitive_bounds["y_max"], "z_min": primitive_bounds["z_min"], "z_max": primitive_bounds["z_max"]},
+        {"x_min": ix1, "x_max": primitive_bounds["x_max"], "y_min": primitive_bounds["y_min"], "y_max": primitive_bounds["y_max"], "z_min": primitive_bounds["z_min"], "z_max": primitive_bounds["z_max"]},
+        {"x_min": ix0, "x_max": ix1, "y_min": primitive_bounds["y_min"], "y_max": iy0, "z_min": primitive_bounds["z_min"], "z_max": primitive_bounds["z_max"]},
+        {"x_min": ix0, "x_max": ix1, "y_min": iy1, "y_max": primitive_bounds["y_max"], "z_min": primitive_bounds["z_min"], "z_max": primitive_bounds["z_max"]},
+        {"x_min": ix0, "x_max": ix1, "y_min": iy0, "y_max": iy1, "z_min": primitive_bounds["z_min"], "z_max": iz0},
+        {"x_min": ix0, "x_max": ix1, "y_min": iy0, "y_max": iy1, "z_min": iz1, "z_max": primitive_bounds["z_max"]},
+    ]
+    kept = []
+    min_thickness = 0.05
+    for index, piece in enumerate(pieces, start=1):
+        if piece["x_max"] - piece["x_min"] < min_thickness or piece["y_max"] - piece["y_min"] < min_thickness or piece["z_max"] - piece["z_min"] < min_thickness:
+            continue
+        split = primitive_from_bounds(primitive, piece, f"{primitive['name']}_hatch_split_{index:02d}")
+        split["hatch_split_from"] = primitive["name"]
+        split["hatch_aperture"] = aperture["id"]
+        kept.append(split)
+    return kept, True
+
+
+def apply_hatch_aperture_cuts(collision_primitives: list[dict], contract: dict) -> tuple[list[dict], dict]:
+    apertures = [
+        {"id": hatch["id"], "center": hatch["aperture"]["center"], "size": hatch["aperture"]["size"]}
+        for hatch in contract.get("hatches", [])
+    ]
+    metrics = {aperture["id"]: {"primitives_cut": 0, "split_pieces": 0} for aperture in apertures}
+    output = []
+    for primitive in collision_primitives:
+        pieces = [primitive]
+        for aperture in apertures:
+            next_pieces = []
+            for piece in pieces:
+                split_pieces, did_cut = split_primitive_around_aperture(piece, aperture)
+                if did_cut:
+                    metrics[aperture["id"]]["primitives_cut"] += 1
+                    metrics[aperture["id"]]["split_pieces"] += len(split_pieces)
+                next_pieces.extend(split_pieces)
+            pieces = next_pieces
+        output.extend(pieces)
+    return output, {"hatches": len(apertures), "apertures": metrics}
+
+
 def stair_cutaway_horizontal_closure_primitives(collision_primitives: list[dict], collision: dict, config: dict) -> list[dict]:
     wall_primitives = [primitive for primitive in collision_primitives if primitive.get("role") == "player_enclosure_wall_collider"]
     connector_clearances = stair_detour_clearances(collision) + stair_route_headroom_clearances(collision, config)
@@ -2027,6 +2126,7 @@ def write_collider_obj(path: Path, primitives: list[dict]) -> dict:
 
 def generate(config: dict, occupancy: dict, graph: dict, collision: dict) -> tuple[dict, dict]:
     epsilon = float(config["vertex_quantization_epsilon"])
+    ship_contract = load_ship_contract(config)
     interval_map = build_interval_map(occupancy)
     inside = build_inside_set(occupancy)
     keepouts = connector_keepouts(collision, config)
@@ -2075,6 +2175,7 @@ def generate(config: dict, occupancy: dict, graph: dict, collision: dict) -> tup
     collision_primitives.extend(stair_cutaway_horizontal_closure_primitives(collision_primitives, collision, config))
     global_leak_closures, global_leak_metrics = global_leak_closure_primitives(collision_primitives, collision, occupancy, inside, config)
     collision_primitives.extend(global_leak_closures)
+    collision_primitives, hatch_metrics = apply_hatch_aperture_cuts(collision_primitives, ship_contract)
     stair_route_metrics = stair_route_obstruction_metrics(collision_primitives, collision, config)
     stair_movement_metrics = stair_movement_probe_metrics(collision_primitives, collision, config)
     filtered_objects: list[dict] = []
@@ -2115,6 +2216,7 @@ def generate(config: dict, occupancy: dict, graph: dict, collision: dict) -> tup
             "connector_side_guards": False,
             "stair_cutaway_horizontal_closures": True,
             "global_leak_closures": True,
+            "hatch_apertures": ship_contract.get("hatches", []),
         },
     }
     role_counts: dict[str, int] = {}
@@ -2148,6 +2250,8 @@ def generate(config: dict, occupancy: dict, graph: dict, collision: dict) -> tup
             "hull_wall_detour_return_primitives": sum(1 for obj in collision_primitives if obj.get("source") == "controller_safe_hull_wall_detour_return"),
             "stair_cutaway_horizontal_closure_primitives": sum(1 for obj in collision_primitives if obj.get("source") == "controller_safe_stair_cutaway_horizontal_closure"),
             "global_leak_closure_primitives": sum(1 for obj in collision_primitives if obj.get("source") == "controller_safe_global_leak_closure"),
+            "hatch_apertures": hatch_metrics["hatches"],
+            "hatch_split_primitives": sum(1 for obj in collision_primitives if "hatch_split_from" in obj),
             "stair_side_guard_primitives": 0,
         },
         "area_by_role_m2": dict(sorted(area_by_role.items())),
@@ -2166,6 +2270,7 @@ def generate(config: dict, occupancy: dict, graph: dict, collision: dict) -> tup
             "uncovered_exterior_edges": 0,
         },
         "global_leak_closure": global_leak_metrics,
+        "hatch_apertures": hatch_metrics,
         "stair_route_obstructions": stair_route_metrics,
         "stair_movement_probe": stair_movement_metrics,
         "smoothness": smoothness,
@@ -2204,6 +2309,8 @@ def write_markdown(path: Path, report: dict) -> None:
         f"- Hull wall detour return primitives: `{report['counts']['hull_wall_detour_return_primitives']}`",
         f"- Stair cutaway horizontal closure primitives: `{report['counts']['stair_cutaway_horizontal_closure_primitives']}`",
         f"- Global leak closure primitives: `{report['counts']['global_leak_closure_primitives']}`",
+        f"- Hatch apertures: `{report['counts'].get('hatch_apertures', 0)}`",
+        f"- Hatch split primitives: `{report['counts'].get('hatch_split_primitives', 0)}`",
         f"- Stair side guard primitives: `{report['counts']['stair_side_guard_primitives']}`",
         f"- Collider OBJ primitive boxes: `{report.get('collider_obj_counts', {}).get('primitive_boxes', 0)}`",
         f"- Collider OBJ faces: `{report.get('collider_obj_counts', {}).get('faces', 0)}`",
@@ -2235,9 +2342,16 @@ def write_markdown(path: Path, report: dict) -> None:
         f"- Max adjacent normal delta: `{report['smoothness']['max_adjacent_normal_delta_degrees']}`",
         f"- Wall-slide snag count: `{report['smoothness']['wall_slide_snag_count']}`",
         "",
-        "## Area By Role",
+        "## Hatch Apertures",
         "",
     ]
+    for hatch_id, metrics in report.get("hatch_apertures", {}).get("apertures", {}).items():
+        lines.append(f"- `{hatch_id}`: cut `{metrics['primitives_cut']}` primitives, emitted `{metrics['split_pieces']}` split pieces")
+    lines.extend([
+        "",
+        "## Area By Role",
+        "",
+    ])
     for role, area in report["area_by_role_m2"].items():
         lines.append(f"- `{role}`: `{area}` m2")
     lines.extend(["", "## Notes", "", report["notes"]])

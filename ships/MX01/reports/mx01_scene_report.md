@@ -5,17 +5,19 @@
 - Status: `PASS`
 - Stair walkable support shapes: `53`
 - Stair transition support aprons: `7`
-- Stair transition floor keepout shapes: `19`
+- Hatch ramp support shapes: `3`
+- Visible hatch ramp meshes: `3`
+- Stair transition floor keepout shapes: `18`
 
 ## Referenced Artifacts
 
 - `ships/MX01/source/mx01_normalized_skin.obj` sha256=`9558dd1c2fee857c58ba6792c2961c7b9b8e171c350c1d42528bf2c0a132cfca`
 - `ships/MX01/generated/collision/mx01_boundary_surface_simplified.obj` sha256=`e4239e3e1b241deccf3c6a0dba4879f85ac6f5d20521dc07998fb86661cac64b`
-- `ships/MX01/generated/collision/mx01_interior_collision.obj` sha256=`307c6ffa9a5bd8861101275c04d8954305f85cd9904b053c9a33da2690958fa2`
-- `ships/MX01/generated/collision/mx01_interior_enclosure.obj` sha256=`9f29e7ca69104b3a7567fcb001ef3d37d9aac25299d6e27f66e2c680dd8c2b79`
+- `ships/MX01/generated/collision/mx01_interior_collision.obj` sha256=`3154417eb95b6267514e5692c25f395525d14328b5d745ba825c9746a7b4e876`
+- `ships/MX01/generated/collision/mx01_interior_enclosure.obj` sha256=`2efc57e27a92bb4e7400abc33f6b9150a33b7d6d0a376a58f2503cfdd15f9fcc`
 - `ships/MX01/generated/collision/mx01_dynamic_collision.obj` sha256=`c36054c1d05bdb3ce952d737321b5a9a5b1f1540754a74094c8ec8296bf7875b`
-- `ships/MX01/generated/collision/mx01_interior_collision.json` sha256=`74874d89386192ae51e93b4f54b73157d9497e804eb297038589bd2e821bebb4`
-- `ships/MX01/generated/collision/mx01_interior_enclosure.json` sha256=`d9ab1a181fb6955e34578ba1a5d0f72c37aad52403051a1e0c7b576950d76460`
+- `ships/MX01/generated/collision/mx01_interior_collision.json` sha256=`7c1765a969d2e0b62b659a1af030e6b7299f1d2eae24e2e422e535dafad332f1`
+- `ships/MX01/generated/collision/mx01_interior_enclosure.json` sha256=`888032e0aa42a6b371f59a1905df82db3a1fa8d1d1519f16b388400672928843`
 
 ## Notes
 

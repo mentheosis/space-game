@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 
 
@@ -41,6 +42,17 @@ def write_json(path: Path, payload: dict) -> None:
 
 def resolve_config_path(config: dict, section: str, key: str) -> Path:
     return ROOT / config[section][key]
+
+
+def resolve_root_path(path: str) -> Path:
+    return ROOT / path
+
+
+def load_ship_contract(config: dict) -> dict:
+    contract_path = config.get("ship_contract")
+    if not contract_path:
+        return {"ship_id": config["ship_id"], "schema_version": 1, "hatches": []}
+    return load_json(resolve_root_path(contract_path))
 
 
 def fmt(value: float) -> str:
@@ -195,6 +207,46 @@ def primary_collision_scene_objects(collision: dict, aprons: list[dict]) -> list
     return objects
 
 
+def hatch_ramp_supports(contract: dict) -> list[dict]:
+    ramps = []
+    for hatch in contract.get("hatches", []):
+        ramp = hatch.get("ramp")
+        if not ramp:
+            continue
+        aperture = hatch["aperture"]
+        center = [float(value) for value in aperture["center"]]
+        size = [float(value) for value in aperture["size"]]
+        axis = ramp["axis"]
+        direction = float(ramp["direction"])
+        width = float(ramp["width"])
+        length = float(ramp["length"])
+        drop = float(ramp["drop"])
+        thickness = float(ramp["thickness"])
+        threshold_overlap = float(ramp.get("threshold_overlap", 0.0))
+        start_y = center[1] - size[1] * 0.5 + 0.15
+        angle = math.atan2(drop, length)
+        if axis == "z":
+            ramp_center = [center[0], start_y - drop * 0.5 - thickness * 0.5, center[2] + direction * (size[2] * 0.5 + length * 0.5 - threshold_overlap)]
+            ramp_size = [width, thickness, length]
+            rotation = [direction * angle, 0.0, 0.0]
+        elif axis == "x":
+            ramp_center = [center[0] + direction * (size[0] * 0.5 + length * 0.5 - threshold_overlap), start_y - drop * 0.5 - thickness * 0.5, center[2]]
+            ramp_size = [length, thickness, width]
+            rotation = [0.0, 0.0, -direction * angle]
+        else:
+            raise ValueError(f"Unsupported ramp axis for hatch {hatch['id']}: {axis}")
+        ramps.append(
+            {
+                "name": f"COL_MX01_{hatch['id']}_ramp_support",
+                "center": [round(value, 6) for value in ramp_center],
+                "size": [round(value, 6) for value in ramp_size],
+                "rotation": [round(value, 6) for value in rotation],
+                "threshold_overlap": round(threshold_overlap, 6),
+            }
+        )
+    return ramps
+
+
 def write_scene(path: Path, config: dict) -> None:
     normalized = config["normalization_outputs"]["normalized_obj"]
     boundary = config["simplification_outputs"]["simplified_obj"]
@@ -250,6 +302,8 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
     # Keep the player clear of the lower-to-mid connector footprint.
     player_spawn = [8.0, ship_world_y - 3.45, -36.5]
     enclosure_primitives = enclosure.get("collision_primitives", [])
+    ship_contract = load_ship_contract(config)
+    ramp_supports = hatch_ramp_supports(ship_contract)
     stair_support_objects = [obj for obj in collision["objects"] if obj["role"] in {"player_connector_landing", "player_connector_stair_tread"}]
     stair_support_aprons = stair_transition_support_aprons(collision, config)
     primary_objects = primary_collision_scene_objects(collision, stair_support_aprons)
@@ -258,7 +312,7 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
         1 for obj in collision["objects"] if overlaps_stair_transition_keepout(obj, stair_support_aprons)
     )
     lines = [
-        f'[gd_scene load_steps={11 + len(collision["objects"]) + len(split_primary_objects) + len(stair_support_aprons) + len(enclosure_primitives)} format=3]',
+        f'[gd_scene load_steps={12 + len(collision["objects"]) + len(split_primary_objects) + len(stair_support_aprons) + (len(ramp_supports) * 2) + len(enclosure_primitives)} format=3]',
         '',
         '[ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]',
         '[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]',
@@ -273,6 +327,10 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
         'transparency = 1',
         'albedo_color = Color(0.16, 0.82, 1, 0.72)',
         'roughness = 0.8',
+        '',
+        '[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hatch_ramp"]',
+        'albedo_color = Color(0.86, 0.78, 0.58, 1)',
+        'roughness = 0.72',
         '',
         '[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_space"]',
         'sky_top_color = Color(0.004, 0.008, 0.02, 1)',
@@ -320,6 +378,24 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
                 '',
             ]
         )
+    for index, obj in enumerate(ramp_supports, start=1):
+        sx, sy, sz = obj["size"]
+        lines.extend(
+            [
+                f'[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_hatch_ramp_support_{index}"]',
+                f'size = Vector3({sx}, {sy}, {sz})',
+                '',
+            ]
+        )
+    for index, obj in enumerate(ramp_supports, start=1):
+        sx, sy, sz = obj["size"]
+        lines.extend(
+            [
+                f'[sub_resource type="BoxMesh" id="BoxMesh_mx01_hatch_ramp_visual_{index}"]',
+                f'size = Vector3({sx}, {sy}, {sz})',
+                '',
+            ]
+        )
     for index, obj in enumerate(split_primary_objects, start=1):
         sx, sy, sz = obj["size"]
         lines.extend(
@@ -357,12 +433,28 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
             'visible = false',
             'mesh = ExtResource("7_dynamic_mesh")',
             '',
+            '[node name="HatchRampVisuals" type="Node3D" parent="ShipRoot"]',
+            '',
             '[node name="InteriorCollisionBody" type="StaticBody3D" parent="ShipRoot"]',
             'collision_layer = 1',
             'collision_mask = 1',
             '',
         ]
     )
+    for index, obj in enumerate(ramp_supports, start=1):
+        cx, cy, cz = obj["center"]
+        rx, ry, rz = obj["rotation"]
+        visual_name = obj["name"].replace("COL_MX01_", "VIS_MX01_")
+        lines.extend(
+            [
+                f'[node name="{visual_name}" type="MeshInstance3D" parent="ShipRoot/HatchRampVisuals"]',
+                f'position = Vector3({cx}, {cy}, {cz})',
+                f'rotation = Vector3({rx}, {ry}, {rz})',
+                f'mesh = SubResource("BoxMesh_mx01_hatch_ramp_visual_{index}")',
+                'material_override = SubResource("StandardMaterial3D_hatch_ramp")',
+                '',
+            ]
+        )
     original_shape_index_by_name = {obj["name"]: index for index, obj in enumerate(collision["objects"], start=1)}
     split_shape_index_by_name = {obj["name"]: index for index, obj in enumerate(split_primary_objects, start=1)}
     for obj in primary_objects:
@@ -407,6 +499,18 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
                 f'[node name="{obj["name"]}" type="CollisionShape3D" parent="ShipRoot/WalkableSupportSurfaces"]',
                 f'position = Vector3({cx}, {cy}, {cz})',
                 f'shape = SubResource("BoxShape3D_mx01_stair_support_apron_{index}")',
+                '',
+            ]
+        )
+    for index, obj in enumerate(ramp_supports, start=1):
+        cx, cy, cz = obj["center"]
+        rx, ry, rz = obj["rotation"]
+        lines.extend(
+            [
+                f'[node name="{obj["name"]}" type="CollisionShape3D" parent="ShipRoot/WalkableSupportSurfaces"]',
+                f'position = Vector3({cx}, {cy}, {cz})',
+                f'rotation = Vector3({rx}, {ry}, {rz})',
+                f'shape = SubResource("BoxShape3D_mx01_hatch_ramp_support_{index}")',
                 '',
             ]
         )
@@ -466,6 +570,8 @@ def write_markdown(path: Path, report: dict) -> None:
         f"- Status: `{report['status']}`",
         f"- Stair walkable support shapes: `{report.get('counts', {}).get('stair_walkable_support_shapes', 0)}`",
         f"- Stair transition support aprons: `{report.get('counts', {}).get('stair_transition_support_aprons', 0)}`",
+        f"- Hatch ramp support shapes: `{report.get('counts', {}).get('hatch_ramp_support_shapes', 0)}`",
+        f"- Visible hatch ramp meshes: `{report.get('counts', {}).get('visible_hatch_ramp_meshes', 0)}`",
         f"- Stair transition floor keepout shapes: `{report.get('counts', {}).get('stair_transition_floor_keepout_shapes', 0)}`",
         "",
         "## Referenced Artifacts",
@@ -497,8 +603,10 @@ def main() -> int:
     collision = load_json(collision_path)
     enclosure = load_json(enclosure_path)
     write_playable_scene(playable_scene_path, config, collision, enclosure)
+    ship_contract = load_ship_contract(config)
     stair_support_count = sum(1 for obj in collision["objects"] if obj["role"] in {"player_connector_landing", "player_connector_stair_tread"})
     stair_support_apron_count = len(stair_transition_support_aprons(collision, config))
+    hatch_ramp_support_count = len(hatch_ramp_supports(ship_contract))
     primary_objects = primary_collision_scene_objects(collision, stair_transition_support_aprons(collision, config))
     stair_transition_floor_keepout_count = sum(
         1 for obj in collision["objects"] if overlaps_stair_transition_keepout(obj, stair_transition_support_aprons(collision, config))
@@ -519,6 +627,8 @@ def main() -> int:
         "counts": {
             "stair_walkable_support_shapes": stair_support_count,
             "stair_transition_support_aprons": stair_support_apron_count,
+            "hatch_ramp_support_shapes": hatch_ramp_support_count,
+            "visible_hatch_ramp_meshes": hatch_ramp_support_count,
             "stair_transition_floor_keepout_shapes": stair_transition_floor_keepout_count,
             "split_primary_floor_shapes": sum(1 for obj in primary_objects if "split_from" in obj),
         },

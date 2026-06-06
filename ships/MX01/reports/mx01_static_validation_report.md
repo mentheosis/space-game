@@ -1,7 +1,7 @@
 # MX01 Static Validation Report
 
 - Status: `PASS`
-- Checks: `47`
+- Checks: `48`
 - Failures: `0`
 - Warnings: `2`
 

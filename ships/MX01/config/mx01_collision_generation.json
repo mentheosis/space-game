@@ -36,6 +36,7 @@
     "source_face_index",
     "vertex_xyz"
   ],
+  "ship_contract": "ships/MX01/contracts/mx01_ship_contract.json",
   "normalization_outputs": {
     "normalized_obj": "ships/MX01/source/mx01_normalized_skin.obj",
     "audit_json": "ships/MX01/reports/mx01_source_audit.json",

@@ -4,8 +4,8 @@
 - Status: `PASS`
 - Collision objects: `148`
 - Walkable floor tiles: `95`
-- Floor source cells: `6741`
-- Floor cutout cells: `164`
+- Floor source cells: `6737`
+- Floor cutout cells: `168`
 - Floor extensions: `1`
 - Connector landings: `15`
 - Stair treads: `38`

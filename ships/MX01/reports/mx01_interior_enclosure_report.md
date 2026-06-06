@@ -5,22 +5,24 @@
 - Enclosure objects: `20`
 - Wall objects: `16`
 - Ceiling objects: `4`
-- Vertices: `5300`
-- Triangles: `7300`
+- Vertices: `5287`
+- Triangles: `7296`
 - Raw candidate objects: `37`
 - Removed fragments: `7`
-- Removed keepout faces: `10`
+- Removed keepout faces: `8`
 - Connector keepouts: `53`
-- Collision primitives: `7286`
-- Wall collision primitives: `2818`
-- Ceiling collision primitives: `4468`
-- Hull wall detour primitives: `50`
+- Collision primitives: `7288`
+- Wall collision primitives: `2821`
+- Ceiling collision primitives: `4467`
+- Hull wall detour primitives: `51`
 - Hull wall detour return primitives: `22`
-- Stair cutaway horizontal closure primitives: `9`
+- Stair cutaway horizontal closure primitives: `8`
 - Global leak closure primitives: `4996`
+- Hatch apertures: `3`
+- Hatch split primitives: `11`
 - Stair side guard primitives: `0`
-- Collider OBJ primitive boxes: `7286`
-- Collider OBJ faces: `43716`
+- Collider OBJ primitive boxes: `7288`
+- Collider OBJ faces: `43728`
 - Floor-edge polygon floor cells: `6937`
 - Floor-edge polygon wall cells: `6937`
 - Floor-edge polygon exterior edges: `910`
@@ -49,10 +51,16 @@
 - Max adjacent normal delta: `61.481667`
 - Wall-slide snag count: `0`
 
+## Hatch Apertures
+
+- `forward_low_cockpit_rear_ramp_hatch`: cut `7` primitives, emitted `5` split pieces
+- `port_mid_s5_ramp_hatch`: cut `1` primitives, emitted `3` split pieces
+- `starboard_mid_s6_ramp_hatch`: cut `1` primitives, emitted `3` split pieces
+
 ## Area By Role
 
-- `player_enclosure_ceiling`: `443.390078` m2
-- `player_enclosure_wall`: `998.150565` m2
+- `player_enclosure_ceiling`: `442.403027` m2
+- `player_enclosure_wall`: `997.900032` m2
 
 ## Notes
 

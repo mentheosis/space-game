@@ -40,6 +40,17 @@ def resolve_config_path(config: dict, section: str, key: str) -> Path:
     return ROOT / config[section][key]
 
 
+def resolve_root_path(path: str) -> Path:
+    return ROOT / path
+
+
+def load_ship_contract(config: dict) -> dict:
+    contract_path = config.get("ship_contract")
+    if not contract_path:
+        return {"ship_id": config["ship_id"], "schema_version": 1, "hatches": []}
+    return load_json(resolve_root_path(contract_path))
+
+
 def connector_keepouts(interior_collision: dict, config: dict) -> list[dict]:
     radius = float(config["player_capsule_radius"]) + float(config["player_clearance_margin"])
     height = float(config["player_capsule_height"]) + float(config["player_clearance_margin"])
@@ -345,10 +356,51 @@ def wall_covers_edge(primitive: dict, edge: tuple[int, int, str], deck_y: float,
     return False
 
 
-def check_exact_floor_edge_wall_coverage(enclosure: dict, interior_collision: dict, occupancy: dict, traversal: dict) -> dict:
+def hatch_aperture_bounds(contract: dict) -> list[dict]:
+    apertures = []
+    for hatch in contract.get("hatches", []):
+        center = [float(value) for value in hatch["aperture"]["center"]]
+        size = [float(value) for value in hatch["aperture"]["size"]]
+        apertures.append(
+            {
+                "id": hatch["id"],
+                "x_min": center[0] - size[0] * 0.5,
+                "x_max": center[0] + size[0] * 0.5,
+                "y_min": center[1] - size[1] * 0.5,
+                "y_max": center[1] + size[1] * 0.5,
+                "z_min": center[2] - size[2] * 0.5,
+                "z_max": center[2] + size[2] * 0.5,
+            }
+        )
+    return apertures
+
+
+def edge_inside_hatch_aperture(edge: tuple[int, int, str], deck_y: float, x_edges: list[float], z_edges: list[float], apertures: list[dict]) -> str | None:
+    line, index, direction = edge
+    epsilon = 0.08
+    for aperture in apertures:
+        if not (aperture["y_min"] - epsilon <= deck_y <= aperture["y_max"] + epsilon):
+            continue
+        if direction.startswith("x_"):
+            x = float(x_edges[line])
+            z0 = float(z_edges[index])
+            z1 = float(z_edges[index + 1])
+            if aperture["x_min"] - epsilon <= x <= aperture["x_max"] + epsilon and z1 > aperture["z_min"] + epsilon and z0 < aperture["z_max"] - epsilon:
+                return aperture["id"]
+        else:
+            z = float(z_edges[line])
+            x0 = float(x_edges[index])
+            x1 = float(x_edges[index + 1])
+            if aperture["z_min"] - epsilon <= z <= aperture["z_max"] + epsilon and x1 > aperture["x_min"] + epsilon and x0 < aperture["x_max"] - epsilon:
+                return aperture["id"]
+    return None
+
+
+def check_exact_floor_edge_wall_coverage(enclosure: dict, interior_collision: dict, occupancy: dict, traversal: dict, contract: dict) -> dict:
     x_edges = axis_edges(occupancy["axis_centers"]["x"], float(occupancy["voxel_size"]))
     z_edges = axis_edges(occupancy["axis_centers"]["z"], float(occupancy["voxel_size"]))
     inside = build_inside_set(occupancy)
+    hatch_apertures = hatch_aperture_bounds(contract)
     deck_nodes = sorted((node for node in traversal["nodes"] if node["kind"] == "deck"), key=lambda node: node["id"])
     wall_primitives = [primitive for primitive in enclosure.get("collision_primitives", []) if primitive["role"] == "player_enclosure_wall_collider"]
     deck_footprints = {
@@ -358,6 +410,8 @@ def check_exact_floor_edge_wall_coverage(enclosure: dict, interior_collision: di
     total_edges = 0
     covered_edges = 0
     balcony_edges = 0
+    approved_hatch_edges = 0
+    approved_hatch_edges_by_id: dict[str, int] = {}
     uncovered_samples: list[dict] = []
     deck_metrics = []
     for deck in deck_nodes:
@@ -378,20 +432,36 @@ def check_exact_floor_edge_wall_coverage(enclosure: dict, interior_collision: di
             if neighbor in lower_cells and cell_inside_hull_at_height(neighbor, balcony_test_y, occupancy, inside):
                 deck_balcony += 1
                 continue
+            hatch_id = edge_inside_hatch_aperture(edge, deck_y, x_edges, z_edges, hatch_apertures)
+            if hatch_id:
+                approved_hatch_edges += 1
+                approved_hatch_edges_by_id[hatch_id] = approved_hatch_edges_by_id.get(hatch_id, 0) + 1
+                continue
             if any(wall_covers_edge(primitive, edge, float(deck["center"][1]), x_edges, z_edges) for primitive in deck_walls):
                 deck_covered += 1
             elif len(uncovered_samples) < 20:
                 uncovered_samples.append({"deck": deck_id, "edge": [edge[0], edge[1], edge[2]]})
-        ship_edges = len(edges) - deck_balcony
+        deck_approved_hatch_edges = sum(
+            1
+            for edge in edges
+            if not (
+                edge_neighbor_cell(edge) in lower_cells
+                and cell_inside_hull_at_height(edge_neighbor_cell(edge), balcony_test_y, occupancy, inside)
+            )
+            and edge_inside_hatch_aperture(edge, deck_y, x_edges, z_edges, hatch_apertures)
+        )
+        ship_edges = len(edges) - deck_balcony - deck_approved_hatch_edges
         total_edges += ship_edges
         covered_edges += deck_covered
         balcony_edges += deck_balcony
-        deck_metrics.append({"deck": deck_id, "floor_cells": len(floor_cells), "ship_edge_boundary_edges": ship_edges, "interior_balcony_edges": deck_balcony, "covered_edges": deck_covered, "wall_primitives": len(deck_walls)})
+        deck_metrics.append({"deck": deck_id, "floor_cells": len(floor_cells), "ship_edge_boundary_edges": ship_edges, "interior_balcony_edges": deck_balcony, "approved_hatch_edges": deck_approved_hatch_edges, "covered_edges": deck_covered, "wall_primitives": len(deck_walls)})
     return {
         "total_edges": total_edges,
         "covered_edges": covered_edges,
         "uncovered_edges": total_edges - covered_edges,
         "interior_balcony_edges": balcony_edges,
+        "approved_hatch_edges": approved_hatch_edges,
+        "approved_hatch_edges_by_id": dict(sorted(approved_hatch_edges_by_id.items())),
         "deck_metrics": deck_metrics,
         "uncovered_samples": uncovered_samples,
     }
@@ -496,6 +566,7 @@ def main() -> int:
 
     config_path = args.config.resolve()
     config = load_json(config_path)
+    ship_contract = load_ship_contract(config)
     checks: list[dict] = []
 
     required_sections = [
@@ -638,7 +709,7 @@ def main() -> int:
             "closure": closure,
         }
     )
-    exact_coverage = check_exact_floor_edge_wall_coverage(enclosure, interior_collision, occupancy, traversal)
+    exact_coverage = check_exact_floor_edge_wall_coverage(enclosure, interior_collision, occupancy, traversal, ship_contract)
     checks.append(
         {
             "id": "interior_enclosure:exact_stage7a_floor_edges_covered",
@@ -648,6 +719,18 @@ def main() -> int:
             and closure.get("route_reserved_edges", 0) == 0
             else "FAIL",
             "coverage": exact_coverage,
+        }
+    )
+    hatch_metrics = enclosure_report.get("hatch_apertures", {}).get("apertures", {})
+    zero_cut_hatches = [hatch_id for hatch_id, metrics in sorted(hatch_metrics.items()) if metrics.get("primitives_cut", 0) == 0]
+    checks.append(
+        {
+            "id": "interior_enclosure:contract_hatch_apertures_cut_enclosure",
+            "status": "PASS" if enclosure_report.get("hatch_apertures", {}).get("hatches", 0) == len(ship_contract.get("hatches", [])) and not zero_cut_hatches else "FAIL",
+            "contract_hatches": len(ship_contract.get("hatches", [])),
+            "report_hatches": enclosure_report.get("hatch_apertures", {}).get("hatches", 0),
+            "zero_cut_hatches": zero_cut_hatches,
+            "hatch_metrics": hatch_metrics,
         }
     )
     smoothness = enclosure_report["smoothness"]

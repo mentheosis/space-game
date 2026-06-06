@@ -409,8 +409,9 @@ def supplemental_stair_specs(graph: dict, nodes_by_id: dict[str, dict]) -> list[
         overlap = mid_upper["overlap"]
         side_width = 1.55
         side_landing_depth = 0.75
-        side_z_start = float(mid_upper["connector_center"][2])
-        side_total_run = max(5, int(math.ceil(float(mid_upper["vertical_delta"]) / 0.7))) * 0.42
+        side_hatch_z = 3.2
+        negative_side_lower_landing_z = side_hatch_z - 4.15
+        positive_side_lower_landing_z = side_hatch_z + 4.15
         x_left = float(overlap["x_min"]) + side_width * 0.5 + 0.3
         x_right = float(overlap["x_max"]) - side_width * 0.5 - 0.3
         cutout_bounds = (float(overlap["z_min"]) + 0.05, float(overlap["z_max"]) - 0.05)
@@ -421,7 +422,7 @@ def supplemental_stair_specs(graph: dict, nodes_by_id: dict[str, dict]) -> list[
                     from_node,
                     to_node,
                     x_left,
-                    side_z_start,
+                    negative_side_lower_landing_z - side_landing_depth * 0.5,
                     -1.0,
                     side_width,
                     side_landing_depth,
@@ -433,7 +434,7 @@ def supplemental_stair_specs(graph: dict, nodes_by_id: dict[str, dict]) -> list[
                     from_node,
                     to_node,
                     x_right,
-                    side_z_start - side_total_run,
+                    positive_side_lower_landing_z + side_landing_depth * 0.5,
                     1.0,
                     side_width,
                     side_landing_depth,
