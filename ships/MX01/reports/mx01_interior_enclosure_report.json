@@ -235,6 +235,8 @@
     "leak_source_cells": 11004,
     "method": "water_flood_fill_connected_leak_detection",
     "rejected_primitives": 0,
+    "route_clearance_adjusted_primitives": 34,
+    "route_clearance_adjustment_steps": 55,
     "solid_cells": 23671,
     "unanchored_vertical_faces": 9449,
     "unresolved_faces": 0,
@@ -268,61 +270,15 @@
     "traversal_graph_sha256": "d474f57e2ae0f57ba080cf99b39b174eba7bfd94d9004ab84bda5e69d7410aa5"
   },
   "stair_movement_probe": {
-    "blocked_by_group": {
-      "mid_deck_candidate_to_upper_deck_candidate_cockpit_forward": [
-        "COL_MX01_global_leak_horizontal_closure_2518 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_upper_landing",
-        "COL_MX01_global_leak_horizontal_closure_2519 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_upper_landing",
-        "COL_MX01_global_leak_horizontal_closure_2519 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_stair_tread_05",
-        "COL_MX01_global_leak_horizontal_closure_2521 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_stair_tread_05"
-      ]
-    },
-    "blocked_groups": 1,
+    "blocked_by_group": {},
+    "blocked_groups": 0,
     "capsule_height": 1.9000000000000001,
     "capsule_radius": 0.41,
     "groups_checked": 7
   },
   "stair_route_obstructions": {
-    "blocked_by_group": {
-      "forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02": [
-        "COL_MX01_global_leak_horizontal_closure_0080 -> COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_lower_landing",
-        "COL_MX01_global_leak_horizontal_closure_0211 -> COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_stair_tread_01",
-        "COL_MX01_global_leak_z_wall_closure_5055 -> COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_stair_tread_01"
-      ],
-      "forward_cockpit_lower_deck_02_to_mid_deck_candidate": [
-        "COL_MX01_global_leak_horizontal_closure_0684 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_lower_landing",
-        "COL_MX01_global_leak_horizontal_closure_0840 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_lower_landing",
-        "COL_MX01_global_leak_horizontal_closure_0840 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_01",
-        "COL_MX01_global_leak_horizontal_closure_0841 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_lower_landing",
-        "COL_MX01_global_leak_horizontal_closure_0841 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_01",
-        "COL_MX01_global_leak_horizontal_closure_0842 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_lower_landing",
-        "COL_MX01_global_leak_horizontal_closure_0964 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_02",
-        "COL_MX01_global_leak_horizontal_closure_0965 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_01"
-      ],
-      "lower_deck_candidate_to_mid_deck_candidate": [
-        "COL_MX01_global_leak_z_wall_closure_4868 -> COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_01"
-      ],
-      "mid_deck_candidate_to_upper_deck_candidate_cockpit_forward": [
-        "COL_MX01_global_leak_horizontal_closure_2504 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_upper_landing",
-        "COL_MX01_global_leak_horizontal_closure_2513 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_upper_landing",
-        "COL_MX01_global_leak_horizontal_closure_2514 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_upper_landing",
-        "COL_MX01_global_leak_horizontal_closure_2515 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_stair_tread_04",
-        "COL_MX01_global_leak_horizontal_closure_2517 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_upper_landing",
-        "COL_MX01_global_leak_horizontal_closure_2518 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_upper_landing",
-        "COL_MX01_global_leak_horizontal_closure_2519 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_upper_landing",
-        "COL_MX01_global_leak_horizontal_closure_2519 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_cockpit_forward_stair_tread_05"
-      ],
-      "mid_deck_candidate_to_upper_deck_candidate_rear_above_s3": [
-        "COL_MX01_global_leak_x_wall_closure_3119 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_upper_landing",
-        "COL_MX01_global_leak_x_wall_closure_3119 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_04",
-        "COL_MX01_global_leak_x_wall_closure_3119 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_05",
-        "COL_MX01_global_leak_x_wall_closure_3121 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_upper_landing",
-        "COL_MX01_global_leak_x_wall_closure_3121 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_04",
-        "COL_MX01_global_leak_x_wall_closure_3121 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_05",
-        "COL_MX01_global_leak_x_wall_closure_3123 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_upper_landing",
-        "COL_MX01_global_leak_x_wall_closure_3123 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_stair_tread_05"
-      ]
-    },
-    "blocked_groups": 5,
+    "blocked_by_group": {},
+    "blocked_groups": 0,
     "checked_sources": [
       "controller_safe_global_leak_closure",
       "controller_safe_highest_available_ceiling_slab",
@@ -334,7 +290,7 @@
   "tools": {
     "generate_mx01_interior_enclosure.py": {
       "path": "ships/MX01/tools/generate_mx01_interior_enclosure.py",
-      "sha256": "c7137af06c6f0304dbe14bbd6c7965c6e63b0fd2b84bc159722a059985acd089"
+      "sha256": "94c80db91fb39da1f3d395ce4a3ce665e8e4bd2c0610727c5048854669ca5c42"
     }
   }
 }

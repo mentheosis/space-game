@@ -33,10 +33,12 @@
 - Global leak disconnected outside faces: `3140`
 - Global leak unanchored vertical faces: `9449`
 - Global leak generated primitives: `5105`
+- Global leak route-clearance adjusted primitives: `34`
+- Global leak route-clearance adjustment steps: `55`
 - Global leak unresolved faces: `0`
 - Stair route groups checked: `8`
-- Stair route blocked groups: `5`
-- Stair movement probe blocked groups: `1`
+- Stair route blocked groups: `0`
+- Stair movement probe blocked groups: `0`
 - Inward offset: `0.2`
 - Theoretical voxel surface error: `0.25`
 - Rectangular room boxes: `0`

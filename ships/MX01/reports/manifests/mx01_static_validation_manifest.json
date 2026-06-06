@@ -121,7 +121,7 @@
   },
   "outputs": {
     "report_json": "ships/MX01/reports/mx01_static_validation_report.json",
-    "report_json_sha256": "28bd42e90efb83964e049575c8ba20af0afa28b3154bd80102259b5abace481f",
+    "report_json_sha256": "9f850b8a3f006975f56459641f74ad01e7d392b80fce0723eb88246dca5f1c84",
     "report_md": "ships/MX01/reports/mx01_static_validation_report.md"
   },
   "ship_id": "MX01",
@@ -129,7 +129,7 @@
   "tools": {
     "validate_mx01_collision_static.py": {
       "path": "ships/MX01/tools/validate_mx01_collision_static.py",
-      "sha256": "e890dea37e7906c5cabd559b342a2940b07b5d17e674d1b5771a5d80b13d7d6d"
+      "sha256": "6f4b17ad888f7cc52c3a517723f28afaacd220a1550e4b71d8e99748942c44c7"
     }
   }
 }

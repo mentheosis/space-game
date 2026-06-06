@@ -47,6 +47,154 @@ def fmt(value: float) -> str:
     return f"{value:.6f}".rstrip("0").rstrip(".")
 
 
+def connector_group_id(name: str) -> str | None:
+    prefix = "COL_MX01_"
+    if not name.startswith(prefix):
+        return None
+    core = name[len(prefix) :]
+    for suffix in ("_lower_landing", "_upper_landing"):
+        if core.endswith(suffix):
+            return core[: -len(suffix)]
+    marker = "_stair_tread_"
+    if marker in core:
+        return core.split(marker, 1)[0]
+    return None
+
+
+def stair_transition_support_aprons(collision: dict, config: dict) -> list[dict]:
+    groups: dict[str, list[dict]] = {}
+    for obj in collision["objects"]:
+        if obj["role"] not in {"player_connector_landing", "player_connector_stair_tread"}:
+            continue
+        group_id = connector_group_id(obj["name"])
+        if group_id is not None:
+            groups.setdefault(group_id, []).append(obj)
+
+    extension = float(config["player_capsule_radius"]) + 0.4
+    aprons = []
+    for group_id, objects in sorted(groups.items()):
+        treads = [obj for obj in objects if obj["role"] == "player_connector_stair_tread"]
+        landings = [obj for obj in objects if obj["role"] == "player_connector_landing"]
+        if not treads or not landings:
+            continue
+
+        top_tread = max(treads, key=lambda obj: (float(obj["center"][1]) + float(obj["size"][1]) * 0.5, obj["name"]))
+        lower_landing = min(landings, key=lambda obj: (float(obj["center"][1]) + float(obj["size"][1]) * 0.5, obj["name"]))
+        upper_landing = max(landings, key=lambda obj: (float(obj["center"][1]) + float(obj["size"][1]) * 0.5, obj["name"]))
+        top_center = [float(value) for value in top_tread["center"]]
+        lower_center = [float(value) for value in lower_landing["center"]]
+        upper_center = [float(value) for value in upper_landing["center"]]
+        size = [float(value) for value in top_tread["size"]]
+
+        dx = upper_center[0] - top_center[0]
+        dz = upper_center[2] - top_center[2]
+        if abs(dx) < 0.001 and abs(dz) < 0.001:
+            dx = top_center[0] - lower_center[0]
+            dz = top_center[2] - lower_center[2]
+        if abs(dx) > abs(dz):
+            axis = 0
+            sign = 1.0 if dx >= 0.0 else -1.0
+        else:
+            axis = 2
+            sign = 1.0 if dz >= 0.0 else -1.0
+
+        center = top_center[:]
+        center[axis] += sign * extension * 0.5
+        size[axis] += extension
+        aprons.append(
+            {
+                "name": f"COL_MX01_{group_id}_top_transition_support_apron",
+                "center": [round(value, 6) for value in center],
+                "size": [round(value, 6) for value in size],
+                "source_tread": top_tread["name"],
+            }
+        )
+    return aprons
+
+
+def box_bounds(obj: dict) -> tuple[float, float, float, float, float, float]:
+    cx, cy, cz = [float(value) for value in obj["center"]]
+    sx, sy, sz = [float(value) for value in obj["size"]]
+    return (cx - sx * 0.5, cx + sx * 0.5, cy - sy * 0.5, cy + sy * 0.5, cz - sz * 0.5, cz + sz * 0.5)
+
+
+def overlaps_stair_transition_keepout(obj: dict, aprons: list[dict]) -> bool:
+    if obj["role"] not in {"player_walkable_floor", "player_connector_landing"}:
+        return False
+    obj_x0, obj_x1, _obj_y0, obj_y1, obj_z0, obj_z1 = box_bounds(obj)
+    for apron in aprons:
+        apron_x0, apron_x1, _apron_y0, apron_y1, apron_z0, apron_z1 = box_bounds(apron)
+        if abs(obj_y1 - apron_y1) > 0.18:
+            continue
+        overlap_x = min(obj_x1, apron_x1) - max(obj_x0, apron_x0)
+        overlap_z = min(obj_z1, apron_z1) - max(obj_z0, apron_z0)
+        if overlap_x > 0.04 and overlap_z > 0.04:
+            return True
+    return False
+
+
+def split_floor_for_transition_keepouts(obj: dict, aprons: list[dict]) -> list[dict]:
+    if obj["role"] != "player_walkable_floor":
+        return [obj]
+
+    obj_x0, obj_x1, obj_y0, obj_y1, obj_z0, obj_z1 = box_bounds(obj)
+    rects = [(obj_x0, obj_x1, obj_z0, obj_z1)]
+    min_thickness = 0.05
+    for apron in aprons:
+        apron_x0, apron_x1, _apron_y0, apron_y1, apron_z0, apron_z1 = box_bounds(apron)
+        if abs(obj_y1 - apron_y1) > 0.18:
+            continue
+        next_rects = []
+        for x0, x1, z0, z1 in rects:
+            ix0 = max(x0, apron_x0)
+            ix1 = min(x1, apron_x1)
+            iz0 = max(z0, apron_z0)
+            iz1 = min(z1, apron_z1)
+            if ix1 - ix0 <= 0.04 or iz1 - iz0 <= 0.04:
+                next_rects.append((x0, x1, z0, z1))
+                continue
+            pieces = [
+                (x0, ix0, z0, z1),
+                (ix1, x1, z0, z1),
+                (ix0, ix1, z0, iz0),
+                (ix0, ix1, iz1, z1),
+            ]
+            next_rects.extend(piece for piece in pieces if piece[1] - piece[0] >= min_thickness and piece[3] - piece[2] >= min_thickness)
+        rects = next_rects
+
+    if len(rects) == 1 and rects[0] == (obj_x0, obj_x1, obj_z0, obj_z1):
+        return [obj]
+
+    pieces = []
+    cy = (obj_y0 + obj_y1) * 0.5
+    sy = obj_y1 - obj_y0
+    for index, (x0, x1, z0, z1) in enumerate(rects, start=1):
+        pieces.append(
+            {
+                "name": f"{obj['name']}_transition_piece_{index:02d}",
+                "role": obj["role"],
+                "center": [round((x0 + x1) * 0.5, 6), round(cy, 6), round((z0 + z1) * 0.5, 6)],
+                "size": [round(x1 - x0, 6), round(sy, 6), round(z1 - z0, 6)],
+                "split_from": obj["name"],
+            }
+        )
+    return pieces
+
+
+def primary_collision_scene_objects(collision: dict, aprons: list[dict]) -> list[dict]:
+    objects = []
+    for obj in collision["objects"]:
+        if obj["role"] == "player_connector_stair_tread":
+            continue
+        if obj["role"] == "player_connector_landing" and overlaps_stair_transition_keepout(obj, aprons):
+            continue
+        if obj["role"] == "player_walkable_floor":
+            objects.extend(split_floor_for_transition_keepouts(obj, aprons))
+            continue
+        objects.append(obj)
+    return objects
+
+
 def write_scene(path: Path, config: dict) -> None:
     normalized = config["normalization_outputs"]["normalized_obj"]
     boundary = config["simplification_outputs"]["simplified_obj"]
@@ -102,9 +250,15 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
     # Keep the player clear of the lower-to-mid connector footprint.
     player_spawn = [8.0, ship_world_y - 3.45, -36.5]
     enclosure_primitives = enclosure.get("collision_primitives", [])
-    stair_support_objects = [obj for obj in collision["objects"] if obj["role"] == "player_connector_stair_tread"]
+    stair_support_objects = [obj for obj in collision["objects"] if obj["role"] in {"player_connector_landing", "player_connector_stair_tread"}]
+    stair_support_aprons = stair_transition_support_aprons(collision, config)
+    primary_objects = primary_collision_scene_objects(collision, stair_support_aprons)
+    split_primary_objects = [obj for obj in primary_objects if "split_from" in obj]
+    stair_transition_floor_keepout_count = sum(
+        1 for obj in collision["objects"] if overlaps_stair_transition_keepout(obj, stair_support_aprons)
+    )
     lines = [
-        f'[gd_scene load_steps={11 + len(collision["objects"]) + len(enclosure_primitives)} format=3]',
+        f'[gd_scene load_steps={11 + len(collision["objects"]) + len(split_primary_objects) + len(stair_support_aprons) + len(enclosure_primitives)} format=3]',
         '',
         '[ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]',
         '[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]',
@@ -157,6 +311,24 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
                 '',
             ]
         )
+    for index, obj in enumerate(stair_support_aprons, start=1):
+        sx, sy, sz = obj["size"]
+        lines.extend(
+            [
+                f'[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_stair_support_apron_{index}"]',
+                f'size = Vector3({sx}, {sy}, {sz})',
+                '',
+            ]
+        )
+    for index, obj in enumerate(split_primary_objects, start=1):
+        sx, sy, sz = obj["size"]
+        lines.extend(
+            [
+                f'[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_primary_split_{index}"]',
+                f'size = Vector3({sx}, {sy}, {sz})',
+                '',
+            ]
+        )
     lines.extend(
         [
             '[node name="MX01PlayableInspection" type="Node3D"]',
@@ -191,15 +363,19 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
             '',
         ]
     )
-    for index, obj in enumerate(collision["objects"], start=1):
-        if obj["role"] == "player_connector_stair_tread":
-            continue
+    original_shape_index_by_name = {obj["name"]: index for index, obj in enumerate(collision["objects"], start=1)}
+    split_shape_index_by_name = {obj["name"]: index for index, obj in enumerate(split_primary_objects, start=1)}
+    for obj in primary_objects:
         cx, cy, cz = obj["center"]
+        if "split_from" in obj:
+            shape_id = f'BoxShape3D_mx01_primary_split_{split_shape_index_by_name[obj["name"]]}'
+        else:
+            shape_id = f'BoxShape3D_mx01_{original_shape_index_by_name[obj["name"]]}'
         lines.extend(
             [
                 f'[node name="{obj["name"]}" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]',
                 f'position = Vector3({cx}, {cy}, {cz})',
-                f'shape = SubResource("BoxShape3D_mx01_{index}")',
+                f'shape = SubResource("{shape_id}")',
                 '',
             ]
         )
@@ -212,14 +388,25 @@ def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: d
         ]
     )
     for index, obj in enumerate(collision["objects"], start=1):
-        if obj["role"] != "player_connector_stair_tread":
+        if obj["role"] not in {"player_connector_landing", "player_connector_stair_tread"}:
             continue
+        cx, cy, cz = obj["center"]
+        suffix = "_support" if obj["role"] == "player_connector_stair_tread" else "_landing_support"
+        lines.extend(
+            [
+                f'[node name="{obj["name"]}{suffix}" type="CollisionShape3D" parent="ShipRoot/WalkableSupportSurfaces"]',
+                f'position = Vector3({cx}, {cy}, {cz})',
+                f'shape = SubResource("BoxShape3D_mx01_{index}")',
+                '',
+            ]
+        )
+    for index, obj in enumerate(stair_support_aprons, start=1):
         cx, cy, cz = obj["center"]
         lines.extend(
             [
-                f'[node name="{obj["name"]}_support" type="CollisionShape3D" parent="ShipRoot/WalkableSupportSurfaces"]',
+                f'[node name="{obj["name"]}" type="CollisionShape3D" parent="ShipRoot/WalkableSupportSurfaces"]',
                 f'position = Vector3({cx}, {cy}, {cz})',
-                f'shape = SubResource("BoxShape3D_mx01_{index}")',
+                f'shape = SubResource("BoxShape3D_mx01_stair_support_apron_{index}")',
                 '',
             ]
         )
@@ -278,6 +465,8 @@ def write_markdown(path: Path, report: dict) -> None:
         f"- Playable scene: `{report['outputs']['playable_scene']}`",
         f"- Status: `{report['status']}`",
         f"- Stair walkable support shapes: `{report.get('counts', {}).get('stair_walkable_support_shapes', 0)}`",
+        f"- Stair transition support aprons: `{report.get('counts', {}).get('stair_transition_support_aprons', 0)}`",
+        f"- Stair transition floor keepout shapes: `{report.get('counts', {}).get('stair_transition_floor_keepout_shapes', 0)}`",
         "",
         "## Referenced Artifacts",
         "",
@@ -308,7 +497,12 @@ def main() -> int:
     collision = load_json(collision_path)
     enclosure = load_json(enclosure_path)
     write_playable_scene(playable_scene_path, config, collision, enclosure)
-    stair_support_count = sum(1 for obj in collision["objects"] if obj["role"] == "player_connector_stair_tread")
+    stair_support_count = sum(1 for obj in collision["objects"] if obj["role"] in {"player_connector_landing", "player_connector_stair_tread"})
+    stair_support_apron_count = len(stair_transition_support_aprons(collision, config))
+    primary_objects = primary_collision_scene_objects(collision, stair_transition_support_aprons(collision, config))
+    stair_transition_floor_keepout_count = sum(
+        1 for obj in collision["objects"] if overlaps_stair_transition_keepout(obj, stair_transition_support_aprons(collision, config))
+    )
     referenced = [
         ROOT / config["normalization_outputs"]["normalized_obj"],
         ROOT / config["simplification_outputs"]["simplified_obj"],
@@ -322,7 +516,12 @@ def main() -> int:
         "ship_id": config["ship_id"],
         "method": "godot_collision_review_scene_v1",
         "status": "PASS",
-        "counts": {"stair_walkable_support_shapes": stair_support_count},
+        "counts": {
+            "stair_walkable_support_shapes": stair_support_count,
+            "stair_transition_support_aprons": stair_support_apron_count,
+            "stair_transition_floor_keepout_shapes": stair_transition_floor_keepout_count,
+            "split_primary_floor_shapes": sum(1 for obj in primary_objects if "split_from" in obj),
+        },
         "referenced_artifacts": [{"path": rel(path), "sha256": sha256(path)} for path in referenced],
         "config": {"path": rel(config_path), "sha256": sha256(config_path), "effective_values": config},
         "tools": {

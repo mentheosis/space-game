@@ -120,7 +120,10 @@
     "sha256": "2eb99639b8aec89c6ee1a38b41d49e2c720a0ab27e9687a222e222315826b1a5"
   },
   "counts": {
-    "stair_walkable_support_shapes": 38
+    "split_primary_floor_shapes": 15,
+    "stair_transition_floor_keepout_shapes": 19,
+    "stair_transition_support_aprons": 7,
+    "stair_walkable_support_shapes": 53
   },
   "method": "godot_collision_review_scene_v1",
   "notes": "The review scene references generated OBJ assets. The playable scene instances the real Player scene, Stage 7A StaticBody3D box collision from MX01 interior collision JSON, Stage 7A stair treads as nonblocking walkable support surfaces on physics layer 128, and Stage 7B controller-safe BoxShape3D enclosure primitives from MX01 interior enclosure JSON.",
@@ -157,7 +160,7 @@
     },
     {
       "path": "ships/MX01/generated/collision/mx01_interior_enclosure.json",
-      "sha256": "aea08451e37fa6af5719f3f0b450becd4e63a94586ac53465284061510328ea6"
+      "sha256": "32c676d434d3d279e618417302c71e88ba3f99bda33e73c85aeb1f5c98454901"
     }
   ],
   "ship_id": "MX01",
@@ -165,7 +168,7 @@
   "tools": {
     "generate_mx01_review_scene.py": {
       "path": "ships/MX01/tools/generate_mx01_review_scene.py",
-      "sha256": "763f2d7f076b47116550a89b8cac76b02214fcd39282bfe9d3f59fddfbf09f72"
+      "sha256": "a06db26d3f5418f065c6f8a63aab99ad3ca6a44884b4d20a143b98ed18a6a49c"
     }
   }
 }

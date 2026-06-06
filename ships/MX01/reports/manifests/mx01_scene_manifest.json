@@ -121,7 +121,7 @@
   },
   "outputs": {
     "playable_scene": "ships/MX01/generated/scenes/mx01_playable_inspection.tscn",
-    "playable_scene_sha256": "557ad00f2ca560e8769d94327fa76cf448be9f6bcc65c5f39636531950b6ae96",
+    "playable_scene_sha256": "1daec04bdb9eb7dda2daab254a631221aac4874c96721304275064f94ed984ab",
     "report_json": "ships/MX01/reports/mx01_scene_report.json",
     "report_md": "ships/MX01/reports/mx01_scene_report.md",
     "review_scene": "ships/MX01/generated/scenes/mx01_collision_review.tscn",
@@ -154,7 +154,7 @@
     },
     {
       "path": "ships/MX01/generated/collision/mx01_interior_enclosure.json",
-      "sha256": "aea08451e37fa6af5719f3f0b450becd4e63a94586ac53465284061510328ea6"
+      "sha256": "32c676d434d3d279e618417302c71e88ba3f99bda33e73c85aeb1f5c98454901"
     }
   ],
   "ship_id": "MX01",
@@ -162,7 +162,7 @@
   "tools": {
     "generate_mx01_review_scene.py": {
       "path": "ships/MX01/tools/generate_mx01_review_scene.py",
-      "sha256": "763f2d7f076b47116550a89b8cac76b02214fcd39282bfe9d3f59fddfbf09f72"
+      "sha256": "a06db26d3f5418f065c6f8a63aab99ad3ca6a44884b4d20a143b98ed18a6a49c"
     }
   }
 }

@@ -711,9 +711,34 @@ Human review lessons from MX01 floor and stair iteration:
   initial shallow high-tread-count profile. Record stair run/rise in the report
   and validate with playable inspection, not only with generic slope rules.
 - Stair traversal should use nonblocking walkable support surfaces on the
-  player support layer rather than solid stair tread collision. Solid tread
-  boxes can act like repeated obstacles; support surfaces let the player ascend
-  to the sampled stair height without colliding with each riser.
+  player support layer rather than solid stair tread collision. Connector
+  landings should normally keep their primary collision so they remain reliable
+  floors; only the specific landing/floor tile area that overlaps a stair
+  transition lip should be converted to support-only collision. Removing all
+  landing collision fixed one stair but caused deterministic fall-through
+  regressions elsewhere.
+- Stair transitions into an upper deck need a deterministic support apron at
+  the highest tread extending toward the upper landing/exit lip by at least the
+  player capsule radius plus clearance. The real MX01 S3-S6 failures showed
+  that the PlayerController support ray can see the correct support while the
+  capsule is still blocked by a normal floor or landing box edge. Any normal
+  floor tile overlapping a stair top transition apron at the same height should
+  be split around the local keepout, while the overlapping upper landing/floor
+  transition area is represented by the nonblocking support layer instead. The
+  keepout must be local to the transition, not applied to every connector
+  landing globally.
+- Stair passability fixes belong in the playable support/apron collision layer,
+  not in broad Stage 7B enclosure clearance. Expanding the enclosure water-fill
+  or ceiling clearances around stair standing envelopes moved too many sealing
+  primitives and reopened exterior holes. Stage 7B may apply only narrow
+  stair-route headroom adjustment to leak-closure primitives, and the report
+  must record the adjusted primitive count.
+- Static AABB/capsule checks are not sufficient for stair acceptance. Add a
+  headless Godot probe that instances `Player.tscn`, drives real movement input
+  up each stair route, and records `GetSlideCollision()` contacts plus
+  walkable-support ray hits. Stage 7A/7B is not complete for a stair until this
+  real PlayerController probe reaches the upper landing and exit pad without
+  stalling.
 - Enclosure route openings around stairs must reserve only the stair run axis
   for treads. Reserving the full inflated connector keepout around every tread
   leaves side gaps where the player can fall out beside stairways. Landings may

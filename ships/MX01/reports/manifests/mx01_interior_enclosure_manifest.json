@@ -121,9 +121,9 @@
   },
   "outputs": {
     "collider_obj": "ships/MX01/generated/collision/mx01_interior_enclosure_collider.obj",
-    "collider_obj_sha256": "f2456056d0c7b46efb32f04920159f04c8bdc557f21536a8c08869f899c16801",
+    "collider_obj_sha256": "ef59b4ffa50d2c43233bdbbc0d7bb5d170c07d95e0ac620329ec9acd52b24a21",
     "enclosure_json": "ships/MX01/generated/collision/mx01_interior_enclosure.json",
-    "enclosure_json_sha256": "aea08451e37fa6af5719f3f0b450becd4e63a94586ac53465284061510328ea6",
+    "enclosure_json_sha256": "32c676d434d3d279e618417302c71e88ba3f99bda33e73c85aeb1f5c98454901",
     "enclosure_obj": "ships/MX01/generated/collision/mx01_interior_enclosure.obj",
     "enclosure_obj_sha256": "9f29e7ca69104b3a7567fcb001ef3d37d9aac25299d6e27f66e2c680dd8c2b79",
     "report_json": "ships/MX01/reports/mx01_interior_enclosure_report.json",
@@ -142,7 +142,7 @@
   "tools": {
     "generate_mx01_interior_enclosure.py": {
       "path": "ships/MX01/tools/generate_mx01_interior_enclosure.py",
-      "sha256": "c7137af06c6f0304dbe14bbd6c7965c6e63b0fd2b84bc159722a059985acd089"
+      "sha256": "94c80db91fb39da1f3d395ce4a3ce665e8e4bd2c0610727c5048854669ca5c42"
     }
   }
 }

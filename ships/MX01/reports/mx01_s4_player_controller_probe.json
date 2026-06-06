@@ -1,0 +1,781 @@
+{
+  "elapsed_seconds": 0.767000019550323,
+  "events": [
+    {
+      "best_distance_to_target": 0.660000026226044,
+      "distance_to_target": 0.660000026226044,
+      "frame": 0,
+      "gravity_body": "None",
+      "grounded": false,
+      "kind": "start",
+      "message": "S4 player-controller probe started.",
+      "movement_mode": "Airborne",
+      "player_local_origin": [
+        -3.32500004768372,
+        0.150000005960464,
+        45.5500030517578
+      ],
+      "player_world_origin": [
+        -3.32500004768372,
+        205.150009155273,
+        45.5500030517578
+      ],
+      "route_index": 1,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "collider": "WalkableSupportSurfaces",
+        "collider_path": "/root/MX01S4PlayerControllerProbeScene/MX01PlayableInspection/ShipRoot/WalkableSupportSurfaces",
+        "from": [
+          -3.32500004768372,
+          206.550003051758,
+          45.5500030517578
+        ],
+        "hit": true,
+        "local_position": [
+          -3.32500004768372,
+          -0.750000059604645,
+          45.5500030517578
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "normal_dot_up": 1.0,
+        "position": [
+          -3.32500004768372,
+          204.250015258789,
+          45.5500030517578
+        ],
+        "to": [
+          -3.32500004768372,
+          203.550003051758,
+          45.5500030517578
+        ]
+      },
+      "target": "tread_01",
+      "target_local_origin": [
+        -3.32500004768372,
+        0.850000023841858,
+        44.8900032043457
+      ],
+      "time_seconds": 0.0,
+      "up_direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "best_distance_to_target": 0.417000025510788,
+      "distance_to_target": 0.366000026464462,
+      "frame": 9,
+      "gravity_body": "GravityBody",
+      "grounded": true,
+      "kind": "checkpoint",
+      "message": "Reached tread_01.",
+      "movement_mode": "Surface",
+      "player_local_origin": [
+        -3.32300019264221,
+        0.150000005960464,
+        45.2560005187988
+      ],
+      "player_world_origin": [
+        -3.32300019264221,
+        205.150009155273,
+        45.2560005187988
+      ],
+      "route_index": 1,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.017000000923872,
+      "support_probe": {
+        "from": [
+          -3.34500026702881,
+          206.516006469727,
+          45.5580024719238
+        ],
+        "hit": false,
+        "to": [
+          -3.29700016975403,
+          203.587005615234,
+          44.911003112793
+        ]
+      },
+      "target": "tread_01",
+      "target_local_origin": [
+        -3.32500004768372,
+        0.850000023841858,
+        44.8900032043457
+      ],
+      "time_seconds": 0.150000005960464,
+      "up_direction": [
+        -0.0160000007599592,
+        0.976000070571899,
+        0.216000005602837
+      ],
+      "velocity": [
+        -0.0200000014156103,
+        0.647000014781952,
+        -2.92900013923645
+      ]
+    },
+    {
+      "best_distance_to_target": 0.50900000333786,
+      "distance_to_target": 0.50900000333786,
+      "frame": 15,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "sample",
+      "message": "Moving toward tread_02.",
+      "movement_mode": "Surface",
+      "player_local_origin": [
+        -3.33400011062622,
+        0.829000055789948,
+        44.97900390625
+      ],
+      "player_world_origin": [
+        -3.33400011062622,
+        205.829010009766,
+        44.97900390625
+      ],
+      "route_index": 2,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "collider": "WalkableSupportSurfaces",
+        "collider_path": "/root/MX01S4PlayerControllerProbeScene/MX01PlayableInspection/ShipRoot/WalkableSupportSurfaces",
+        "from": [
+          -3.35600018501282,
+          207.197006225586,
+          45.278003692627
+        ],
+        "hit": true,
+        "local_position": [
+          -3.31900024414062,
+          -0.0500000007450581,
+          44.786003112793
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "normal_dot_up": 0.977000057697296,
+        "position": [
+          -3.31900024414062,
+          204.950012207031,
+          44.786003112793
+        ],
+        "to": [
+          -3.30800008773804,
+          204.266006469727,
+          44.6360015869141
+        ]
+      },
+      "target": "tread_02",
+      "target_local_origin": [
+        -3.32500004768372,
+        1.55000007152557,
+        44.4700012207031
+      ],
+      "time_seconds": 0.25,
+      "up_direction": [
+        -0.0160000007599592,
+        0.977000057697296,
+        0.214000016450882
+      ],
+      "velocity": [
+        0.00900000054389238,
+        1.06900000572205,
+        -4.88400030136108
+      ]
+    },
+    {
+      "best_distance_to_target": 0.325000017881393,
+      "distance_to_target": 0.325000017881393,
+      "frame": 17,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "checkpoint",
+      "message": "Reached tread_02.",
+      "movement_mode": "Surface",
+      "player_local_origin": [
+        -3.33200025558472,
+        0.849000036716461,
+        44.7950019836426
+      ],
+      "player_world_origin": [
+        -3.33200025558472,
+        205.849014282227,
+        44.7950019836426
+      ],
+      "route_index": 2,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "from": [
+          -3.35400009155273,
+          207.217010498047,
+          45.0940017700195
+        ],
+        "hit": false,
+        "to": [
+          -3.30700016021729,
+          204.286010742188,
+          44.4550018310547
+        ]
+      },
+      "target": "tread_02",
+      "target_local_origin": [
+        -3.32500004768372,
+        1.55000007152557,
+        44.4700012207031
+      ],
+      "time_seconds": 0.283000022172928,
+      "up_direction": [
+        -0.0160000007599592,
+        0.977000057697296,
+        0.213000014424324
+      ],
+      "velocity": [
+        0.0410000011324883,
+        1.20800006389618,
+        -5.53500032424927
+      ]
+    },
+    {
+      "best_distance_to_target": 0.352000027894974,
+      "distance_to_target": 0.352000027894974,
+      "frame": 22,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "checkpoint",
+      "message": "Reached tread_03.",
+      "movement_mode": "Surface",
+      "player_local_origin": [
+        -3.33400011062622,
+        1.55400002002716,
+        44.4020004272461
+      ],
+      "player_world_origin": [
+        -3.33400011062622,
+        206.554016113281,
+        44.4020004272461
+      ],
+      "route_index": 3,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "from": [
+          -3.35600018501282,
+          207.923004150391,
+          44.6970024108887
+        ],
+        "hit": false,
+        "to": [
+          -3.30900025367737,
+          204.990005493164,
+          44.0650024414062
+        ]
+      },
+      "target": "tread_03",
+      "target_local_origin": [
+        -3.32500004768372,
+        2.25,
+        44.0500030517578
+      ],
+      "time_seconds": 0.367000013589859,
+      "up_direction": [
+        -0.0160000007599592,
+        0.977000057697296,
+        0.211000010371208
+      ],
+      "velocity": [
+        0.16100001335144,
+        1.47700011730194,
+        -6.8410005569458
+      ]
+    },
+    {
+      "best_distance_to_target": 0.331000030040741,
+      "distance_to_target": 0.331000030040741,
+      "frame": 27,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "checkpoint",
+      "message": "Reached tread_04.",
+      "movement_mode": "Surface",
+      "player_local_origin": [
+        -3.33400011062622,
+        2.27900004386902,
+        43.9610023498535
+      ],
+      "player_world_origin": [
+        -3.33400011062622,
+        207.279006958008,
+        43.9610023498535
+      ],
+      "route_index": 4,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "collider": "WalkableSupportSurfaces",
+        "collider_path": "/root/MX01S4PlayerControllerProbeScene/MX01PlayableInspection/ShipRoot/WalkableSupportSurfaces",
+        "from": [
+          -3.35600018501282,
+          208.648010253906,
+          44.2520027160645
+        ],
+        "hit": true,
+        "local_position": [
+          -3.34100008010864,
+          2.75000023841858,
+          44.0610008239746
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "normal_dot_up": 0.978000044822693,
+        "position": [
+          -3.34100008010864,
+          207.750015258789,
+          44.0610008239746
+        ],
+        "to": [
+          -3.30900025367737,
+          205.714004516602,
+          43.628002166748
+        ]
+      },
+      "target": "tread_04",
+      "target_local_origin": [
+        -3.32500004768372,
+        2.95000004768372,
+        43.6300010681152
+      ],
+      "time_seconds": 0.450000017881393,
+      "up_direction": [
+        -0.0160000007599592,
+        0.978000044822693,
+        0.208000004291534
+      ],
+      "velocity": [
+        0.163000002503395,
+        1.45800006389618,
+        -6.84400033950806
+      ]
+    },
+    {
+      "best_distance_to_target": 0.408000022172928,
+      "distance_to_target": 0.408000022172928,
+      "frame": 30,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "sample",
+      "message": "Moving toward tread_05.",
+      "movement_mode": "Surface",
+      "player_local_origin": [
+        -3.33100008964539,
+        2.3510000705719,
+        43.6180038452148
+      ],
+      "player_world_origin": [
+        -3.33100008964539,
+        207.351013183594,
+        43.6180038452148
+      ],
+      "route_index": 5,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "collider": "WalkableSupportSurfaces",
+        "collider_path": "/root/MX01S4PlayerControllerProbeScene/MX01PlayableInspection/ShipRoot/WalkableSupportSurfaces",
+        "from": [
+          -3.35300016403198,
+          208.721008300781,
+          43.9070014953613
+        ],
+        "hit": true,
+        "local_position": [
+          -3.33700013160706,
+          2.75000023841858,
+          43.7020034790039
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "normal_dot_up": 0.978000044822693,
+        "position": [
+          -3.33700013160706,
+          207.750015258789,
+          43.7020034790039
+        ],
+        "to": [
+          -3.3050000667572,
+          205.786010742188,
+          43.2880020141602
+        ]
+      },
+      "target": "tread_05",
+      "target_local_origin": [
+        -3.32500004768372,
+        3.65000009536743,
+        43.2100028991699
+      ],
+      "time_seconds": 0.5,
+      "up_direction": [
+        -0.0160000007599592,
+        0.978000044822693,
+        0.20600001513958
+      ],
+      "velocity": [
+        0.0700000002980232,
+        1.44600009918213,
+        -6.84900045394897
+      ]
+    },
+    {
+      "best_distance_to_target": 0.293999999761581,
+      "distance_to_target": 0.293999999761581,
+      "frame": 31,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "checkpoint",
+      "message": "Reached tread_05.",
+      "movement_mode": "Surface",
+      "player_local_origin": [
+        -3.32900023460388,
+        2.375,
+        43.5040016174316
+      ],
+      "player_world_origin": [
+        -3.32900023460388,
+        207.375015258789,
+        43.5040016174316
+      ],
+      "route_index": 5,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "collider": "WalkableSupportSurfaces",
+        "collider_path": "/root/MX01S4PlayerControllerProbeScene/MX01PlayableInspection/ShipRoot/WalkableSupportSurfaces",
+        "from": [
+          -3.3510000705719,
+          208.745010375977,
+          43.7920036315918
+        ],
+        "hit": true,
+        "local_position": [
+          -3.33500027656555,
+          2.75000023841858,
+          43.5830001831055
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "normal_dot_up": 0.978000044822693,
+        "position": [
+          -3.33500027656555,
+          207.750015258789,
+          43.5830001831055
+        ],
+        "to": [
+          -3.30400013923645,
+          205.810012817383,
+          43.1750030517578
+        ]
+      },
+      "target": "tread_05",
+      "target_local_origin": [
+        -3.32500004768372,
+        3.65000009536743,
+        43.2100028991699
+      ],
+      "time_seconds": 0.517000019550323,
+      "up_direction": [
+        -0.0160000007599592,
+        0.978000044822693,
+        0.20600001513958
+      ],
+      "velocity": [
+        0.0750000029802322,
+        1.44200003147125,
+        -6.84900045394897
+      ]
+    },
+    {
+      "best_distance_to_target": 0.261000007390976,
+      "distance_to_target": 0.261000007390976,
+      "frame": 39,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "checkpoint",
+      "message": "Reached upper_landing.",
+      "movement_mode": "Surface",
+      "player_local_origin": [
+        -3.3360002040863,
+        3.63100028038025,
+        42.8110008239746
+      ],
+      "player_world_origin": [
+        -3.3360002040863,
+        208.631011962891,
+        42.8110008239746
+      ],
+      "route_index": 6,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "collider": "WalkableSupportSurfaces",
+        "collider_path": "/root/MX01S4PlayerControllerProbeScene/MX01PlayableInspection/ShipRoot/WalkableSupportSurfaces",
+        "from": [
+          -3.35700011253357,
+          210.003005981445,
+          43.0930023193359
+        ],
+        "hit": true,
+        "local_position": [
+          -3.32100009918213,
+          2.75000023841858,
+          42.6300010681152
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "normal_dot_up": 0.97900003194809,
+        "position": [
+          -3.32100009918213,
+          207.750015258789,
+          42.6300010681152
+        ],
+        "to": [
+          -3.31000018119812,
+          207.064010620117,
+          42.4890022277832
+        ]
+      },
+      "target": "upper_landing",
+      "target_local_origin": [
+        -3.32500004768372,
+        3.65000009536743,
+        42.5500030517578
+      ],
+      "time_seconds": 0.650000035762787,
+      "up_direction": [
+        -0.0160000007599592,
+        0.97900003194809,
+        0.202000007033348
+      ],
+      "velocity": [
+        0.266000002622604,
+        1.41400003433228,
+        -6.85100030899048
+      ]
+    },
+    {
+      "best_distance_to_target": 0.455000013113022,
+      "distance_to_target": 0.455000013113022,
+      "frame": 45,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "sample",
+      "message": "Moving toward upper_exit_forward.",
+      "movement_mode": "Airborne",
+      "player_local_origin": [
+        -3.33000016212463,
+        3.67200016975403,
+        42.1050033569336
+      ],
+      "player_world_origin": [
+        -3.33000016212463,
+        208.672012329102,
+        42.1050033569336
+      ],
+      "route_index": 7,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "from": [
+          -3.3510000705719,
+          210.044006347656,
+          42.3830032348633
+        ],
+        "hit": false,
+        "to": [
+          -3.30400013923645,
+          207.10400390625,
+          41.7880020141602
+        ]
+      },
+      "target": "upper_exit_forward",
+      "target_local_origin": [
+        -3.32500004768372,
+        3.65000009536743,
+        41.6500015258789
+      ],
+      "time_seconds": 0.750000059604645,
+      "up_direction": [
+        -0.0160000007599592,
+        0.980000019073486,
+        0.198000013828278
+      ],
+      "velocity": [
+        0.0530000030994415,
+        1.00100004673004,
+        -6.93900012969971
+      ]
+    },
+    {
+      "best_distance_to_target": 0.338000029325485,
+      "distance_to_target": 0.338000029325485,
+      "frame": 46,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "checkpoint",
+      "message": "Reached upper_exit_forward.",
+      "movement_mode": "Airborne",
+      "player_local_origin": [
+        -3.32800006866455,
+        3.68200016021729,
+        41.9880027770996
+      ],
+      "player_world_origin": [
+        -3.32800006866455,
+        208.682006835938,
+        41.9880027770996
+      ],
+      "route_index": 7,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "from": [
+          -3.35000014305115,
+          210.054016113281,
+          42.2650032043457
+        ],
+        "hit": false,
+        "to": [
+          -3.3030002117157,
+          207.114013671875,
+          41.6720008850098
+        ]
+      },
+      "target": "upper_exit_forward",
+      "target_local_origin": [
+        -3.32500004768372,
+        3.65000009536743,
+        41.6500015258789
+      ],
+      "time_seconds": 0.767000019550323,
+      "up_direction": [
+        -0.0160000007599592,
+        0.980000019073486,
+        0.198000013828278
+      ],
+      "velocity": [
+        0.063000001013279,
+        0.609000027179718,
+        -7.01800012588501
+      ]
+    },
+    {
+      "best_distance_to_target": 0.338000029325485,
+      "distance_to_target": 0.0,
+      "frame": 46,
+      "gravity_body": "GravityBody",
+      "grounded": false,
+      "kind": "pass",
+      "message": "S4 route is passable with the real PlayerController.",
+      "movement_mode": "Airborne",
+      "player_local_origin": [
+        -3.32800006866455,
+        3.68200016021729,
+        41.9880027770996
+      ],
+      "player_world_origin": [
+        -3.32800006866455,
+        208.682006835938,
+        41.9880027770996
+      ],
+      "route_index": 8,
+      "slide_colliders": [],
+      "slide_collision_count": 0,
+      "slide_collision_details": [],
+      "stuck_seconds": 0.0,
+      "support_probe": {
+        "from": [
+          -3.35000014305115,
+          210.054016113281,
+          42.2650032043457
+        ],
+        "hit": false,
+        "to": [
+          -3.3030002117157,
+          207.114013671875,
+          41.6720008850098
+        ]
+      },
+      "target": "upper_exit_forward",
+      "target_local_origin": [
+        -3.32500004768372,
+        3.65000009536743,
+        41.6500015258789
+      ],
+      "time_seconds": 0.767000019550323,
+      "up_direction": [
+        -0.0160000007599592,
+        0.980000019073486,
+        0.198000013828278
+      ],
+      "velocity": [
+        0.063000001013279,
+        0.609000027179718,
+        -7.01800012588501
+      ]
+    }
+  ],
+  "frames": 46,
+  "message": "S4 route is passable with the real PlayerController.",
+  "route_count": 8,
+  "route_index": 8,
+  "schema_version": 1,
+  "ship_id": "MX01",
+  "status": "pass",
+  "test": "s4_real_player_controller_movement"
+}

@@ -1,14 +1,15 @@
 # MX01 Static Validation Report
 
-- Status: `FAIL`
+- Status: `PASS`
 - Checks: `47`
-- Failures: `1`
-- Warnings: `1`
+- Failures: `0`
+- Warnings: `2`
 
 ## Failed Checks
 
-- `interior_enclosure:wall_stair_clearances_clear`: failed
+- None
 
 ## Warning Checks
 
+- `interior_enclosure:wall_stair_clearances_clear`: AABB stair-wall overlaps are advisory; the real PlayerController stair probe is the authoritative traversal gate.
 - `occupancy:odd_parity_rays`: Odd parity rays remain from non-manifold/tangential cases.

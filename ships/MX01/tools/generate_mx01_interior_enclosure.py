@@ -1480,6 +1480,40 @@ def face_bounds(axis: str, plane: int, a: int, b: int, x_edges: list[float], y_e
     raise ValueError(f"Unknown face axis: {axis}")
 
 
+def adjust_global_leak_primitive_clear_of_routes(primitive: dict, clearances: list[dict]) -> tuple[dict, int]:
+    adjusted = dict(primitive)
+    adjusted["center"] = list(primitive["center"])
+    adjusted["size"] = list(primitive["size"])
+    adjustments = 0
+    for clearance in clearances:
+        for _attempt in range(4):
+            aabb = oriented_box_aabb(tuple(adjusted["center"]), tuple(adjusted["size"]), float(adjusted.get("rotation_y", 0.0)))
+            overlap = aabb_overlap_amount(aabb, clearance)
+            if overlap is None:
+                break
+            overlap_x, overlap_y, overlap_z = overlap
+            if overlap_y <= 0.03 or overlap_x <= 0.05 or overlap_z <= 0.05:
+                break
+            half_x = float(adjusted["size"][0]) * 0.5
+            half_y = float(adjusted["size"][1]) * 0.5
+            half_z = float(adjusted["size"][2]) * 0.5
+            source_name = adjusted["name"]
+            if "_horizontal_closure_" in source_name:
+                adjusted["center"][1] = round(clearance["y_max"] + half_y + 0.04, 6)
+            elif "_x_wall_closure_" in source_name:
+                cx = float(adjusted["center"][0])
+                clearance_mid = (clearance["x_min"] + clearance["x_max"]) * 0.5
+                adjusted["center"][0] = round((clearance["x_min"] - half_x - 0.04) if cx <= clearance_mid else (clearance["x_max"] + half_x + 0.04), 6)
+            elif "_z_wall_closure_" in source_name:
+                cz = float(adjusted["center"][2])
+                clearance_mid = (clearance["z_min"] + clearance["z_max"]) * 0.5
+                adjusted["center"][2] = round((clearance["z_min"] - half_z - 0.04) if cz <= clearance_mid else (clearance["z_max"] + half_z + 0.04), 6)
+            else:
+                break
+            adjustments += 1
+    return adjusted, adjustments
+
+
 def global_leak_closure_primitives(collision_primitives: list[dict], collision: dict, occupancy: dict, inside: set[tuple[int, int, int]], config: dict) -> tuple[list[dict], dict]:
     x_centers = occupancy["axis_centers"]["x"]
     y_centers = occupancy["axis_centers"]["y"]
@@ -1491,7 +1525,7 @@ def global_leak_closure_primitives(collision_primitives: list[dict], collision: 
     player_height = float(config["player_capsule_height"]) + float(config["player_clearance_margin"])
     face_thickness = 0.18
     cover_primitives = collision_primitives + support_cover_primitives(collision)
-
+    route_clearances = stair_route_headroom_clearances(collision, config)
     solid_cells: set[tuple[int, int, int]] = set()
     for primitive in cover_primitives:
         aabb = oriented_box_aabb(tuple(primitive["center"]), tuple(primitive["size"]), float(primitive.get("rotation_y", 0.0)))
@@ -1641,9 +1675,11 @@ def global_leak_closure_primitives(collision_primitives: list[dict], collision: 
 
     primitives: list[dict] = []
     rejected = 0
+    route_clearance_adjusted_primitives = 0
+    route_clearance_adjustment_steps = 0
 
     def append_primitive(name: str, role: str, bounds: dict) -> None:
-        nonlocal rejected
+        nonlocal rejected, route_clearance_adjusted_primitives, route_clearance_adjustment_steps
         center = (
             round((bounds["x_min"] + bounds["x_max"]) * 0.5, 6),
             round((bounds["y_min"] + bounds["y_max"]) * 0.5, 6),
@@ -1665,6 +1701,11 @@ def global_leak_closure_primitives(collision_primitives: list[dict], collision: 
             "material": "MX01_EnclosureCollider",
             "source": "controller_safe_global_leak_closure",
         }
+        adjusted, adjustment_steps = adjust_global_leak_primitive_clear_of_routes(primitive, route_clearances)
+        if adjustment_steps > 0:
+            route_clearance_adjusted_primitives += 1
+            route_clearance_adjustment_steps += adjustment_steps
+            primitive = adjusted
         primitives.append(primitive)
 
     primitive_index = 1
@@ -1729,6 +1770,8 @@ def global_leak_closure_primitives(collision_primitives: list[dict], collision: 
         "covered_faces": covered_faces,
         "generated_primitives": len(primitives),
         "rejected_primitives": rejected,
+        "route_clearance_adjusted_primitives": route_clearance_adjusted_primitives,
+        "route_clearance_adjustment_steps": route_clearance_adjustment_steps,
         "unresolved_faces": rejected,
     }
 
@@ -2156,6 +2199,8 @@ def write_markdown(path: Path, report: dict) -> None:
         f"- Global leak disconnected outside faces: `{report['global_leak_closure']['disconnected_outside_faces']}`",
         f"- Global leak unanchored vertical faces: `{report['global_leak_closure']['unanchored_vertical_faces']}`",
         f"- Global leak generated primitives: `{report['global_leak_closure']['generated_primitives']}`",
+        f"- Global leak route-clearance adjusted primitives: `{report['global_leak_closure'].get('route_clearance_adjusted_primitives', 0)}`",
+        f"- Global leak route-clearance adjustment steps: `{report['global_leak_closure'].get('route_clearance_adjustment_steps', 0)}`",
         f"- Global leak unresolved faces: `{report['global_leak_closure']['unresolved_faces']}`",
         f"- Stair route groups checked: `{report['stair_route_obstructions']['groups_checked']}`",
         f"- Stair route blocked groups: `{report['stair_route_obstructions']['blocked_groups']}`",

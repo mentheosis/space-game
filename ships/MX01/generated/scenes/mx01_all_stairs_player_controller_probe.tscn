@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://ships/MX01/generated/scenes/mx01_playable_inspection.tscn" id="1_playable"]
+[ext_resource type="Script" path="res://ships/MX01/tools/MX01AllStairsPlayerControllerProbe.cs" id="2_probe"]
+
+[node name="MX01AllStairsPlayerControllerProbeScene" type="Node3D"]
+
+[node name="MX01PlayableInspection" parent="." instance=ExtResource("1_playable")]
+
+[node name="MX01AllStairsPlayerControllerProbe" type="Node3D" parent="."]
+script = ExtResource("2_probe")
+PlayerPath = NodePath("../MX01PlayableInspection/Player")
+ShipRootPath = NodePath("../MX01PlayableInspection/ShipRoot")
