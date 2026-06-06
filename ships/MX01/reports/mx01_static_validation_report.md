@@ -1,13 +1,13 @@
 # MX01 Static Validation Report
 
-- Status: `PASS`
-- Checks: `28`
-- Failures: `0`
+- Status: `FAIL`
+- Checks: `47`
+- Failures: `1`
 - Warnings: `1`
 
 ## Failed Checks
 
-- None
+- `interior_enclosure:wall_stair_clearances_clear`: failed
 
 ## Warning Checks
 

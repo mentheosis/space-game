@@ -43,18 +43,24 @@ def resolve_config_path(config: dict, section: str, key: str) -> Path:
     return ROOT / config[section][key]
 
 
+def fmt(value: float) -> str:
+    return f"{value:.6f}".rstrip("0").rstrip(".")
+
+
 def write_scene(path: Path, config: dict) -> None:
     normalized = config["normalization_outputs"]["normalized_obj"]
     boundary = config["simplification_outputs"]["simplified_obj"]
     interior = config["interior_collision_outputs"]["collision_obj"]
+    enclosure = config["interior_enclosure_outputs"]["enclosure_obj"]
     dynamic = config["dynamic_collision_outputs"]["collision_obj"]
     lines = [
-        '[gd_scene load_steps=5 format=3]',
+        '[gd_scene load_steps=6 format=3]',
         '',
         f'[ext_resource type="ArrayMesh" path="{res(normalized)}" id="1_skin"]',
         f'[ext_resource type="ArrayMesh" path="{res(boundary)}" id="2_boundary"]',
         f'[ext_resource type="ArrayMesh" path="{res(interior)}" id="3_interior"]',
-        f'[ext_resource type="ArrayMesh" path="{res(dynamic)}" id="4_dynamic"]',
+        f'[ext_resource type="ArrayMesh" path="{res(enclosure)}" id="4_enclosure"]',
+        f'[ext_resource type="ArrayMesh" path="{res(dynamic)}" id="5_dynamic"]',
         '',
         '[node name="MX01CollisionReview" type="Node3D"]',
         '',
@@ -68,9 +74,12 @@ def write_scene(path: Path, config: dict) -> None:
         '[node name="InteriorCollision_FirstPass" type="MeshInstance3D" parent="."]',
         'mesh = ExtResource("3_interior")',
         '',
+        '[node name="InteriorEnclosure_SkinFitted" type="MeshInstance3D" parent="."]',
+        'mesh = ExtResource("4_enclosure")',
+        '',
         '[node name="DynamicCollision_FirstPass" type="MeshInstance3D" parent="."]',
         'visible = false',
-        'mesh = ExtResource("4_dynamic")',
+        'mesh = ExtResource("5_dynamic")',
         '',
         '[node name="Camera3D" type="Camera3D" parent="."]',
         'transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 55, 125)',
@@ -83,22 +92,33 @@ def write_scene(path: Path, config: dict) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def write_playable_scene(path: Path, config: dict, collision: dict) -> None:
+def write_playable_scene(path: Path, config: dict, collision: dict, enclosure: dict) -> None:
     normalized = config["normalization_outputs"]["normalized_obj"]
     interior = config["interior_collision_outputs"]["collision_obj"]
+    enclosure_obj = config["interior_enclosure_outputs"]["enclosure_obj"]
+    enclosure_collider_obj = config["interior_enclosure_outputs"]["collider_obj"]
     dynamic = config["dynamic_collision_outputs"]["collision_obj"]
     ship_world_y = 205.0
     # Keep the player clear of the lower-to-mid connector footprint.
     player_spawn = [8.0, ship_world_y - 3.45, -36.5]
+    enclosure_primitives = enclosure.get("collision_primitives", [])
+    stair_support_objects = [obj for obj in collision["objects"] if obj["role"] == "player_connector_stair_tread"]
     lines = [
-        f'[gd_scene load_steps={8 + len(collision["objects"])} format=3]',
+        f'[gd_scene load_steps={11 + len(collision["objects"]) + len(enclosure_primitives)} format=3]',
         '',
         '[ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]',
         '[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]',
         '[ext_resource type="PackedScene" path="res://scenes/ui/GravityDebugOverlay.tscn" id="3_overlay"]',
         f'[ext_resource type="ArrayMesh" path="{res(normalized)}" id="4_skin"]',
         f'[ext_resource type="ArrayMesh" path="{res(interior)}" id="5_interior_mesh"]',
-        f'[ext_resource type="ArrayMesh" path="{res(dynamic)}" id="6_dynamic_mesh"]',
+        f'[ext_resource type="ArrayMesh" path="{res(enclosure_obj)}" id="6_enclosure_mesh"]',
+        f'[ext_resource type="ArrayMesh" path="{res(dynamic)}" id="7_dynamic_mesh"]',
+        f'[ext_resource type="ArrayMesh" path="{res(enclosure_collider_obj)}" id="8_enclosure_collider_mesh"]',
+        '',
+        '[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_enclosure_collider"]',
+        'transparency = 1',
+        'albedo_color = Color(0.16, 0.82, 1, 0.72)',
+        'roughness = 0.8',
         '',
         '[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_space"]',
         'sky_top_color = Color(0.004, 0.008, 0.02, 1)',
@@ -128,6 +148,15 @@ def write_playable_scene(path: Path, config: dict, collision: dict) -> None:
                 '',
             ]
         )
+    for index, obj in enumerate(enclosure_primitives, start=1):
+        sx, sy, sz = obj["size"]
+        lines.extend(
+            [
+                f'[sub_resource type="BoxShape3D" id="BoxShape3D_mx01_enclosure_{index}"]',
+                f'size = Vector3({sx}, {sy}, {sz})',
+                '',
+            ]
+        )
     lines.extend(
         [
             '[node name="MX01PlayableInspection" type="Node3D"]',
@@ -143,21 +172,74 @@ def write_playable_scene(path: Path, config: dict, collision: dict) -> None:
             '[node name="InteriorCollisionVisual" type="MeshInstance3D" parent="ShipRoot"]',
             'mesh = ExtResource("5_interior_mesh")',
             '',
+            '[node name="InteriorEnclosureVisual" type="MeshInstance3D" parent="ShipRoot"]',
+            'visible = false',
+            'mesh = ExtResource("6_enclosure_mesh")',
+            '',
+            '[node name="InteriorEnclosureColliderVisual" type="MeshInstance3D" parent="ShipRoot"]',
+            'transparency = 0.18',
+            'mesh = ExtResource("8_enclosure_collider_mesh")',
+            'material_override = SubResource("StandardMaterial3D_enclosure_collider")',
+            '',
             '[node name="DynamicCollisionVisual" type="MeshInstance3D" parent="ShipRoot"]',
             'visible = false',
-            'mesh = ExtResource("6_dynamic_mesh")',
+            'mesh = ExtResource("7_dynamic_mesh")',
             '',
             '[node name="InteriorCollisionBody" type="StaticBody3D" parent="ShipRoot"]',
+            'collision_layer = 1',
+            'collision_mask = 1',
             '',
         ]
     )
     for index, obj in enumerate(collision["objects"], start=1):
+        if obj["role"] == "player_connector_stair_tread":
+            continue
         cx, cy, cz = obj["center"]
         lines.extend(
             [
                 f'[node name="{obj["name"]}" type="CollisionShape3D" parent="ShipRoot/InteriorCollisionBody"]',
                 f'position = Vector3({cx}, {cy}, {cz})',
                 f'shape = SubResource("BoxShape3D_mx01_{index}")',
+                '',
+            ]
+        )
+    lines.extend(
+        [
+            '[node name="WalkableSupportSurfaces" type="StaticBody3D" parent="ShipRoot"]',
+            'collision_layer = 128',
+            'collision_mask = 0',
+            '',
+        ]
+    )
+    for index, obj in enumerate(collision["objects"], start=1):
+        if obj["role"] != "player_connector_stair_tread":
+            continue
+        cx, cy, cz = obj["center"]
+        lines.extend(
+            [
+                f'[node name="{obj["name"]}_support" type="CollisionShape3D" parent="ShipRoot/WalkableSupportSurfaces"]',
+                f'position = Vector3({cx}, {cy}, {cz})',
+                f'shape = SubResource("BoxShape3D_mx01_{index}")',
+                '',
+            ]
+        )
+    lines.extend(
+        [
+            '[node name="InteriorEnclosureBody" type="StaticBody3D" parent="ShipRoot"]',
+            'collision_layer = 1',
+            'collision_mask = 1',
+            '',
+        ]
+    )
+    for index, obj in enumerate(enclosure_primitives, start=1):
+        cx, cy, cz = obj["center"]
+        rotation_y = float(obj.get("rotation_y", 0.0))
+        lines.extend(
+            [
+                f'[node name="{obj["name"]}" type="CollisionShape3D" parent="ShipRoot/InteriorEnclosureBody"]',
+                f'position = Vector3({cx}, {cy}, {cz})',
+                f'rotation = Vector3(0, {rotation_y}, 0)',
+                f'shape = SubResource("BoxShape3D_mx01_enclosure_{index}")',
                 '',
             ]
         )
@@ -195,6 +277,7 @@ def write_markdown(path: Path, report: dict) -> None:
         f"- Review scene: `{report['outputs']['review_scene']}`",
         f"- Playable scene: `{report['outputs']['playable_scene']}`",
         f"- Status: `{report['status']}`",
+        f"- Stair walkable support shapes: `{report.get('counts', {}).get('stair_walkable_support_shapes', 0)}`",
         "",
         "## Referenced Artifacts",
         "",
@@ -221,26 +304,32 @@ def main() -> int:
 
     write_scene(scene_path, config)
     collision_path = resolve_config_path(config, "interior_collision_outputs", "collision_json")
+    enclosure_path = resolve_config_path(config, "interior_enclosure_outputs", "enclosure_json")
     collision = load_json(collision_path)
-    write_playable_scene(playable_scene_path, config, collision)
+    enclosure = load_json(enclosure_path)
+    write_playable_scene(playable_scene_path, config, collision, enclosure)
+    stair_support_count = sum(1 for obj in collision["objects"] if obj["role"] == "player_connector_stair_tread")
     referenced = [
         ROOT / config["normalization_outputs"]["normalized_obj"],
         ROOT / config["simplification_outputs"]["simplified_obj"],
         ROOT / config["interior_collision_outputs"]["collision_obj"],
+        ROOT / config["interior_enclosure_outputs"]["enclosure_obj"],
         ROOT / config["dynamic_collision_outputs"]["collision_obj"],
         collision_path,
+        enclosure_path,
     ]
     report = {
         "ship_id": config["ship_id"],
         "method": "godot_collision_review_scene_v1",
         "status": "PASS",
+        "counts": {"stair_walkable_support_shapes": stair_support_count},
         "referenced_artifacts": [{"path": rel(path), "sha256": sha256(path)} for path in referenced],
         "config": {"path": rel(config_path), "sha256": sha256(config_path), "effective_values": config},
         "tools": {
             "generate_mx01_review_scene.py": {"path": rel(Path(__file__).resolve()), "sha256": sha256(Path(__file__).resolve())}
         },
         "outputs": {"review_scene": rel(scene_path), "playable_scene": rel(playable_scene_path), "report_json": rel(report_json), "report_md": rel(report_md)},
-        "notes": "The review scene references generated OBJ assets. The playable scene instances the real Player scene and generated StaticBody3D box collision from MX01 interior collision JSON.",
+        "notes": "The review scene references generated OBJ assets. The playable scene instances the real Player scene, Stage 7A StaticBody3D box collision from MX01 interior collision JSON, Stage 7A stair treads as nonblocking walkable support surfaces on physics layer 128, and Stage 7B controller-safe BoxShape3D enclosure primitives from MX01 interior enclosure JSON.",
     }
     write_json(report_json, report)
     write_markdown(report_md, report)

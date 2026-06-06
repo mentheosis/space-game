@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="ArrayMesh" path="res://ships/MX01/source/mx01_normalized_skin.obj" id="1_skin"]
 [ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_boundary_surface_simplified.obj" id="2_boundary"]
 [ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_interior_collision.obj" id="3_interior"]
-[ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_dynamic_collision.obj" id="4_dynamic"]
+[ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_interior_enclosure.obj" id="4_enclosure"]
+[ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_dynamic_collision.obj" id="5_dynamic"]
 
 [node name="MX01CollisionReview" type="Node3D"]
 
@@ -17,9 +18,12 @@ mesh = ExtResource("2_boundary")
 [node name="InteriorCollision_FirstPass" type="MeshInstance3D" parent="."]
 mesh = ExtResource("3_interior")
 
+[node name="InteriorEnclosure_SkinFitted" type="MeshInstance3D" parent="."]
+mesh = ExtResource("4_enclosure")
+
 [node name="DynamicCollision_FirstPass" type="MeshInstance3D" parent="."]
 visible = false
-mesh = ExtResource("4_dynamic")
+mesh = ExtResource("5_dynamic")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 55, 125)

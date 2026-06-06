@@ -168,10 +168,10 @@ surface reconstruction options:
   includes reliable gradients or Hermite edge data. Use this if marching cubes
   rounds off important hull boundaries or creates too much stair-stepping.
 
-The interior collision generator may use reconstructed shell patches as
-blockers, but it should not blindly use the full exterior mesh as interior
-collision. Traversal surfaces still need authored/procedural floors, ramps,
-stairs, rails, and connectors that are validated against the player capsule.
+The enclosure generator may use reconstructed shell patches as blockers, but it
+should not blindly use the full exterior mesh as interior collision. Traversal
+surfaces still need authored/procedural floors, ramps, stairs, rails, and
+connectors that are validated against the player capsule.
 
 ### 2. Dynamic Exterior Physics Collision
 
@@ -407,25 +407,294 @@ Human review requirements:
 - Supplemental stairs added during review must still be generated from the
   pipeline, not hand-authored in the Godot scene.
 
-### Stage 7: Generate Interior Collision Meshes
+### Stage 7: Generate Interior Player Collision
 
-Create `ships/MX01/tools/generate_mx01_interior_collision.py`.
+Stage 7 is intentionally split into two deterministic generators. Floors and
+traversal are authored/procedural player-route geometry. The enclosure is a
+skin-fitted shell reconstruction problem. These must not be solved by one broad
+rectangular room generator.
+
+#### Stage 7A: Generate Floors And Traversal Collision
+
+Create or maintain `ships/MX01/tools/generate_mx01_interior_collision.py`.
 
 Responsibilities:
 
-- convert traversal layout into Godot-loadable collision meshes;
-- generate walkable floors, ramps, stairs, blockers, walls, ceilings, rails,
-  hatch blockers, and connector collision;
+- convert the traversal graph into Godot-loadable player collision;
+- generate walkable floors, ramps, stairs, landings, rails, hatch pads, and
+  connector collision;
+- keep floors and connectors inside accepted occupancy volume with player
+  clearance;
+- keep route objects independent from wall and ceiling enclosure objects;
 - split collision by semantic region and role;
 - assign debug materials;
 - export collision-only GLB or OBJ assets and a manifest.
 
 Acceptance:
 
-- every collision object has a deterministic name;
-- player collision surfaces are separate from dynamic exterior physics;
-- generated meshes pass static intersection checks against the exterior skin;
-- generated meshes pass player capsule sweep checks.
+- every floor, stair, landing, rail, and connector has a deterministic name;
+- player traversal collision is separate from dynamic exterior physics;
+- player traversal collision is separate from skin-fitted enclosure collision;
+- no floor, stair, ramp, or landing intersects the exterior skin after
+  clearance;
+- generated traversal meshes pass player capsule sweep checks.
+
+#### Stage 7B: Generate Skin-Fitted Interior Enclosure
+
+Create `ships/MX01/tools/generate_mx01_interior_enclosure.py`.
+
+Responsibilities:
+
+- generate exterior-wall and ceiling blockers from a smooth signed-distance
+  field or source-triangle projection field, not from rectangular deck bounds
+  and not directly from raw binary occupancy boundaries;
+- reconstruct an interior shell offset inward from the visual skin so it errs
+  toward staying inside the ship skin;
+- clip the shell to accepted interior deck bands and required traversal
+  openings;
+- preserve stairwell, hatch, and connector clearance volumes created by Stage
+  7A;
+- output semantic enclosure regions such as `player_enclosure_wall`,
+  `player_enclosure_ceiling`, `player_enclosure_hatch_cut`, and
+  `player_enclosure_opening`;
+- export enclosure-only GLB or OBJ assets, JSON contracts, fit metrics, and a
+  manifest.
+
+Algorithm path:
+
+- **Playable collider replacement target: exact floor-boundary containment.**
+  The player-facing wall collider should be generated from the accepted Stage
+  7A floor footprint, not from local voxel edge boxes, row-filled silhouettes,
+  or triangle shell collision. The floor is the contract for where the player
+  can stand; the ship skin is the constraint for where the enclosure is allowed
+  to sit. For each accepted deck:
+  - derive a deterministic 2D floor-support cell set directly from Stage 7A
+    `player_walkable_floor` primitives, `player_connector_landing` pads whose
+    top surface matches that deck height, and the 2D footprint of
+    `player_connector_stair_tread` support surfaces that bridge into or out of
+    the deck;
+  - classify exterior-reachable empty space by flood-filling around the exact
+    floor cell set in a padded grid;
+  - extract every floor edge adjacent to exterior-reachable empty space;
+  - discard interior cutaway and stair/dropdown hole edges unless they are also
+    exterior-reachable. Stair tread footprints participate in the containment
+    footprint so perimeter walls cannot cross a stair route, but the generator
+    must not add separate connector guard-wall primitives;
+  - reclassify exterior-reachable upper-deck edges as
+    `interior_balcony_edge` when the adjacent empty cell is backed by a lower
+    traversable/interior footprint and that adjacent cell is still inside the
+    hull at the current deck's wall height. A lower floor below is not enough
+    by itself to suppress a wall; if the adjacent cell is outside the hull at
+    the current height, the edge remains a `ship_edge_boundary`;
+  - keep `ship_edge_boundary` precedence over stair clearance. If a stair
+    footprint reaches the hull boundary, the enclosure wall remains at the hull
+    edge; the stair must fit inside that wall instead of deleting or shifting
+    the wall;
+  - when a required hull wall intersects stair traversal clearance, split only
+    the affected wall run, offset that local segment outward toward the hull
+    just enough to clear the stair path, and add short return segments at both
+    ends so it reconnects to the original wall line. This is a
+    `hull_wall_detour`, not a stair guard wall, and it must preserve enclosure
+    coverage and stay inside the inward hull limit. Detour clearance must be
+    capsule-scale; the earlier `0.18m` geometry margin left S2/S4 top routes
+    playable in static checks but pinched in controller movement;
+  - generate `player_enclosure_stair_cutaway_sleeve` blockers where a stair
+    swept/cutaway volume intersects hull, floor, or ceiling boundaries. These
+    sleeves enclose only the exposed cutaway boundary: side, underside, or
+    soffit surfaces needed to prevent leaks around the stair void. They must
+    not become broad stair guard walls. The first MX01 side-sleeve attempt
+    emitted vertical stair-local walls and failed play review by cluttering the
+    interior while still leaving floor/ceiling holes. Do not use vertical
+    stair-edge wall sleeves as a general solution. The next stair-specific
+    closure pass should focus on missing floor, ceiling, and soffit blockers
+    around exposed stair cutaway boundaries while leaving stair side movement
+    open except where the normal ship-edge perimeter wall already exists;
+  - stair cutaway floor/ceiling closure should be horizontal-only. For each
+    connector group, find small gaps between the stair/landing envelope and an
+    already-generated ship-edge perimeter wall at each landing deck height.
+    Fill only that horizontal gap with a thin
+    `controller_safe_stair_cutaway_horizontal_closure` slab. Do not create new
+    vertical stair walls, do not bridge to non-perimeter interior walls, and
+    reject any slab that intrudes into stair or landing clearance, including
+    full-height route headroom;
+  - do not add broad automatic upper-hull continuations from every lower wall
+    that has remaining hull height. The first MX01 continuation attempt created
+    random interior walls and did not fix the false-balcony gap. Any
+    balcony-adjacent hull continuation must be generated from a targeted
+    classified edge/skin diagnostic that identifies the specific missing hull
+    segment and proves it is not interior open volume;
+  - constrain/clip only against the inward ship-skin occupancy silhouette; do
+    not delete exposed floor edges for stair routes;
+  - merge only collinear adjacent boundary runs with locked tolerances;
+  - extrude each exterior floor edge run into a controller-safe wall box whose
+    inner face is flush with the traversable floor edge and whose body is
+    biased outward toward the skin;
+  - split wall runs when their top limit changes so walls rise to the nearest
+    floor-above or inward hull-skin limit instead of stopping at a fixed low
+    height;
+  - use short, deterministic run overlap to seal corners, but never shift wall
+    runs away from the floor edge just to satisfy connector keepouts.
+- The static validator must independently recompute the Stage 7A exact
+  exterior floor-edge set, classify `ship_edge_boundary` versus
+  `interior_balcony_edge`, and prove that every ship-edge boundary is covered
+  by a generated wall primitive while balcony edges are not converted into full
+  walls. A green primitive count or a closed-looking visible shell is not
+  enough.
+- **Global leak closure rule:** after the ordinary wall/ceiling generation,
+  run a deterministic 3D leak pass that is not stair-specific. The first MX01
+  local face-sampling attempt failed play review because it sampled many
+  support-adjacent faces but did not prove connected escape paths from the
+  interior. Replace that with a water-fill method:
+  - rasterize accepted Stage 7A floors, stair/landing traversal supports, and
+    all generated Stage 7B collision primitives into the same occupancy grid;
+  - seed "water" in non-solid cells above every accepted floor, landing, and
+    stair support surface;
+  - flood-fill water only through connected non-solid cells inside the inward
+    ship-skin occupancy;
+  - separately flood-fill exterior air from the world/grid boundary through
+    non-solid outside-hull cells;
+  - treat a face as a leak candidate only when connected water reaches an
+    outside-hull neighbor that is also connected to the exterior flood, through
+    a face that is not already blocked by a floor, wall, ceiling, or stair
+    support. Do not close faces into disconnected outside-hull pockets; these
+    are usually local occupancy/skin classification artifacts and can create
+    false interior walls;
+  - vertical water-fill wall candidates must be support-anchored: the leaking
+    water cell's X/Z footprint must have an accepted floor, landing, or stair
+    support top within player-height below the candidate. High unanchored
+    vertical faces are reported as `unanchored_vertical_faces` rather than
+    becoming walls, because these produced false interior cockpit walls in
+    MX01;
+  - merge leak candidate faces by axis, plane, row, and locked height/width
+    bins, then emit thin `controller_safe_global_leak_closure` slabs oriented
+    on the leaking face. This can produce wall, floor, or ceiling blockers
+    depending on the face normal;
+  - reject any closure slab that intrudes into stair/landing/tread traversal
+    clearance. Clearance must include both low tread/landing footprint overlap
+    and full-height player headroom above every stair route sample; low
+    footprint checks alone missed top-stair obstructions on MX01. If a leak is
+    inside traversal clearance, report it as unresolved rather than placing a
+    blocker in the route;
+  - record generated, rejected, and unresolved leak counts in the report. Stage
+    7B is not complete until unresolved exterior leaks are zero in this pass
+    and play review confirms the result.
+- **Ceiling height rule:** ceilings are generated from available vertical
+  interior span, not from fixed player clearance. For each traversable ceiling
+  region:
+  - if a floor exists above that cell, rely on the accepted Stage 7A floor box
+    above as the ceiling collision and do not add a duplicate low ceiling slab;
+  - if no floor exists above, place a generated ceiling blocker at the highest
+    inward-clamped ship-skin height available for that footprint;
+  - derive ceiling blockers from per-cell top limits and merge only cells with
+    compatible height bins, so curved/inward hull sections produce local
+    ceiling strips instead of dragging an entire large slab low;
+  - skip or split ceiling regions that would cross an interior balcony or stair
+    transition;
+  - do not delete high hull-ceiling cells merely because their 2D footprint
+    overlaps a stair connector keepout. That policy creates ceiling holes
+    around stairs. Stair clearance should be protected by the generated
+    ceiling height and connector clearance validation, while ceilings remain
+    present wherever the hull or next floor provides enclosure above;
+  - use player capsule clearance only as a minimum validity check, never as the
+    target height.
+- Marching cubes and dual contouring remain evidence-shell tools. They can
+  show the fitted skin and support future smoothing, but they are not the
+  final playable wall collider for MX01 unless converted into simple
+  controller-safe polygon/convex wall strips.
+- **Build a smooth narrow-band SDF first:** derive signed distances near the
+  accepted interior from the normalized OBJ triangles, including nearest
+  triangle distance, projected source normal, and inside/outside sign. Binary
+  occupancy may seed the sign and search bounds, but it is not enough for final
+  player wall collision because it produces voxel stair-stepping and fragmented
+  triangles.
+- **Marching cubes first:** sample the smooth SDF at the configured enclosure
+  offset and extract the inward collision shell with fixed cube traversal
+  order, fixed interpolation, deterministic vertex quantization, deterministic
+  triangle ordering, and locked simplification parameters. This is the first
+  implementation target because it provides fast, inspectable evidence.
+- **Dual contouring follow-up:** use dual contouring when marching cubes
+  visibly rounds off panel edges, creates stair-stepped silhouettes, or loses
+  tight fit around sharp hull features. Dual contouring should use deterministic
+  Hermite samples / gradients, fixed QEF solving tolerances, stable cell order,
+  and the same JSON configuration contract.
+- Both algorithms must apply the same enclosure contract values:
+  `voxel_size`, `refined_voxel_size`, `skin_inset`, `max_surface_error`,
+  `max_normal_error`, `min_component_volume`, `weld_epsilon`,
+  `vertex_quantization_epsilon`, and `player_clearance_margin`.
+- **Controller-safe collider synthesis:** the extracted skin-fit shell is an
+  evidence mesh, not the final player collider. Do not use raw or smoothed
+  ConcavePolygonShape3D triangle soup for player-facing walls. Instead, derive
+  controller-safe blockers from clean floor-aware deck polygons: continuous wall
+  ribbons, swept capsule/box bands, convex strips, or other smooth primitives
+  with deliberate overlap at joins. The playable collider should have
+  predictable normals and no triangle-scale features for the character
+  controller to catch on.
+- **Debug/evidence separation:** retain raw voxel, raw marching-cubes, and
+  smoothed skin-fit outputs as separate artifacts. The playable scene should
+  use the controller-safe primitive collider, while review overlays may show raw
+  reconstruction and smoothed shell evidence.
+
+Acceptance:
+
+- enclosure output contains no broad rectangular room walls or ceilings;
+- playable enclosure collision is not a raw binary-occupancy isosurface;
+- playable enclosure collision is not a ConcavePolygonShape3D triangle shell;
+- enclosure walls and ceilings follow the ship skin silhouette within
+  `max_surface_error`;
+- enclosure geometry never protrudes outside the visual skin after the chosen
+  inward offset;
+- enclosure geometry does not invade Stage 7A traversal clearance volumes;
+- controller-safe wall collision lets the player capsule slide along walls
+  without catching on seams, triangle edges, or voxel-scale jagged features;
+- tiny disconnected enclosure fragments below `min_component_volume` are
+  removed before playable collision export;
+- stairwells, hatches, and connector openings remain passable;
+- repeated runs produce identical output hashes;
+- generated enclosure meshes pass static skin-fit checks and player capsule
+  clearance checks near required routes.
+
+Lessons from failed MX01 enclosure pass:
+
+- The `deterministic_tetrahedral_isosurface_enclosure_v1` attempt was better
+  than rectangular rooms because it was skin-derived, but it was still based on
+  binary occupancy sign changes at coarse voxel resolution. That produced
+  fragmented, jagged wall triangles and player snagging.
+- A binary occupancy shell is acceptable as a diagnostic artifact and as a
+  conservative source of inside/outside evidence, but it is not acceptable as
+  the final Stage 7B player collider.
+- A high triangle count is not the same as smooth collision. The failed pass
+  produced many triangles but still contained voxel-scale discontinuities.
+- Static checks must measure smoothness and controller usability, not just
+  object counts, inward offset, and absence of rectangular boxes.
+- The next implementation should fit against the source OBJ surface or a true
+  narrow-band SDF, then produce a simplified, smoothed, inward-constrained
+  collision shell for gameplay.
+- The `smoothed_occupancy_contour_enclosure_v2` attempt reduced fragmentation
+  and triangle count, but still failed in playable review because it used a
+  ConcavePolygonShape3D triangle shell as the actual wall collider. Static
+  smoothness metrics were not enough to predict character-controller behavior.
+- The next implementation must keep the skin-fitted shell as evidence and
+  derive a separate primitive/swept-volume player collider from it.
+- The first primitive-collider pass still failed because sampled wall ribbons
+  did not prove containment. Primitive count is not a closure metric; any
+  missed shell contour segment becomes a real escape gap in playable review.
+- Stage 7B playable wall collision must include a deterministic containment
+  invariant: every exterior-reachable edge of each accepted Stage 7A floor
+  footprint is covered by a controller-safe blocker. MX01 currently has no
+  player exterior portals, so route-reserved perimeter gaps are not allowed.
+  The report and static validator must count exterior, covered, and uncovered
+  perimeter edges from the exact floor footprint, not from a simplified
+  left/right deck ring.
+- Exterior perimeter blockers should be biased outside the traversable floor
+  footprint with their inner face flush to the deck edge. Centering blockers on
+  the floor edge can invade stair and landing clearance volumes while still
+  leaving the same apparent wall line.
+- Playable inspection must render the actual player collider primitives, not
+  only the skin-fit evidence shell. Showing non-colliding evidence walls in the
+  playable scene creates false positives during human review: a wall can look
+  correct while the player passes through because the visible mesh is not the
+  physics shape. Keep evidence visible in review scenes, and show the primitive
+  collider mesh in playable scenes.
 
 Human review lessons from MX01 floor and stair iteration:
 
@@ -441,6 +710,45 @@ Human review lessons from MX01 floor and stair iteration:
 - The player controller handled the steeper MX01 stair profile better than the
   initial shallow high-tread-count profile. Record stair run/rise in the report
   and validate with playable inspection, not only with generic slope rules.
+- Stair traversal should use nonblocking walkable support surfaces on the
+  player support layer rather than solid stair tread collision. Solid tread
+  boxes can act like repeated obstacles; support surfaces let the player ascend
+  to the sampled stair height without colliding with each riser.
+- Enclosure route openings around stairs must reserve only the stair run axis
+  for treads. Reserving the full inflated connector keepout around every tread
+  leaves side gaps where the player can fall out beside stairways. Landings may
+  reserve the same run axis as their stair group; landing side walls should
+  normally remain enclosed.
+- Stage 7B must not generate stair-local side walls, guard walls, or chute
+  walls. Stairways are traversal features from Stage 7A; their only adjacent
+  walls should be the enclosure walls that already lie on the ship-skin/floor
+  footprint edge. Adding connector-derived guard primitives can make the
+  stairs feel enclosed in static validation while blocking movement in play.
+- Do not broadly replace stable floor-footprint wall primitives with smoothed
+  contour-ribbon physics until the replacement has playable proof. The first
+  MX01 contour-ribbon collider pass moved many wall surfaces at once and caused
+  pass-through/stuck-wall regressions despite passing static checks.
+- Floor cutaways, deck seams, and disconnected floor islands can become false
+  "exterior" edges and produce interior walls inside the ship if edge
+  classification is local. Fix these with padded-grid exterior flood fill from
+  outside the exact footprint. Do not row-fill entire decks or use special
+  deck-scoped rectangular wall footprints unless a human explicitly authors a
+  solid interior obstruction.
+- Wall boxes near stair landings need player-scale clearance, but perimeter
+  closure has priority. MX01 should not shift perimeter walls away from the
+  floor edge near S2/S4/S7, because that creates holes and pass-through lines.
+  If a stair is too close to the skin wall, solve it by stair placement,
+  thinner edge-biased wall primitives, or a deliberately authored local
+  opening with replacement blocker geometry.
+- Simplified left/right deck polygon rings can miss protruding floor edges and
+  allow leaks. The playable wall polygon must remain exact-floor-edge aware:
+  every exposed exterior edge of the Stage 7A floor footprint must be covered
+  by a wall primitive unless an explicitly authored exterior portal replaces
+  it.
+- Perimeter wall overlap at run ends must stay small and connector-aware.
+  Large overlap values can extend wall boxes into stair landings or support
+  treads even when the route center remains clear. Static validation should
+  check actual connector footprints, not only inflated keepout centers.
 - Compact stair placement should prefer room edges only when that edge is still
   inside the accepted interior volume. "Move to the side" means near the usable
   floor edge, not necessarily all the way to the connector overlap bound.
@@ -448,7 +756,7 @@ Human review lessons from MX01 floor and stair iteration:
   as a reference, then offset only as much as needed to remain adjacent and
   inside the narrow floor section.
 - After every human-reviewed stair change, regenerate the playable scene, the
-  stair ID diagram, the interior collision report, and static validation before
+  stair ID diagram, the traversal collision report, and static validation before
   requesting another review.
 
 ### Stage 8: Generate Dynamic Exterior Compound Collision
@@ -493,6 +801,7 @@ The scene should contain:
 
 - visual reference mesh;
 - generated interior player collision;
+- generated skin-fitted interior enclosure collision;
 - generated exterior dynamic physics collision;
 - debug overlay toggles;
 - player spawn points at entry and on each deck;
@@ -504,7 +813,8 @@ Acceptance:
 - the scene imports through Godot on the host;
 - the player can walk the generated interior route;
 - dynamic collision is attached to the moving ship body, not the visual mesh;
-- debug overlays can show interior and exterior collision separately.
+- debug overlays can show traversal, enclosure, and exterior collision
+  separately.
 
 ## Validation Requirements
 
@@ -516,7 +826,15 @@ Checks:
 
 - source and generated artifact hashes match the manifest;
 - generated files exist only under `ships/MX01`;
-- interior collision is inside the exterior shell after clearance;
+- traversal collision is inside the exterior shell after clearance;
+- enclosure collision is inside the exterior shell at the configured inward
+  offset;
+- enclosure collision does not intersect required traversal clearance volumes;
+- playable enclosure collision uses controller-safe primitive or convex/swept
+  shapes derived from the fitted shell, not direct triangle mesh collision;
+- playable enclosure collision passes capsule slide/sweep tests along wall and
+  ceiling contact paths without snagging on voxel-scale features;
+- enclosure smoothness metrics are below the configured snag threshold;
 - dynamic collision is composed only of convex/simple shapes;
 - no dynamic physics shape blocks a required interior route;
 - traversal graph is fully connected;
@@ -545,7 +863,8 @@ Each full run should produce:
 - deterministic simplification report;
 - interior volume report;
 - traversal graph report;
-- interior collision fit report;
+- interior traversal collision fit report;
+- skin-fitted enclosure collision report;
 - dynamic exterior collision fit report;
 - side/top/front projection images;
 - Godot contact sheet or screenshots;
@@ -555,9 +874,17 @@ Each full run should produce:
 
 Track these metrics per run:
 
-- maximum interior collision protrusion outside skin;
+- maximum traversal collision protrusion outside skin;
+- maximum enclosure collision protrusion outside skin;
 - reconstructed shell max/mean distance to visual skin;
 - reconstructed shell protrusion and inset distance percentiles;
+- enclosure raw triangle count;
+- enclosure smoothed collision triangle count;
+- enclosure playable primitive count;
+- enclosure playable primitive seam/overlap count;
+- enclosure disconnected fragment count before and after filtering;
+- enclosure maximum adjacent-triangle normal delta after smoothing;
+- enclosure maximum inward jag step against the player capsule radius;
 - simplification input/output triangle counts;
 - simplification max surface error;
 - simplification max normal error;
@@ -568,6 +895,8 @@ Track these metrics per run:
 - vertical space utilization percentage;
 - traversal graph connected component count;
 - minimum route clearance;
+- minimum route clearance after enclosure merge;
+- player capsule wall-slide snag count;
 - dynamic collision hull count;
 - dynamic collision total vertices;
 - dynamic collision maximum skin omission distance;
@@ -586,7 +915,8 @@ The experiment is considered successful when:
 - the player can traverse all accepted interior decks in the review scene;
 - at least three vertical levels or level bands are used where the hull permits;
 - exterior dynamic collision is compound convex/simple, not concave trimesh;
-- interior traversal collision and exterior dynamic collision are separate;
+- interior traversal collision, skin-fitted enclosure collision, and exterior
+  dynamic collision are separate;
 - validation reports show no untracked reuse of old CargoCrane outputs;
 - all MX01-specific tools, scenes, assets, reports, and manifests are colocated
   under `ships/MX01`;
@@ -602,11 +932,16 @@ The experiment is considered successful when:
 6. Implement deterministic simplification and byte-stability checks.
 7. Implement interior volume extraction and deck-band discovery.
 8. Implement traversal graph fitting and route validation.
-9. Implement generated interior collision meshes.
-10. Implement dynamic exterior compound collision fitting.
-11. Implement static validation.
-12. Add a standalone Godot review scene.
-13. Add host import/build/review validation.
+9. Implement generated floor/traversal collision meshes.
+10. Implement a smooth narrow-band SDF or source-triangle projection field for
+    Stage 7B enclosure.
+11. Implement raw skin-fit enclosure reconstruction with marching cubes first.
+12. Implement deterministic smoothing, simplification, fragment filtering, and
+    capsule-friendly playable enclosure collision export.
+13. Implement dynamic exterior compound collision fitting.
+14. Implement static validation.
+15. Add a standalone Godot review scene.
+16. Add host import/build/review validation.
 
 ## Key Design Rule
 
@@ -614,6 +949,8 @@ The process may use the exterior skin to discover space, boundaries, and fit
 targets, but generated collision must remain purpose-specific:
 
 - player traversal collision is for walking inside the ship;
+- skin-fitted enclosure collision is for preventing the player from clipping
+  through the ship skin;
 - dynamic exterior collision is for ship physics;
 - debug visualization is for review only;
 - no generated shape should silently serve multiple roles without being named

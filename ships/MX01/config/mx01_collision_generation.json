@@ -86,6 +86,14 @@
     "report_md": "ships/MX01/reports/mx01_interior_collision_report.md",
     "manifest_json": "ships/MX01/reports/manifests/mx01_interior_collision_manifest.json"
   },
+  "interior_enclosure_outputs": {
+    "enclosure_json": "ships/MX01/generated/collision/mx01_interior_enclosure.json",
+    "enclosure_obj": "ships/MX01/generated/collision/mx01_interior_enclosure.obj",
+    "collider_obj": "ships/MX01/generated/collision/mx01_interior_enclosure_collider.obj",
+    "report_json": "ships/MX01/reports/mx01_interior_enclosure_report.json",
+    "report_md": "ships/MX01/reports/mx01_interior_enclosure_report.md",
+    "manifest_json": "ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json"
+  },
   "dynamic_collision_outputs": {
     "collision_json": "ships/MX01/generated/collision/mx01_dynamic_collision.json",
     "collision_obj": "ships/MX01/generated/collision/mx01_dynamic_collision.obj",

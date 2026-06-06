@@ -38,11 +38,11 @@ public partial class PlayerController : CharacterBody3D
     [Export] public float ZeroGravityBrakeStrength { get; set; } = 16.0f;
     [Export] public float ZeroGravityDamping { get; set; } = 0.05f;
     [Export] public float ShipInteriorGravityAcceleration { get; set; } = 18.0f;
-    [Export] public bool AutoStepEnabled { get; set; } = true;
+    [Export] public bool AutoStepEnabled { get; set; } = false;
     [Export] public float AutoStepHeight { get; set; } = 1.1f;
     [Export] public float AutoStepForwardProbe { get; set; } = 0.58f;
     [Export] public float AutoStepDownProbe { get; set; } = 1.1f;
-    [Export] public bool AutoStepUseSurfaceProjection { get; set; } = true;
+    [Export] public bool AutoStepUseSurfaceProjection { get; set; } = false;
     [Export] public bool AutoStepHorizontalCatchup { get; set; } = true;
     [Export] public int AutoStepProbeCount { get; set; } = 5;
     [Export] public float AutoStepLateralProbeSpacing { get; set; } = 0.24f;
@@ -421,8 +421,6 @@ public partial class PlayerController : CharacterBody3D
     private void ApplySurfaceMovement(float delta, Vector2 input)
     {
         var desiredDirection = GetSurfaceMoveDirection(input);
-        var transformBeforeMove = GlobalTransform;
-        var wasOnFloor = IsOnFloor();
         var velocity = Velocity;
         var verticalSpeed = velocity.Dot(_lastUp);
         var verticalVelocity = _lastUp * verticalSpeed;
@@ -460,20 +458,8 @@ public partial class PlayerController : CharacterBody3D
             return;
         }
 
-        if (AutoStepUseSurfaceProjection
-            && !jumpPressed
-            && !_jetpackFiring
-            && TryProjectedSurfaceMove(wasOnFloor, transformBeforeMove, desiredDirection, horizontalVelocity, delta))
-        {
-            return;
-        }
-
         Velocity = velocity;
         MoveAndSlide();
-        if (AutoStepEnabled)
-        {
-            TryVerticalTerrainAssist(wasOnFloor, transformBeforeMove, desiredDirection, horizontalVelocity, delta);
-        }
     }
 
     private bool TryProjectedSurfaceMove(bool wasOnFloor, Transform3D transformBeforeMove, Vector3 desiredDirection, Vector3 intendedHorizontalVelocity, float delta)

@@ -29,6 +29,14 @@
       "status": "PASS"
     },
     {
+      "id": "exists:ships/MX01/generated/collision/mx01_interior_enclosure.obj",
+      "status": "PASS"
+    },
+    {
+      "id": "exists:ships/MX01/generated/collision/mx01_interior_enclosure_collider.obj",
+      "status": "PASS"
+    },
+    {
       "id": "exists:ships/MX01/generated/collision/mx01_dynamic_collision.obj",
       "status": "PASS"
     },
@@ -77,6 +85,24 @@
       "status": "PASS"
     },
     {
+      "actual": "f2456056d0c7b46efb32f04920159f04c8bdc557f21536a8c08869f899c16801",
+      "expected": "f2456056d0c7b46efb32f04920159f04c8bdc557f21536a8c08869f899c16801",
+      "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json:ships/MX01/generated/collision/mx01_interior_enclosure_collider.obj",
+      "status": "PASS"
+    },
+    {
+      "actual": "aea08451e37fa6af5719f3f0b450becd4e63a94586ac53465284061510328ea6",
+      "expected": "aea08451e37fa6af5719f3f0b450becd4e63a94586ac53465284061510328ea6",
+      "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json:ships/MX01/generated/collision/mx01_interior_enclosure.json",
+      "status": "PASS"
+    },
+    {
+      "actual": "9f29e7ca69104b3a7567fcb001ef3d37d9aac25299d6e27f66e2c680dd8c2b79",
+      "expected": "9f29e7ca69104b3a7567fcb001ef3d37d9aac25299d6e27f66e2c680dd8c2b79",
+      "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json:ships/MX01/generated/collision/mx01_interior_enclosure.obj",
+      "status": "PASS"
+    },
+    {
       "actual": "0513908554334eccb5dbd7b1854a18543882b4deb4ec99219d507925d1881179",
       "expected": "0513908554334eccb5dbd7b1854a18543882b4deb4ec99219d507925d1881179",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_interior_volume_manifest.json:ships/MX01/generated/collision/mx01_interior_volume_candidates.json",
@@ -95,14 +121,14 @@
       "status": "PASS"
     },
     {
-      "actual": "fad52a1cf2a803ee0426912d99561c97b88dac5a57b0f9dbf30e17dc4d2f919b",
-      "expected": "fad52a1cf2a803ee0426912d99561c97b88dac5a57b0f9dbf30e17dc4d2f919b",
+      "actual": "557ad00f2ca560e8769d94327fa76cf448be9f6bcc65c5f39636531950b6ae96",
+      "expected": "557ad00f2ca560e8769d94327fa76cf448be9f6bcc65c5f39636531950b6ae96",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_scene_manifest.json:ships/MX01/generated/scenes/mx01_playable_inspection.tscn",
       "status": "PASS"
     },
     {
-      "actual": "891d730bf6a9264cb056a3aa24588d344dee1bca6ca6acf6c6821a94c154d9b3",
-      "expected": "891d730bf6a9264cb056a3aa24588d344dee1bca6ca6acf6c6821a94c154d9b3",
+      "actual": "f67a709d989178fd353b38d509641f866cfa804a2a770f60ae30841c1414d80d",
+      "expected": "f67a709d989178fd353b38d509641f866cfa804a2a770f60ae30841c1414d80d",
       "id": "manifest_hash:ships/MX01/reports/manifests/mx01_scene_manifest.json:ships/MX01/generated/scenes/mx01_collision_review.tscn",
       "status": "PASS"
     },
@@ -139,6 +165,254 @@
       },
       "id": "dynamic_collision:convex_only",
       "status": "PASS"
+    },
+    {
+      "counts": {
+        "ceiling_collision_primitives": 4468,
+        "ceiling_objects": 4,
+        "collision_primitives": 7395,
+        "connector_keepouts": 53,
+        "global_leak_closure_primitives": 5105,
+        "hull_wall_detour_primitives": 50,
+        "hull_wall_detour_return_primitives": 22,
+        "objects": 20,
+        "raw_candidate_objects": 37,
+        "removed_fragments": 7,
+        "removed_keepout_faces": 10,
+        "stair_cutaway_horizontal_closure_primitives": 9,
+        "stair_side_guard_primitives": 0,
+        "triangles": 7300,
+        "vertices": 5300,
+        "wall_collision_primitives": 2927,
+        "wall_objects": 16
+      },
+      "id": "interior_enclosure:has_walls_and_ceilings",
+      "status": "PASS"
+    },
+    {
+      "id": "interior_enclosure:no_rectangular_room_boxes",
+      "playable_collision_is_raw_binary_isosurface": false,
+      "playable_collision_uses_concave_triangle_mesh": false,
+      "rectangular_room_boxes": 0,
+      "status": "PASS"
+    },
+    {
+      "fit": {
+        "inward_offset_m": 0.2,
+        "playable_collision_is_raw_binary_isosurface": false,
+        "playable_collision_uses_concave_triangle_mesh": false,
+        "protrudes_outside_by_construction": false,
+        "rectangular_room_boxes": 0,
+        "theoretical_voxel_surface_error_m": 0.25
+      },
+      "id": "interior_enclosure:inward_offset",
+      "status": "PASS"
+    },
+    {
+      "id": "interior_enclosure:evidence_triangle_mesh_only",
+      "kinds": [
+        "triangle_mesh"
+      ],
+      "status": "PASS"
+    },
+    {
+      "ceiling_collision_primitives": 4468,
+      "collision_primitives": 7395,
+      "id": "interior_enclosure:playable_uses_controller_safe_primitives",
+      "primitive_kinds": [
+        "box"
+      ],
+      "status": "PASS",
+      "wall_collision_primitives": 2927
+    },
+    {
+      "connector_side_guards": false,
+      "id": "interior_enclosure:no_stair_local_guard_walls",
+      "offending_primitives": [],
+      "stair_side_guard_primitives": 0,
+      "status": "PASS"
+    },
+    {
+      "collider_obj_counts": {
+        "faces": 44370,
+        "objects": 1,
+        "primitive_boxes": 7395,
+        "vertices": 59160
+      },
+      "collision_primitives": 7395,
+      "id": "interior_enclosure:visible_collider_matches_physics_primitives",
+      "status": "PASS"
+    },
+    {
+      "closure": {
+        "covered_exterior_edges": 910,
+        "deck_metrics": [
+          {
+            "covered_exterior_edges": 50,
+            "deck": "forward_cockpit_lower_deck_01",
+            "exterior_edges": 50,
+            "floor_cells": 127,
+            "interior_balcony_edges": 0,
+            "route_reserved_edges": 0,
+            "wall_cells": 127,
+            "wall_footprint_source": "exact_stage_7a_floor_landing_and_stair_support_cells",
+            "wall_primitives": 22
+          },
+          {
+            "covered_exterior_edges": 70,
+            "deck": "forward_cockpit_lower_deck_02",
+            "exterior_edges": 70,
+            "floor_cells": 252,
+            "interior_balcony_edges": 0,
+            "route_reserved_edges": 0,
+            "wall_cells": 252,
+            "wall_footprint_source": "exact_stage_7a_floor_landing_and_stair_support_cells",
+            "wall_primitives": 49
+          },
+          {
+            "covered_exterior_edges": 202,
+            "deck": "lower_deck_candidate",
+            "exterior_edges": 202,
+            "floor_cells": 554,
+            "interior_balcony_edges": 0,
+            "route_reserved_edges": 0,
+            "wall_cells": 554,
+            "wall_footprint_source": "exact_stage_7a_floor_landing_and_stair_support_cells",
+            "wall_primitives": 95
+          },
+          {
+            "covered_exterior_edges": 374,
+            "deck": "mid_deck_candidate",
+            "exterior_edges": 374,
+            "floor_cells": 3459,
+            "interior_balcony_edges": 36,
+            "route_reserved_edges": 0,
+            "wall_cells": 3459,
+            "wall_footprint_source": "exact_stage_7a_floor_landing_and_stair_support_cells",
+            "wall_primitives": 137
+          },
+          {
+            "covered_exterior_edges": 214,
+            "deck": "upper_deck_candidate",
+            "exterior_edges": 214,
+            "floor_cells": 2545,
+            "interior_balcony_edges": 174,
+            "route_reserved_edges": 0,
+            "wall_cells": 2545,
+            "wall_footprint_source": "exact_stage_7a_floor_landing_and_stair_support_cells",
+            "wall_primitives": 51
+          }
+        ],
+        "exterior_edges": 910,
+        "floor_cells": 6937,
+        "interior_balcony_edges": 210,
+        "method": "exact floor-boundary exterior-edge extrusion",
+        "route_reserved_edges": 0,
+        "uncovered_exterior_edges": 0,
+        "wall_cells": 6937,
+        "wall_primitives_from_closed_perimeter": 354,
+        "wall_primitives_from_floor_edge_polygon": 354,
+        "wall_primitives_from_polygon_ring": 0
+      },
+      "id": "interior_enclosure:closed_floor_footprint_perimeter",
+      "status": "PASS"
+    },
+    {
+      "coverage": {
+        "covered_edges": 910,
+        "deck_metrics": [
+          {
+            "covered_edges": 50,
+            "deck": "forward_cockpit_lower_deck_01",
+            "floor_cells": 127,
+            "interior_balcony_edges": 0,
+            "ship_edge_boundary_edges": 50,
+            "wall_primitives": 22
+          },
+          {
+            "covered_edges": 70,
+            "deck": "forward_cockpit_lower_deck_02",
+            "floor_cells": 252,
+            "interior_balcony_edges": 0,
+            "ship_edge_boundary_edges": 70,
+            "wall_primitives": 49
+          },
+          {
+            "covered_edges": 202,
+            "deck": "lower_deck_candidate",
+            "floor_cells": 554,
+            "interior_balcony_edges": 0,
+            "ship_edge_boundary_edges": 202,
+            "wall_primitives": 95
+          },
+          {
+            "covered_edges": 374,
+            "deck": "mid_deck_candidate",
+            "floor_cells": 3459,
+            "interior_balcony_edges": 36,
+            "ship_edge_boundary_edges": 374,
+            "wall_primitives": 137
+          },
+          {
+            "covered_edges": 214,
+            "deck": "upper_deck_candidate",
+            "floor_cells": 2545,
+            "interior_balcony_edges": 174,
+            "ship_edge_boundary_edges": 214,
+            "wall_primitives": 51
+          }
+        ],
+        "interior_balcony_edges": 210,
+        "total_edges": 910,
+        "uncovered_edges": 0,
+        "uncovered_samples": []
+      },
+      "id": "interior_enclosure:exact_stage7a_floor_edges_covered",
+      "status": "PASS"
+    },
+    {
+      "id": "interior_enclosure:capsule_friendly_smoothness",
+      "smoothness": {
+        "max_adjacent_normal_delta_degrees": 61.481667,
+        "snag_threshold_degrees": 65.0,
+        "wall_slide_snag_count": 0
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "interior_enclosure:connector_keepouts_clear",
+      "keepouts": 53,
+      "primitive_keepout_center_hits_diagnostic": 0,
+      "status": "PASS",
+      "triangle_center_hits": 0
+    },
+    {
+      "id": "interior_enclosure:connector_footprints_clear",
+      "primitive_connector_footprint_hits": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "interior_enclosure:wall_stair_clearances_clear",
+      "samples": [
+        "COL_MX01_global_leak_x_wall_closure_3119 -> COL_MX01_mid_deck_candidate_to_upper_deck_candidate_rear_above_s3_upper_landing",
+        "COL_MX01_global_leak_x_wall_closure_3336 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_01",
+        "COL_MX01_global_leak_x_wall_closure_3337 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_lower_landing",
+        "COL_MX01_global_leak_x_wall_closure_3338 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_02",
+        "COL_MX01_global_leak_z_wall_closure_4868 -> COL_MX01_lower_deck_candidate_to_mid_deck_candidate_stair_tread_02",
+        "COL_MX01_global_leak_z_wall_closure_5048 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_03",
+        "COL_MX01_global_leak_z_wall_closure_5050 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_stair_tread_01",
+        "COL_MX01_global_leak_z_wall_closure_5054 -> COL_MX01_forward_cockpit_lower_deck_02_to_mid_deck_candidate_lower_landing",
+        "COL_MX01_global_leak_z_wall_closure_5055 -> COL_MX01_forward_cockpit_lower_deck_01_to_forward_cockpit_lower_deck_02_stair_tread_02"
+      ],
+      "status": "FAIL",
+      "wall_stair_clearance_hits": 9
+    },
+    {
+      "id": "playable_scene:stairs_use_walkable_support_surfaces",
+      "primary_stair_collision_count": 0,
+      "stair_tread_count": 38,
+      "status": "PASS",
+      "support_shape_count": 38
     },
     {
       "id": "occupancy:odd_parity_rays",
@@ -190,6 +464,14 @@
         "manifest_json": "ships/MX01/reports/manifests/mx01_interior_collision_manifest.json",
         "report_json": "ships/MX01/reports/mx01_interior_collision_report.json",
         "report_md": "ships/MX01/reports/mx01_interior_collision_report.md"
+      },
+      "interior_enclosure_outputs": {
+        "collider_obj": "ships/MX01/generated/collision/mx01_interior_enclosure_collider.obj",
+        "enclosure_json": "ships/MX01/generated/collision/mx01_interior_enclosure.json",
+        "enclosure_obj": "ships/MX01/generated/collision/mx01_interior_enclosure.obj",
+        "manifest_json": "ships/MX01/reports/manifests/mx01_interior_enclosure_manifest.json",
+        "report_json": "ships/MX01/reports/mx01_interior_enclosure_report.json",
+        "report_md": "ships/MX01/reports/mx01_interior_enclosure_report.md"
       },
       "interior_volume_outputs": {
         "deck_projection_svg": "ships/MX01/reports/images/mx01_interior_deck_candidates.svg",
@@ -262,20 +544,20 @@
       "weld_epsilon": 0.0001
     },
     "path": "ships/MX01/config/mx01_collision_generation.json",
-    "sha256": "3344d4fc3175ab1cca7bcdbac44a4084c8ad3b2d362055afcb2ed7ed7f509292"
+    "sha256": "2eb99639b8aec89c6ee1a38b41d49e2c720a0ab27e9687a222e222315826b1a5"
   },
   "counts": {
-    "checks": 28,
-    "failures": 0,
+    "checks": 47,
+    "failures": 1,
     "warnings": 1
   },
   "method": "mx01_static_collision_validation_v1",
   "ship_id": "MX01",
-  "status": "PASS",
+  "status": "FAIL",
   "tools": {
     "validate_mx01_collision_static.py": {
       "path": "ships/MX01/tools/validate_mx01_collision_static.py",
-      "sha256": "809edcd31b0b9fe8842645667c6f369896c38d5901c988e7a863c8dadd8759af"
+      "sha256": "e890dea37e7906c5cabd559b342a2940b07b5d17e674d1b5771a5d80b13d7d6d"
     }
   }
 }
