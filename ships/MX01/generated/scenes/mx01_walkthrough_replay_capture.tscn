@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://ships/MX01/generated/scenes/mx01_playable_inspection.tscn" id="1_playable"]
+[ext_resource type="Script" path="res://ships/MX01/tools/MX01WalkthroughReplayCaptureRunner.cs" id="2_capture_runner"]
+
+[node name="MX01WalkthroughReplayCapture" type="Node"]
+
+[node name="MX01PlayableInspection" parent="." instance=ExtResource("1_playable")]
+
+[node name="ReplayCaptureRunner" type="Node" parent="."]
+script = ExtResource("2_capture_runner")

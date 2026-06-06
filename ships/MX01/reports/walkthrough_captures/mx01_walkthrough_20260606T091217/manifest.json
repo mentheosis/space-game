@@ -1,0 +1,9 @@
+{
+  "fps": 30,
+  "frame_count": 977,
+  "frames_directory": "frames",
+  "height": 540,
+  "hold_last_seconds": 1.0,
+  "source_manifest": "res://ships/MX01/reports/walkthrough_paths/mx01_walkthrough_20260606T091217.json",
+  "width": 960
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7474 format=3]
+[gd_scene load_steps=7475 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/planets/PlanetBody.tscn" id="1_planet"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
@@ -8,6 +8,7 @@
 [ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_interior_enclosure.obj" id="6_enclosure_mesh"]
 [ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_dynamic_collision.obj" id="7_dynamic_mesh"]
 [ext_resource type="ArrayMesh" path="res://ships/MX01/generated/collision/mx01_interior_enclosure_collider.obj" id="8_enclosure_collider_mesh"]
+[ext_resource type="Script" path="res://ships/MX01/tools/MX01WalkthroughRecorder.cs" id="9_walkthrough_recorder"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_enclosure_collider"]
 transparency = 1
@@ -59596,7 +59597,7 @@ rotation = Vector3(0, 0.0, 0)
 shape = SubResource("BoxShape3D_mx01_enclosure_7288")
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
-position = Vector3(8.0, 201.55, -36.5)
+position = Vector3(0.0, 205.05, -6.8)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 120, 0)
@@ -59614,3 +59615,8 @@ environment = SubResource("Environment_space")
 [node name="GravityDebugOverlay" parent="." instance=ExtResource("3_overlay")]
 visible = false
 PlayerPath = NodePath("../Player")
+
+[node name="WalkthroughRecorder" type="Node" parent="."]
+script = ExtResource("9_walkthrough_recorder")
+PlayerPath = NodePath("../Player")
+CameraPath = NodePath("../Player/ViewPivot/Camera3D")
